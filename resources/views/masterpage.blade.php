@@ -57,12 +57,8 @@
         <!-- BEGIN PAGE ACTIONS -->
         <!-- DOC: Remove "hide" class to enable the page header actions -->
         <div class="page-actions">
-            <div class="btn-group">
-                <button type="button" class="btn btn-circle btn-outline red dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-plus"></i>&nbsp;
-                    <span class="hidden-sm hidden-xs">นัดหมายใหม่&nbsp;</span>&nbsp;
-                </button>
-            </div>
+            <h1 class="page-title">@yield('title')
+            </h1>
         </div>
         <!-- END PAGE ACTIONS -->
         <!-- BEGIN PAGE TOP -->
@@ -367,8 +363,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="page_user_profile_1.html">
-                                    <i class="icon-user"></i> My Profile </a>
+                                <a href="{{url('/profile')}}">
+                                    <i class="icon-user"></i>ข้อมูลส่วนตัว</a>
                             </li>
                             <li>
                                 <a href="app_calendar.html">
@@ -445,9 +441,7 @@
         <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
             <!-- BEGIN PAGE HEADER-->
-            <h1 class="page-title"> Dashboard 2
-                <small>dashboard & statistics</small>
-            </h1>
+            @yield('content')
             <!-- END PAGE HEADER-->
         </div>
         <!-- END CONTENT BODY -->
@@ -1050,6 +1044,7 @@
     <script src="{{url('assets/layouts/layout2/scripts/demo.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/layouts/global/scripts/quick-sidebar.min.js')}}" type="text/javascript"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
+</div>
 </body>
 
 </html>
