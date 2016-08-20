@@ -41,7 +41,7 @@
     <form class="login-form" action="{{ url('/login') }}" method="post">
         {{ csrf_field() }}
 
-        <h3 class="form-title font-green">Sign In</h3>
+        <h3 class="form-title font-green">ลงชื่อเข้าใช้</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
             <span> Enter e-mail address and password. </span>
@@ -66,7 +66,7 @@
             @endif
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn green uppercase">Login</button>
+            <button type="submit" class="btn green uppercase">เข้าสู่ระบบ</button>
             <label class="rememberme check mt-checkbox mt-checkbox-outline">
                 <input type="checkbox" name="remember" value="1" />Remember
                 <span></span>
