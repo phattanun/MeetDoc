@@ -37,7 +37,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout','officerLoginPage']]);
     }
 
     /**
@@ -68,5 +68,13 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function officerLoginPage()
+    {
+        return view('auth.login_officer');
     }
 }

@@ -165,6 +165,9 @@ div.mega-price-table .pricing-head small {
 .dropdown-menu {
 	font-family:'Sukhumvit Set';
 }
+input {
+	font-family:'Sukhumvit Set';
+}
 .dropdown.dropdown-extended.quick-sidebar-toggler {
 	color: #337ab7
 }
