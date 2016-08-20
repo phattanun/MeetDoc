@@ -162,7 +162,12 @@ div.mega-price-table .pricing-head small {
 .page-title {
 	font-family:'Sukhumvit Set';
 }
-
+.dropdown-menu {
+	font-family:'Sukhumvit Set';
+}
+.dropdown.dropdown-extended.quick-sidebar-toggler {
+	color: #337ab7
+}
 
 
 
@@ -177,7 +182,7 @@ div.mega-price-table .pricing-head small {
 /** layout.css 
  *********************** **/
 body {
-	font-family:'Sukhumvit Set';
+	font-family:'Sukhumvit Set' ;
 }
 small { 
 	font-family: 'Sukhumvit Set';

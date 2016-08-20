@@ -1,16 +1,22 @@
-<li class="nav-item">
+<li class="nav-item @yield('profileNav')">
+    <a href="{{url('/profile')}}" class="nav-link nav-toggle">
+        <i class="icon-user"></i>
+        <span class="title">ขัอมูลส่วนตัว</span>
+    </a>
+</li>
+<li class="nav-item @yield('newAppNav')">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="icon-plus"></i>
         <span class="title">นัดหมายใหม่</span>
     </a>
 </li>
-<li class="nav-item   start active open">
+<li class="nav-item @yield('futureAppNav')">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="icon-calendar"></i>
         <span class="title">การนัดหมายในอนาคต</span>
     </a>
 </li>
-<li class="nav-item  ">
+<li class="nav-item  @yield('pastAppNav')">
     <a href="javascript:;" class="nav-link nav-toggle">
         <i class="icon-clock"></i>
         <span class="title">ประวัติการนัดหมายในอดีต</span>
