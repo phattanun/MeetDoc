@@ -76,20 +76,14 @@
                             <div class="portlet-title tabbable-line">
                                 <div class="caption caption-md">
                                     <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+                                    <span class="caption-subject font-blue-madison bold uppercase">แก้ไขข้อมูลส่วนตัว</span>
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                        <a href="#tab_1_1" data-toggle="tab">ข้อมูลทั่วไป</a>
                                     </li>
                                     <li>
-                                        <a href="#tab_1_2" data-toggle="tab">Change Avatar</a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab_1_3" data-toggle="tab">Change Password</a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab_1_4" data-toggle="tab">Privacy Settings</a>
+                                        <a href="#tab_1_2" data-toggle="tab">เปลี่ยนรูปภาพ</a>
                                     </li>
                                 </ul>
                             </div>
@@ -99,14 +93,14 @@
                                     <div class="tab-pane active" id="tab_1_1">
                                         <form role="form" action="#">
                                             <div class="form-group">
-                                                <label class="control-label">First Name</label>
-                                                <input type="text" placeholder="John" class="form-control" /> </div>
+                                                <label class="control-label">ชื่อ</label>
+                                                <input type="text" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
                                             <div class="form-group">
-                                                <label class="control-label">Last Name</label>
-                                                <input type="text" placeholder="Doe" class="form-control" /> </div>
+                                                <label class="control-label">นามสกุล</label>
+                                                <input type="text" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
                                             <div class="form-group">
-                                                <label class="control-label">Mobile Number</label>
-                                                <input type="text" placeholder="+1 646 580 DEMO (6284)" class="form-control" /> </div>
+                                                <label class="control-label">เบอร์โทรศัพท์</label>
+                                                <input type="text" placeholder="0899999999" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">Interests</label>
                                                 <input type="text" placeholder="Design, Web etc." class="form-control" /> </div>
@@ -157,98 +151,6 @@
                                         </form>
                                     </div>
                                     <!-- END CHANGE AVATAR TAB -->
-                                    <!-- CHANGE PASSWORD TAB -->
-                                    <div class="tab-pane" id="tab_1_3">
-                                        <form action="#">
-                                            <div class="form-group">
-                                                <label class="control-label">Current Password</label>
-                                                <input type="password" class="form-control" /> </div>
-                                            <div class="form-group">
-                                                <label class="control-label">New Password</label>
-                                                <input type="password" class="form-control" /> </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Re-type New Password</label>
-                                                <input type="password" class="form-control" /> </div>
-                                            <div class="margin-top-10">
-                                                <a href="javascript:;" class="btn green"> Change Password </a>
-                                                <a href="javascript:;" class="btn default"> Cancel </a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- END CHANGE PASSWORD TAB -->
-                                    <!-- PRIVACY SETTINGS TAB -->
-                                    <div class="tab-pane" id="tab_1_4">
-                                        <form action="#">
-                                            <table class="table table-light table-hover">
-                                                <tr>
-                                                    <td> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus.. </td>
-                                                    <td>
-                                                        <div class="mt-radio-inline">
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios1" value="option1" /> Yes
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios1" value="option2" checked/> No
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                                    <td>
-                                                        <div class="mt-radio-inline">
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios11" value="option1" /> Yes
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios11" value="option2" checked/> No
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                                    <td>
-                                                        <div class="mt-radio-inline">
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios21" value="option1" /> Yes
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios21" value="option2" checked/> No
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                                    <td>
-                                                        <div class="mt-radio-inline">
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios31" value="option1" /> Yes
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios31" value="option2" checked/> No
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <!--end profile-settings-->
-                                            <div class="margin-top-10">
-                                                <a href="javascript:;" class="btn red"> Save Changes </a>
-                                                <a href="javascript:;" class="btn default"> Cancel </a>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- END PRIVACY SETTINGS TAB -->
                                 </div>
                             </div>
                         </div>
