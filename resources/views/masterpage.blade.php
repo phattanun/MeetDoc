@@ -28,6 +28,7 @@
     <link href="{{url('assets/global/css/components.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
     <link href="{{url('assets/global/css/plugins.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END THEME GLOBAL STYLES -->
+    @yield('pageLevelCSS')
     <!-- BEGIN THEME LAYOUT STYLES -->
     <link href="{{url('assets/layouts/layout2/css/layout.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/layouts/layout2/_layout-font-rewrite.css')}}" rel="stylesheet" type="text/css" />
