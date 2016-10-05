@@ -7,6 +7,10 @@ Route::get('/', function () {
 //Profile
 Route::get('/profile', 'ProfileController@index');
 
+//Doctor
+Route::get('/doctor/schedule', 'ProfileController@test1');
+Route::get('/patient/come', 'ProfileController@test2');
+
 //Auth
 Route::auth();
 Route::get('/login/officer', 'Auth\AuthController@officerLoginPage');
