@@ -142,6 +142,7 @@
                                         <thead>
                                         <tr>
                                             <th> ลำดับที่ </th>
+                                            <th> วันที่ </th>
                                             <th> ช่วง </th>
                                             <th> แพทย์ </th>
                                             <th></th>
@@ -151,6 +152,7 @@
                                         <tbody>
                                         <tr>
                                             <td> 1 </td>
+                                            <td> 06/10/2016 </td>
                                             <td> เช้า </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue"  data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>
@@ -158,6 +160,7 @@
                                         </tr>
                                         <tr  class="more-result">
                                             <td> 2 </td>
+                                            <td> 06/10/2016 </td>
                                             <td> เช้า </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
@@ -165,12 +168,14 @@
                                         </tr>
                                         <tr class="more-result">
                                             <td> 3 </td>
+                                            <td> 06/10/2016 </td>
                                             <td> บ่าย </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
                                             <td>  </td>
                                         <tr class="more-result">
                                             <td> 4 </td>
+                                            <td> 06/10/2016 </td>
                                             <td> เช้า </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
@@ -178,6 +183,7 @@
                                         </tr>
                                         <tr class="more-result">
                                             <td> 5 </td>
+                                            <td> 06/10/2016 </td>
                                             <td> เช้า </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue">ทำการนัดหมาย</button> </td>
