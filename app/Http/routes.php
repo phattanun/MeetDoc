@@ -7,6 +7,7 @@ Route::get('/', function () {
 //Patient
 Route::get('/profile', 'ProfileController@index');
 Route::get('/appointment/new', 'ProfileController@newAppointmentPage');
+Route::get('/appointment/history', 'ProfileController@appointmentHistoryPage');
 
 //Krit
 Route::get('/doctor/schedule', 'ProfileController@test1');

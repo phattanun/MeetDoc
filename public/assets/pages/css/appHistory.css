@@ -1,24 +1,18 @@
-.mt-checkbox-inline, .mt-checkbox {
-    margin-bottom: 0px;
-    padding-bottom: 0px;
+tbody tr {
+    cursor: pointer;
 }
-
-.more-result {
-    display: none;
+.modal-body .row {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .form-group.form-md-line-input .form-control[readonly] {
     cursor: auto;
 }
-
 .control-label {
     margin-top: 5px;
     font-weight: 600;
 }
 .form-group.form-md-line-input {
     padding-top: 0px;
-}
-.modal-body .row {
-    margin-left: 0px;
-    margin-right: 0px;
 }
