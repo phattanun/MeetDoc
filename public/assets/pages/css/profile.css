@@ -129,3 +129,20 @@
     margin-bottom: 20px; }
   .profile-content {
     overflow: visible; } }
+
+
+/* overide */
+.form-group.form-md-line-input {
+  margin-bottom: 10px;
+}
+
+.form-group.form-md-line-input .form-control ~ label {
+  color: #333;
+}
+
+.form-group.form-md-line-input .form-control.form-control-static {
+  color: #5b9bd1;
+}
+.bootstrap-tagsinput {
+  display: block;
+}

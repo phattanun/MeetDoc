@@ -10,6 +10,9 @@
 
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -92,6 +95,15 @@
                                     <!-- PERSONAL INFO TAB -->
                                     <div class="tab-pane active" id="tab_1_1">
                                         <form role="form" action="#">
+                                            <div class="form-group form-md-line-input">
+                                                <div class="form-control form-control-static"> 5631011021 </div>
+                                                <label for="form_control_1">เลชบัตรประจำตัวโรงพยาบาล</label>
+                                            </div>
+                                            <div class="form-group form-md-line-input">
+                                                <div class="form-control form-control-static"> 1959800098399 </div>
+                                                <label for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
+                                            </div>
+                                            <hr>
                                             <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
                                                 <input type="text" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
@@ -99,32 +111,82 @@
                                                 <label class="control-label">นามสกุล</label>
                                                 <input type="text" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
                                             <div class="form-group">
-                                                <label class="control-label">เบอร์โทรศัพท์</label>
+                                                <label class="control-label">หมายเลขโทรศัพท์</label>
                                                 <input type="text" placeholder="0899999999" class="form-control" /> </div>
                                             <div class="form-group">
-                                                <label class="control-label">Interests</label>
-                                                <input type="text" placeholder="Design, Web etc." class="form-control" /> </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Occupation</label>
-                                                <input type="text" placeholder="Web Developer" class="form-control" /> </div>
-                                            <div class="form-group">
-                                                <label class="control-label">About</label>
-                                                <textarea class="form-control" rows="3" placeholder="We are KeenThemes!!!"></textarea>
+                                                <label class="control-label">ประวัติการแพ้ยา</label>
+                                                <select id="multiple" class="form-control select2-multiple" multiple>
+                                                    <optgroup label="Alaskan">
+                                                        <option value="AK">Alaska</option>
+                                                        <option value="HI" disabled="disabled">Hawaii</option>
+                                                    </optgroup>
+                                                    <optgroup label="Pacific Time Zone">
+                                                        <option value="CA">California</option>
+                                                        <option value="NV">Nevada</option>
+                                                        <option value="OR">Oregon</option>
+                                                        <option value="WA">Washington</option>
+                                                    </optgroup>
+                                                    <optgroup label="Mountain Time Zone">
+                                                        <option value="AZ">Arizona</option>
+                                                        <option value="CO">Colorado</option>
+                                                        <option value="ID">Idaho</option>
+                                                        <option value="MT">Montana</option>
+                                                        <option value="NE">Nebraska</option>
+                                                        <option value="NM">New Mexico</option>
+                                                        <option value="ND">North Dakota</option>
+                                                        <option value="UT">Utah</option>
+                                                        <option value="WY">Wyoming</option>
+                                                    </optgroup>
+                                                    <optgroup label="Central Time Zone">
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="AR">Arkansas</option>
+                                                        <option value="IL">Illinois</option>
+                                                        <option value="IA">Iowa</option>
+                                                        <option value="KS">Kansas</option>
+                                                        <option value="KY">Kentucky</option>
+                                                        <option value="LA">Louisiana</option>
+                                                        <option value="MN">Minnesota</option>
+                                                        <option value="MS">Mississippi</option>
+                                                        <option value="MO">Missouri</option>
+                                                        <option value="OK">Oklahoma</option>
+                                                        <option value="SD">South Dakota</option>
+                                                        <option value="TX">Texas</option>
+                                                        <option value="TN">Tennessee</option>
+                                                        <option value="WI">Wisconsin</option>
+                                                    </optgroup>
+                                                    <optgroup label="Eastern Time Zone">
+                                                        <option value="CT">Connecticut</option>
+                                                        <option value="DE">Delaware</option>
+                                                        <option value="FL">Florida</option>
+                                                        <option value="GA">Georgia</option>
+                                                        <option value="IN">Indiana</option>
+                                                        <option value="ME">Maine</option>
+                                                        <option value="MD">Maryland</option>
+                                                        <option value="MA">Massachusetts</option>
+                                                        <option value="MI">Michigan</option>
+                                                        <option value="NH">New Hampshire</option>
+                                                        <option value="NJ">New Jersey</option>
+                                                        <option value="NY">New York</option>
+                                                        <option value="NC">North Carolina</option>
+                                                        <option value="OH">Ohio</option>
+                                                        <option value="PA">Pennsylvania</option>
+                                                        <option value="RI">Rhode Island</option>
+                                                        <option value="SC">South Carolina</option>
+                                                        <option value="VT">Vermont</option>
+                                                        <option value="VA">Virginia</option>
+                                                        <option value="WV">West Virginia</option>
+                                                    </optgroup>
+                                                </select>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Website Url</label>
-                                                <input type="text" placeholder="http://www.mywebsite.com" class="form-control" /> </div>
                                             <div class="margiv-top-10">
-                                                <a href="javascript:;" class="btn green"> Save Changes </a>
-                                                <a href="javascript:;" class="btn default"> Cancel </a>
+                                                <a href="javascript:;" class="btn green"> บีนทึกการแก้ไข </a>
+                                                <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
                                     </div>
                                     <!-- END PERSONAL INFO TAB -->
                                     <!-- CHANGE AVATAR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
-                                        <p> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                                            eiusmod. </p>
                                         <form action="#" role="form">
                                             <div class="form-group">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -133,15 +195,15 @@
                                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                     <div>
                                                                         <span class="btn default btn-file">
-                                                                            <span class="fileinput-new"> Select image </span>
-                                                                            <span class="fileinput-exists"> Change </span>
+                                                                            <span class="fileinput-new"> เลือกรูปภาพ </span>
+                                                                            <span class="fileinput-exists"> เปลี่ยน </span>
                                                                             <input type="file" name="..."> </span>
-                                                        <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                                        <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> ลบ </a>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix margin-top-10">
-                                                    <span class="label label-danger">NOTE! </span>
-                                                    <span>Attached image thumbnail is supported in Latest Firefox, Chrome, Opera, Safari and Internet Explorer 10 only </span>
+                                                    <span class="label label-danger">หมายเหตุ </span>
+                                                    <span> การอัพโหลดรูปภาพสามารถใช้งานได้บน Firefox, Chrome, Opera, Safari รุ่นล่าสุด และ Internet Explorer 10 เท่านั้น </span>
                                                 </div>
                                             </div>
                                             <div class="margin-top-10">
@@ -165,9 +227,11 @@
 @section('pageLevelPluginsScript')
     <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
 @endsection
 
