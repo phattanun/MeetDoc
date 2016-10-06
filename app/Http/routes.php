@@ -13,6 +13,7 @@ Route::get('/appointment/history', 'ProfileController@appointmentHistoryPage');
 Route::get('/doctor/schedule', 'ProfileController@test1');
 Route::get('/patient/come', 'ProfileController@test2');
 Route::get('/doctor/appointment', 'ProfileController@test3');
+Route::get('/queue', 'ProfileController@test4');
 
 //Auth
 Route::auth();
