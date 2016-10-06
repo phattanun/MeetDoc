@@ -4,8 +4,9 @@ Route::get('/', function () {
     return view('masterpage');
 });
 
-//Profile
+//Patient
 Route::get('/profile', 'ProfileController@index');
+Route::get('/appointment/new', 'ProfileController@newAppointmentPage');
 
 //Doctor
 Route::get('/doctor/schedule', 'ProfileController@test1');

@@ -5,9 +5,9 @@
     </a>
 </li>
 <li class="nav-item @yield('newAppNav')">
-    <a href="javascript:;" class="nav-link nav-toggle">
+    <a href="{{url('/appointment/new')}}" class="nav-link nav-toggle">
         <i class="icon-plus"></i>
-        <span class="title">นัดหมายใหม่</span>
+        <span class="title">สร้างนัดหมายใหม่</span>
     </a>
 </li>
 <li class="nav-item @yield('futureAppNav')">

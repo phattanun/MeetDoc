@@ -234,11 +234,12 @@
     <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
 @endsection
 
