@@ -255,7 +255,7 @@
         </div>
     </div>
 
-    <div id="emailConfirmAlertModal" class="modal fade" tabindex="-1" data-focus-on="input:first">
+    <div id="emailConfirmAlertModal" data-backdrop="static" class="modal fade" tabindex="-1" data-focus-on="input:first">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">ยืนยันการนัดหมายทางอีเมล</h4>

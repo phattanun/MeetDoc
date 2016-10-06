@@ -17,7 +17,7 @@
     </a>
 </li>
 <li class="nav-item  @yield('pastAppNav')">
-    <a href="javascript:;" class="nav-link nav-toggle">
+    <a href="{{url('/appointment/history')}}" class="nav-link nav-toggle">
         <i class="icon-clock"></i>
         <span class="title">ประวัติการนัดหมายในอดีต</span>
     </a>
