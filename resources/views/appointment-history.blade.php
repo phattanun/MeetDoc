@@ -21,173 +21,64 @@
 
 @section('pageLevelCSS')
     <link href="{{url('assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('assets/pages/css/newapp.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/pages/css/appHistory.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
-    <!-- END PAGE HEADER-->
-                        <div class="portlet light ">
-                            <div class="portlet-title">
-                                <div class="caption caption-md">
-                                    <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">ค้นหาวันเวลานัดหมาย</span>
-                                </div>
-                            </div>
-                            <div class="portlet-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="control-label col-md-2 text-right">แผนก
-                                                    <span class="required" aria-required="true"> * </span></label>
-                                                <div class="col-md-10">
-                                                    <select class="bs-select form-control" data-live-search="true" data-size="8">
-                                                        <option value="AF">Afghanistan</option>
-                                                        <option value="AL">Albania</option>
-                                                        <option value="DZ">Algeria</option>
-                                                        <option value="AS">American Samoa</option>
-                                                        <option value="AD">Andorra</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="row">
-                                            <label class="control-label col-md-2 text-right">วันที่
-                                                <span class="required" aria-required="true"> * </span>
-                                                </label>
-                                                <div class="col-md-10">
-                                                    <input class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd-mm-yyyy">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <label class="control-label col-md-2 text-right">แพทย์</label>
-                                                <div class="col-md-10">
-                                                    <select class="bs-select form-control" data-live-search="true" data-size="8">
-                                                        <option value="AF">Afghanistan</option>
-                                                        <option value="AL">Albania</option>
-                                                        <option value="DZ">Algeria</option>
-                                                        <option value="AS">American Samoa</option>
-                                                        <option value="AD">Andorra</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="row">
-                                            <label class="control-label col-md-2 text-right">ช่วงเวลา</label>
-                                                <div class="col-md-10">
-                                                    <div class="mt-checkbox-inline">
-                                                        <label class="mt-checkbox">
-                                                            <input id="inlineCheckbox21" value="option1" type="checkbox"> เช้า
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-checkbox">
-                                                            <input id="inlineCheckbox22" value="option2" type="checkbox"> บ่าย
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="row">
-                                            <label class="col-md-2 text-right">อาการ
-                                                <span class="required" aria-required="true"> * </span>
-                                            </label>
-                                            <div class="col-md-10">
-                                                <textarea class="form-control" name="" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้"></textarea>
-                                            </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-actions right1">
-                                            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
-                                                <span class="ladda-label">ค้นหา</span>
-                                                <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
-                                            <button type="button" class="btn default">ยกเลิก</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
             <!-- END PROFILE CONTENT -->
                         <div class="portlet light ">
-                            <div class="portlet-title">
-                                <div class="caption caption-md">
-                                    <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">ผลการค้นหา</span>
-                                </div>
-                            </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <thead>
                                         <tr>
                                             <th> ลำดับที่ </th>
+                                            <th> รหัสการนัดหมาย </th>
                                             <th> วันที่ </th>
-                                            <th> ช่วง </th>
+                                            <th> ช่วงเวลา </th>
+                                            <th> แผนก </th>
                                             <th> แพทย์ </th>
-                                            <th></th>
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td> 1 </td>
+                                            <td> AP01 </td>
                                             <td> 06/10/2016 </td>
                                             <td> เช้า </td>
+                                            <td> หัวใจและหลอดเลือด </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td> <button type="button" class="btn blue"  data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>
-                                            <td> <a id="more-result" type="button" class="btn red">ไม่ว่าง</a></td>
                                         </tr>
-                                        <tr  class="more-result">
+                                        <tr>
                                             <td> 2 </td>
+                                            <td> AP02 </td>
                                             <td> 06/10/2016 </td>
                                             <td> เช้า </td>
+                                            <td> หัวใจและหลอดเลือด </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
-                                            <td> </td>
                                         </tr>
-                                        <tr class="more-result">
+                                        <tr>
                                             <td> 3 </td>
+                                            <td> AP03 </td>
                                             <td> 06/10/2016 </td>
                                             <td> บ่าย </td>
+                                            <td> หัวใจและหลอดเลือด </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
-                                            <td>  </td>
-                                        <tr class="more-result">
+                                        <tr>
                                             <td> 4 </td>
+                                            <td> AP04 </td>
                                             <td> 06/10/2016 </td>
                                             <td> เช้า </td>
+                                            <td> หัวใจและหลอดเลือด </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
-                                            <td> </td>
                                         </tr>
-                                        <tr class="more-result">
+                                        <tr>
                                             <td> 5 </td>
+                                            <td> AP05 </td>
                                             <td> 06/10/2016 </td>
                                             <td> เช้า </td>
+                                            <td> หัวใจและหลอดเลือด </td>
                                             <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td> <button type="button" class="btn blue">ทำการนัดหมาย</button> </td>
-                                            <td> </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -196,10 +87,10 @@
                         </div>
             <!-- END PROFILE CONTENT -->
 
-    <div id="confirmAppModal" class="modal fade" data-backdrop="static" tabindex="-1" data-width="760">
+    <div id="appDetailModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ยืนยันการนัดหมาย</h4>
+            <h4 class="modal-title">ประวัติการนัดหมายรหัส AP01</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -247,29 +138,88 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn green" data-toggle="modal" data-target="#emailConfirmAlertModal">ยืนยัน</button>
-            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-
-        </div>
-    </div>
-
-    <div id="emailConfirmAlertModal" data-backdrop="static" class="modal fade" tabindex="-1" data-focus-on="input:first">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ยืนยันการนัดหมายทางอีเมล</h4>
-        </div>
-        <div class="modal-body">
-            <div class="caption text-center">
-                <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 15 นาที</span>
+            <hr>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">ผลการวินิจจัย</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="DS444" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">รายการยา</label>
+                    <div class="col-md-10">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th> ลำดับที่ </th>
+                                    <th> ชื่อยา </th>
+                                    <th> ปริมาณ </th>
+                                    <th> หน่วย </th>
+                                    <th> วิธีใช้ </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td> 1 </td>
+                                    <td> Paracetamol </td>
+                                    <td> 5 </td>
+                                    <td> เม็ด/5mg </td>
+                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
+                                </tr>
+                                <tr>
+                                    <td> 1 </td>
+                                    <td> Paracetamol </td>
+                                    <td> 5 </td>
+                                    <td> เม็ด/5mg </td>
+                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
+                                </tr>
+                                <tr>
+                                    <td> 1 </td>
+                                    <td> Paracetamol </td>
+                                    <td> 5 </td>
+                                    <td> เม็ด/5mg </td>
+                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
+                                </tr>
+                                <tr>
+                                    <td> 1 </td>
+                                    <td> Paracetamol </td>
+                                    <td> 5 </td>
+                                    <td> เม็ด/5mg </td>
+                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
+                                </tr>
+                                <tr>
+                                    <td> 1 </td>
+                                    <td> Paracetamol </td>
+                                    <td> 5 </td>
+                                    <td> เม็ด/5mg </td>
+                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="modal-footer">
-            <a href="{{url('/')}}" type="button" class="btn green">รับทราบ</a>
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
     </div>
+
 @endsection
 
 @section('pageLevelPluginsScript')
@@ -293,9 +243,8 @@
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script>
-        $('#more-result').click(function () {
-            $('.more-result').show();
-            $(this).hide()
+        $('tbody tr').click(function () {
+            $('#appDetailModal').modal()
         });
     </script>
 @endsection

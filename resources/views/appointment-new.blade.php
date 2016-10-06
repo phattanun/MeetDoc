@@ -106,7 +106,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="row">
-                                            <label class="col-md-2 text-right">อาการ
+                                            <label class="col-md-2 control-label text-right">อาการ
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-10">
@@ -143,7 +143,7 @@
                                         <tr>
                                             <th> ลำดับที่ </th>
                                             <th> วันที่ </th>
-                                            <th> ช่วง </th>
+                                            <th> ช่วงเวลา </th>
                                             <th> แพทย์ </th>
                                             <th></th>
                                             <th></th>
