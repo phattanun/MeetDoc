@@ -181,28 +181,28 @@
                                     <td> กลืนพร้อมน้ำปริมาณมาก </td>
                                 </tr>
                                 <tr>
-                                    <td> 1 </td>
+                                    <td> 2 </td>
                                     <td> Paracetamol </td>
                                     <td> 5 </td>
                                     <td> เม็ด/5mg </td>
                                     <td> กลืนพร้อมน้ำปริมาณมาก </td>
                                 </tr>
                                 <tr>
-                                    <td> 1 </td>
+                                    <td> 3 </td>
                                     <td> Paracetamol </td>
                                     <td> 5 </td>
                                     <td> เม็ด/5mg </td>
                                     <td> กลืนพร้อมน้ำปริมาณมาก </td>
                                 </tr>
                                 <tr>
-                                    <td> 1 </td>
+                                    <td> 4 </td>
                                     <td> Paracetamol </td>
                                     <td> 5 </td>
                                     <td> เม็ด/5mg </td>
                                     <td> กลืนพร้อมน้ำปริมาณมาก </td>
                                 </tr>
                                 <tr>
-                                    <td> 1 </td>
+                                    <td> 5 </td>
                                     <td> Paracetamol </td>
                                     <td> 5 </td>
                                     <td> เม็ด/5mg </td>
