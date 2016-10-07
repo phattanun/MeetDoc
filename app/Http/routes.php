@@ -29,11 +29,19 @@ Route::get('/home', 'ProfileController@index');
 
 
 // Backend
-
-Route::get('/backend/Account', 'AccountController@all');
+Route::get('/backend', function() {
+    return View::make('backend');
+});
+Route::get('/backend/Account/getUserList', 'AccountController@getUserList');
 Route::post('/backend/Account/register', 'AccountController@register');
 Route::post('/backend/Account/getProfile', 'AccountController@getProfile');
 Route::post('/backend/Account/edit', 'AccountController@edit');
+
+Route::post('/backend/Appointment/create', 'AppointmentController@create');
+
+Route::get('/backend/WorkingTime/getNormalWorkingTime', 'WorkingTimeController@getNormalWorkingTime');
+Route::post('/backend/WorkingTime/addNormalWorkingTime', 'WorkingTimeController@addNormalWorkingTime');
+Route::post('/backend/WorkingTime/deleteNormalWorkingTime', 'WorkingTimeController@deleteNormalWorkingTime');
 
 
 Route::post('/backend/{controller}/post',
