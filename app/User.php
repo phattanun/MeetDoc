@@ -12,4 +12,5 @@ class User extends Model
     use Authenticatable, Authorizable, CanResetPassword;
     protected $table = 'user';
     public $timestamps = false;
+    public $primaryKey = 'ssn';
 }
