@@ -197,7 +197,7 @@
     </form>
 </div>
 <div class="copyright">
-    2016 © MeetDoc+
+    2016 © MeetDoc<sup>+</sup>
 </div>
 <script src="{{url('/assets/global/plugins/respond.min.js')}}"></script>
 <script src="{{url('/assets/global/plugins/excanvas.min.js')}}"></script>
