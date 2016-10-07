@@ -48,7 +48,7 @@
                                             <td> SN01</td>
                                             <td> เช้า </td>
                                             <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#removeModal">แก้ไข</button> </td>
+                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
                                             <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                                         </tr>
                                         <tr>
