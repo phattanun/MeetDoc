@@ -8,6 +8,7 @@ Route::get('/', function () {
 Route::get('/profile', 'ProfileController@index');
 Route::get('/appointment/new', 'ProfileController@newAppointmentPage');
 Route::get('/appointment/history', 'ProfileController@appointmentHistoryPage');
+Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');
 
 //Doctor
 Route::get('/doctor/schedule', 'ProfileController@test1');

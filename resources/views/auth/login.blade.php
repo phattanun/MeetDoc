@@ -44,12 +44,12 @@
         <h3 class="form-title font-green">ลงชื่อเข้าใช้</h3>
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
-            <span> Enter e-mail address and password. </span>
+            <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
         </div>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">Username</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="email" type="email" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน/รหัสประจำตัวโรงพยาบาล" name="email" />
+            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" />
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -58,7 +58,7 @@
         </div>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">Password</label>
-            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="otp" type="text" autocomplete="off" placeholder="OTP" name="otp" />
+            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="password" type="password" autocomplete="on" placeholder="รหัสผ่าน" name="password" />
             @if ($errors->has('password'))
                 <span class="help-block">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -68,14 +68,14 @@
         <div class="form-actions">
             <button type="submit" class="btn green uppercase">เข้าสู่ระบบ</button>
             <label class="rememberme check mt-checkbox mt-checkbox-outline">
-                <input type="checkbox" name="remember" value="1" />Remember
+                <input type="checkbox" name="remember" value="1" />จำฉันไว้ในระบบ
                 <span></span>
             </label>
-            <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
+            <a href="javascript:;" id="forget-password" class="forget-password">ลืมรหัสผ่าน?</a>
         </div>
         <div class="create-account">
             <p>
-                <a href="javascript:;" id="register-btn" class="uppercase">Create an account</a>
+                <a href="javascript:;" id="register-btn" class="uppercase">สมัครสมาชิก</a>
             </p>
         </div>
     </form>
@@ -85,10 +85,10 @@
 
         {{ csrf_field() }}
 
-        <h3 class="font-green">Forget Password ?</h3>
-        <p> Enter your e-mail address below to reset your password. </p>
+        <h3 class="font-green">ลืมรหัสผ่าน ?</h3>
+        <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่ </p>
         <div class="form-group">
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" value="{{ old('email') }}" />
+            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('email') }}" />
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>

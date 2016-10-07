@@ -10,7 +10,7 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index','test1','test2','newAppointmentPage','appointmentHistoryPage']]);
+        $this->middleware('auth', ['except' => ['index','test1','test2','newAppointmentPage','appointmentHistoryPage', 'appointmentFuturePage']]);
 //        $this->middleware('auth');
     }
     public function index()
@@ -26,6 +26,10 @@ class ProfileController extends Controller
     public function appointmentHistoryPage()
     {
         return view('appointment-history');
+    }
+    public function appointmentFuturePage()
+    {
+        return view('appointment-future');
     }
     public function test1()
     {

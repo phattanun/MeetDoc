@@ -11,7 +11,7 @@
     </a>
 </li>
 <li class="nav-item @yield('futureAppNav')">
-    <a href="javascript:;" class="nav-link nav-toggle">
+    <a href="{{url('/appointment/future')}}" class="nav-link nav-toggle">
         <i class="icon-calendar"></i>
         <span class="title">การนัดหมายในอนาคต</span>
     </a>
