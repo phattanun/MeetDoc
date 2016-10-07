@@ -18,6 +18,9 @@ class CreateAppointmentTable extends Migration
             $table->char('time', 1);
             $table->string('symptom');
             $table->string('status');
+
+            $table->bigInteger('doctor_ssn')->unsigned();
+            $table->bigInteger('patient_ssn')->unsigned();
         });
     }
 
