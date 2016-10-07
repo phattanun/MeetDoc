@@ -33,11 +33,12 @@
                                         <thead>
                                         <tr>
                                             <th> ลำดับที่ </th>
-                                            <th> ICD10 </th>
-                                            <th> SNOMED </th>
-                                            <th> ชื่อ </th>
-                                            <th>  </th>
-                                            <th>  </th>
+                                            <th> รหัสยา </th>
+                                            <th> ชื่อตัวยา </th>
+                                            <th> ชื่อทางการค้า </th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -46,39 +47,44 @@
                                             <td> DS01 </td>
                                             <td> SN01</td>
                                             <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue">เลื่อน</button> </td>
-                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <button type="button" class="btn blue">แก้ไข</button> </td>
+                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ลบ</a></td>
                                         </tr>
                                         <tr>
                                             <td> 2 </td>
                                             <td> DS02 </td>
                                             <td> SN02 </td>
                                             <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue">เลื่อน</button> </td>
-                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ลบ</a></td>
                                         </tr>
                                         <tr>
                                             <td> 3 </td>
                                             <td> DS03 </td>
                                             <td> SN03 </td>
                                             <td> บ่าย </td>
-                                            <td> <button type="button" class="btn blue">เลื่อน</button> </td>
-                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ลบ</a></td>
                                         <tr>
                                             <td> 4 </td>
                                             <td> DS04 </td>
                                             <td> SN04 </td>
                                             <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue">เลื่อน</button> </td>
-                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ลบ</a></td>
                                         </tr>
                                         <tr>
                                             <td> 5 </td>
                                             <td> DS05 </td>
                                             <td> SN05 </td>
                                             <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue">เลื่อน</button> </td>
-                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <button type="button" class="btn blue">ดู</button> </td>
+                                            <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ลบ</a></td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -87,7 +93,7 @@
                         </div>
             <!-- END PROFILE CONTENT -->
 
-    <div id="cancelAppModal" class="modal fade" tabindex="-1" data-width="320">
+    <div id="editAppModal" class="modal fade" tabindex="-1" data-width="320">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">ยกเลิกการนัดหมายรหัส AP01</h4>
@@ -103,21 +109,7 @@
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
     </div>
-    <div id="emailConfirmAlertModal" data-backdrop="static" class="modal fade" tabindex="-1" data-focus-on="input:first">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ยืนยันการยกเลิกการนัดหมายทางอีเมล</h4>
-        </div>
-        <div class="modal-body">
-            <div class="caption text-center">
-                <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการยกเลิกการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 15 นาที</span>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a href="{{url('/')}}" type="button" class="btn green">รับทราบ</a>
-        </div>
-    </div>
+
 @endsection
 
 @section('pageLevelPluginsScript')
