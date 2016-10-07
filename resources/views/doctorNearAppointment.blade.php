@@ -47,6 +47,7 @@
                                 <th> นามสกุล </th>
                                 <th> เพศ </th>
                                 <th> อายุ </th>
+                                <th> อาการ </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,6 +59,7 @@
                                 <td>พละการ</td>
                                 <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
                                 <td>21</td>
+                                <td>สบายดีมากๆ</td>
                             </tr>
                             <tr class="odd gradeX">
                                 <td>07/10/2559</td>
@@ -67,6 +69,7 @@
                                 <td>พละการ</td>
                                 <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
                                 <td>21</td>
+                                <td>สบายดีมากๆ</td>
                             </tr>
                             <tr class="odd gradeX">
                                 <td>07/10/2559</td>
@@ -76,6 +79,7 @@
                                 <td>ก</td>
                                 <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
                                 <td>21</td>
+                                <td>สบายดีมากๆ</td>
                             </tr>
                             <tr class="odd gradeX">
                                 <td>07/10/2559</td>
@@ -85,6 +89,7 @@
                                 <td>ข</td>
                                 <td><i class="fa fa-female" aria-hidden="true"></i> หญิง</td>
                                 <td>21</td>
+                                <td>สบายดีมากๆ</td>
                             </tr>
                             <tr class="odd gradeX">
                                 <td>07/10/2559</td>
@@ -94,6 +99,7 @@
                                 <td>ค</td>
                                 <td><i class="fa fa-female" aria-hidden="true"></i> หญิง</td>
                                 <td>21</td>
+                                <td>สบายดีมากๆ</td>
                             </tr>
                             <tr class="odd gradeX">
                                 <td>07/10/2559</td>
@@ -103,6 +109,7 @@
                                 <td>ง</td>
                                 <td> <i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
                                 <td>21</td>
+                                <td>สบายดีมากๆ</td>
                             </tr>
                             </tbody>
                         </table>
