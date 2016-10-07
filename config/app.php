@@ -3,6 +3,17 @@
 return [
 
     /*
+     * SMS Environment
+     */
+
+    'SMS' => [
+        'sms_api_key' => env('SMS_APIKEY',''),
+        'sms_api_secret' => env('SMS_APISECRET',''),
+        'sms_phone_number' => env('SMS_PHONE_NUMBER',''),
+        'sms_url' => env('SMS_URL', '')
+    ],
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------

@@ -15,7 +15,10 @@ class CreateDateDimTable extends Migration
         Schema::create('date_dim', function (Blueprint $table) {
             $table->integer('datekey')->unsigned()->primary();
             $table->date('date');
-            $table->timestamps();
+            $table->char('day_of_week', 9);
+            $table->integer('day')->unsigned();
+            $table->integer('month')->unsigned();
+            $table->integer('year')->unsigned();
         });
     }
 

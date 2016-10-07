@@ -9,7 +9,7 @@
 @endsection
 
 @section('pageLevelPluginsCSS')
-    <link href="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -34,7 +34,7 @@
                                 <form class="form-horizontal" role="form">
                                     <div class="form-body" style="padding-bottom: 0px;">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>เพิ่มวัน</b></label>
                                                     <div class="col-md-9">
@@ -50,7 +50,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
@@ -67,7 +67,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>แผนก</b></label>
                                                     <div class="col-md-9">
@@ -174,23 +174,22 @@
                                 <form class="form-horizontal" role="form">
                                     <div class="form-body" style="padding-bottom: 0px;">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>เพิ่มวัน</b></label>
-                                                    <div class="col-md-9">
-                                                        <select class="form-control">
-                                                            <option>วันอาทิตย์</option>
-                                                            <option>วันจันทร์</option>
-                                                            <option>วันอังคาร</option>
-                                                            <option>วันพุธ</option>
-                                                            <option>วันพฤหัสบดี</option>
-                                                            <option>วันศุกร์</option>
-                                                            <option>วันเสาร์</option>
-                                                        </select>
+                                                    <label class="control-label col-md-3"><b>วันที่</b></label>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                            <input type="text" class="form-control" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
@@ -207,7 +206,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>แผนก</b></label>
                                                     <div class="col-md-9">
@@ -314,23 +313,22 @@
                                 <form class="form-horizontal" role="form">
                                     <div class="form-body" style="padding-bottom: 0px;">
                                         <div class="row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>เพิ่มวัน</b></label>
-                                                    <div class="col-md-9">
-                                                        <select class="form-control">
-                                                            <option>วันอาทิตย์</option>
-                                                            <option>วันจันทร์</option>
-                                                            <option>วันอังคาร</option>
-                                                            <option>วันพุธ</option>
-                                                            <option>วันพฤหัสบดี</option>
-                                                            <option>วันศุกร์</option>
-                                                            <option>วันเสาร์</option>
-                                                        </select>
+                                                    <label class="control-label col-md-3"><b>วันที่</b></label>
+                                                    <div class="col-md-3">
+                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                            <input type="text" class="form-control" readonly>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn default" type="button">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </button>
+                                                        </span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
@@ -347,7 +345,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>แผนก</b></label>
                                                     <div class="col-md-9">
@@ -441,11 +439,12 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
+    <script>
+        $('.date-picker').datepicker();
+    </script>
 @endsection
 

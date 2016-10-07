@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->string('address');
             $table->string('phone_no');
 
-            $table->string('username');
+            // $table->string('username'); // Use email instead.
             $table->string('password');
         });
     }
