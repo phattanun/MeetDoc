@@ -17,6 +17,7 @@
     <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/pages/css/search.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -25,8 +26,135 @@
 @endsection
 
 @section('content')
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-globe theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase">ค้นหายาที่ต้องการดู/แก้ไข/ลบข้อมูล</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="col-md-2 control-label text-right">ชื่อยา
+                                <span class="required" aria-required="true"> * </span>
+                            </label>
+                            <div class="col-md-10">
+                                <input class="form-control" name="" placeholder="กรุณากรอกชื่อยา" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-actions right1">
+                        <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                            <span class="ladda-label">ค้นหา</span>
+                            <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
+                        <button type="button" class="btn default">ยกเลิก</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-globe theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase">ผลการค้นหา "Parac"</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th> ลำดับที่ </th>
+                        <th> รหัสยา </th>
+                        <th> ชื่อตัวยา </th>
+                        <th> ชื่อทางการค้า </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td> 1 </td>
+                        <td> D01 </td>
+                        <td> SN01</td>
+                        <td> Paracetamol </td>
+                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
+                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                    </tr>
+                    <tr>
+                        <td> 2 </td>
+                        <td> D02 </td>
+                        <td> SN02 </td>
+                        <td> Paracetamol </td>
+                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
+                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                    </tr>
+                    <tr>
+                        <td> 3 </td>
+                        <td> D03 </td>
+                        <td> SN03 </td>
+                        <td> Paracetamol </td>
+                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
+                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                    <tr>
+                        <td> 4 </td>
+                        <td> D04 </td>
+                        <td> SN04 </td>
+                        <td> Paracetamol </td>
+                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
+                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                    </tr>
+                    <tr>
+                        <td> 5 </td>
+                        <td> D05 </td>
+                        <td> SN05 </td>
+                        <td> Paracetamol </td>
+                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
+                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="search-pagination text-right">
+                <ul class="pagination">
+                    <li class="page-active">
+                        <a href="javascriptt:;"> 1 </a>
+                    </li>
+                    <li>
+                        <a href="javascriptt:;"> 2 </a>
+                    </li>
+                    <li>
+                        <a href="javascriptt:;"> 3 </a>
+                    </li>
+                    <li>
+                        <a href="javascriptt:;"> 4 </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
             <!-- END PROFILE CONTENT -->
                         <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption caption-md">
+                                    <i class="icon-globe theme-font hide"></i>
+                                    <span class="caption-subject font-blue-madison bold uppercase">รายการยาทั้งหมด</span>
+                                </div>
+                            </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
@@ -89,6 +217,22 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="search-pagination text-right">
+                                    <ul class="pagination">
+                                        <li class="page-active">
+                                            <a href="javascriptt:;"> 1 </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascriptt:;"> 2 </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascriptt:;"> 3 </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascriptt:;"> 4 </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
             <!-- END PROFILE CONTENT -->
@@ -143,7 +287,8 @@
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
-            </div>            <div class="row">
+            </div>
+            <div class="row">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
@@ -155,7 +300,6 @@
         </div>
         <div class="modal-footer">
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-
         </div>
     </div>
 
@@ -334,6 +478,7 @@
     <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
         $('tbody tr').click(function () {
             $('#appDetailModal').modal()
