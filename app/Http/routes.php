@@ -23,11 +23,18 @@ Route::get('/home', 'ProfileController@index');
 
 
 // Backend
+
 Route::get('/backend/Account', 'AccountController@all');
 Route::post('/backend/Account/register', 'AccountController@register');
 Route::post('/backend/Account/getProfile', 'AccountController@getProfile');
 Route::post('/backend/Account/edit', 'AccountController@edit');
 
+
+Route::post('/backend/{controller}/post',
+    function($controller) {
+        return View::make('backend', ['controller' => $controller, 'page' => 'post']);
+    }
+);
 Route::get('/backend/{controller}/{page?}',
     function($controller, $page = null){
         return View::make('backend', ['controller' => $controller, 'page' => $page ]);
