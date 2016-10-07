@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    จัดการข้อมูลรหัสโรค
+    จัดการข้อมูลยา
 @endsection
 
 @section('pageLevelPluginsCSS')

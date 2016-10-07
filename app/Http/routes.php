@@ -15,6 +15,9 @@ Route::get('/account/manage', 'ProfileController@accountPage');
 Route::get('/officer/manage', 'ProfileController@officerPage');
 Route::get('/disease/manage', 'ProfileController@diseasePage');
 
+//Pharmacist
+Route::get('/drug/manage', 'ProfileController@drugPage');
+
 //Krit
 Route::get('/doctor/schedule', 'ProfileController@test1');
 Route::get('/patient/come', 'ProfileController@test2');

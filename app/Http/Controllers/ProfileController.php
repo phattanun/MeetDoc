@@ -32,6 +32,10 @@ class ProfileController extends Controller
     {
         return view('disease');
     }
+    public function drugPage()
+    {
+        return view('drug');
+    }
     public function newAppointmentPage()
     {
         return view('appointment-new');

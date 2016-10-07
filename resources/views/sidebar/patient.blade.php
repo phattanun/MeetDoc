@@ -1,9 +1,3 @@
-<li class="nav-item @yield('profileNav')">
-    <a href="{{url('/profile')}}" class="nav-link nav-toggle">
-        <i class="icon-user"></i>
-        <span class="title">ขัอมูลส่วนตัว</span>
-    </a>
-</li>
 <li class="nav-item @yield('newAppNav')">
     <a href="{{url('/appointment/new')}}" class="nav-link nav-toggle">
         <i class="icon-plus"></i>
