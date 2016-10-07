@@ -10,7 +10,7 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index','test1','test2','test3','test4','newAppointmentPage','appointmentHistoryPage', 'appointmentFuturePage']]);
+//        $this->middleware('auth', ['except' => ['index','test1','test2','test3','test4','newAppointmentPage','appointmentHistoryPage', 'appointmentFuturePage']]);
 
 //        $this->middleware('auth');
     }
@@ -20,6 +20,22 @@ class ProfileController extends Controller
     }
 
 //Temp
+    public function accountPagePage()
+    {
+        return view('account');
+    }
+    public function officerPage()
+    {
+        return view('officer');
+    }
+    public function diseasePage()
+    {
+        return view('disease');
+    }
+    public function drugPage()
+    {
+        return view('drug');
+    }
     public function newAppointmentPage()
     {
         return view('appointment-new');

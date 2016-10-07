@@ -1,11 +1,11 @@
 @extends('masterpage')
 
-@section('futureAppNav')
+@section('diseaseNav')
     active
 @endsection
 
 @section('title')
-    การนัดหมายในอนาคต
+    จัดการข้อมูลยา
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -33,11 +33,9 @@
                                         <thead>
                                         <tr>
                                             <th> ลำดับที่ </th>
-                                            <th> รหัสการนัดหมาย </th>
-                                            <th> วันที่ </th>
-                                            <th> ช่วงเวลา </th>
-                                            <th> แผนก </th>
-                                            <th> แพทย์ </th>
+                                            <th> ICD10 </th>
+                                            <th> SNOMED </th>
+                                            <th> ชื่อ </th>
                                             <th>  </th>
                                             <th>  </th>
                                         </tr>
@@ -45,50 +43,40 @@
                                         <tbody>
                                         <tr>
                                             <td> 1 </td>
-                                            <td> AP01 </td>
-                                            <td> 06/10/2016 </td>
+                                            <td> DS01 </td>
+                                            <td> SN01</td>
                                             <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue">เลื่อน</button> </td>
                                             <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
                                         </tr>
                                         <tr>
                                             <td> 2 </td>
-                                            <td> AP02 </td>
-                                            <td> 06/10/2016 </td>
+                                            <td> DS02 </td>
+                                            <td> SN02 </td>
                                             <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue">เลื่อน</button> </td>
                                             <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
                                         </tr>
                                         <tr>
                                             <td> 3 </td>
-                                            <td> AP03 </td>
-                                            <td> 06/10/2016 </td>
+                                            <td> DS03 </td>
+                                            <td> SN03 </td>
                                             <td> บ่าย </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue">เลื่อน</button> </td>
                                             <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
                                         <tr>
                                             <td> 4 </td>
-                                            <td> AP04 </td>
-                                            <td> 06/10/2016 </td>
+                                            <td> DS04 </td>
+                                            <td> SN04 </td>
                                             <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue">เลื่อน</button> </td>
                                             <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
                                         </tr>
                                         <tr>
                                             <td> 5 </td>
-                                            <td> AP05 </td>
-                                            <td> 06/10/2016 </td>
+                                            <td> DS05 </td>
+                                            <td> SN05 </td>
                                             <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
                                             <td> <button type="button" class="btn blue">เลื่อน</button> </td>
                                             <td> <a id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#cancelAppModal">ยกเลิก</a></td>
                                         </tr>
