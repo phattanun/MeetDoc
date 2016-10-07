@@ -1,4 +1,21 @@
-@if($page == "get")
+@if( !isset($controller) && !isset($page))
+    <h3>AccountController</h3>
+    <ul>
+        <li><a href="{{ action('AccountController@getUserList') }}">getUserList</a></li>
+        <li><a href="{{ action('AccountController@register') }}">register</a></li>
+        <li><a href="{{ action('AccountController@edit') }}">editUser</a></li>
+        <li><a href="{{ action('AccountController@getProfile') }}">getProfile</a></li>
+    </ul>
+    <h3>WorkingTimeController</h3>
+    <ul>
+        <li>Normal WorkingTime</li>
+        <ul>
+            <li><a href="{{ action('WorkingTimeController@getNormalWorkingTime') }}">get</a></li>
+            <li><a href="{{ action('WorkingTimeController@addNormalWorkingTime') }}">add</a></li>
+            <li><a href="{{ action('WorkingTimeController@deleteNormalWorkingTime') }}">delete</a></li>
+        </ul>
+    </ul>
+@elseif($page == "get")
     <?php
         echo "Dump GET:";
         var_dump($_GET);
@@ -66,6 +83,61 @@
             <input type="text"      name="address"  placeholder="Address"></input><br>
             <input type="number"    name="phone_no"  placeholder="Phone no."></input><br>
             <input type="password"  name="password" placeholder="Password"></input><br>
+            <button type="submit">Submit</button>
+        </form>
+    @else
+        Not found "{{ $controller }}/{{ $page }}"
+    @endif
+@elseif($controller == "WorkingTime")
+    @if($page == "addNormalWorkingTime")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            Doctor SSN:
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            Day:
+            <select name="day">
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select><br>
+            Time:
+            <select name="time">
+                <option value="M">Morning   ( 8.00 - 11.00)</option>
+                <option value="A">Afternoon (13.00 - 18.00)</option>
+            </select><br>
+            Department id:
+            <select name="dept_id">
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+            </select><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "deleteNormalWorkingTime")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            Doctor SSN:
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            Day:
+            <select name="day">
+                <option value="Sunday">Sunday</option>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+            </select><br>
+            Time:
+            <select name="time">
+                <option value="M">Morning   ( 8.00 - 11.00)</option>
+                <option value="A">Afternoon (13.00 - 18.00)</option>
+            </select><br>
             <button type="submit">Submit</button>
         </form>
     @else

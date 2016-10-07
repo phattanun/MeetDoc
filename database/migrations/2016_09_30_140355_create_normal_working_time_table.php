@@ -13,9 +13,12 @@ class CreateNormalWorkingTimeTable extends Migration
     public function up()
     {
         Schema::create('normal_working_time', function (Blueprint $table) {
-            $table->char('day', 3);
+            $table->integer('doctor_ssn')->unsigned();
+            $table->char('day', 9);
             $table->char('time', 1);
-            $table->primary(array('day', 'time'));
+            $table->primary(array('doctor_ssn', 'day', 'time'));
+
+            $table->integer('dept_id')->unsigned();
         });
     }
 

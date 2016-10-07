@@ -30,10 +30,6 @@ class AccountController extends Controller
         return redirect('/login');
     }
 
-    public function all() {
-        $this->getUserList();
-    }
-
     public function register(Request $request) {
         echo "Adding New User..";
         var_dump($request->all());
@@ -50,19 +46,31 @@ class AccountController extends Controller
             $new_user->save();
         }
         catch (\Exception $e) {
-            echo "<h2>Register Error</h2>";
+            echo "<h2>Error</h2>";
         }
 
         $this->getUserList();
     }
 
-    public function getUserList() {
-        echo "User List:<br>";
-        $users = User::all();
-        foreach ($users as $user) {
-            echo $user."<br>";
+
+    private function tempPrintTable($array) {
+        echo "<table border='1'>";
+        echo "<tr>";
+        foreach ($array[0] as $key => $value)
+            echo "<th>".$key."</th>";
+        echo "</tr>";
+        foreach ($array as $instance) {
+            echo "<tr>";
+            foreach($instance as $key => $value)
+                echo "<td>".$value."</td>";
+            echo "</tr>";
         }
-        return $users;
+        echo "</table><br>";
+    }
+    public function getUserList() {
+        $users = User::all();
+        $this->tempPrintTable($users->toArray());
+        // return $users;
     }
 
     public function getProfile(Request $request) {
@@ -71,7 +79,7 @@ class AccountController extends Controller
             var_dump($profile['attributes']);
         }
         catch (\Exception $e) {
-            echo "<h2>Get Profile Error</h2>";
+            echo "<h2>Error</h2>";
         }
         // return $profile['attributes'];
     }
@@ -100,7 +108,7 @@ class AccountController extends Controller
             var_dump($user['attributes']);
         }
         catch (\Exception $e) {
-            echo "<h2>Edit Profile Error</h2>";
+            echo "<h2>Error</h2>";
         }
     }
 
