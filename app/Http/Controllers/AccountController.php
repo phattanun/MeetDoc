@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AccountController extends Controller
 {
@@ -40,5 +40,25 @@ class AccountController extends Controller
         foreach ($users as $user) {
             echo $user."<br>";
         }
+    }
+
+    public function login(Request $request){
+
+        if(Auth::attempt(['ssn'=> $request->ssn, 'password' => $request->password])){
+            return Auth::user();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public function logout(){
+
+        if(!is_null(Auth::user())){
+            Auth::logout();
+            Session::flush();
+        }
+
+        return redirect('/login');
     }
 }
