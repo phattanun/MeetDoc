@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Shopee BI | Login</title>
+    <title>ลงชื่อเข้าใช้</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
@@ -32,7 +32,7 @@
 <!-- BEGIN LOGO -->
 <div class="logo">
     <a href="{{url('/')}}">
-        <img src="{{url('/assets/pages/img/logo-big-bi.png')}}" alt="" /> </a>
+        <img src="{{url('/assets/pages/img/logo-big-meetdoc.png')}}" alt="" /> </a>
 </div>
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
@@ -75,7 +75,7 @@
         </div>
         <div class="create-account">
             <p>
-                <a href="javascript:;" id="register-btn" class="uppercase">สมัครสมาชิก</a>
+                <a href="javascript:;" id="register-btn" class="uppercase">ลงทะเบียน</a>
             </p>
         </div>
     </form>
@@ -105,11 +105,11 @@
     <form class="register-form" action="{{ url('/register') }}" method="post">
         {{ csrf_field() }}
 
-        <h3 class="font-green">Sign Up</h3>
-        <p class="hint"> Enter your personal details below: </p>
+        <h3 class="font-green">ลงทะเบียน</h3>
+        <p class="hint"> กรุณาระบุข้อมูลต่อไปนี้: </p>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Full Name</label>
-            <input class="form-control{{ $errors->has('name') ? ' has-error' : '' }} placeholder-no-fix" id="name" type="text" placeholder="Full Name" name="name" value="{{ old('name') }}" />
+            <label class="control-label visible-ie8 visible-ie9">ชื่อ</label>
+            <input class="form-control{{ $errors->has('name') ? ' has-error' : '' }} placeholder-no-fix" id="name" type="text" placeholder="ชื่อ" name="name" value="{{ old('name') }}" />
             @if ($errors->has('name'))
                 <span class="help-block">
                     <strong>{{ $errors->first('name') }}</strong>
@@ -117,9 +117,35 @@
             @endif
         </div>
         <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">นามสกุล</label>
+            <input class="form-control{{ $errors->has('surname') ? ' has-error' : '' }} placeholder-no-fix" id="surname" type="text" placeholder="นามสกุล" name="surname" value="{{ old('surname') }}" />
+            @if ($errors->has('surname'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('surname') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <div class="row">
+            <label class="col-md-2 control-label">เพศ</label>
+            <div class="col-md-10">
+                <div class="mt-radio-inline">
+                    <label class="mt-radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios25" value="male" checked> ชาย
+                        <span></span>
+                    </label>
+                    <label class="mt-radio">
+                        <input type="radio" name="optionsRadios" id="optionsRadios26" value="female" checked> หญิง
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+                </div>
+        </div>
+        <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Email</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" id="email"  type="text" placeholder="E-Mail Address" name="email" />
+            <label class="control-label visible-ie8 visible-ie9">อีเมล</label>
+            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" id="email"  type="text" placeholder="อีเมล" name="email" />
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -127,8 +153,28 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Password</label>
-            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} placeholder-no-fix" id="password"  type="password" autocomplete="off" id="register_password" placeholder="Password" name="password" />
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">ที่อยู่</label>
+            <textarea class="form-control{{ $errors->has('address') ? ' has-error' : '' }} placeholder-no-fix" id="address" style="height: 100px;"  placeholder="ที่อยู่" name="address" ></textarea>
+            @if ($errors->has('address'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('address') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">หมายเลขโทรศัพท์เคลื่อนที่</label>
+            <input class="form-control{{ $errors->has('phone') ? ' has-error' : '' }} placeholder-no-fix" id="mask_number"  type="text" placeholder="หมายเลขโทรศัพท์เคลื่อนที่" name="phone" />
+            @if ($errors->has('phone'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('phone') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">รหัสผ่าน</label>
+            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} placeholder-no-fix" id="password"  type="password" autocomplete="off" id="register_password" placeholder="รหัสผ่าน" name="password" />
             @if ($errors->has('password'))
                 <span class="help-block">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -136,30 +182,23 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
-            <input class="form-control{{ $errors->has('password_confirmation') ? ' has-error' : '' }} placeholder-no-fix" id="password-confirm"  type="password" autocomplete="off" placeholder="Re-type Your Password" name="password_confirmation" />
+            <label class="control-label visible-ie8 visible-ie9">ยืนยันรหัสผ่าน</label>
+            <input class="form-control{{ $errors->has('password_confirmation') ? ' has-error' : '' }} placeholder-no-fix" id="password-confirm"  type="password" autocomplete="off" placeholder="ยืนยันรหัสผ่าน" name="password_confirmation" />
             @if ($errors->has('password_confirmation'))
                 <span class="help-block">
                     <strong>{{ $errors->first('password_confirmation') }}</strong>
                 </span>
             @endif
         </div>
-        <div class="form-group margin-top-20 margin-bottom-20">
-            <label class="mt-checkbox mt-checkbox-outline">
-                <input type="checkbox" name="tnc" /> I agree to the
-                <a href="javascript:;">Terms of Service </a> &
-                <a href="javascript:;">Privacy Policy </a>
-                <span></span>
-            </label>
-            <div id="register_tnc_error"> </div>
-        </div>
         <div class="form-actions">
-            <button type="button" id="register-back-btn" class="btn green btn-outline">Back</button>
-            <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">Submit</button>
+            <button type="button" id="register-back-btn" class="btn green btn-outline">ย้อนกลับ</button>
+            <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">สมัครสมาชิก</button>
         </div>
     </form>
 </div>
-<div class="copyright"> 2016 &copy; Made by Phattanun Aukkarapuntouch, Internship Program 2016</div>
+<div class="copyright">
+    2016 © MeetDoc+
+</div>
 <script src="{{url('/assets/global/plugins/respond.min.js')}}"></script>
 <script src="{{url('/assets/global/plugins/excanvas.min.js')}}"></script>
 <script src="{{url('/assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
@@ -173,6 +212,9 @@
 <script src="{{url('/assets/global/plugins/jquery-validation/js/additional-methods.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
+<script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
+<script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
+<script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/pages/scripts/login.min.js')}}" type="text/javascript"></script>
 </body>
 
