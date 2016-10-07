@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    การนัดหมายในอนาคต
+    จัดการข้อมูลรหัสโรค
 @endsection
 
 @section('pageLevelPluginsCSS')

@@ -10,6 +10,11 @@ Route::get('/appointment/new', 'ProfileController@newAppointmentPage');
 Route::get('/appointment/history', 'ProfileController@appointmentHistoryPage');
 Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');
 
+//Admin
+Route::get('/account/manage', 'ProfileController@accountPage');
+Route::get('/officer/manage', 'ProfileController@officerPage');
+Route::get('/disease/manage', 'ProfileController@diseasePage');
+
 //Krit
 Route::get('/doctor/schedule', 'ProfileController@test1');
 Route::get('/patient/come', 'ProfileController@test2');
