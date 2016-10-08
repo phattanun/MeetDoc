@@ -35,16 +35,28 @@ Route::get('/home', 'ProfileController@index');
 Route::get('/backend', function() {
     return View::make('backend');
 });
+
+// Account
 Route::get('/backend/Account/getUserList', 'AccountController@getUserList');
 Route::post('/backend/Account/register', 'AccountController@register');
 Route::post('/backend/Account/getProfile', 'AccountController@getProfile');
 Route::post('/backend/Account/edit', 'AccountController@edit');
 
+// TODO: Appointment
 Route::post('/backend/Appointment/create', 'AppointmentController@create');
 
+
+// Normal WorkingTime
 Route::get('/backend/WorkingTime/getNormalWorkingTime', 'WorkingTimeController@getNormalWorkingTime');
 Route::post('/backend/WorkingTime/addNormalWorkingTime', 'WorkingTimeController@addNormalWorkingTime');
 Route::post('/backend/WorkingTime/deleteNormalWorkingTime', 'WorkingTimeController@deleteNormalWorkingTime');
+
+// Special WorkingTime
+Route::get('/backend/WorkingTime/getSpecialWorkingTime', 'WorkingTimeController@getSpecialWorkingTime');
+Route::post('/backend/WorkingTime/addSpecialWorkingTime', 'WorkingTimeController@addSpecialWorkingTime');
+Route::post('/backend/WorkingTime/deleteSpecialWorkingTime', 'WorkingTimeController@deleteSpecialWorkingTime');
+
+Route::post('/backend/WorkingTime/getWorkingTime', 'WorkingTimeController@getWorkingTime');
 
 
 Route::post('/backend/{controller}/post',
