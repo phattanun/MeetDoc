@@ -1,6 +1,6 @@
 @extends('masterpage')
 
-@section('diseaseNav')
+@section('drugNav')
     active
 @endsection
 
@@ -154,6 +154,7 @@
                                     <i class="icon-globe theme-font hide"></i>
                                     <span class="caption-subject font-blue-madison bold uppercase">รายการยาทั้งหมด</span>
                                 </div>
+                                <div class="text-right"> <button type="button" class="btn green" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูลยา</button></div>
                             </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
@@ -306,7 +307,7 @@
     <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">แก้ไขข้อมูล รหัส D01</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลยา รหัส D01</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -426,6 +427,143 @@
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
                         <input class="form-control" value="บริษัทยาปลอม" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                <span class="ladda-label">ยืนยัน</span>
+                <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
+        </div>
+    </div>
+
+
+    <div id="addModal" class="modal fade" tabindex="-1" data-width="760">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">เพิ่มข้อมูลยา</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
+                    <div class="col-md-10">
+                        <input class="form-control"  value="" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-15 margin-bottom-10">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
+                    <div class="col-md-10">
+                        <select id="multiple" class="form-control select2-multiple" multiple></option>
+                            <option>SOLUTION</option>
+                            <option>CAPSULE</option>
+                            <option>TABLET</option>
+                            <option>KIT</option>
+                            <option>INJECTION</option>
+                            <option>POWDER</option>
+                            <option>GRANULE</option>
+                            <option>OINTMENT</option>
+                            <option>SUPPOSITORY</option>
+                            <option>LOTION</option>
+                            <option>GEL</option>
+                            <option>CREAM</option>
+                            <option>SUSPENSION</option>
+                            <option>INHALANT</option>
+                            <option>RING</option>
+                            <option>SUSPENSION/ DROPS</option>
+                            <option>SOLUTION/ DROPS</option>
+                            <option>IMPLANT</option>
+                            <option>LIQUID</option>
+                            <option>INTRAUTERINE DEVICE</option>
+                            <option>TAPE</option>
+                            <option>EMULSION</option>
+                            <option>LOZENGE</option>
+                            <option>AEROSOL</option>
+                            <option>MOUTHWASH</option>
+                            <option>SYRUP</option>
+                            <option>SPRAY</option>
+                            <option>CONCENTRATE</option>
+                            <option>PILL</option>
+                            <option>PATCH</option>
+                            <option>SHAMPOO</option>
+                            <option>ENEMA</option>
+                            <option>RINSE</option>
+                            <option>ELIXIR</option>
+                            <option>PASTE</option>
+                            <option>CLOTH</option>
+                            <option>DOUCHE</option>
+                            <option>SOAP</option>
+                            <option>INSERT</option>
+                            <option>STICK</option>
+                            <option>PELLET</option>
+                            <option>IRRIGANT</option>
+                            <option>JELLY</option>
+                            <option>OIL</option>
+                            <option>SWAB</option>
+                            <option>DISC</option>
+                            <option>STRIP</option>
+                            <option>SALVE</option>
+                            <option>PLASTER</option>
+                            <option>EXTRACT</option>
+                            <option>DRESSING</option>
+                            <option>SPONGE</option>
+                            <option>TINCTURE</option>
+                            <option>FOR SUSPENSION</option>
+                            <option>GAS</option>
+                            <option>LIPSTICK</option>
+                            <option>LOTION/SHAMPOO</option>
+                            <option>PASTILLE</option>
+                            <option>FILM</option>
+                            <option>LINIMENT</option>
+                            <option>WAFER</option>
+                            <option>FOR SOLUTION</option>
+                            <option>POULTICE</option>
+                            <option>CRYSTAL</option>
+                            <option>CELLULAR SHEET</option>
+                            <option>GLOBULE</option>
+                            <option>INJECTABLE FOAM</option>
+                        </select>
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="" id="form_control_1"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
