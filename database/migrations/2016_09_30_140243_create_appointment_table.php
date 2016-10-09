@@ -18,8 +18,15 @@ class CreateAppointmentTable extends Migration
             $table->char('time', 1);
             $table->string('symptom');
             $table->string('queue_status');
-            $table->timestamp('checkin_time')->nullable();
             $table->char('type', 1);
+            $table->timestamp('checkin_time')->nullable();
+            $table->longText('description')->nullable();
+            $table->double('weight')->nullable();
+            $table->double('height')->nullable();
+            $table->double('systolic')->nullable();
+            $table->double('diastolic')->nullable();
+            $table->double('temperature')->nullable();
+            $table->integer('heart_rate')->nullable();
 
             $table->bigInteger('doctor_ssn')->unsigned();
             $table->bigInteger('patient_ssn')->unsigned();
