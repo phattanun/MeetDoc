@@ -44,7 +44,7 @@
                             <div class="col-md-9 margin-bottom-10">
                                 <div class="input-group input-group select2-bootstrap-prepend">
                                     <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax"  >
-                                        <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, หมายเลขบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
+                                        <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
                                     </select>
                                 </div>
                             </div>
