@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,28 +12,46 @@ use Mockery\CountValidator\Exception;
 
 class AppointmentController extends Controller
 {
-    public function create_appointment(Request $request) {
+    public function create_reserve_appointment(Request $request)
+    {
 
-        try{
+        try {
             $appointment = new Appointment();
             $appointment->date = $request->date;
             $appointment->time = $request->time;
             $appointment->symptom = $request->symptom;
+            $appointment->queue_status = 'uncheckedin';
+            $appointment->checkin_time = null;
+            $appointment->type = 'R'; // R refers to reserve and W refers to walk-in.
             $appointment->patient_ssn = $request->patient_ssn;
+
             // How can I identify the doctor_ssn if patient select clinic instead of doctor.
+
             $appointment->save();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             echo "<h2>Error</h2>";
         }
 
     }
 
-    public function edit_appointment(Request $request) {
+    public function create_walkin_appointment(Request $request)
+    {
 
-        try{
+    }
+
+    public function edit_appointment(Request $request)
+    {
+
+        try {
             $appointment = Appointment::findOrFail($request->id);
-            $editable_key = ['date','time','']
+            $editable = ['date', 'time', 'symptom', 'queue_status', 'checkin_time', 'doctor_ssn', 'type'];
+            $edited = array_filter($request->all());
+            $filtered = array_intersect_key($edited, array_flip($editable));
+
+            foreach ($filtered as $key => $value)
+                $appointment[$key] = $value;
+
+            $appointment->save();
         }
     }
 }
