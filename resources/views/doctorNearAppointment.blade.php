@@ -8,6 +8,10 @@
     นัดตรวจที่กำลังจะเกิดขึ้นของแพทย์
 @endsection
 
+@section('title-inside')
+    นัดตรวจที่กำลังจะเกิดขึ้นของแพทย์
+@endsection
+
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection

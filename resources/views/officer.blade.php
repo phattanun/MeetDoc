@@ -8,6 +8,10 @@
     จัดการแผนกและสิทธิ์บุคลากร
 @endsection
 
+@section('title-inside')
+    จัดการแผนกและสิทธิ์บุคลากร
+@endsection
+
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css" />
@@ -246,141 +250,15 @@
     </div>
     <!-- END PROFILE CONTENT -->
 
-    <div id="viewModal" class="modal fade" tabindex="-1" data-width="760">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01</h4>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="D01" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="SN01" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="Smallpox" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-        </div>
-    </div>
-
-
-    <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">แก้ไขข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01</h4>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
-                    <div class="col-md-9">
-                        <input class="form-control"  value="D01" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
-                    <div class="col-md-9">
-                        <input class="form-control" value="SN01" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
-                    <div class="col-md-9">
-                        <input class="form-control"  value="Smallpox" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
-                <span class="ladda-label">ยืนยัน</span>
-                <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
-            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-        </div>
-    </div>
-
-
-    <div id="addModal" class="modal fade" tabindex="-1" data-width="760">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">เพิ่มข้อมูลรหัสโรค</h4>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
-                    <div class="col-md-9">
-                        <input class="form-control"  value="D01" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
-                    <div class="col-md-9">
-                        <input class="form-control" value="SN01" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
-                    <div class="col-md-9">
-                        <input class="form-control"  value="Smallpox" id="form_control_1"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
-                <span class="ladda-label">ยืนยัน</span>
-                <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
-            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-        </div>
-    </div>
-
-
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="480">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01</h4>
+            <h4 class="modal-title">ลบสถานะบุคลากรของนายแพทย์พัทธนันท์ อัครพันธุ์ธัช</h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ท่านแน่ใจหรือไม่ว่าต้องการลบข้อมูลรหัสโรคนี้</span>
+                <span class="caption-subject font-red sbold uppercase">ท่านแน่ใจหรือไม่ว่าต้องการลบสถานะบุคลากรของบัญชีผู้ใช้นี้</span>
             </div>
         </div>
         <div class="modal-footer">

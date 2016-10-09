@@ -58,7 +58,7 @@
         <!-- BEGIN PAGE ACTIONS -->
         <!-- DOC: Remove "hide" class to enable the page header actions -->
         <div class="page-actions">
-            <h1 class="page-title">@yield('title')
+            <h1 class="page-title">@yield('title-inside')
             </h1>
         </div>
         <!-- END PAGE ACTIONS -->

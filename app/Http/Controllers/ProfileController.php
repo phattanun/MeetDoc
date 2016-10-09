@@ -36,6 +36,14 @@ class ProfileController extends Controller
     {
         return view('drug');
     }
+    public function accountPage()
+    {
+        return view('account');
+    }
+    public function editAccountPage()
+    {
+        return view('profile-edit');
+    }
     public function newAppointmentPage()
     {
         return view('appointment-new');

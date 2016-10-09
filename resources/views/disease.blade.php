@@ -8,6 +8,10 @@
     จัดการข้อมูลรหัสโรค
 @endsection
 
+@section('title-inside')
+    จัดการข้อมูลรหัสโรค
+@endsection
+
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css" />

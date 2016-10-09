@@ -5,10 +5,11 @@
 @endsection
 
 @section('title')
-    ข้อมูลส่วนตัว
+    จัดการบัญชีผู้ใช้/แก้ไขข้อมูลส่วนตัวของ นายพัทธนันท์ อัครพันธุ์ธัช
 @endsection
+
 @section('title-inside')
-    ข้อมูลส่วนตัว
+    <a href="{{url('account/manage')}}">จัดการบัญชีผู้ใช้</a> / แก้ไขข้อมูลส่วนตัวของ นายพัทธนันท์ อัครพันธุ์ธัช
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -102,11 +103,10 @@
                                                 <div class="form-control form-control-static"> 5631011021 </div>
                                                 <label for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
                                             </div>
-                                            <div class="form-group form-md-line-input">
-                                                <div class="form-control form-control-static"> 1959800098399 </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
-                                            </div>
                                             <hr>
+                                            <div class="form-group">
+                                                <label class="control-label">เลขบัตรประจำตัวประชาชน</label>
+                                                <input type="text" placeholder="กรุณากรอกเลชบัตรประจำตัวประชาชนของท่าน" class="form-control" value="1959800098399" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
                                                 <input type="text" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
@@ -114,17 +114,17 @@
                                                 <label class="control-label">นามสกุล</label>
                                                 <input type="text" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
                                             <div class="form-group">
-                                                    <label class="control-label">เพศ</label>
-                                                        <div class="mt-radio-inline">
-                                                        <label class="mt-radio">
-                                                            <input name="optionsRadios" id="optionsRadios25" value="male" checked="" type="radio"> ชาย
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-radio">
-                                                            <input name="optionsRadios" id="optionsRadios26" value="female" checked="" type="radio"> หญิง
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
+                                                <label class="control-label">เพศ</label>
+                                                <div class="mt-radio-inline">
+                                                    <label class="mt-radio">
+                                                        <input name="optionsRadios" id="optionsRadios25" value="male" checked="" type="radio"> ชาย
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="mt-radio">
+                                                        <input name="optionsRadios" id="optionsRadios26" value="female" checked="" type="radio"> หญิง
+                                                        <span></span>
+                                                    </label>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>

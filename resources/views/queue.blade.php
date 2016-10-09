@@ -8,6 +8,10 @@
     หน้าคิว
 @endsection
 
+@section('title-inside')
+    หน้าคิว
+@endsection
+
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
