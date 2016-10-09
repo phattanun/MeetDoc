@@ -35,7 +35,7 @@
         </div>
         <div class="portlet-body">
             <div class="row text-left">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="form-group">
                         <div class="row">
                             <label class="col-md-2 control-label text-right">ค้นหาบัญชีผู้ใช้
@@ -44,7 +44,7 @@
                             <div class="col-md-9 margin-bottom-10">
                                 <div class="input-group input-group select2-bootstrap-prepend">
                                     <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax"  >
-                                        <option value="2126244" selected="selected">กรุณากรอกชื่อโรค รหัสโรค SNOMED หรือ รหัสโรค ICD10</option>
+                                        <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, หมายเลขบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
                                     </select>
                                 </div>
                             </div>
