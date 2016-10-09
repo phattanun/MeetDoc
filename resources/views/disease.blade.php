@@ -42,7 +42,7 @@
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-10">
-                                <input class="form-control" name="" placeholder="กรุณากรอกชื่อโรค รหัสโรค SNOMED หรือ รหัสโรค ICD10" />
+                                <input class="form-control" name="" placeholder="กรุณากรอกชื่อโรค รหัสโรค SNOMED, รหัสโรค ICD10 หรือรหัสโรค DRG" />
                             </div>
                         </div>
                     </div>
@@ -75,6 +75,7 @@
                         <th> ลำดับที่ </th>
                         <th> ICD10 </th>
                         <th> SNOMED </th>
+                        <th> DRG </th>
                         <th> ชื่อโรค </th>
                         <th></th>
                         <th></th>
@@ -86,6 +87,7 @@
                         <td> 1 </td>
                         <td> D01 </td>
                         <td> SN01</td>
+                        <td> SN01</td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
                         <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
@@ -94,6 +96,7 @@
                     <tr>
                         <td> 2 </td>
                         <td> D02 </td>
+                        <td> SN02 </td>
                         <td> SN02 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -104,6 +107,7 @@
                         <td> 3 </td>
                         <td> D03 </td>
                         <td> SN03 </td>
+                        <td> SN03 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
                         <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
@@ -111,6 +115,7 @@
                     <tr>
                         <td> 4 </td>
                         <td> D04 </td>
+                        <td> SN04 </td>
                         <td> SN04 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -120,6 +125,7 @@
                     <tr>
                         <td> 5 </td>
                         <td> D05 </td>
+                        <td> SN05 </td>
                         <td> SN05 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -164,6 +170,7 @@
                         <th> ลำดับที่ </th>
                         <th> ICD10 </th>
                         <th> SNOMED </th>
+                        <th> DRG </th>
                         <th> ชื่อโรค </th>
                         <th></th>
                         <th></th>
@@ -175,6 +182,7 @@
                         <td> 1 </td>
                         <td> D01 </td>
                         <td> SN01</td>
+                        <td> SN01</td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
                         <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
@@ -183,6 +191,7 @@
                     <tr>
                         <td> 2 </td>
                         <td> D02 </td>
+                        <td> SN02 </td>
                         <td> SN02 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -193,6 +202,7 @@
                         <td> 3 </td>
                         <td> D03 </td>
                         <td> SN03 </td>
+                        <td> SN03 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
                         <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
@@ -200,6 +210,7 @@
                     <tr>
                         <td> 4 </td>
                         <td> D04 </td>
+                        <td> SN04 </td>
                         <td> SN04 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -209,6 +220,7 @@
                     <tr>
                         <td> 5 </td>
                         <td> D05 </td>
+                        <td> SN05 </td>
                         <td> SN05 </td>
                         <td> Smallpox </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -241,7 +253,7 @@
     <div id="viewModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01</h4>
+            <h4 class="modal-title">ข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01, DRG: DRG01</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -256,6 +268,15 @@
             <div class="row">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
+                    <div class="col-md-9">
+                        <input class="form-control" readonly="" value="SN01" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค DRG</label>
                     <div class="col-md-9">
                         <input class="form-control" readonly="" value="SN01" id="form_control_1"  type="text">
                         <div class="form-control-focus"> </div>
@@ -281,7 +302,7 @@
     <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">แก้ไขข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01, DRG: DRG01</h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -296,6 +317,15 @@
             <div class="row">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="SN01" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค DRG</label>
                     <div class="col-md-9">
                         <input class="form-control" value="SN01" id="form_control_1"  type="text">
                         <div class="form-control-focus"> </div>
@@ -347,6 +377,15 @@
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
+                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค DRG</label>
+                    <div class="col-md-9">
+                        <input class="form-control" value="" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
                     <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
                     <div class="col-md-9">
                         <input class="form-control"  value="" id="form_control_1"  type="text">
@@ -367,7 +406,7 @@
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="480">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01</h4>
+            <h4 class="modal-title">ลบข้อมูลรหัสโรค ICD10: D01, SNOMED: SN01, DRG:01</h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">

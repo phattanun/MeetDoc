@@ -22,7 +22,7 @@
 
 @section('pageLevelCSS')
     <link href="{{url('assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{url('assets/pages/css/appHistory.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/pages/css/officer.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -34,15 +34,19 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row text-left">
+                <div class="col-md-8">
                     <div class="form-group">
                         <div class="row">
-                            <label class="col-md-3 control-label text-right">ค้นหาบัญชีผู้ใช้
+                            <label class="col-md-2 control-label text-right">ค้นหาบัญชีผู้ใช้
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-8 margin-bottom-10">
-                                <input class="form-control" name="" placeholder="กรุณากรอกชื่อโรค รหัสโรค SNOMED หรือ รหัสโรค ICD10" />
+                            <div class="col-md-9 margin-bottom-10">
+                                <div class="input-group input-group select2-bootstrap-prepend">
+                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax"  >
+                                        <option value="2126244" selected="selected">กรุณากรอกชื่อโรค รหัสโรค SNOMED หรือ รหัสโรค ICD10</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-actions right1">
@@ -57,159 +61,166 @@
             </div>
         </div>
     </div>
-    <div class="portlet light ">
-        <div class="portlet-title">
-            <div class="caption caption-md">
-                <i class="icon-globe theme-font hide"></i>
-                <span class="caption-subject font-blue-madison bold uppercase">ผลการค้นหา "Smallpox"</span>
-            </div>
-        </div>
-        <div class="portlet-body">
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th> ลำดับที่ </th>
-                        <th> ICD10 </th>
-                        <th> SNOMED </th>
-                        <th> ชื่อโรค </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td> 1 </td>
-                        <td> D01 </td>
-                        <td> SN01</td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    <tr>
-                        <td> 2 </td>
-                        <td> D02 </td>
-                        <td> SN02 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    <tr>
-                        <td> 3 </td>
-                        <td> D03 </td>
-                        <td> SN03 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    <tr>
-                        <td> 4 </td>
-                        <td> D04 </td>
-                        <td> SN04 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    <tr>
-                        <td> 5 </td>
-                        <td> D05 </td>
-                        <td> SN05 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="search-pagination text-right">
-                <ul class="pagination">
-                    <li class="page-active">
-                        <a href="javascriptt:;"> 1 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 2 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 3 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 4 </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+
     <!-- END PROFILE CONTENT -->
     <div class="portlet light ">
         <div class="portlet-title">
             <div class="caption caption-md">
                 <i class="icon-globe theme-font hide"></i>
-                <span class="caption-subject font-blue-madison bold uppercase">รายการรหัสโรคทั้งหมด</span>
+                <span class="caption-subject font-blue-madison bold uppercase">รายการบุคลากรทั้งหมด</span>
             </div>
-            <div class="text-right"> <button type="button" class="btn green" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูลรหัสโรค</button></div>
         </div>
         <div class="portlet-body">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th> ลำดับที่ </th>
-                        <th> ICD10 </th>
-                        <th> SNOMED </th>
-                        <th> ชื่อโรค </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                    <tr >
+                        <th style="vertical-align:middle" rowspan="2">ลำดับที่</th>
+                        <th style="vertical-align:middle" rowspan="2">รหัสโรงพยาบาล</th>
+                        <th style="vertical-align:middle" rowspan="2">รหัสบัตรประจำตัวประชาชน</th>
+                        <th style="vertical-align:middle" rowspan="2">ชื่อ</th>
+                        <th style="vertical-align:middle" rowspan="2">นามสกุล</th>
+                        <th style="vertical-align:middle;" rowspan="2">แผนก</th>
+                        <th class="text-center" colspan="5">สิทธิ์ในการจัดการ<br></th>
+                        <th rowspan="2"></th>
+                    </tr>
+                    <tr class="text-center">
+                        <th>ผู้ป่วย</th>
+                        <th>แพทย์</th>
+                        <th>พยาบาล</th>
+                        <th>เภสัช</th>
+                        <th>เจ้าหน้าที่</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td> 1 </td>
-                        <td> D01 </td>
-                        <td> SN01</td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                        <td> HS001 </td>
+                        <td> 1959800098399 </td>
+                        <td> นายแพทย์พัทธนันท์ </td>
+                        <td> อัครพันธุ์ธัช </td>
+                        <td> <select id="multiple" class="form-control select2" ></option>
+                                    <option selected>แผนกอายุรกรรม</option>
+                                    <option>ศัลยกรรม</option>
+                                    <option>สูติ</option>
+                                    <option>จักษุ</option>
+                                    <option>โรคผิวหนัง</option>
+                                    <option>อวัยวะปัสสาวะ</option>
+                                    <option>หัวใจ</option>
+                                    <option>หู คอ จมูก</option>
+                                    <option>รังสี</option>
+                                    <option>รักษาโรคในช่องปากและฟัน</option>
+                                </select>
+                            </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" checked></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td> <input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
+                        <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                     </tr>
                     <tr>
                         <td> 2 </td>
-                        <td> D02 </td>
-                        <td> SN02 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> HS002 </td>
+                        <td> 1959800098399 </td>
+                        <td> นายแพทย์พัทธนันท์ </td>
+                        <td> อัครพันธุ์ธัช </td>
+                        <td> <select id="multiple" class="form-control select2" ></option>
+                                <option >แผนกอายุรกรรม</option>
+                                <option>ศัลยกรรม</option>
+                                <option>สูติ</option>
+                                <option>จักษุ</option>
+                                <option>โรคผิวหนัง</option>
+                                <option>อวัยวะปัสสาวะ</option>
+                                <option selected>หัวใจ</option>
+                                <option>หู คอ จมูก</option>
+                                <option>รังสี</option>
+                                <option>รักษาโรคในช่องปากและฟัน</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" checked></td>
+                        <td> <input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
                         <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                     </tr>
                     <tr>
                         <td> 3 </td>
-                        <td> D03 </td>
-                        <td> SN03 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> HS003 </td>
+                        <td> 1959800098399 </td>
+                        <td> นายแพทย์พัทธนันท์ </td>
+                        <td> อัครพันธุ์ธัช </td>
+                        <td> <select id="multiple" class="form-control select2" ></option>
+                                <option >แผนกอายุรกรรม</option>
+                                <option>ศัลยกรรม</option>
+                                <option>สูติ</option>
+                                <option>จักษุ</option>
+                                <option selected>โรคผิวหนัง</option>
+                                <option>อวัยวะปัสสาวะ</option>
+                                <option>หัวใจ</option>
+                                <option>หู คอ จมูก</option>
+                                <option>รังสี</option>
+                                <option>รักษาโรคในช่องปากและฟัน</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td> <input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" checked></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
                         <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                    </tr>
                     <tr>
                         <td> 4 </td>
-                        <td> D04 </td>
-                        <td> SN04 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> HS004 </td>
+                        <td> 1959800098399 </td>
+                        <td> นายแพทย์พัทธนันท์ </td>
+                        <td> อัครพันธุ์ธัช </td>
+                        <td> <select id="multiple" class="form-control select2" ></option>
+                                <option >แผนกอายุรกรรม</option>
+                                <option>ศัลยกรรม</option>
+                                <option selected>สูติ</option>
+                                <option>จักษุ</option>
+                                <option>โรคผิวหนัง</option>
+                                <option>อวัยวะปัสสาวะ</option>
+                                <option>หัวใจ</option>
+                                <option>หู คอ จมูก</option>
+                                <option>รังสี</option>
+                                <option>รักษาโรคในช่องปากและฟัน</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td> <input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" checked> </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
                         <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                     </tr>
                     <tr>
                         <td> 5 </td>
-                        <td> D05 </td>
-                        <td> SN05 </td>
-                        <td> Smallpox </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                        <td> HS005 </td>
+                        <td> 1959800098399 </td>
+                        <td> นายแพทย์พัทธนันท์ </td>
+                        <td> อัครพันธุ์ธัช </td>
+                        <td> <select id="multiple" class="form-control select2" ></option>
+                                <option >แผนกอายุรกรรม</option>
+                                <option selected>ศัลยกรรม</option>
+                                <option>สูติ</option>
+                                <option>จักษุ</option>
+                                <option>โรคผิวหนัง</option>
+                                <option>อวัยวะปัสสาวะ</option>
+                                <option>หัวใจ</option>
+                                <option>หู คอ จมูก</option>
+                                <option>รังสี</option>
+                                <option>รักษาโรคในช่องปากและฟัน</option>
+                            </select>
+                        </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td> <input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ></td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" > </td>
+                        <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" checked> </td>
                         <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                     </tr>
                     </tbody>
