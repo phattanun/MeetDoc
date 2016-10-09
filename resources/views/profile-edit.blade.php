@@ -17,6 +17,8 @@
     <link href="{{url('assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -245,8 +247,29 @@
                         </div>
                     </div>
                 </div>
+                <button class="btn red btn-block" data-toggle="modal" data-target="#removeModal">ลบบัญชีผู้ใช้นี้ออกจากฐานข้อมูล</button>
             </div>
             <!-- END PROFILE CONTENT -->
+        </div>
+    </div>
+
+
+    <div id="removeModal" class="modal fade" tabindex="-1" data-width="480">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">ลบบัญชีผู้ใช้ของนายพัทธนันท์ อัครพันธุ์ธัช</h4>
+        </div>
+        <div class="modal-body">
+            <div class="caption text-center">
+                <i class="glyphicon glyphicon-alert font-red"></i>
+                <span class="caption-subject font-red sbold uppercase">ท่านแน่ใจหรือไม่ว่าต้องการลบบัญชีผู้ใช้นี้</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                <span class="ladda-label">ยืนยัน</span>
+                <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
     </div>
 @endsection
@@ -257,11 +280,14 @@
     <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
 @endsection
 
