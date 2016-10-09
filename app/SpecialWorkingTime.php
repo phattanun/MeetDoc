@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DateDim extends Model
+class SpecialWorkingTime extends Model
 {
-    protected $table = 'date_dim';
+    protected $table = 'special_working_time';
     public $timestamps = false;
 }

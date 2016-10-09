@@ -8,11 +8,18 @@
     </ul>
     <h3>WorkingTimeController</h3>
     <ul>
+        <li><a href="{{ action('WorkingTimeController@getWorkingTime') }}">getWorkingTime</a></li>
         <li>Normal WorkingTime</li>
         <ul>
             <li><a href="{{ action('WorkingTimeController@getNormalWorkingTime') }}">get</a></li>
             <li><a href="{{ action('WorkingTimeController@addNormalWorkingTime') }}">add</a></li>
             <li><a href="{{ action('WorkingTimeController@deleteNormalWorkingTime') }}">delete</a></li>
+        </ul>
+        <li>Special WorkingTime</li>
+        <ul>
+            <li><a href="{{ action('WorkingTimeController@getSpecialWorkingTime') }}">get</a></li>
+            <li><a href="{{ action('WorkingTimeController@addSpecialWorkingTime') }}">add</a></li>
+            <li><a href="{{ action('WorkingTimeController@deleteSpecialWorkingTime') }}">delete</a></li>
         </ul>
     </ul>
 @elseif($page == "get")
@@ -138,6 +145,56 @@
                 <option value="M">Morning   ( 8.00 - 11.00)</option>
                 <option value="A">Afternoon (13.00 - 18.00)</option>
             </select><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "addSpecialWorkingTime")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            Doctor SSN:
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            Date:
+            <input type="date"      name="date"></input><br>
+            Time:
+            <select name="time">
+                <option value="M">Morning   ( 8.00 - 11.00)</option>
+                <option value="A">Afternoon (13.00 - 18.00)</option>
+            </select><br>
+            Task:
+            <select name="type">
+                <option value="sub">Cancel</option>
+                <option value="add">Attend</option>
+            </select><br>
+            Department id:
+            <select name="dept_id">
+                <option value=""></option>
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+            </select><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "deleteSpecialWorkingTime")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            Doctor SSN:
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            Date:
+            <input type="date"      name="date"></input><br>
+            Time:
+            <select name="time">
+                <option value="M">Morning   ( 8.00 - 11.00)</option>
+                <option value="A">Afternoon (13.00 - 18.00)</option>
+            </select><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "getWorkingTime")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            Doctor SSN:
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            From: <input type="date" name="from"></input><br>
+            To:   <input type="date" name="to"></input><br>
             <button type="submit">Submit</button>
         </form>
     @else
