@@ -206,7 +206,7 @@
                                                 </select>
                                             </div>
                                             <div class="margiv-top-10">
-                                                <a href="javascript:;" class="btn green"> บีนทึกการแก้ไข </a>
+                                                <a href="javascript:;" class="btn green"> บันทึกการแก้ไข </a>
                                                 <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
