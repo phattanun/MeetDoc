@@ -1,6 +1,6 @@
 @extends('masterpage')
 
-@section('accountNav')
+@section('profileNav')
     active
 @endsection
 
