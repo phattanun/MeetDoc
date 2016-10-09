@@ -1,6 +1,6 @@
 @extends('masterpage')
 
-@section('profileNav')
+@section('accountNav')
     active
 @endsection
 
@@ -234,8 +234,8 @@
                                                 </div>
                                             </div>
                                             <div class="margin-top-10">
-                                                <a href="javascript:;" class="btn green"> Submit </a>
-                                                <a href="javascript:;" class="btn default"> Cancel </a>
+                                                <a href="javascript:;" class="btn green"> อัพโหลด </a>
+                                                <a href="javascript:;" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
                                     </div>
