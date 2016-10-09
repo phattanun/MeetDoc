@@ -1,11 +1,11 @@
 @extends('masterpage')
 
-@section('diseaseNav')
+@section('officerNav')
     active
 @endsection
 
 @section('title')
-    จัดการข้อมูลรหัสโรค
+    จัดการแผนกและสิทธิ์บุคลากร
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -30,7 +30,7 @@
         <div class="portlet-title">
             <div class="caption caption-md">
                 <i class="icon-globe theme-font hide"></i>
-                <span class="caption-subject font-blue-madison bold uppercase">ค้นหารหัสโรคที่ต้องการดู/แก้ไข/ลบข้อมูล</span>
+                <span class="caption-subject font-blue-madison bold uppercase">เพิ่มบุคลากร</span>
             </div>
         </div>
         <div class="portlet-body">
@@ -38,23 +38,20 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="row">
-                            <label class="col-md-2 control-label text-right">โรค
+                            <label class="col-md-3 control-label text-right">ค้นหาบัญชีผู้ใช้
                                 <span class="required" aria-required="true"> * </span>
                             </label>
-                            <div class="col-md-10">
+                            <div class="col-md-8 margin-bottom-10">
                                 <input class="form-control" name="" placeholder="กรุณากรอกชื่อโรค รหัสโรค SNOMED หรือ รหัสโรค ICD10" />
                             </div>
+                            <div class="col-md-1">
+                                <div class="form-actions right1">
+                                    <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                                        <span class="ladda-label">เพิ่ม</span>
+                                        <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-actions right1">
-                        <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
-                            <span class="ladda-label">ค้นหา</span>
-                            <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
-                        <button type="button" class="btn default">ยกเลิก</button>
                     </div>
                 </div>
             </div>
@@ -331,7 +328,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
                     <div class="col-md-9">
-                        <input class="form-control"  value="" id="form_control_1"  type="text">
+                        <input class="form-control"  value="D01" id="form_control_1"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -340,7 +337,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
                     <div class="col-md-9">
-                        <input class="form-control" value="" id="form_control_1"  type="text">
+                        <input class="form-control" value="SN01" id="form_control_1"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -349,7 +346,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
                     <div class="col-md-9">
-                        <input class="form-control"  value="" id="form_control_1"  type="text">
+                        <input class="form-control"  value="Smallpox" id="form_control_1"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>

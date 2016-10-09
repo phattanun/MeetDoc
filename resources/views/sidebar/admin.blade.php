@@ -7,7 +7,7 @@
 <li class="nav-item  @yield('officerNav')">
     <a href="{{url('/officer/manage')}}" class="nav-link nav-toggle">
         <i class="fa fa-user-md"></i>
-        <span class="title">จัดการข้อมูลบุคลากร</span>
+        <span class="title">จัดการแผนกและสิทธิ์บุคลากร</span>
     </a>
 </li>
 <li class="nav-item @yield('diseaseNav')">
