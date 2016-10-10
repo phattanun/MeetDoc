@@ -42,13 +42,15 @@
         {{ csrf_field() }}
 
         <h3 class="form-title font-green">ลงชื่อเข้าใช้</h3>
-        @if (isset($error))
-            <h4> {{ $error }} </h4>
-        @endif
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
             <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
         </div>
+        @if(isset($error))
+            <div class="alert alert-danger" id="error-alert">
+                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง
+            </div>
+        @endif
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">เลขบัตรประจำตัวประชาชน</label>

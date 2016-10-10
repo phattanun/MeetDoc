@@ -43,7 +43,7 @@
 
         <h3 class="font-green">ลงทะเบียน</h3>
         @if(isset($error))
-            <div class="alert alert-danger" id="password-reset-alert">
+            <div class="alert alert-danger" id="register-alert">
                 <strong>ผิดพลาด!</strong> {{$error}}
             </div>
         @endif
