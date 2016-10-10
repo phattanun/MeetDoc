@@ -26,11 +26,12 @@ Route::get('/doctor/appointment', 'ProfileController@test3');
 Route::get('/queue', 'ProfileController@test4');
 
 //Auth
-Route::auth();
+// Route::auth();
+Route::get('/home', 'ProfileController@index');
+Route::get('/login', function() { return View::make('auth/login'); });
 Route::get('/login/officer', 'Auth\AuthController@officerLoginPage');
 
-Route::get('/home', 'ProfileController@index');
-
+Route::post('/register', 'PagesController@register');
 
 // Backend
 Route::get('/backend', function() {

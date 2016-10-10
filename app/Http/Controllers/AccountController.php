@@ -30,25 +30,26 @@ class AccountController extends Controller
     }
 
     public function register(Request $request) {
-        echo "Adding New User..";
-        var_dump($request->all());
+        // echo "Adding New User..";
+        // var_dump($request->all());
         try {
             $new_user = new User;
-            $new_user->ssn = $request->ssn;
+            $new_user->ssn = $request->id;
             $new_user->name = $request->name;
             $new_user->surname = $request->surname;
             $new_user->gender = $request->gender;
             $new_user->email = $request->email;
             $new_user->address = $request->address;
-            $new_user->phone_no = $request->phone_no;
+            $new_user->phone_no = $request->phone;
             $new_user->password = $request->password;
             $new_user->save();
         }
         catch (\Exception $e) {
-            echo "<h2>Error</h2>";
+            // echo "<h2>Error :".$e->getMessage()."</h2>";
+            return "ขออภัย หมายเลขบัตรประจำตัวประชาชนซ้ำ";
         }
-
-        $this->getUserList();
+        // $this->getUserList();
+        return "Success";
     }
 
 

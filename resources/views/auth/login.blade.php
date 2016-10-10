@@ -42,6 +42,9 @@
         {{ csrf_field() }}
 
         <h3 class="form-title font-green">ลงชื่อเข้าใช้</h3>
+        @if (isset($error))
+            <h4> {{ $error }} </h4>
+        @endif
         <div class="alert alert-danger display-hide">
             <button class="close" data-close="alert"></button>
             <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
