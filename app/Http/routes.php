@@ -3,6 +3,9 @@
 Route::get('/', function () {
     return view('masterpage');
 });
+//everyone
+Route::get('/password/reset', 'ProfileController@passwordResetPage');
+Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
 
 //Patient
 Route::get('/profile', 'ProfileController@index');

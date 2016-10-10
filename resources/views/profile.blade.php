@@ -205,6 +205,8 @@
                                                     </optgroup>
                                                 </select>
                                             </div>
+                                            <div class="form-group">
+                                                <a href="{{url('password/reset')}}" class="btn btn-warning"> เปลี่ยนรหัสผ่าน </a> </div>
                                             <div class="margiv-top-10">
                                                 <a href="javascript:;" class="btn green"> บันทึกการแก้ไข </a>
                                                 <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>

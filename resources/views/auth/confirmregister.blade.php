@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>เปลี่ยนรหัสผ่าน</title>
+    <title>ลงชื่อเข้าใช้</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
@@ -41,18 +41,10 @@
     <form class="login-form" action="{{ url('/login') }}" method="post">
         {{ csrf_field() }}
 
-        <h3 class="form-title font-green">เปลี่ยนรหัสผ่าน</h3>
-        @if (isset($error))
-            <h4> {{ $error }} </h4>
-        @endif
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">รหัสผ่านใหม่</label>
-            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="รหัสผ่านใหม่" name="password" /> </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">ยืนยันรหัสผ่านใหม่</label>
-            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="ยืนยันรหัสผ่านใหม่" name="rpassword" /> </div>
-        <div >
-            <button type="submit" class="btn green">ยืนยัน</button>
+        <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>ขอลงทะเบียนสำเร็จ</h3>
+        <div class="caption text-center">
+            {{--<i class="glyphicon glyphicon-alert font-red"></i>--}}
+            <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการลงทะเบียนไปทางอีเมลของท่าน<br>กรุณายืนยันการลงทะเบียนภายใน 1 วัน</span>
         </div>
     </form>
     <!-- END LOGIN FORM -->
