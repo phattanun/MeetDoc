@@ -140,11 +140,11 @@
             <div class="col-md-10">
                 <div class="mt-radio-inline">
                     <label class="mt-radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios25" value="male" checked> ชาย
+                        <input name="gender" type="radio" name="optionsRadios" id="optionsRadios25" value="male" checked> ชาย
                         <span></span>
                     </label>
                     <label class="mt-radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios26" value="female" checked> หญิง
+                        <input name="gender"  type="radio" name="optionsRadios" id="optionsRadios26" value="female" checked> หญิง
                         <span></span>
                     </label>
                 </div>
