@@ -30,11 +30,11 @@
         .fa-male{
             color: blue;
         }
-        .first-no-column thead tr .first{
-            width: 50px;
+        .first-no-column thead tr .first,.first-no-column tbody tr .first{
+            width: 25px;
         }
-        .first-no-column thead tr .last{
-            width: 200px;
+        .first-no-column thead tr .last,.first-no-column tbody tr .last{
+            width: 375px;
         }
         .portlet.light.modal-portlet{
             padding: 0px;
@@ -259,7 +259,210 @@
                             <!-- END CHECK PHYSICAL DATA TAB -->
                             <!-- BEGIN WAIT DOCTOR TAB -->
                             <div class="tab-pane" id="tab_modal_2">
-                                หกดหกด
+                                <!-- BEGIN HISTORY TABLE -->
+                                <div class="normal-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="portlet light ">
+                                                <div class="portlet-title">
+                                                    <div class="caption caption-md">
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ประวัติการรักษา</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <!-- BEGIN TABLE -->
+                                                    <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="first"> ครั้งที่ </th>
+                                                            <th> วันที่ </th>
+                                                            <th> ช่วง </th>
+                                                            <th> แพทย์ </th>
+                                                            <th> แผนก </th>
+                                                            <th> อาการ </th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="first">1</td>
+                                                            <td>12/10/2559</td>
+                                                            <td>เช้า</td>
+                                                            <td>นายแพทย์สวัสดี หายไวไวนะ</td>
+                                                            <td>แผนกหู คอ จมูก</td>
+                                                            <td>ใกล้หายแล้ว ไม่รู้จะมาทำไม</td>
+                                                            <td><a type="button" class="btn btn-default"><i class="fa fa-user"></i> ดูประวัติ</a></td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <!-- END TABLE -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END HISTORY TABLE -->
+
+                                <div class="normal-content">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="portlet light ">
+                                                <!-- BEGIN PHYSICAL DATA FORM -->
+                                                <div class="portlet-title">
+                                                    <div class="caption caption-md">
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลกายภาพ</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body margin-bottom-20">
+                                                    <!-- BEGIN FORM -->
+                                                    <div class="portlet-body form">
+                                                        <form class="form-horizontal" role="form">
+                                                            <div class="form-body" style="padding-bottom: 0px;">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">น้ำหนัก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="กิโลกรัม" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ส่วนสูง</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="เซนติเมตร" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">อุณหภูมิร่างกาย</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="องศาเซลเซียส" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ความดันซิสโทลิก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ความดันไดแอสโทลิก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">อัตราการเต้นของหัวใจ</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="ครั้ง/นาที" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- END FORM -->
+                                                </div>
+                                                <!-- END PHYSICAL DATA FORM -->
+
+                                                <!-- BEGIN DIAGNOSIS FORM -->
+                                                <div class="portlet-title">
+                                                    <div class="caption caption-md">
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลวินิจฉัยโรค</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <!-- BEGIN FORM -->
+                                                    <div class="portlet-body form">
+                                                        <form class="form" role="form">
+                                                            <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="select2-button-addons-single-input-group" class="control-label">โรคที่วินิจฉัยได้</label>
+                                                                        <div class="input-group input-group select2-bootstrap-append">
+                                                                            <select id="" class="form-control js-data-example-ajax" multiple>
+                                                                                <option value="0" selected="selected">กรุณาระบุโรค</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group margin-top-20">
+                                                                    <label>รายละเอียดของโรค</label>
+                                                                    <textarea class="form-control" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- END FORM -->
+                                                </div>
+                                                <!-- END DIAGNOSIS FORM -->
+
+                                                <!-- BEGIN MEDICINE FORM -->
+                                                <div class="portlet-title">
+                                                    <div class="caption caption-md">
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลสั่งยา</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <!-- BEGIN TABLE -->
+                                                    <div class="table-scrollable">
+                                                        <table class="table table-striped table-hover medicine-table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th> ลำดับที่ </th>
+                                                                <th> รหัสยา </th>
+                                                                <th> ชื่อยา </th>
+                                                                <th> จำนวน </th>
+                                                                <th> หน่วย </th>
+                                                                <th> หมายเหตุ </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td> 1 </td>
+                                                                <td> MD22531 </td>
+                                                                <td> Paracetamol </td>
+                                                                <td> <input class="touchspin" type="text" value="" name=""> </td>
+                                                                <td>
+                                                                    <select class="form-control">
+                                                                        <option>Option 1</option>
+                                                                        <option>Option 2</option>
+                                                                        <option>Option 3</option>
+                                                                        <option>Option 4</option>
+                                                                        <option>Option 5</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td> <input class="form-control" type="text" value="" name=""> </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- END TABLE -->
+                                                </div>
+                                                <!-- END MEDICINE FORM -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                             </div>
                             <!-- END WAIT DOCTOR TAB -->
 
@@ -527,11 +730,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1()"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
                                                     <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2()"><i class="fa fa-history"></i> ประวัติการรักษา</a>
                                                     <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -541,11 +744,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -555,11 +758,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -569,11 +772,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -583,11 +786,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -597,11 +800,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -611,11 +814,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -625,11 +828,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -639,11 +842,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -653,11 +856,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>1</td>
@@ -667,11 +870,11 @@
                                                 <td>21</td>
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
-                                                <th>
+                                                <td class="last">
                                                     <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
                                                     <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </th>
+                                                </td>
                                             </tr>
 
                                             </tbody>
