@@ -8,6 +8,10 @@
     ลงทะเบียนผู้ป่วยเข้ารับการตรวจ
 @endsection
 
+@section('title-inside')
+    ลงทะเบียนผู้ป่วยเข้ารับการตรวจ
+@endsection
+
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
 @endsection

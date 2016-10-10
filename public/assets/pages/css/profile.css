@@ -146,3 +146,7 @@
 .bootstrap-tagsinput {
   display: block;
 }
+.mt-radio-inline {
+  margin-bottom: 0px;
+  height: 30px;
+}

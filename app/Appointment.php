@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DateDim extends Model
+class Appointment extends Model
 {
-    protected $table = 'date_dim';
+    protected $table = 'appointment';
     public $timestamps = false;
 }

@@ -46,9 +46,14 @@
             <button class="close" data-close="alert"></button>
             <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
         </div>
+        @if(isset($error))
+            <div class="alert alert-danger" id="error-alert">
+                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง
+            </div>
+        @endif
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <label class="control-label visible-ie8 visible-ie9">เลขบัตรประจำตัวประชาชน</label>
             <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" />
             @if ($errors->has('email'))
                 <span class="help-block">
@@ -57,7 +62,7 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <label class="control-label visible-ie8 visible-ie9">รหัสผ่าน</label>
             <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="password" type="password" autocomplete="on" placeholder="รหัสผ่าน" name="password" />
             @if ($errors->has('password'))
                 <span class="help-block">
@@ -71,130 +76,15 @@
                 <input type="checkbox" name="remember" value="1" />จำฉันไว้ในระบบ
                 <span></span>
             </label>
-            <a href="javascript:;" id="forget-password" class="forget-password">ลืมรหัสผ่าน?</a>
+            <a href="{{url('password/forget')}}" id="forget-password" class="forget-password">ลืมรหัสผ่าน?</a>
         </div>
         <div class="create-account">
             <p>
-                <a href="javascript:;" id="register-btn" class="uppercase">ลงทะเบียน</a>
+                <a href="{{url('register')}}" id="register-btn" class="uppercase">ลงทะเบียน</a>
             </p>
         </div>
     </form>
     <!-- END LOGIN FORM -->
-    <!-- BEGIN FORGOT PASSWORD FORM -->
-    <form class="forget-form" action="{{ url('/password/email') }}" method="post">
-
-        {{ csrf_field() }}
-
-        <h3 class="font-green">ลืมรหัสผ่าน ?</h3>
-        <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่ </p>
-        <div class="form-group">
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('email') }}" />
-            @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-actions">
-            <button type="button" id="back-btn" class="btn green btn-outline">Back</button>
-            <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
-        </div>
-    </form>
-    <!-- END FORGOT PASSWORD FORM -->
-    <!-- BEGIN REGISTRATION FORM -->
-    <form class="register-form" action="{{ url('/register') }}" method="post">
-        {{ csrf_field() }}
-
-        <h3 class="font-green">ลงทะเบียน</h3>
-        <p class="hint"> กรุณาระบุข้อมูลต่อไปนี้: </p>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">ชื่อ</label>
-            <input class="form-control{{ $errors->has('name') ? ' has-error' : '' }} placeholder-no-fix" id="name" type="text" placeholder="ชื่อ" name="name" value="{{ old('name') }}" />
-            @if ($errors->has('name'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('name') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">นามสกุล</label>
-            <input class="form-control{{ $errors->has('surname') ? ' has-error' : '' }} placeholder-no-fix" id="surname" type="text" placeholder="นามสกุล" name="surname" value="{{ old('surname') }}" />
-            @if ($errors->has('surname'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('surname') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <div class="row">
-            <label class="col-md-2 control-label">เพศ</label>
-            <div class="col-md-10">
-                <div class="mt-radio-inline">
-                    <label class="mt-radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios25" value="male" checked> ชาย
-                        <span></span>
-                    </label>
-                    <label class="mt-radio">
-                        <input type="radio" name="optionsRadios" id="optionsRadios26" value="female" checked> หญิง
-                        <span></span>
-                    </label>
-                </div>
-            </div>
-                </div>
-        </div>
-        <div class="form-group">
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">อีเมล</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" id="email"  type="text" placeholder="อีเมล" name="email" />
-            @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">ที่อยู่</label>
-            <textarea class="form-control{{ $errors->has('address') ? ' has-error' : '' }} placeholder-no-fix" id="address" style="height: 100px;"  placeholder="ที่อยู่" name="address" ></textarea>
-            @if ($errors->has('address'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('address') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">หมายเลขโทรศัพท์เคลื่อนที่</label>
-            <input class="form-control{{ $errors->has('phone') ? ' has-error' : '' }} placeholder-no-fix" id="mask_number"  type="text" placeholder="หมายเลขโทรศัพท์เคลื่อนที่" name="phone" />
-            @if ($errors->has('phone'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('phone') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">รหัสผ่าน</label>
-            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} placeholder-no-fix" id="password"  type="password" autocomplete="off" id="register_password" placeholder="รหัสผ่าน" name="password" />
-            @if ($errors->has('password'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">ยืนยันรหัสผ่าน</label>
-            <input class="form-control{{ $errors->has('password_confirmation') ? ' has-error' : '' }} placeholder-no-fix" id="password-confirm"  type="password" autocomplete="off" placeholder="ยืนยันรหัสผ่าน" name="password_confirmation" />
-            @if ($errors->has('password_confirmation'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password_confirmation') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-actions">
-            <button type="button" id="register-back-btn" class="btn green btn-outline">ย้อนกลับ</button>
-            <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">สมัครสมาชิก</button>
-        </div>
-    </form>
 </div>
 <div class="copyright">
     2016 © MeetDoc<sup>+</sup>

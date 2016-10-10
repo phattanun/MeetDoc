@@ -1,14 +1,15 @@
 @extends('masterpage')
 
-@section('profileNav')
+@section('accountNav')
     active
 @endsection
 
 @section('title')
-    ข้อมูลส่วนตัว
+    จัดการบัญชีผู้ใช้/แก้ไขข้อมูลส่วนตัวของ นายพัทธนันท์ อัครพันธุ์ธัช
 @endsection
+
 @section('title-inside')
-    ข้อมูลส่วนตัว
+    <a href="{{url('account/manage')}}">จัดการบัญชีผู้ใช้</a> / แก้ไขข้อมูลส่วนตัวของ นายพัทธนันท์ อัครพันธุ์ธัช
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -16,6 +17,8 @@
     <link href="{{url('assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -97,61 +100,51 @@
                                 <div class="tab-content">
                                     <!-- PERSONAL INFO TAB -->
                                     <div class="tab-pane active" id="tab_1_1">
-                                        <form id="profile-form" role="form" action="{{ url('/profile') }}" method="post">
-                                            {{ csrf_field() }}
-                                            @if(isset($success)&&$success)
-                                                <div class="alert alert-success" id="success-alert">
-                                                    <strong>สำเร็จ!</strong> ระบบบันทึกการแก้ไขเรียบร้อย </div>
-                                            @elseif(isset($success)&&!$success)
-                                                <div class="alert alert-danger" id="fail-alert">
-                                                    <strong>ผิดพลาด!</strong> {{$error}} </div>
-                                            @else
-                                            @endif
+                                        <form role="form" action="#">
                                             <div class="form-group form-md-line-input">
                                                 <div class="form-control form-control-static"> 5631011021 </div>
-                                                <label id="hid" for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
-                                            </div>
-                                            <div class="form-group form-md-line-input">
-                                                <div class="form-control form-control-static"> 1959800098399 </div>
-                                                <label id="id" for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
+                                                <label for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
                                             </div>
                                             <hr>
                                             <div class="form-group">
+                                                <label class="control-label">เลขบัตรประจำตัวประชาชน</label>
+                                                <input type="text" placeholder="กรุณากรอกเลชบัตรประจำตัวประชาชนของท่าน" class="form-control" value="1959800098399" /> </div>
+                                            <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
-                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
+                                                <input type="text" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">นามสกุล</label>
-                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
+                                                <input type="text" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
                                             <div class="form-group">
-                                                    <label class="control-label">เพศ</label>
-                                                        <div class="mt-radio-inline">
-                                                        <label class="mt-radio">
-                                                            <input name="gender" id="male" @if(isset($gender)&&$gender=='male') checked @endif value = "male" type="radio"> ชาย
-                                                            <span></span>
-                                                        </label>
-                                                        <label class="mt-radio">
-                                                            <input name="gender" id="female" @if(isset($gender)&&$gender=='female') checked @endif value="female"  type="radio"> หญิง
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
+                                                <label class="control-label">เพศ</label>
+                                                <div class="mt-radio-inline">
+                                                    <label class="mt-radio">
+                                                        <input name="optionsRadios" id="optionsRadios25" value="male" checked="" type="radio"> ชาย
+                                                        <span></span>
+                                                    </label>
+                                                    <label class="mt-radio">
+                                                        <input name="optionsRadios" id="optionsRadios26" value="female" checked="" type="radio"> หญิง
+                                                        <span></span>
+                                                    </label>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
-                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" />
+                                                <input class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" />
                                                 <span class="help-block"> * ใช้ปีพุทธศักราช </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">อีเมล</label>
-                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" /> </div>
+                                                <input type="email" placeholder="john.doe@meetdoc.com" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ที่อยู่</label>
-                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" ></textarea> </div>
+                                                <textarea type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" ></textarea> </div>
                                             <div class="form-group">
                                                 <label class="control-label">หมายเลขโทรศัพท์</label>
-                                                <input id="phone" name="phone" type="text" placeholder="0899999999" class="form-control" /> </div>
+                                                <input type="text" placeholder="0899999999" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
-                                                <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
+                                                <select id="multiple" class="form-control select2-multiple" multiple>
                                                     <optgroup label="Alaskan">
                                                         <option value="AK">Alaska</option>
                                                         <option value="HI" disabled="disabled">Hawaii</option>
@@ -214,10 +207,8 @@
                                                     </optgroup>
                                                 </select>
                                             </div>
-                                            <div class="form-group">
-                                                <a href="{{url('password/reset')}}" class="btn btn-warning"> เปลี่ยนรหัสผ่าน </a> </div>
                                             <div class="margiv-top-10">
-                                                <button type="submit" class="btn green"> บันทึกการแก้ไข </button>
+                                                <a href="javascript:;" class="btn green"> บันทึกการแก้ไข </a>
                                                 <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
@@ -256,8 +247,29 @@
                         </div>
                     </div>
                 </div>
+                <button class="btn red btn-block" data-toggle="modal" data-target="#removeModal">ลบบัญชีผู้ใช้นี้ออกจากฐานข้อมูล</button>
             </div>
             <!-- END PROFILE CONTENT -->
+        </div>
+    </div>
+
+
+    <div id="removeModal" class="modal fade" tabindex="-1" data-width="480">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">ลบบัญชีผู้ใช้ของนายพัทธนันท์ อัครพันธุ์ธัช</h4>
+        </div>
+        <div class="modal-body">
+            <div class="caption text-center">
+                <i class="glyphicon glyphicon-alert font-red"></i>
+                <span class="caption-subject font-red sbold uppercase">ท่านแน่ใจหรือไม่ว่าต้องการลบบัญชีผู้ใช้นี้</span>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                <span class="ladda-label">ยืนยัน</span>
+                <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
     </div>
 @endsection
@@ -268,11 +280,14 @@
     <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
 @endsection
 

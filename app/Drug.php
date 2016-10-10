@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DateDim extends Model
+class Drug extends Model
 {
-    protected $table = 'date_dim';
+    protected $table = 'drug';
     public $timestamps = false;
 }

@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>เปลี่ยนรหัสผ่าน</title>
+    <title>ลงชื่อเข้าใช้</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
@@ -37,25 +37,35 @@
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
 <div class="content">
-    <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="{{ url('/login') }}" method="post">
+    <!-- BEGIN FORGOT PASSWORD FORM -->
+    <form class="forget-form" action="{{ url('/password/reset') }}" method="post">
+
         {{ csrf_field() }}
 
-        <h3 class="form-title font-green">เปลี่ยนรหัสผ่าน</h3>
-        @if (isset($error))
-            <h4> {{ $error }} </h4>
+        <h3 class="font-green">ลืมรหัสผ่าน ?</h3>
+        @if(isset($success)&&$success)
+            <div class="alert alert-success" id="password-reset-success-alert">
+                <strong>สำเร็จ!</strong> ระบบได้ทำการส่งจดหมายเพื่อเปลี่ยนรหัสผ่านไปที่อีเมลของท่านแล้ว กรุณาทำการเปลี่ยนรหัสผ่านภายใน 1 วัน. </div>
+        @elseif(isset($success)&&!$success)
+            <div class="alert alert-danger" id="password-reset-alert">
+                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง </div>
+        @else
         @endif
+        <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่</p>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">รหัสผ่านใหม่</label>
-            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="รหัสผ่านใหม่" name="password" /> </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">ยืนยันรหัสผ่านใหม่</label>
-            <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="ยืนยันรหัสผ่านใหม่" name="rpassword" /> </div>
-        <div >
-            <button type="submit" class="btn green">ยืนยัน</button>
+            <input class="form-control{{ $errors->has('id') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}" />
+            @if ($errors->has('id'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('id') }}</strong>
+                </span>
+            @endif
+        </div>
+        <div class="form-actions">
+            <a href="{{url('login')}}" type="button" id="back-btn" class="btn green btn-outline">Back</a>
+            <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
         </div>
     </form>
-    <!-- END LOGIN FORM -->
+    <!-- END FORGOT PASSWORD FORM -->
 </div>
 <div class="copyright">
     2016 © MeetDoc<sup>+</sup>

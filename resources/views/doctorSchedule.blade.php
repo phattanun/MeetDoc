@@ -8,6 +8,10 @@
     แก้ไขตารางออกตรวจ
 @endsection
 
+@section('title-inside')
+    แก้ไขตารางออกตรวจ
+@endsection
+
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
