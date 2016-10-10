@@ -140,11 +140,11 @@
             <div class="col-md-10">
                 <div class="mt-radio-inline">
                     <label class="mt-radio">
-                        <input name="gender" type="radio" name="optionsRadios" id="optionsRadios25" value="male" checked> ชาย
+                        <input name="gender" type="radio" id="optionsRadios25" value="male" checked> ชาย
                         <span></span>
                     </label>
                     <label class="mt-radio">
-                        <input name="gender"  type="radio" name="optionsRadios" id="optionsRadios26" value="female" checked> หญิง
+                        <input name="gender"  type="radio" id="optionsRadios26" value="female" checked> หญิง
                         <span></span>
                     </label>
                 </div>
@@ -188,24 +188,6 @@
             @if ($errors->has('phone'))
                 <span class="help-block">
                     <strong>{{ $errors->first('phone') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">รหัสผ่าน</label>
-            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} placeholder-no-fix" id="password"  type="password" autocomplete="off" id="register_password" placeholder="รหัสผ่าน" name="password" />
-            @if ($errors->has('password'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">ยืนยันรหัสผ่าน</label>
-            <input class="form-control{{ $errors->has('password_confirmation') ? ' has-error' : '' }} placeholder-no-fix" id="password-confirm"  type="password" autocomplete="off" placeholder="ยืนยันรหัสผ่าน" name="password_confirmation" />
-            @if ($errors->has('password_confirmation'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password_confirmation') }}</strong>
                 </span>
             @endif
         </div>
