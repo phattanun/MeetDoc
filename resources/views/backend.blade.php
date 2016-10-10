@@ -22,6 +22,12 @@
             <li><a href="{{ action('WorkingTimeController@deleteSpecialWorkingTime') }}">delete</a></li>
         </ul>
     </ul>
+    <h3>AppointmentController</h3>
+    <ul>
+        <li><a href="{{ action('AppointmentController@getAppointmentList') }}">get</a></li>
+        <li><a href="{{ action('AppointmentController@create') }}">create</a></li>
+        <li><a href="{{ action('AppointmentController@cancel') }}">cancel (and approve)</a></li>
+    </ul>
 @elseif($page == "get")
     <?php
         echo "Dump GET:";
@@ -81,15 +87,18 @@
             {{ csrf_field() }}
             <input type="number"    name="patient_ssn"  placeholder="Patient's SSN"></input><br>
             <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
-            <input type="text"      name="date"         placeholder="Date"></input><br>
+            <input type="date"      name="date"         placeholder="Date"></input><br>
             <select name="time">
                 <option value="M">Morning   ( 8.00 - 11.00)</option>
                 <option value="A">Afternoon (13.00 - 18.00)</option>
             </select><br>
-            <input type="email"     name="email"    placeholder="Email"></input><br>
-            <input type="text"      name="address"  placeholder="Address"></input><br>
-            <input type="number"    name="phone_no"  placeholder="Phone no."></input><br>
-            <input type="password"  name="password" placeholder="Password"></input><br>
+            <input type="text"      name="symptom"      placeholder="Symptom"></input><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "cancel")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="number"    name="id"  placeholder="Appointment's ID"></input><br>
             <button type="submit">Submit</button>
         </form>
     @else

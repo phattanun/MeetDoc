@@ -43,8 +43,11 @@ Route::post('/backend/Account/register', 'AccountController@register');
 Route::post('/backend/Account/getProfile', 'AccountController@getProfile');
 Route::post('/backend/Account/edit', 'AccountController@edit');
 
-// TODO: Appointment
+// Appointment
+Route::get('/backend/Appointment/getAppointmentList', 'AppointmentController@getAppointmentList');
 Route::post('/backend/Appointment/create', 'AppointmentController@create');
+Route::post('/backend/Appointment/cancel', 'AppointmentController@cancel');
+Route::get('/backend/Appointment/cancelApprove', 'AppointmentController@cancelApprove');
 
 
 // Normal WorkingTime
