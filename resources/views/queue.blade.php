@@ -14,6 +14,8 @@
 
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -48,6 +50,12 @@
         .portlet.light.modal-portlet>.portlet-body{
             padding: 20px;
             background: #eef1f5;
+        }
+        .select2-container--bootstrap .select2-selection {
+            font-family: 'Sukhumvit Set';
+        }
+        .medicine-table>thead>tr>td,.medicine-table>tbody>tr>td{
+            vertical-align: middle;
         }
 
     </style>
@@ -257,129 +265,186 @@
 
                             <!-- BEGIN WAIT MEDICINE TAB -->
                             <div class="tab-pane" id="tab_modal_3">
-                                <!-- BEGIN NORMAL SCHEDULE -->
+                                <!-- BEGIN PHYSICAL DATA FORM -->
                                 <div class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <h1 class="page-title">ตารางประจำ</h1>
                                             <div class="portlet light ">
                                                 <div class="portlet-title">
                                                     <div class="caption caption-md">
-                                                        <span class="caption-subject font-blue-madison bold uppercase">แก้ไขตารางออกตรวจประจำ</span>
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลกายภาพ</span>
                                                     </div>
                                                 </div>
                                                 <div class="portlet-body">
-                                                    <!-- BEGIN ADD FORM -->
+                                                    <!-- BEGIN FORM -->
                                                     <div class="portlet-body form">
                                                         <form class="form-horizontal" role="form">
                                                             <div class="form-body" style="padding-bottom: 0px;">
                                                                 <div class="row">
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label class="col-md-3 control-label"><b>เพิ่มวัน</b></label>
-                                                                            <div class="col-md-9">
-                                                                                <select class="form-control">
-                                                                                    <option>วันอาทิตย์</option>
-                                                                                    <option>วันจันทร์</option>
-                                                                                    <option>วันอังคาร</option>
-                                                                                    <option>วันพุธ</option>
-                                                                                    <option>วันพฤหัสบดี</option>
-                                                                                    <option>วันศุกร์</option>
-                                                                                    <option>วันเสาร์</option>
-                                                                                </select>
+                                                                            <label class="col-md-5 control-label">น้ำหนัก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="กิโลกรัม" type="text">
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label class="col-md-3 control-label"><b>ช่วง</b></label>
-                                                                            <div class="col-md-9">
-                                                                                <div class="mt-radio-inline">
-                                                                                    <label class="mt-radio">
-                                                                                        <input type="radio" name="optionsRadios" id="optionsRadios25" value="0" checked=""> เช้า
-                                                                                        <span></span>
-                                                                                    </label>
-                                                                                    <label class="mt-radio">
-                                                                                        <input type="radio" name="optionsRadios" id="optionsRadios26" value="1" checked=""> บ่าย
-                                                                                        <span></span>
-                                                                                    </label>
-                                                                                </div>
+                                                                            <label class="col-md-5 control-label">ส่วนสูง</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="เซนติเมตร" type="text">
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-3">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label class="col-md-3 control-label"><b>แผนก</b></label>
-                                                                            <div class="col-md-9">
-                                                                                <select class="form-control">
-                                                                                    <option>แผนกอายุรกรรม</option>
-                                                                                    <option>แผนกหู คอ จมูก</option>
-                                                                                    <option>แผนกตา</option>
-                                                                                    <option>แผนกกระดูก</option>
-                                                                                    <option>แผนกฉุกเฉิน</option>
-                                                                                </select>
+                                                                            <label class="col-md-5 control-label">อุณหภูมิร่างกาย</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="องศาเซลเซียส" type="text">
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-2">
-                                                                        <button type="submit" class="btn green">เพิ่ม</button>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ความดันซิสโทลิก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ความดันไดแอสโทลิก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">อัตราการเต้นของหัวใจ</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control" placeholder="ครั้ง/นาที" type="text">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </form>
                                                     </div>
-                                                    <!-- END ADD FORM -->
+                                                    <!-- END FORM -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END PHYSICAL DATA FORM -->
+                                <!-- BEGIN DIAGNOSIS FORM -->
+                                <div class="normal-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="portlet light ">
+                                                <div class="portlet-title">
+                                                    <div class="caption caption-md">
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลวินิจฉัยโรค</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <!-- BEGIN FORM -->
+                                                    <div class="portlet-body form">
+                                                        <form class="form" role="form">
+                                                            <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="select2-button-addons-single-input-group" class="control-label">โรคที่วินิจฉัยได้</label>
+                                                                        <div class="input-group input-group select2-bootstrap-append">
+                                                                            <select id="" class="form-control js-data-example-ajax" multiple>
+                                                                                <option value="0" selected="selected">กรุณาระบุโรค</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group margin-top-20">
+                                                                    <label>รายละเอียดของโรค</label>
+                                                                    <textarea class="form-control" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- END FORM -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END DIAGNOSIS FORM -->
+                                <!-- BEGIN MEDICINE FORM -->
+                                <div class="normal-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="portlet light ">
+                                                <div class="portlet-title">
+                                                    <div class="caption caption-md">
+                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลสั่งยา</span>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <!-- BEGIN FORM -->
+                                                    <div class="portlet-body form">
+                                                        <form class="form form-group" role="form">
+                                                            <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                                <div class="row">
+                                                                    <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
+                                                                        <span class="required" aria-required="true"> * </span>
+                                                                    </label>
+                                                                    <div class="col-md-7 margin-bottom-10">
+                                                                        <div class="input-group select2-bootstrap-prepend">
+                                                                            <select class="form-control js-data-example-ajax" multiple></select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <button type="button" class="btn btn-success">เพิ่ม</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <!-- END FORM -->
                                                     <!-- BEGIN TABLE -->
                                                     <div class="table-scrollable">
-                                                        <table class="table table-striped table-hover">
+                                                        <table class="table table-striped table-hover medicine-table">
                                                             <thead>
                                                             <tr>
                                                                 <th> ลำดับที่ </th>
-                                                                <th> วัน </th>
-                                                                <th> ช่วง </th>
-                                                                <th> แผนก </th>
-                                                                <th> ลบ </th>
+                                                                <th> รหัสยา </th>
+                                                                <th> ชื่อยา </th>
+                                                                <th> จำนวน </th>
+                                                                <th> หน่วย </th>
+                                                                <th> หมายเหตุ </th>
+                                                                <th></th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr>
                                                                 <td> 1 </td>
-                                                                <td> วันอาทิตย์ </td>
-                                                                <td> เช้า </td>
-                                                                <td> แผนกหู คอ จมูก </td>
+                                                                <td> MD22531 </td>
+                                                                <td> Paracetamol </td>
+                                                                <td> <input class="touchspin" type="text" value="" name=""> </td>
                                                                 <td>
-                                                                    <a href="javascript:;" class="btn red"> ลบ
-                                                                        <i class="fa fa-trash"></i>
-                                                                    </a>
+                                                                    <select class="form-control">
+                                                                        <option>Option 1</option>
+                                                                        <option>Option 2</option>
+                                                                        <option>Option 3</option>
+                                                                        <option>Option 4</option>
+                                                                        <option>Option 5</option>
+                                                                    </select>
                                                                 </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td> 1 </td>
-                                                                <td> วันอาทิตย์ </td>
-                                                                <td> เช้า </td>
-                                                                <td> แผนกหู คอ จมูก </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn red"> ลบ
-                                                                        <i class="fa fa-trash"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td> 1 </td>
-                                                                <td> วันอาทิตย์ </td>
-                                                                <td> เช้า </td>
-                                                                <td> แผนกหู คอ จมูก </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn red"> ลบ
-                                                                        <i class="fa fa-trash"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td> 1 </td>
-                                                                <td> วันอาทิตย์ </td>
-                                                                <td> เช้า </td>
-                                                                <td> แผนกหู คอ จมูก </td>
+                                                                <td> <input class="form-control" type="text" value="" name=""> </td>
                                                                 <td>
                                                                     <a href="javascript:;" class="btn red"> ลบ
                                                                         <i class="fa fa-trash"></i>
@@ -395,7 +460,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- END NORMAL SCHEDULE -->
+                                <!-- END MEDICINE FORM -->
                             </div>
                             <!-- END WAIT MEDICINE TAB -->
                         </div>
@@ -638,12 +703,24 @@
     <script src="{{url('assets/global/scripts/datatable.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/datatables/datatables.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/select2-diagnosis.full.min.js')}}" type="text/javascript"></script>
+
+    <script src="{{url('assets/global/plugins/fuelux/js/spinner.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
+    <script src="{{url('assets/pages/scripts/components-select2-diagnosis.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
             $('.data-table').DataTable();
+        });
+        $(".touchspin").TouchSpin({
+            min: 0,
+            step: 0.1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10
         });
 
         function goToModalTab1(){
