@@ -32,7 +32,7 @@
         <li><a href="{{ action('AppointmentController@create') }}" target="side">create</a></li>
         <li><a href="{{ action('AppointmentController@cancel') }}" target="side">cancel (and approve)</a></li>
     </ul>
-    <iframe name="side" style="width:100%; height:100%; position:fixed; left:300px; right:0px; top:0px;"></iframe>
+    <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
     <?php
         echo "Dump GET:";
@@ -50,7 +50,7 @@
             {{ csrf_field() }}
             <input type="text"      name="ssn"      placeholder="SSN" pattern="[0-9]*" /><br>
             <input type="text"      name="password" placeholder="Password" /><br>
-            <input type="checkbox"  name="remember_me" />Remember me pls..<br>
+            <input type="checkbox"  name="remember" />Remember me pls..<br>
             <button type="submit">Submit</button>
         </form>
     @elseif($page == "register")

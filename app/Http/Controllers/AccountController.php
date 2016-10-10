@@ -10,12 +10,9 @@ use App\User;
 class AccountController extends Controller
 {
     public function login(Request $request){
-        $userdata = array(
-            'ssn'      => $request->ssn,
-            'password' => $request->password,
-        );
-        var_dump($userdata);
-        if(Auth::attempt($userdata, false))
+        var_dump($request->all());
+        echo "remember = ".(isset($request->remember) ? "true" : "false")."<br>";
+        if(Auth::viaRemember() || Auth::attempt(array('ssn' => $request->ssn, 'password' => $request->password), isset($request->remember)))
             echo 'SUCCESS!';
         else echo 'FAIL!';
     }
