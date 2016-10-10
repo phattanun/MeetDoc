@@ -43,7 +43,6 @@ class AppointmentController extends Controller
             $validate = Appointment::where('patient_ssn', $request->patient_ssn)
                                     ->where('date', $request->date)
                                     ->where('time', $request->time)
-                                    ->where('cancel', False)
                                     ->get()->toArray();
             if(sizeof($validate) > 0)
                 throw new \Exception("Duplicate Appointment", 1);
@@ -70,11 +69,10 @@ class AppointmentController extends Controller
     }
 
     public function cancel(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
         $now = date('Y-m-d H:i:s');
         try {
             $ap = Appointment::findOrFail($request->id);
-            if($ap->cancel)
-                throw new \Exception("Already Cancelled", 1);
             $ap->cancel_time = $now;
             $ap->save();
             echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".$this->generateCancelLink($ap->doctor_ssn, $ap->patient_ssn, $now)."'>here</a>";
@@ -86,12 +84,16 @@ class AppointmentController extends Controller
     }
 
     public function cancelApprove(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = new \DateTime('NOW');
         var_dump($request->all());
         try {
             $ap = Appointment::findOrFail($request->aid);
             if($request->apv == $this->generateCancelLink($ap->doctor_ssn, $ap->patient_ssn, $ap->cancel_time)) {
-                $ap->cancel = True;
-                $ap->save();
+                $cancel_time = new \DateTime($ap->cancel_time);
+                if(($now->getTimeStamp() - $cancel_time->getTimeStamp())/3600 < 24)
+                    $ap->delete();
+                else throw new \Exception("Too late for cancelling", 1);
                 echo "<h2>Canceling Approved</h2>";
             }
         }
