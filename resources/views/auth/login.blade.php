@@ -48,7 +48,7 @@
         </div>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <label class="control-label visible-ie8 visible-ie9">เลขบัตรประจำตัวประชาชน</label>
             <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" />
             @if ($errors->has('email'))
                 <span class="help-block">
@@ -57,7 +57,7 @@
             @endif
         </div>
         <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <label class="control-label visible-ie8 visible-ie9">รหัสผ่าน</label>
             <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="password" type="password" autocomplete="on" placeholder="รหัสผ่าน" name="password" />
             @if ($errors->has('password'))
                 <span class="help-block">
