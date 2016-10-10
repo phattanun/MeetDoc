@@ -1,33 +1,38 @@
 @if( !isset($controller) && !isset($page))
     <h3>AccountController</h3>
     <ul>
-        <li><a href="{{ action('AccountController@getUserList') }}">getUserList</a></li>
-        <li><a href="{{ action('AccountController@register') }}">register</a></li>
-        <li><a href="{{ action('AccountController@edit') }}">editUser</a></li>
-        <li><a href="{{ action('AccountController@getProfile') }}">getProfile</a></li>
+        <li><a href="{{ action('AccountController@login') }}" target="side">login</a></li>
+        <li><a href="{{ action('AccountController@loginStatus') }}" target="side">loginStatus</a></li>
+        <li><a href="{{ action('AccountController@getUserList') }}" target="side">getUserList</a></li>
+        <li><a href="{{ action('AccountController@register') }}" target="side">register</a></li>
+        <li><a href="{{ action('AccountController@edit') }}" target="side">editUser</a></li>
+        <li><a href="{{ action('AccountController@getProfile') }}" target="side">getProfile</a></li>
+        <li><a href="{{ action('AccountController@forgetPassword') }}" target="side">forgetPassword</a></li>
+        <li><a href="{{ action('AccountController@logout') }}" target="side">logout</a></li>
     </ul>
     <h3>WorkingTimeController</h3>
     <ul>
-        <li><a href="{{ action('WorkingTimeController@getWorkingTime') }}">getWorkingTime</a></li>
+        <li><a href="{{ action('WorkingTimeController@getWorkingTime') }}" target="side">getWorkingTime</a></li>
         <li>Normal WorkingTime</li>
         <ul>
-            <li><a href="{{ action('WorkingTimeController@getNormalWorkingTime') }}">get</a></li>
-            <li><a href="{{ action('WorkingTimeController@addNormalWorkingTime') }}">add</a></li>
-            <li><a href="{{ action('WorkingTimeController@deleteNormalWorkingTime') }}">delete</a></li>
+            <li><a href="{{ action('WorkingTimeController@getNormalWorkingTime') }}" target="side">get</a></li>
+            <li><a href="{{ action('WorkingTimeController@addNormalWorkingTime') }}" target="side">add</a></li>
+            <li><a href="{{ action('WorkingTimeController@deleteNormalWorkingTime') }}" target="side">delete</a></li>
         </ul>
         <li>Special WorkingTime</li>
         <ul>
-            <li><a href="{{ action('WorkingTimeController@getSpecialWorkingTime') }}">get</a></li>
-            <li><a href="{{ action('WorkingTimeController@addSpecialWorkingTime') }}">add</a></li>
-            <li><a href="{{ action('WorkingTimeController@deleteSpecialWorkingTime') }}">delete</a></li>
+            <li><a href="{{ action('WorkingTimeController@getSpecialWorkingTime') }}" target="side">get</a></li>
+            <li><a href="{{ action('WorkingTimeController@addSpecialWorkingTime') }}" target="side">add</a></li>
+            <li><a href="{{ action('WorkingTimeController@deleteSpecialWorkingTime') }}" target="side">delete</a></li>
         </ul>
     </ul>
     <h3>AppointmentController</h3>
     <ul>
-        <li><a href="{{ action('AppointmentController@getAppointmentList') }}">get</a></li>
-        <li><a href="{{ action('AppointmentController@create') }}">create</a></li>
-        <li><a href="{{ action('AppointmentController@cancel') }}">cancel (and approve)</a></li>
+        <li><a href="{{ action('AppointmentController@getAppointmentList') }}" target="side">get</a></li>
+        <li><a href="{{ action('AppointmentController@create') }}" target="side">create</a></li>
+        <li><a href="{{ action('AppointmentController@cancel') }}" target="side">cancel (and approve)</a></li>
     </ul>
+    <iframe name="side" style="width:100%; height:100%; position:fixed; left:300px; right:0px; top:0px;"></iframe>
 @elseif($page == "get")
     <?php
         echo "Dump GET:";
@@ -40,42 +45,64 @@
     ?>
 
 @elseif($controller == "Account")
-    @if($page == "register")
+    @if($page == "login")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="ssn"      placeholder="SSN"></input><br>
-            <input type="text"      name="name"     placeholder="Name"></input><br>
-            <input type="text"      name="surname"  placeholder="Surname"></input><br>
+            <input type="text"      name="ssn"      placeholder="SSN" pattern="[0-9]*" /><br>
+            <input type="text"      name="password" placeholder="Password" /><br>
+            <input type="checkbox"  name="remember_me" />Remember me pls..<br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "register")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="number"    name="ssn"      placeholder="SSN" /><br>
+            <input type="text"      name="name"     placeholder="Name" /><br>
+            <input type="text"      name="surname"  placeholder="Surname" /><br>
             <select name="gender">
                 <option value="M">Male</option>
                 <option value="F">Female</option>
             </select><br>
-            <input type="email"     name="email"    placeholder="Email"></input><br>
-            <input type="text"      name="address"  placeholder="Address"></input><br>
-            <input type="number"    name="phone_no" placeholder="Phone no."></input><br>
-            <input type="password"  name="password" placeholder="Password"></input><br>
+            Birthday<input type="date"      name="birthday"  /><br>
+            <input type="email"     name="email"    placeholder="Email" /><br>
+            <input type="text"      name="address"  placeholder="Address" /><br>
+            <input type="number"    name="phone_no" placeholder="Phone no." /><br>
             <button type="submit">Submit</button>
         </form>
     @elseif($page == "edit")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="ssn"      placeholder="SSN"></input> <= Key <br>
-            <input type="text"      name="name"     placeholder="Name"></input><br>
-            <input type="text"      name="surname"  placeholder="Surname"></input><br>
+            <input type="number"    name="ssn"      placeholder="SSN" /> <= Key <br>
+            <input type="text"      name="name"     placeholder="Name" /><br>
+            <input type="text"      name="surname"  placeholder="Surname" /><br>
             <select name="gender">
                 <option value="M">Male</option>
                 <option value="F">Female</option>
             </select><br>
-            <input type="email"     name="email"    placeholder="Email"></input><br>
-            <input type="text"      name="address"  placeholder="Address"></input><br>
-            <input type="number"    name="phone_no" placeholder="Phone no."></input><br>
-            <input type="password"  name="password" placeholder="Password"></input><br>
+            <input type="email"     name="email"    placeholder="Email" /><br>
+            <input type="text"      name="address"  placeholder="Address" /><br>
+            <input type="number"    name="phone_no" placeholder="Phone no." /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "forgetPassword")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="number"    name="ssn"      placeholder="SSN" /> <= Key <br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == "resetPassword")
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="hidden"  name="id"         value="{{ $_GET['id'] }}">
+            <input type="hidden"  name="cfp"        value="{{ $_GET['cfp'] }}">
+            <input type="text"    name="password"   placeholder="Password" /><br>
+            <input type="text"    name="repassword" placeholder="Re-enter Password" /><br>
             <button type="submit">Submit</button>
         </form>
     @elseif($page == "getProfile")
     <form action="{{$page}}" method="post" >
         {{ csrf_field() }}
-        <input type="number"    name="ssn"      placeholder="SSN"></input> <= Key <br>
+        <input type="number"    name="id"      placeholder="ID" /> <= Key <br>
         <button type="submit">Submit</button>
     </form>
     @else
@@ -85,20 +112,20 @@
     @if($page == "create")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="patient_ssn"  placeholder="Patient's SSN"></input><br>
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
-            <input type="date"      name="date"         placeholder="Date"></input><br>
+            <input type="number"    name="patient_ssn"  placeholder="Patient's SSN" /><br>
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
+            <input type="date"      name="date"         placeholder="Date" /><br>
             <select name="time">
                 <option value="M">Morning   ( 8.00 - 11.00)</option>
                 <option value="A">Afternoon (13.00 - 18.00)</option>
             </select><br>
-            <input type="text"      name="symptom"      placeholder="Symptom"></input><br>
+            <input type="text"      name="symptom"      placeholder="Symptom" /><br>
             <button type="submit">Submit</button>
         </form>
     @elseif($page == "cancel")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="id"  placeholder="Appointment's ID"></input><br>
+            <input type="number"    name="id"  placeholder="Appointment's ID" /><br>
             <button type="submit">Submit</button>
         </form>
     @else
@@ -109,7 +136,7 @@
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
             Day:
             <select name="day">
                 <option value="Sunday">Sunday</option>
@@ -138,7 +165,7 @@
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
             Day:
             <select name="day">
                 <option value="Sunday">Sunday</option>
@@ -160,9 +187,9 @@
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
             Date:
-            <input type="date"      name="date"></input><br>
+            <input type="date"      name="date" /><br>
             Time:
             <select name="time">
                 <option value="M">Morning   ( 8.00 - 11.00)</option>
@@ -187,9 +214,9 @@
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
             Date:
-            <input type="date"      name="date"></input><br>
+            <input type="date"      name="date" /><br>
             Time:
             <select name="time">
                 <option value="M">Morning   ( 8.00 - 11.00)</option>
@@ -201,9 +228,9 @@
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN"></input><br>
-            From: <input type="date" name="from"></input><br>
-            To:   <input type="date" name="to"></input><br>
+            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
+            From: <input type="date" name="from" /><br>
+            To:   <input type="date" name="to" /><br>
             <button type="submit">Submit</button>
         </form>
     @else

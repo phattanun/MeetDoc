@@ -34,6 +34,7 @@ Route::get('/queue', 'ProfileController@test4');
 // Route::auth();
 Route::get('/home', 'ProfileController@index');
 Route::get('/login', function() { return View::make('auth/login'); });
+Route::post('/login', 'AccountController@login');
 Route::get('/login/officer', 'Auth\AuthController@officerLoginPage');
 
 Route::post('/register', 'PagesController@register');
@@ -44,10 +45,15 @@ Route::get('/backend', function() {
 });
 
 // Account
+Route::post('/backend/Account/login', 'AccountController@login');
+Route::get('/backend/Account/loginStatus', 'AccountController@loginStatus');
 Route::get('/backend/Account/getUserList', 'AccountController@getUserList');
 Route::post('/backend/Account/register', 'AccountController@register');
 Route::post('/backend/Account/getProfile', 'AccountController@getProfile');
 Route::post('/backend/Account/edit', 'AccountController@edit');
+Route::post('/backend/Account/forgetPassword', 'AccountController@forgetPassword');
+Route::post('/backend/Account/resetPassword', 'AccountController@resetPassword');
+Route::get('/backend/Account/logout', 'AccountController@logout');
 
 // Appointment
 Route::get('/backend/Appointment/getAppointmentList', 'AppointmentController@getAppointmentList');
