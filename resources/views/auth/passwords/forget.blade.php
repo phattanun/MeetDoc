@@ -45,7 +45,7 @@
         <h3 class="font-green">ลืมรหัสผ่าน ?</h3>
         @if(isset($success)&&$success)
             <div class="alert alert-success" id="password-reset-success-alert">
-                <strong>สำเร็จ!</strong> ระบบได้ทำการส่งจดหมายเพื่อเปลี่ยนรหัสผ่านไปที่อีเมลของท่าน กรุณาทำการเปลี่ยนรหัสผ่านภายใน 1 วัน. </div>
+                <strong>สำเร็จ!</strong> ระบบได้ทำการส่งจดหมายเพื่อเปลี่ยนรหัสผ่านไปที่อีเมลของท่านแล้ว กรุณาทำการเปลี่ยนรหัสผ่านภายใน 1 วัน. </div>
         @elseif(isset($success)&&!$success)
             <div class="alert alert-danger" id="password-reset-alert">
                 <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง </div>

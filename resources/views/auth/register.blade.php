@@ -42,6 +42,11 @@
         {{ csrf_field() }}
 
         <h3 class="font-green">ลงทะเบียน</h3>
+        @if(isset($error))
+            <div class="alert alert-danger" id="password-reset-alert">
+                <strong>ผิดพลาด!</strong> {{$error}}
+            </div>
+        @endif
         <p class="hint"> กรุณาระบุข้อมูลต่อไปนี้: </p>
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">รหัสบัตรประจำตัวประชาชน</label>
