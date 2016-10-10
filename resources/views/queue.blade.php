@@ -51,8 +51,8 @@
 
 @section('content')
     <!-- /.modal -->
-    <div class="modal fade" id="full" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-full">
+    <div class="modal fade bs-modal-lg" id="full" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="portlet light modal-portlet">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
