@@ -10,50 +10,127 @@ use App\User;
 class AccountController extends Controller
 {
     public function login(Request $request){
+        $userdata = array(
+            'ssn'      => $request->ssn,
+            'password' => $request->password,
+        );
+        var_dump($userdata);
+        if(Auth::attempt($userdata, false))
+            echo 'SUCCESS!';
+        else echo 'FAIL!';
+    }
 
-        if(Auth::attempt(['ssn'=> $request->ssn, 'password' => $request->password])){
-            return Auth::user();
+    public function loginStatus() {
+        if(Auth::check()) {
+            echo '<h3>Already Login</h3>';
+            var_dump(Auth::user()->toArray());
         }
-        else {
-            return null;
-        }
+        else echo '<h3>Not Login Yet</h3>';
     }
 
     public function logout(){
-
-        if(!is_null(Auth::user())){
+        if(Auth::check()) {
             Auth::logout();
-            Session::flush();
+            echo "<h3>Logout</h3>";
         }
+        else echo "<h3>Already Logout</h3>";
+        // return redirect('/login');
+    }
 
-        return redirect('/login');
+    private function generateRandomString($length = 64) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    private function generatePasswordLink($ssn,$name,$surname,$password,$email,$time) {
+        return hash('ripemd256', 'IhaVeA'.$name.'.IhAveA'.$surname.'.UGH,'.$ssn.'iDonTHAaveA'.$password.'.ihAvEAN'.$email.'UGh,FoRgEtPasSWOrDbeforeThIs'.$time);
     }
 
     public function register(Request $request) {
-        // echo "Adding New User..";
-        // var_dump($request->all());
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d H:i:s');
         try {
             $new_user = new User;
-            $new_user->ssn = $request->id;
+            $new_user->ssn = $request->ssn;
             $new_user->name = $request->name;
             $new_user->surname = $request->surname;
             $new_user->gender = $request->gender;
+            $new_user->birthday = $request->birthday;
             $new_user->email = $request->email;
             $new_user->address = $request->address;
-            $new_user->phone_no = $request->phone;
-            $new_user->password = $request->password;
+            $new_user->phone_no = $request->phone_no;
+            $new_user->password = $this->generateRandomString(64);
+            $new_user->last_active = $now;
             $new_user->save();
         }
         catch (\Exception $e) {
-            // echo "<h2>Error :".$e->getMessage()."</h2>";
-            return "ขออภัย หมายเลขบัตรประจำตัวประชาชนซ้ำ";
+            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return ["message" => "Duplicate SSN"];
         }
         // $this->getUserList();
-        return "Success";
+        $re = [
+            "message" => "success",
+            "link" => "./resetPassword?id=".$new_user->id."&cfp=".$this->generatePasswordLink($request->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
+        ];
+        echo "<a href='".$re['link']."'>Reset Password Link</a>";
+        var_dump($re);
     }
 
+    public function forgetPassword(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d H:i:s');
+        try {
+            $user = User::where('ssn', $request->ssn)->first();
+            if(sizeof($user) == 0)
+                throw new \Exception("SSN not found", 1);
+            $user->last_active = $now;
+            $user->save();
+        }
+        catch (\Exception $e) {
+            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return ["message" => $e->getMessage()];
+        }
 
-    private function tempPrintTable($array) {
+        $re = [
+            "message" => "success",
+            "link" => "./resetPassword?id=".$user->id."&cfp=".$this->generatePasswordLink($user->ssn, $user->name, $user->surname, $user->password, $user->email, $now)
+        ];
+        echo "<a href='".$re['link']."'>Reset Password Link</a>";
+        var_dump($re);
+    }
+
+    public function resetPassword(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = new \DateTime('NOW');
+        try {
+            $user = User::findOrFail($request->id);
+            if($request->cfp == $this->generatePasswordLink($user->ssn, $user->name, $user->surname, $user->password, $user->email, $user->last_active)) {
+                $forget_time = new \DateTime($user->last_active);
+                if(($now->getTimeStamp() - $forget_time->getTimeStamp())/3600 < 24) {
+                    $user->password = bcrypt($request->password);
+                    $user->save();
+                }
+                else throw new \Exception("Too late for resetting password", 1);
+            }
+            else throw new \Exception("Wrong reset password key", 1);
+        }
+        catch (\Exception $e) {
+            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return ["message" => $e->getMessage()];
+        }
+        return ["message" => "success"];
+    }
+
+    private function printTable($array) {
+        if(sizeof($array) == 0) {
+            echo "<h3>Empty Table</h3>";
+            return;
+        }
         echo "<table border='1'>";
         echo "<tr>";
         foreach ($array[0] as $key => $value)
@@ -67,19 +144,20 @@ class AccountController extends Controller
         }
         echo "</table><br>";
     }
+
     public function getUserList() {
         $users = User::all();
-        $this->tempPrintTable($users->toArray());
+        $this->printTable($users->toArray());
         // return $users;
     }
 
     public function getProfile(Request $request) {
         try {
-            $profile = User::findOrFail($request->ssn);
+            $profile = User::findOrFail($request->id);
             var_dump($profile['attributes']);
         }
         catch (\Exception $e) {
-            echo "<h2>Error</h2>";
+            echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
         // return $profile['attributes'];
     }
@@ -108,7 +186,7 @@ class AccountController extends Controller
             var_dump($user['attributes']);
         }
         catch (\Exception $e) {
-            echo "<h2>Error</h2>";
+            echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
     }
 
