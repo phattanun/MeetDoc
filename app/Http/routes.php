@@ -8,9 +8,10 @@ Route::get('/password/reset', 'ProfileController@passwordResetPage');
 Route::get('/password/forget', 'ProfileController@passwordForgetPage');
 Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
 Route::get('/register', 'ProfileController@registerPage');
+Route::get('/profile', 'ProfileController@index');
+//Route::post('/profile', 'ProfileController@testprofile');
 
 //Patient
-Route::get('/profile', 'ProfileController@index');
 Route::get('/appointment/new', 'ProfileController@newAppointmentPage');
 Route::get('/appointment/history', 'ProfileController@appointmentHistoryPage');
 Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');

@@ -97,52 +97,61 @@
                                 <div class="tab-content">
                                     <!-- PERSONAL INFO TAB -->
                                     <div class="tab-pane active" id="tab_1_1">
-                                        <form role="form" action="#">
+                                        <form id="profile-form" role="form" action="{{ url('/profile') }}" method="post">
+                                            {{ csrf_field() }}
+                                            @if(isset($success)&&$success)
+                                                <div class="alert alert-success" id="success-alert">
+                                                    <strong>สำเร็จ!</strong> ระบบบันทึกการแก้ไขเรียบร้อย </div>
+                                            @elseif(isset($success)&&!$success)
+                                                <div class="alert alert-danger" id="fail-alert">
+                                                    <strong>ผิดพลาด!</strong> {{$error}} </div>
+                                            @else
+                                            @endif
                                             <div class="form-group form-md-line-input">
                                                 <div class="form-control form-control-static"> 5631011021 </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
+                                                <label id="hid" for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
                                             </div>
                                             <div class="form-group form-md-line-input">
                                                 <div class="form-control form-control-static"> 1959800098399 </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
+                                                <label id="id" for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
                                             </div>
                                             <hr>
                                             <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
-                                                <input type="text" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
+                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">นามสกุล</label>
-                                                <input type="text" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
+                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
                                             <div class="form-group">
                                                     <label class="control-label">เพศ</label>
                                                         <div class="mt-radio-inline">
                                                         <label class="mt-radio">
-                                                            <input name="optionsRadios" id="optionsRadios25" value="male" checked="" type="radio"> ชาย
+                                                            <input name="gender" id="male" @if(isset($gender)&&$gender=='male') checked @endif value = "male" type="radio"> ชาย
                                                             <span></span>
                                                         </label>
                                                         <label class="mt-radio">
-                                                            <input name="optionsRadios" id="optionsRadios26" value="female" checked="" type="radio"> หญิง
+                                                            <input name="gender" id="female" @if(isset($gender)&&$gender=='female') checked @endif value="female"  type="radio"> หญิง
                                                             <span></span>
                                                         </label>
                                                     </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
-                                                <input class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" />
+                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" />
                                                 <span class="help-block"> * ใช้ปีพุทธศักราช </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">อีเมล</label>
-                                                <input type="email" placeholder="john.doe@meetdoc.com" class="form-control" /> </div>
+                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ที่อยู่</label>
-                                                <textarea type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" ></textarea> </div>
+                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" ></textarea> </div>
                                             <div class="form-group">
                                                 <label class="control-label">หมายเลขโทรศัพท์</label>
-                                                <input type="text" placeholder="0899999999" class="form-control" /> </div>
+                                                <input id="phone" name="phone" type="text" placeholder="0899999999" class="form-control" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
-                                                <select id="multiple" class="form-control select2-multiple" multiple>
+                                                <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
                                                     <optgroup label="Alaskan">
                                                         <option value="AK">Alaska</option>
                                                         <option value="HI" disabled="disabled">Hawaii</option>
@@ -208,7 +217,7 @@
                                             <div class="form-group">
                                                 <a href="{{url('password/reset')}}" class="btn btn-warning"> เปลี่ยนรหัสผ่าน </a> </div>
                                             <div class="margiv-top-10">
-                                                <a href="javascript:;" class="btn green"> บันทึกการแก้ไข </a>
+                                                <button type="submit" class="btn green"> บันทึกการแก้ไข </button>
                                                 <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>

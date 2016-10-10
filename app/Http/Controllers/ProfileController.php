@@ -18,6 +18,10 @@ class ProfileController extends Controller
     {
         return view('profile');
     }
+    public function testprofile()
+    {
+        return $_POST['drugAllergy'][0];
+    }
 
 //Temp
     public function accountPagePage()
