@@ -52,6 +52,14 @@ class ProfileController extends Controller
     {
         return view('auth.confirmregister');
     }
+    public function registerPage()
+    {
+        return view('auth.register');
+    }
+    public function passwordForgetPage()
+    {
+        return view('auth.passwords.forget');
+    }
     public function newAppointmentPage()
     {
         return view('appointment-new');

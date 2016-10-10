@@ -5,7 +5,9 @@ Route::get('/', function () {
 });
 //everyone
 Route::get('/password/reset', 'ProfileController@passwordResetPage');
+Route::get('/password/forget', 'ProfileController@passwordForgetPage');
 Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
+Route::get('/register', 'ProfileController@registerPage');
 
 //Patient
 Route::get('/profile', 'ProfileController@index');

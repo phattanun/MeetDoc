@@ -37,52 +37,35 @@
 <!-- END LOGO -->
 <!-- BEGIN LOGIN -->
 <div class="content">
-    <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="{{ url('/login') }}" method="post">
+    <!-- BEGIN FORGOT PASSWORD FORM -->
+    <form class="forget-form" action="{{ url('/password/reset') }}" method="post">
+
         {{ csrf_field() }}
 
-        <h3 class="form-title font-green">ลงชื่อเข้าใช้</h3>
-        @if (isset($error))
-            <h4> {{ $error }} </h4>
+        <h3 class="font-green">ลืมรหัสผ่าน ?</h3>
+        @if(isset($success)&&$success)
+            <div class="alert alert-success" id="password-reset-success-alert">
+                <strong>สำเร็จ!</strong> ระบบได้ทำการส่งจดหมายเพื่อเปลี่ยนรหัสผ่านไปที่อีเมลของท่าน กรุณาทำการเปลี่ยนรหัสผ่านภายใน 1 วัน. </div>
+        @elseif(isset($success)&&!$success)
+            <div class="alert alert-danger" id="password-reset-alert">
+                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง </div>
+        @else
         @endif
-        <div class="alert alert-danger display-hide">
-            <button class="close" data-close="alert"></button>
-            <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
-        </div>
+        <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่</p>
         <div class="form-group">
-            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">เลขบัตรประจำตัวประชาชน</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" />
-            @if ($errors->has('email'))
+            <input class="form-control{{ $errors->has('id') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}" />
+            @if ($errors->has('id'))
                 <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
-            @endif
-        </div>
-        <div class="form-group">
-            <label class="control-label visible-ie8 visible-ie9">รหัสผ่าน</label>
-            <input class="form-control{{ $errors->has('password') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="password" type="password" autocomplete="on" placeholder="รหัสผ่าน" name="password" />
-            @if ($errors->has('password'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
+                    <strong>{{ $errors->first('id') }}</strong>
                 </span>
             @endif
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn green uppercase">เข้าสู่ระบบ</button>
-            <label class="rememberme check mt-checkbox mt-checkbox-outline">
-                <input type="checkbox" name="remember" value="1" />จำฉันไว้ในระบบ
-                <span></span>
-            </label>
-            <a href="{{url('password/forget')}}" id="forget-password" class="forget-password">ลืมรหัสผ่าน?</a>
-        </div>
-        <div class="create-account">
-            <p>
-                <a href="{{url('register')}}" id="register-btn" class="uppercase">ลงทะเบียน</a>
-            </p>
+            <a href="{{url('login')}}" type="button" id="back-btn" class="btn green btn-outline">Back</a>
+            <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
         </div>
     </form>
-    <!-- END LOGIN FORM -->
+    <!-- END FORGOT PASSWORD FORM -->
 </div>
 <div class="copyright">
     2016 © MeetDoc<sup>+</sup>
