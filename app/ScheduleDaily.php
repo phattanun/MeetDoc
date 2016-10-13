@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class NormalWorkingTime extends Model
+class ScheduleDaily extends Model
 {
-    protected $table = 'normal_working_time';
+    protected $table = 'schedule_daily';
     public $timestamps = false;
 }

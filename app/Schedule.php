@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WorkingTime extends Model
+class Schedule extends Model
 {
-    protected $table = 'working_time_view';
+    protected $table = 'schedule_view';
     protected $fillable = [];
 }

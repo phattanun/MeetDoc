@@ -69,17 +69,17 @@ Route::post('/backend/Appointment/cancel', 'AppointmentController@cancel');
 Route::get('/backend/Appointment/cancelApprove', 'AppointmentController@cancelApprove');
 
 
-// Normal WorkingTime
-Route::get('/backend/WorkingTime/getNormalWorkingTime', 'WorkingTimeController@getNormalWorkingTime');
-Route::post('/backend/WorkingTime/addNormalWorkingTime', 'WorkingTimeController@addNormalWorkingTime');
-Route::post('/backend/WorkingTime/deleteNormalWorkingTime', 'WorkingTimeController@deleteNormalWorkingTime');
+// Weekly Schedule
+Route::get('/backend/Schedule/getScheduleWeekly', 'ScheduleController@getScheduleWeekly');
+Route::post('/backend/Schedule/addScheduleWeekly', 'ScheduleController@addScheduleWeekly');
+Route::post('/backend/Schedule/deleteScheduleWeekly', 'ScheduleController@deleteScheduleWeekly');
 
-// Special WorkingTime
-Route::get('/backend/WorkingTime/getSpecialWorkingTime', 'WorkingTimeController@getSpecialWorkingTime');
-Route::post('/backend/WorkingTime/addSpecialWorkingTime', 'WorkingTimeController@addSpecialWorkingTime');
-Route::post('/backend/WorkingTime/deleteSpecialWorkingTime', 'WorkingTimeController@deleteSpecialWorkingTime');
+// Daily Schedule
+Route::get('/backend/Schedule/getScheduleDaily', 'ScheduleController@getScheduleDaily');
+Route::post('/backend/Schedule/addScheduleDaily', 'ScheduleController@addScheduleDaily');
+Route::post('/backend/Schedule/deleteScheduleDaily', 'ScheduleController@deleteScheduleDaily');
 
-Route::post('/backend/WorkingTime/getWorkingTime', 'WorkingTimeController@getWorkingTime');
+Route::post('/backend/Schedule/getSchedule', 'ScheduleController@getSchedule');
 
 
 Route::post('/backend/{controller}/post',

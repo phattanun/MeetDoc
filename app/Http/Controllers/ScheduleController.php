@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\DateDim;
-use App\WorkingTime;
-use App\NormalWorkingTime;
-use App\SpecialWorkingTime;
+use App\Schedule;
+use App\ScheduleWeekly;
+use App\ScheduleDaily;
 
-class WorkingTimeController extends Controller
+class ScheduleController extends Controller
 {
     private function printTable($array) {
         if(sizeof($array) == 0) {
@@ -113,7 +113,7 @@ class WorkingTimeController extends Controller
     }
 
     // ############################
-    //     Normal Working Time
+    //       Weekly Schedule
     // ############################
 
     private function sortArrayByDayTimeAttr($array) {
@@ -131,30 +131,30 @@ class WorkingTimeController extends Controller
         return $array;
     }
 
-    public function getNormalWorkingTime() {
-        $normal_working_time = NormalWorkingTime::all()->toArray();
+    public function getScheduleWeekly() {
+        $schedule_weekly = ScheduleWeekly::all()->toArray();
         try {
-            $normal_working_time = $this->sortArrayByDayTimeAttr($normal_working_time);
-            $this->printTable($normal_working_time);
+            $schedule_weekly = $this->sortArrayByDayTimeAttr($schedule_weekly);
+            $this->printTable($schedule_weekly);
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        // return $normal_working_time;
+        // return $schedule_weekly;
     }
 
-    public function addNormalWorkingTime(Request $request) {
-        echo "<h2>Request Updating Normal-WorkingTime</h2>";
+    public function addScheduleWeekly(Request $request) {
+        echo "<h2>Request Updating Normal-Schedule</h2>";
         var_dump($request->all());
         try {
-            $record = NormalWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->first();
+            $record = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->first();
             if($record != null) {
-                echo "<h2>Update Normal-WorkingTime</h2>";
-                NormalWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->update(['dept_id' => $request->dept_id]);
+                echo "<h2>Update Normal-Schedule</h2>";
+                ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->update(['dept_id' => $request->dept_id]);
             }
             else {
-                echo "<h2>Add New Normal-WorkingTime</h2>";
-                $new_nwt = new NormalWorkingTime;
+                echo "<h2>Add New Normal-Schedule</h2>";
+                $new_nwt = new ScheduleWeekly;
                 $new_nwt->doctor_ssn = $request->doctor_ssn;
                 $new_nwt->day = $request->day;
                 $new_nwt->time = $request->time;
@@ -165,28 +165,28 @@ class WorkingTimeController extends Controller
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getNormalWorkingTime();
+        $this->getScheduleWeekly();
     }
 
-    public function deleteNormalWorkingTime(Request $request) {
-        echo "<h2>Request Deleting Normal-WorkingTime</h2>";
+    public function deleteScheduleWeekly(Request $request) {
+        echo "<h2>Request Deleting Normal-Schedule</h2>";
         var_dump($request->all());
         try {
-            $status = NormalWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->delete();
+            $status = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->delete();
             if($status)
-                echo "<h2>Delete Normal-WorkingTime</h2>";
+                echo "<h2>Delete Normal-Schedule</h2>";
             else echo "<h2>Nothing to Delete</h2>";
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getNormalWorkingTime();
+        $this->getScheduleWeekly();
     }
 
 
 
     // ############################
-    //     Special Working Time
+    //        Daily Schedule
     // ############################
 
     private function sortArrayByDateTimeAttr($array) {
@@ -204,33 +204,33 @@ class WorkingTimeController extends Controller
         return $array;
     }
 
-    public function getSpecialWorkingTime() {
-        $special_working_time = SpecialWorkingTime::all()->toArray();
+    public function getScheduleDaily() {
+        $schedule_daily = ScheduleDaily::all()->toArray();
         try {
-            $special_working_time = $this->sortArrayByDateTimeAttr($special_working_time);
-            $this->printTable($special_working_time);
+            $schedule_daily = $this->sortArrayByDateTimeAttr($schedule_daily);
+            $this->printTable($schedule_daily);
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        // return $special_working_time;
+        // return $schedule_daily;
     }
 
-    public function addSpecialWorkingTime(Request $request) {
-        echo "<h2>Request Updating Special-WorkingTime</h2>";
+    public function addScheduleDaily(Request $request) {
+        echo "<h2>Request Updating Special-Schedule</h2>";
         var_dump($request->all());
         try {
             if($request->type == "add" && $request->dept_id == "")
                 throw new \Exception("No Attend Department", 1);
 
-            $record = SpecialWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->first();
+            $record = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->first();
             if($record != null) {
-                echo "<h2>Update Special-WorkingTime</h2>";
-                SpecialWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->update(['type' => $request->type, 'dept_id' => $request->dept_id]);
+                echo "<h2>Update Special-Schedule</h2>";
+                ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->update(['type' => $request->type, 'dept_id' => $request->dept_id]);
             }
             else {
-                echo "<h2>Add New Special-WorkingTime</h2>";
-                $new_swt = new SpecialWorkingTime;
+                echo "<h2>Add New Special-Schedule</h2>";
+                $new_swt = new ScheduleDaily;
                 $new_swt->doctor_ssn = $request->doctor_ssn;
                 $new_swt->date = $request->date;
                 $new_swt->time = $request->time;
@@ -242,23 +242,23 @@ class WorkingTimeController extends Controller
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getSpecialWorkingTime();
+        $this->getScheduleDaily();
     }
 
-    public function deleteSpecialWorkingTime(Request $request) {
-        echo "<h2>Request Deleting Special-WorkingTime</h2>";
+    public function deleteScheduleDaily(Request $request) {
+        echo "<h2>Request Deleting Special-Schedule</h2>";
         var_dump($request->all());
         try {
-            $status = SpecialWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->delete();
+            $status = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->delete();
             if($status)
-                echo "<h2>Delete Special-WorkingTime</h2>";
+                echo "<h2>Delete Special-Schedule</h2>";
             else
                 throw new \Exception("Nothing to Delete", 1);
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getSpecialWorkingTime();
+        $this->getScheduleDaily();
     }
 
 
@@ -266,24 +266,24 @@ class WorkingTimeController extends Controller
     //        Query Function
     // ############################
 
-    public function getWorkingTime(Request $request) {
+    public function getSchedule(Request $request) {
         var_dump($request->all());
 
-        $normalTime = NormalWorkingTime::where('doctor_ssn', $request->doctor_ssn)->get()->toArray();
-        $addTime = SpecialWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('type', 'add')->get()->toArray();
-        $subTime = SpecialWorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('type', 'sub')->get()->toArray();
+        $normalTime = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->get()->toArray();
+        $addTime = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('type', 'add')->get()->toArray();
+        $subTime = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('type', 'sub')->get()->toArray();
 
         // $addTime = $this->sortArrayByDateTimeAttr($addTime);
         // $subTime = $this->sortArrayByDateTimeAttr($subTime);
 
         $this->printWeeklyTable($normalTime);
-        echo "<h2>Special Working Time (Add)</h2>";
+        echo "<h2>Daily Schedule (Add)</h2>";
         $this->printTable($addTime);
-        echo "<h2>Special Working Time (Subtract)</h2>";
+        echo "<h2>Weekly Schedule (Subtract)</h2>";
         $this->printTable($subTime);
 
-        $working_time = WorkingTime::where('doctor_ssn', $request->doctor_ssn)->where('date','>=',$request->from)->where('date','<=',$request->to)->get()->toArray();
-        $working_time = $this->sortArrayByDateTimeAttr($working_time);
-        $this->printCalendarTable($working_time);
+        $schedule = Schedule::where('doctor_ssn', $request->doctor_ssn)->where('date','>=',$request->from)->where('date','<=',$request->to)->get()->toArray();
+        $schedule = $this->sortArrayByDateTimeAttr($schedule);
+        $this->printCalendarTable($schedule);
     }
 }

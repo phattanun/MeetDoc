@@ -42,14 +42,14 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>เพิ่มวัน</b></label>
                                                     <div class="col-md-9">
-                                                        <select class="form-control">
-                                                            <option>วันอาทิตย์</option>
-                                                            <option>วันจันทร์</option>
-                                                            <option>วันอังคาร</option>
-                                                            <option>วันพุธ</option>
-                                                            <option>วันพฤหัสบดี</option>
-                                                            <option>วันศุกร์</option>
-                                                            <option>วันเสาร์</option>
+                                                        <select name="day" class="form-control">
+                                                            <option value="Sunday"   >วันอาทิตย์</option>
+                                                            <option value="Monday"   >วันจันทร์</option>
+                                                            <option value="Tuesday"  >วันอังคาร</option>
+                                                            <option value="Wednesday">วันพุธ</option>
+                                                            <option value="Thursday" >วันพฤหัสบดี</option>
+                                                            <option value="Friday"   >วันศุกร์</option>
+                                                            <option value="Saturday" >วันเสาร์</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -60,11 +60,11 @@
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios25" value="0" checked=""> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios26" value="1" checked=""> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -75,12 +75,12 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>แผนก</b></label>
                                                     <div class="col-md-9">
-                                                        <select class="form-control">
-                                                            <option>แผนกอายุรกรรม</option>
-                                                            <option>แผนกหู คอ จมูก</option>
-                                                            <option>แผนกตา</option>
-                                                            <option>แผนกกระดูก</option>
-                                                            <option>แผนกฉุกเฉิน</option>
+                                                        <select name="dept_id" class="form-control">
+                                                            <option value="0">แผนกอายุรกรรม</option>
+                                                            <option value="1">แผนกหู คอ จมูก</option>
+                                                            <option value="2">แผนกตา</option>
+                                                            <option value="3">แผนกกระดูก</option>
+                                                            <option value="4">แผนกฉุกเฉิน</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -451,4 +451,3 @@
         $('.date-picker').datepicker();
     </script>
 @endsection
-

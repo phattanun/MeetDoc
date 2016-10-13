@@ -10,20 +10,20 @@
         <li><a href="{{ action('AccountController@forgetPassword') }}" target="side">forgetPassword</a></li>
         <li><a href="{{ action('AccountController@logout') }}" target="side">logout</a></li>
     </ul>
-    <h3>WorkingTimeController</h3>
+    <h3>ScheduleController</h3>
     <ul>
-        <li><a href="{{ action('WorkingTimeController@getWorkingTime') }}" target="side">getWorkingTime</a></li>
-        <li>Normal WorkingTime</li>
+        <li><a href="{{ action('ScheduleController@getSchedule') }}" target="side">getSchedule</a></li>
+        <li>Weekly Schedule</li>
         <ul>
-            <li><a href="{{ action('WorkingTimeController@getNormalWorkingTime') }}" target="side">get</a></li>
-            <li><a href="{{ action('WorkingTimeController@addNormalWorkingTime') }}" target="side">add</a></li>
-            <li><a href="{{ action('WorkingTimeController@deleteNormalWorkingTime') }}" target="side">delete</a></li>
+            <li><a href="{{ action('ScheduleController@getScheduleWeekly') }}" target="side">get</a></li>
+            <li><a href="{{ action('ScheduleController@addScheduleWeekly') }}" target="side">add</a></li>
+            <li><a href="{{ action('ScheduleController@deleteScheduleWeekly') }}" target="side">delete</a></li>
         </ul>
-        <li>Special WorkingTime</li>
+        <li>Daily Schedule</li>
         <ul>
-            <li><a href="{{ action('WorkingTimeController@getSpecialWorkingTime') }}" target="side">get</a></li>
-            <li><a href="{{ action('WorkingTimeController@addSpecialWorkingTime') }}" target="side">add</a></li>
-            <li><a href="{{ action('WorkingTimeController@deleteSpecialWorkingTime') }}" target="side">delete</a></li>
+            <li><a href="{{ action('ScheduleController@getScheduleDaily') }}" target="side">get</a></li>
+            <li><a href="{{ action('ScheduleController@addScheduleDaily') }}" target="side">add</a></li>
+            <li><a href="{{ action('ScheduleController@deleteScheduleDaily') }}" target="side">delete</a></li>
         </ul>
     </ul>
     <h3>AppointmentController</h3>
@@ -133,8 +133,8 @@
     @else
         Not found "{{ $controller }}/{{ $page }}"
     @endif
-@elseif($controller == "WorkingTime")
-    @if($page == "addNormalWorkingTime")
+@elseif($controller == "Schedule")
+    @if($page == "addScheduleWeekly")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
@@ -163,7 +163,7 @@
             </select><br>
             <button type="submit">Submit</button>
         </form>
-    @elseif($page == "deleteNormalWorkingTime")
+    @elseif($page == "deleteScheduleWeekly")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
@@ -185,7 +185,7 @@
             </select><br>
             <button type="submit">Submit</button>
         </form>
-    @elseif($page == "addSpecialWorkingTime")
+    @elseif($page == "addScheduleDaily")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
@@ -212,7 +212,7 @@
             </select><br>
             <button type="submit">Submit</button>
         </form>
-    @elseif($page == "deleteSpecialWorkingTime")
+    @elseif($page == "deleteScheduleDaily")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
@@ -226,7 +226,7 @@
             </select><br>
             <button type="submit">Submit</button>
         </form>
-    @elseif($page == "getWorkingTime")
+    @elseif($page == "getSchedule")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             Doctor SSN:
