@@ -10,6 +10,7 @@ Route::post('/password/forget', 'PagesController@forgetPassword');
 Route::get('/password/change', 'PagesController@changePassword');
 Route::get('/profile', 'PagesController@viewProfile');
 Route::post('/profile', 'PagesController@editProfile');
+Route::get('/doctor/schedule', 'PagesController@viewSchedule');
 
 //everyone
 Route::get('/password/reset', 'ProfileController@passwordResetPage');
@@ -34,7 +35,7 @@ Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 Route::get('/drug/manage', 'ProfileController@drugPage');
 
 //Krit
-Route::get('/doctor/schedule', 'ProfileController@test1');
+// Route::get('/doctor/schedule', 'ProfileController@test1');
 Route::get('/patient/come', 'ProfileController@test2');
 Route::get('/doctor/appointment', 'ProfileController@test3');
 Route::get('/queue', 'ProfileController@test4');

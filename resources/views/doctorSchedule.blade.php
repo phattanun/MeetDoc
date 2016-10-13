@@ -105,52 +105,7 @@
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                    <tbody> <?php echo $weekly_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -199,11 +154,11 @@
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios25" value="0" checked=""> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios26" value="1" checked=""> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -238,58 +193,13 @@
                                     <thead>
                                     <tr>
                                         <th> ลำดับที่ </th>
-                                        <th> วัน </th>
+                                        <th> วันที่ </th>
                                         <th> ช่วง </th>
                                         <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                    <tbody> <?php echo $daily_add_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -338,11 +248,11 @@
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios25" value="0" checked=""> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="optionsRadios" id="optionsRadios26" value="1" checked=""> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -377,58 +287,13 @@
                                     <thead>
                                     <tr>
                                         <th> ลำดับที่ </th>
-                                        <th> วัน </th>
+                                        <th> วันที่ </th>
                                         <th> ช่วง </th>
                                         <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> วันอาทิตย์ </td>
-                                        <td> เช้า </td>
-                                        <td> แผนกหู คอ จมูก </td>
-                                        <td>
-                                            <a href="javascript:;" class="btn red"> ลบ
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                    <tbody> <?php echo $daily_sub_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->

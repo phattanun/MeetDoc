@@ -82,4 +82,14 @@ class PagesController extends Controller
         Auth::setUser($user);
         return $this->viewProfile();
     }
+
+    public function viewSchedule() {
+        $doctor_id = Auth::User()->id;
+        $weekly = ScheduleController::getScheduleWeekly($doctor_id);
+        $dailyAdd = ScheduleController::getScheduleDaily($doctor_id, 'add');
+        $dailySub = ScheduleController::getScheduleDaily($doctor_id, 'sub');
+        // var_dump($dailyAdd);
+        // var_dump($dailySub);
+        return view('doctorSchedule')->with(['weekly_schedule' => $weekly, 'daily_add_schedule' => $dailyAdd, 'daily_sub_schedule' => $dailySub]);
+    }
 }

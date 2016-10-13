@@ -11,26 +11,51 @@ use App\ScheduleDaily;
 
 class ScheduleController extends Controller
 {
-    private function printTable($array) {
-        if(sizeof($array) == 0) {
-            echo "<h4>Empty Table</h4>";
-            return;
-        }
-        echo "<table border='1'>";
-        echo "<tr>";
-        foreach ($array[0] as $key => $value)
-            echo "<th>".$key."</th>";
-        echo "</tr>";
+
+    private static function printTable($array) {
+        $dayDict = [
+            'Sunday' => 'วันอาทิตย์',
+            'Monday' => 'วันจันทร์',
+            'Tuesday' => 'วันอังคาร',
+            'Wednesday' => 'วันพุธ',
+            'Thursday' => 'วันพฤหัสบดี',
+            'Friday' => 'วันศุกร์',
+            'Saturday' => 'วันเสาร์',
+        ];
+        $timeDict = [ 'M' => 'เช้า', 'A' => 'บ่าย' ];
+
+        $re = '';
+        if(sizeof($array) == 0)
+            return $re;
+        $i = 1;
         foreach ($array as $instance) {
-            echo "<tr>";
-            foreach($instance as $key => $value)
-                echo "<td>".$value."</td>";
-            echo "</tr>";
+            $re .= "<tr>";
+            foreach($instance as $key => $value) {
+                switch($key) {
+                    case 'doctor_id':
+                        $value = $i;
+                        break;
+                    case 'day':
+                        $value = $dayDict[$value];
+                        break;
+                    case 'time':
+                        $value = $timeDict[$value];
+                        break;
+                    case 'date':
+                        $value = date('d-m-Y', strtotime($value));
+                }
+                if($key == 'type')
+                    continue;
+                $re .= "<td>".$value."</td>";
+            }
+            $i++;
+            $re .= '<td><a href="javascript:;" class="btn red"> ลบ <i class="fa fa-trash"></i></a></td></tr>';
         }
-        echo "</table><br>";
+        $re .= "</table><br>";
+        return $re;
     }
 
-    private function printWeeklyTable($array) {
+    private static function printWeeklyTable($array) {
         $dow = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $time = ['Morning', 'Afternoon'];
         function charToTime($c, $time) {
@@ -53,7 +78,7 @@ class ScheduleController extends Controller
         echo "</table><br>";
     }
 
-    private function printCalendarTable($array) {
+    private static function printCalendarTable($array) {
         $dow = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $time = ['Morning', 'Afternoon'];
         $date = new \DateTime("@".strtotime($array[0]['date']));
@@ -116,7 +141,7 @@ class ScheduleController extends Controller
     //       Weekly Schedule
     // ############################
 
-    private function sortArrayByDayTimeAttr($array) {
+    private static function sortArrayByDayTimeAttr($array) {
         $compare = function($a, $b) {
             $day_a = date('w', strtotime($a['day']));
             $day_b = date('w', strtotime($b['day']));
@@ -131,19 +156,19 @@ class ScheduleController extends Controller
         return $array;
     }
 
-    public function getScheduleWeekly() {
-        $schedule_weekly = ScheduleWeekly::all()->toArray();
+    public static function getScheduleWeekly($doctor_id) {
         try {
-            $schedule_weekly = $this->sortArrayByDayTimeAttr($schedule_weekly);
-            $this->printTable($schedule_weekly);
+            $schedule_weekly = ScheduleWeekly::where('doctor_id', $doctor_id)->get()->toArray();
+            $schedule_weekly = self::sortArrayByDayTimeAttr($schedule_weekly);
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            // echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return '';
         }
-        // return $schedule_weekly;
+        return self::printTable($schedule_weekly);
     }
 
-    public function addScheduleWeekly(Request $request) {
+    public static function addScheduleWeekly(Request $request) {
         echo "<h2>Request Updating Normal-Schedule</h2>";
         var_dump($request->all());
         try {
@@ -168,7 +193,7 @@ class ScheduleController extends Controller
         $this->getScheduleWeekly();
     }
 
-    public function deleteScheduleWeekly(Request $request) {
+    public static function deleteScheduleWeekly(Request $request) {
         echo "<h2>Request Deleting Normal-Schedule</h2>";
         var_dump($request->all());
         try {
@@ -189,7 +214,7 @@ class ScheduleController extends Controller
     //        Daily Schedule
     // ############################
 
-    private function sortArrayByDateTimeAttr($array) {
+    private static function sortArrayByDateTimeAttr($array) {
         $compare = function($a, $b) {
             $day_a = strtotime($a['date']);
             $day_b = strtotime($b['date']);
@@ -204,19 +229,19 @@ class ScheduleController extends Controller
         return $array;
     }
 
-    public function getScheduleDaily() {
-        $schedule_daily = ScheduleDaily::all()->toArray();
+    public static function getScheduleDaily($doctor_id, $type) {
         try {
-            $schedule_daily = $this->sortArrayByDateTimeAttr($schedule_daily);
-            $this->printTable($schedule_daily);
+            $schedule_daily = ScheduleDaily::where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
+            $schedule_daily = self::sortArrayByDateTimeAttr($schedule_daily);
+            return self::printTable($schedule_daily);
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            // echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return '';
         }
-        // return $schedule_daily;
     }
 
-    public function addScheduleDaily(Request $request) {
+    public static function addScheduleDaily(Request $request) {
         echo "<h2>Request Updating Special-Schedule</h2>";
         var_dump($request->all());
         try {
@@ -245,7 +270,7 @@ class ScheduleController extends Controller
         $this->getScheduleDaily();
     }
 
-    public function deleteScheduleDaily(Request $request) {
+    public static function deleteScheduleDaily(Request $request) {
         echo "<h2>Request Deleting Special-Schedule</h2>";
         var_dump($request->all());
         try {
@@ -266,7 +291,7 @@ class ScheduleController extends Controller
     //        Query Function
     // ############################
 
-    public function getSchedule(Request $request) {
+    public static function getSchedule(Request $request) {
         var_dump($request->all());
 
         $normalTime = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->get()->toArray();
