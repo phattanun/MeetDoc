@@ -80,8 +80,10 @@
                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-extended quick-sidebar-toggler">
-                        <i class="icon-logout"></i>
-                        Logout
+                        <a href="{{ url('logout') }}" class="dropdown-toggle">
+                            <i class="icon-logout"></i>
+                            <span> Logout </span>
+                        </a>
                     </li>
                     <!-- END QUICK SIDEBAR TOGGLER -->
                 </ul>

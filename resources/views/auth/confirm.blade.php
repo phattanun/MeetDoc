@@ -41,10 +41,10 @@
     <form class="login-form" action="{{ url('/login') }}" method="post">
         {{ csrf_field() }}
 
-        <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>ขอลงทะเบียนสำเร็จ</h3>
+        <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>{{ $title }}</h3>
         <div class="caption text-center">
             {{--<i class="glyphicon glyphicon-alert font-red"></i>--}}
-            <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการลงทะเบียนไปทางอีเมลของท่าน<br>กรุณายืนยันการลงทะเบียนภายใน 1 วัน</span>
+            <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายเพื่อ{{ $action }}ไปทางอีเมล<br>และโทรศัพท์มือถือของท่าน<br>กรุณา{{ $action }}ภายใน 1 วัน</span>
         </div>
     </form>
     <!-- END LOGIN FORM -->

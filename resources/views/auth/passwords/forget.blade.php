@@ -38,7 +38,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN FORGOT PASSWORD FORM -->
-    <form class="forget-form" action="{{ url('/password/reset') }}" method="post">
+    <form class="forget-form" action="{{ url('/password/forget') }}" method="post">
 
         {{ csrf_field() }}
 
@@ -48,7 +48,7 @@
                 <strong>สำเร็จ!</strong> ระบบได้ทำการส่งจดหมายเพื่อเปลี่ยนรหัสผ่านไปที่อีเมลของท่านแล้ว กรุณาทำการเปลี่ยนรหัสผ่านภายใน 1 วัน. </div>
         @elseif(isset($success)&&!$success)
             <div class="alert alert-danger" id="password-reset-alert">
-                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง </div>
+                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง</div>
         @else
         @endif
         <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่</p>

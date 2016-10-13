@@ -36,7 +36,7 @@
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
-                        <div class="profile-usertitle-name"> นายกิตติภพ พละการ </div>
+                        <div class="profile-usertitle-name"> {{ $name }} {{ $surname }} </div>
                         <div class="profile-usertitle-job"> ผู้ป่วย </div>
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
@@ -108,47 +108,47 @@
                                             @else
                                             @endif
                                             <div class="form-group form-md-line-input">
-                                                <div class="form-control form-control-static"> 5631011021 </div>
-                                                <label id="hid" for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
+                                                <div id="hid" class="form-control form-control-static"> {{ $hid }} </div>
+                                                <label for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
                                             </div>
                                             <div class="form-group form-md-line-input">
-                                                <div class="form-control form-control-static"> 1959800098399 </div>
-                                                <label id="id" for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
+                                                <div id="id" class="form-control form-control-static"> {{ $ssn }} </div>
+                                                <label for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
                                             </div>
                                             <hr>
                                             <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
-                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
+                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" value="{{ $name }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">นามสกุล</label>
-                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
+                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" value="{{ $surname }}"/> </div>
                                             <div class="form-group">
                                                     <label class="control-label">เพศ</label>
                                                         <div class="mt-radio-inline">
                                                         <label class="mt-radio">
-                                                            <input name="gender" id="male" @if(isset($gender)&&$gender=='male') checked @endif value = "male" type="radio"> ชาย
+                                                            <input name="gender" id="male" @if(isset($gender) && $gender=='m') checked @endif value = "m" type="radio"> ชาย
                                                             <span></span>
                                                         </label>
                                                         <label class="mt-radio">
-                                                            <input name="gender" id="female" @if(isset($gender)&&$gender=='female') checked @endif value="female"  type="radio"> หญิง
+                                                            <input name="gender" id="female" @if(isset($gender) && $gender=='f') checked @endif value="f"  type="radio"> หญิง
                                                             <span></span>
                                                         </label>
                                                     </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
-                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" />
+                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ $birthday }}"/>
                                                 <span class="help-block"> * ใช้ปีพุทธศักราช </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">อีเมล</label>
-                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" /> </div>
+                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" value="{{ $email }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ที่อยู่</label>
-                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" ></textarea> </div>
+                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" >{{ $address }}</textarea> </div>
                                             <div class="form-group">
                                                 <label class="control-label">หมายเลขโทรศัพท์</label>
-                                                <input id="phone" name="phone" type="text" placeholder="0899999999" class="form-control" /> </div>
+                                                <input id="phone_no" name="phone_no" type="text" placeholder="0899999999" class="form-control" value="{{ $phone_no }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
                                                 <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
@@ -215,10 +215,10 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <a href="{{url('password/reset')}}" class="btn btn-warning"> เปลี่ยนรหัสผ่าน </a> </div>
+                                                <a href="{{ action('PagesController@changePassword') }}" class="btn btn-warning"> เปลี่ยนรหัสผ่าน </a> </div>
                                             <div class="margiv-top-10">
                                                 <button type="submit" class="btn green"> บันทึกการแก้ไข </button>
-                                                <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>
+                                                <a href="{{ url('/profile') }}" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
                                     </div>
@@ -275,4 +275,3 @@
     <script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
 @endsection
-

@@ -46,7 +46,7 @@
             <button class="close" data-close="alert"></button>
             <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
         </div>
-        @if(isset($error))
+        @if($errors->any())
             <div class="alert alert-danger" id="error-alert">
                 <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง
             </div>
@@ -54,7 +54,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">เลขบัตรประจำตัวประชาชน</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" />
+            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}"/>
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -76,7 +76,7 @@
                 <input type="checkbox" name="remember" value="1" />จำฉันไว้ในระบบ
                 <span></span>
             </label>
-            <a href="{{url('password/forget')}}" id="forget-password" class="forget-password">ลืมรหัสผ่าน?</a>
+            <a href="{{ url('password/forget') }}" id="forget-password" class="forget-password">ลืมรหัสผ่าน?</a>
         </div>
         <div class="create-account">
             <p>

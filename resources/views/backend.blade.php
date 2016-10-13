@@ -1,7 +1,7 @@
 @if( !isset($controller) && !isset($page))
     <h3>AccountController</h3>
     <ul>
-        <li><a href="{{ action('AccountController@login') }}" target="side">login</a></li>
+        <li><a href="{{ action('PagesController@viewLogin') }}" target="side">login</a></li>
         <li><a href="{{ action('AccountController@loginStatus') }}" target="side">loginStatus</a></li>
         <li><a href="{{ action('AccountController@getUserList') }}" target="side">getUserList</a></li>
         <li><a href="{{ action('AccountController@register') }}" target="side">register</a></li>
@@ -72,10 +72,12 @@
     @elseif($page == "edit")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="ssn"      placeholder="SSN" /> <= Key <br>
+            <input type="number"    name="id"       placeholder="ID" /> <= Key <br>
+            <input type="number"    name="ssn"      placeholder="SSN" /><br>
             <input type="text"      name="name"     placeholder="Name" /><br>
             <input type="text"      name="surname"  placeholder="Surname" /><br>
             <select name="gender">
+                <option value=""></option>
                 <option value="M">Male</option>
                 <option value="F">Female</option>
             </select><br>

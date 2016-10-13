@@ -3,19 +3,83 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\AccountController;
-
-use App\Http\Requests;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DiagnosisController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SystemController;
+use App\Http\Controllers\WorkingTimeController;
 
 class PagesController extends Controller
 {
-    public function register(Request $request) {
-        $con = new AccountController;
-        $result = $con->register($request);
-        if($result != "Success") {
-            return view('auth/login')->with('error', $result);
+
+    public function index() {
+        if(Auth::check()) return view('masterpage');
+        else return view('auth/login');
+    }
+
+    public function viewLogin() {
+        if(Auth::check()) return redirect('/');
+        else return view('auth/login');
+    }
+
+    public function login(Request $request) {
+        if(AccountController::login($request))
+            return redirect('/');
+        else $request->flashExcept('password'); // Auto-fill Inputs when Failed.
+        return redirect('/login')->withErrors(['']);
+    }
+
+    public function forgetPassword(Request $request) {
+        $res = AccountController::forgetPassword($request);
+        if($res['status']) {
+            // TODO: send email/sms
         }
-        return view('confirmRegister');
+        else $request->flash();
+        return view('auth/passwords/forget')->with('success', $res['status']);
+    }
+
+    public function changePassword(Request $request) {
+        $request->id = Auth::user()->ssn;
+        $res = AccountController::forgetPassword($request);
+        if($res['status']) {
+            // TODO: send email/sms
+        }
+        return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน']);
+    }
+
+    public function register(Request $request) {
+        $res = AccountController::register($request);
+        if($res['status'])
+            return view('auth/confirm')->with(['title' => 'ขอลงทะเบียนสำเร็จ', 'action' => 'ยืนยันการลงทะเบียน']);
+        else $request->flashExcept('id');
+        return view('auth/register')->with('msg','รหัสบัตรประจำตัวประชาชนซ้ำ');
+    }
+
+    public function viewProfile() {
+        $user = Auth::user();
+        return view('profile')->with([
+            'hid' => $user->id,
+            'ssn' => $user->ssn,
+            'name' => $user->name,
+            'surname' => $user->surname,
+            'gender' => $user->gender,
+            'birthday' => $user->birthday,
+            'address' => $user->address,
+            'email' => $user->email,
+            'phone_no' => $user->phone_no,
+            'drugAllergy' => [],
+        ]);
+    }
+
+    public function editProfile(Request $request) {
+        $request->id = Auth::User()->id;
+        $user = AccountController::edit($request);
+        Auth::setUser($user);
+        return $this->viewProfile();
     }
 }

@@ -42,9 +42,9 @@
         {{ csrf_field() }}
 
         <h3 class="font-green">ลงทะเบียน</h3>
-        @if(isset($error))
+        @if(isset($msg))
             <div class="alert alert-danger" id="register-alert">
-                <strong>ผิดพลาด!</strong> {{$error}}
+                <strong>ผิดพลาด!</strong> {{ $msg }}
             </div>
         @endif
         <p class="hint"> กรุณาระบุข้อมูลต่อไปนี้: </p>
@@ -81,11 +81,11 @@
                 <div class="col-md-10">
                     <div class="mt-radio-inline">
                         <label class="mt-radio">
-                            <input name="gender" type="radio" id="optionsRadios25" value="male" checked> ชาย
+                            <input name="gender" type="radio" id="optionsRadios25" value="m" @if(old('gender')=='m' || old('gender')==null) checked @endif > ชาย
                             <span></span>
                         </label>
                         <label class="mt-radio">
-                            <input name="gender"  type="radio" id="optionsRadios26" value="female" checked> หญิง
+                            <input name="gender"  type="radio" id="optionsRadios26" value="f" @if(old('gender')=='f') checked @endif > หญิง
                             <span></span>
                         </label>
                     </div>
@@ -95,7 +95,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">วันเกิด</label>
-            <input class="form-control{{ $errors->has('birthday') ? ' has-error' : '' }} placeholder-no-fix" id="mask_date2" type="text" placeholder="วันเกิด" name="birthday" />
+            <input class="form-control{{ $errors->has('birthday') ? ' has-error' : '' }} placeholder-no-fix" id="mask_date2" type="text" placeholder="วันเกิด" name="birthday" value="{{ old('birthday') }}" />
             @if ($errors->has('birthday'))
                 <span class="help-block">
                     <strong>{{ $errors->first('birthday') }}</strong>
@@ -105,7 +105,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">อีเมล</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" id="email"  type="text" placeholder="อีเมล" name="email" />
+            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} placeholder-no-fix" id="email"  type="text" placeholder="อีเมล" name="email" value="{{ old('email') }}"/>
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -115,7 +115,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">ที่อยู่</label>
-            <textarea class="form-control{{ $errors->has('address') ? ' has-error' : '' }} placeholder-no-fix" id="address" style="height: 100px;"  placeholder="ที่อยู่" name="address" ></textarea>
+            <textarea class="form-control{{ $errors->has('address') ? ' has-error' : '' }} placeholder-no-fix" id="address" style="height: 100px;"  placeholder="ที่อยู่" name="address">{{ old('address') }}</textarea>
             @if ($errors->has('address'))
                 <span class="help-block">
                     <strong>{{ $errors->first('address') }}</strong>
@@ -125,7 +125,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">หมายเลขโทรศัพท์เคลื่อนที่</label>
-            <input class="form-control{{ $errors->has('phone') ? ' has-error' : '' }} placeholder-no-fix" id="mask_number"  type="text" placeholder="หมายเลขโทรศัพท์เคลื่อนที่" name="phone" />
+            <input class="form-control{{ $errors->has('phone') ? ' has-error' : '' }} placeholder-no-fix" id="mask_number"  type="text" placeholder="หมายเลขโทรศัพท์เคลื่อนที่" name="phone" value="{{ old('phone') }}"/>
             @if ($errors->has('phone'))
                 <span class="help-block">
                     <strong>{{ $errors->first('phone') }}</strong>

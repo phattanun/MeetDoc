@@ -1,14 +1,22 @@
 <?php
 
-Route::get('/', function () {
-    return view('masterpage');
-});
+Route::get('/', 'PagesController@index');
+
+//Merged
+Route::get ('/login', 'PagesController@viewLogin');
+Route::post('/login', 'PagesController@login');
+Route::get('/logout', 'AccountController@logout');
+Route::post('/password/forget', 'PagesController@forgetPassword');
+Route::get('/password/change', 'PagesController@changePassword');
+Route::get('/profile', 'PagesController@viewProfile');
+Route::post('/profile', 'PagesController@editProfile');
+
 //everyone
 Route::get('/password/reset', 'ProfileController@passwordResetPage');
 Route::get('/password/forget', 'ProfileController@passwordForgetPage');
 Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
 Route::get('/register', 'ProfileController@registerPage');
-Route::get('/profile', 'ProfileController@index');
+// Route::get('/profile', 'ProfileController@index');
 //Route::post('/profile', 'ProfileController@testprofile');
 
 //Patient
@@ -34,8 +42,6 @@ Route::get('/queue', 'ProfileController@test4');
 //Auth
 // Route::auth();
 Route::get('/home', 'ProfileController@index');
-Route::get('/login', function() { return View::make('auth/login'); });
-Route::post('/login', 'AccountController@login');
 Route::get('/login/officer', 'Auth\AuthController@officerLoginPage');
 
 Route::post('/register', 'PagesController@register');
@@ -46,7 +52,7 @@ Route::get('/backend', function() {
 });
 
 // Account
-Route::post('/backend/Account/login', 'AccountController@login');
+// Route::post('/backend/Account/login', 'AccountController@login');
 Route::get('/backend/Account/loginStatus', 'AccountController@loginStatus');
 Route::get('/backend/Account/getUserList', 'AccountController@getUserList');
 Route::post('/backend/Account/register', 'AccountController@register');
