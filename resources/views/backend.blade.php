@@ -238,6 +238,43 @@
     @else
         Not found "{{ $controller }}/{{ $page }}"
     @endif
+@elseif($controller == "Medicine")
+    @if($page == 'create')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="text" name="medicine_name" placeholder="Medicine name" /><br>
+            <input type="text" name="business_name" placeholder="Business name" /><br>
+            <input type="text" name="type" placeholder="Type" /><br>
+            <input type="text" name="description" placeholder="Description" /><br>
+            <input type="text" name="instruction" placeholder="Instruction" /><br>
+            <input type="text" name="manufacturer" placeholder="Manufacturer" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == 'update')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="text" name="medicine_id" placeholder="Medicine ID" /><br>
+            <input type="text" name="medicine_name" placeholder="Medicine name" /><br>
+            <input type="text" name="business_name" placeholder="Business name" /><br>
+            <input type="text" name="type" placeholder="Type" /><br>
+            <input type="text" name="description" placeholder="Description" /><br>
+            <input type="text" name="instruction" placeholder="Instruction" /><br>
+            <input type="text" name="manufacturer" placeholder="Manufacturer" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == 'delete')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="medicine_id">
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == 'detail')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="medicine_id">
+            <button type="submit">Submit</button>
+        </form>
+    @endif
 @else
     Not found "{{ $controller }}/{{ $page }}"
 @endif
