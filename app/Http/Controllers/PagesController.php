@@ -85,11 +85,28 @@ class PagesController extends Controller
 
     public function viewSchedule() {
         $doctor_id = Auth::User()->id;
-        $weekly = ScheduleController::getScheduleWeekly($doctor_id);
-        $dailyAdd = ScheduleController::getScheduleDaily($doctor_id, 'add');
-        $dailySub = ScheduleController::getScheduleDaily($doctor_id, 'sub');
+        $weekly = ScheduleController::getWeeklySchedule($doctor_id);
+        $dailyAdd = ScheduleController::getDailySchedule($doctor_id, 'add');
+        $dailySub = ScheduleController::getDailySchedule($doctor_id, 'sub');
         // var_dump($dailyAdd);
         // var_dump($dailySub);
         return view('doctorSchedule')->with(['weekly_schedule' => $weekly, 'daily_add_schedule' => $dailyAdd, 'daily_sub_schedule' => $dailySub]);
+    }
+
+    public function addWeeklySchedule(Request $request) {
+        $request->doctor_id = Auth::User()->id;
+        $res = ScheduleController::addWeeklySchedule($request);
+        return redirect('/doctor/schedule');
+    }
+
+    public function addDailySchedule(Request $request) {
+        $request->date = date('Y-m-d', strtotime($request->date));
+        $request->doctor_id = Auth::User()->id;
+        $res = ScheduleController::addDailySchedule($request);
+        return redirect('/doctor/schedule');
+    }
+
+    public function deleteWeeklySchedule(Request $request) {
+
     }
 }

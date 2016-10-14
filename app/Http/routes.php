@@ -11,6 +11,8 @@ Route::get('/password/change', 'PagesController@changePassword');
 Route::get('/profile', 'PagesController@viewProfile');
 Route::post('/profile', 'PagesController@editProfile');
 Route::get('/doctor/schedule', 'PagesController@viewSchedule');
+Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
+Route::post('/doctor/daily', 'PagesController@addDailySchedule');
 
 //everyone
 Route::get('/password/reset', 'ProfileController@passwordResetPage');

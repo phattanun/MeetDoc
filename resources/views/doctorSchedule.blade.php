@@ -35,7 +35,8 @@
                         <div class="portlet-body">
                             <!-- BEGIN ADD FORM -->
                             <div class="portlet-body form">
-                                <form class="form-horizontal" role="form">
+                                <form class="form-horizontal" role="form" action="./weekly" method="post">
+                                    {{ csrf_field() }}
                                     <div class="form-body" style="padding-bottom: 0px;">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -76,17 +77,17 @@
                                                     <label class="col-md-3 control-label"><b>แผนก</b></label>
                                                     <div class="col-md-9">
                                                         <select name="dept_id" class="form-control">
-                                                            <option value="0">แผนกอายุรกรรม</option>
-                                                            <option value="1">แผนกหู คอ จมูก</option>
-                                                            <option value="2">แผนกตา</option>
-                                                            <option value="3">แผนกกระดูก</option>
-                                                            <option value="4">แผนกฉุกเฉิน</option>
+                                                            <option value="1">แผนกอายุรกรรม</option>
+                                                            <option value="2">แผนกหู คอ จมูก</option>
+                                                            <option value="3">แผนกตา</option>
+                                                            <option value="4">แผนกกระดูก</option>
+                                                            <option value="5">แผนกฉุกเฉิน</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="submit" class="btn green">เพิ่ม</button>
+                                                <button type="submit" class="btn green">เพิ่ม/แก้ไข</button>
                                             </div>
                                         </div>
                                    </div>
@@ -130,7 +131,8 @@
                         <div class="portlet-body">
                             <!-- BEGIN ADD FORM -->
                             <div class="portlet-body form">
-                                <form class="form-horizontal" role="form">
+                                <form class="form-horizontal" role="form" action="./daily?type=add" method="post">
+                                    {{ csrf_field() }}
                                     <div class="form-body" style="padding-bottom: 0px;">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -138,7 +140,7 @@
                                                     <label class="control-label col-md-3"><b>วันที่</b></label>
                                                     <div class="col-md-3">
                                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                                            <input type="text" class="form-control" readonly>
+                                                            <input type="text" name="date" class="form-control" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -169,18 +171,18 @@
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>แผนก</b></label>
                                                     <div class="col-md-9">
-                                                        <select class="form-control">
-                                                            <option>แผนกอายุรกรรม</option>
-                                                            <option>แผนกหู คอ จมูก</option>
-                                                            <option>แผนกตา</option>
-                                                            <option>แผนกกระดูก</option>
-                                                            <option>แผนกฉุกเฉิน</option>
+                                                        <select name="dept_id" class="form-control">
+                                                            <option value="1">แผนกอายุรกรรม</option>
+                                                            <option value="2">แผนกหู คอ จมูก</option>
+                                                            <option value="3">แผนกตา</option>
+                                                            <option value="4">แผนกกระดูก</option>
+                                                            <option value="5">แผนกฉุกเฉิน</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="submit" class="btn green">เพิ่ม</button>
+                                                <button type="submit" class="btn green">เพิ่ม/แก้ไข</button>
                                             </div>
                                         </div>
                                     </div>
@@ -224,7 +226,8 @@
                         <div class="portlet-body">
                             <!-- BEGIN ADD FORM -->
                             <div class="portlet-body form">
-                                <form class="form-horizontal" role="form">
+                                <form class="form-horizontal" role="form" action="./daily?type=sub" method="post">
+                                    {{ csrf_field() }}
                                     <div class="form-body" style="padding-bottom: 0px;">
                                         <div class="row">
                                             <div class="col-md-3">
@@ -232,7 +235,7 @@
                                                     <label class="control-label col-md-3"><b>วันที่</b></label>
                                                     <div class="col-md-3">
                                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                                            <input type="text" class="form-control" readonly>
+                                                            <input type="text" name="date" class="form-control" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
                                                                 <i class="fa fa-calendar"></i>
@@ -259,22 +262,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>แผนก</b></label>
-                                                    <div class="col-md-9">
-                                                        <select class="form-control">
-                                                            <option>แผนกอายุรกรรม</option>
-                                                            <option>แผนกหู คอ จมูก</option>
-                                                            <option>แผนกตา</option>
-                                                            <option>แผนกกระดูก</option>
-                                                            <option>แผนกฉุกเฉิน</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md-2">
-                                                <button type="submit" class="btn green">เพิ่ม</button>
+                                                <button type="submit" class="btn green">ยกเลิกการตรวจ</button>
                                             </div>
                                         </div>
                                     </div>
@@ -289,7 +278,6 @@
                                         <th> ลำดับที่ </th>
                                         <th> วันที่ </th>
                                         <th> ช่วง </th>
-                                        <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>

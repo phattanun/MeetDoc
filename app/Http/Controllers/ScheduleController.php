@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 use App\DateDim;
 use App\Schedule;
-use App\ScheduleWeekly;
-use App\ScheduleDaily;
+use App\WeeklySchedule;
+use App\DailySchedule;
 
 class ScheduleController extends Controller
 {
 
-    private static function printTable($array) {
+    private static function printTable($array, $schedule_type = "other") {
         $dayDict = [
             'Sunday' => 'วันอาทิตย์',
             'Monday' => 'วันจันทร์',
@@ -44,7 +44,7 @@ class ScheduleController extends Controller
                     case 'date':
                         $value = date('d-m-Y', strtotime($value));
                 }
-                if($key == 'type')
+                if($key == 'type' || ($schedule_type == 'sub' && $key == 'dept_id'))
                     continue;
                 $re .= "<td>".$value."</td>";
             }
@@ -156,48 +156,50 @@ class ScheduleController extends Controller
         return $array;
     }
 
-    public static function getScheduleWeekly($doctor_id) {
+    public static function getWeeklySchedule($doctor_id) {
         try {
-            $schedule_weekly = ScheduleWeekly::where('doctor_id', $doctor_id)->get()->toArray();
-            $schedule_weekly = self::sortArrayByDayTimeAttr($schedule_weekly);
+            $weekly_schedule = WeeklySchedule::where('doctor_id', $doctor_id)->get()->toArray();
+            $weekly_schedule = self::sortArrayByDayTimeAttr($weekly_schedule);
         }
         catch (\Exception $e) {
             // echo "<h2>Error: ".$e->getMessage()."</h2>";
             return '';
         }
-        return self::printTable($schedule_weekly);
+        return self::printTable($weekly_schedule);
     }
 
-    public static function addScheduleWeekly(Request $request) {
-        echo "<h2>Request Updating Normal-Schedule</h2>";
-        var_dump($request->all());
+    public static function addWeeklySchedule(Request $request) {
+        // echo "<h2>Request Updating Normal-Schedule</h2>";
+        // var_dump($request->all());
         try {
-            $record = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->first();
+            $record = WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->first();
             if($record != null) {
-                echo "<h2>Update Normal-Schedule</h2>";
-                ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->update(['dept_id' => $request->dept_id]);
+                // echo "<h2>Update Normal-Schedule</h2>";
+                WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->update(['dept_id' => $request->dept_id]);
             }
             else {
-                echo "<h2>Add New Normal-Schedule</h2>";
-                $new_nwt = new ScheduleWeekly;
-                $new_nwt->doctor_ssn = $request->doctor_ssn;
-                $new_nwt->day = $request->day;
-                $new_nwt->time = $request->time;
-                $new_nwt->dept_id = $request->dept_id;
-                $new_nwt->save();
+                // echo "<h2>Add New Normal-Schedule</h2>";
+                $new_ws = new WeeklySchedule;
+                $new_ws->doctor_id = $request->doctor_id;
+                $new_ws->day = $request->day;
+                $new_ws->time = $request->time;
+                $new_ws->dept_id = $request->dept_id;
+                $new_ws->save();
             }
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            // echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return $e->getMessage();
         }
-        $this->getScheduleWeekly();
+        // $this->getWeeklySchedule();
+        return true;
     }
 
-    public static function deleteScheduleWeekly(Request $request) {
+    public static function deleteWeeklySchedule(Request $request) {
         echo "<h2>Request Deleting Normal-Schedule</h2>";
         var_dump($request->all());
         try {
-            $status = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->where('day', $request->day)->where('time', $request->time)->delete();
+            $status = WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->delete();
             if($status)
                 echo "<h2>Delete Normal-Schedule</h2>";
             else echo "<h2>Nothing to Delete</h2>";
@@ -205,7 +207,7 @@ class ScheduleController extends Controller
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getScheduleWeekly();
+        $this->getWeeklySchedule();
     }
 
 
@@ -229,11 +231,11 @@ class ScheduleController extends Controller
         return $array;
     }
 
-    public static function getScheduleDaily($doctor_id, $type) {
+    public static function getDailySchedule($doctor_id, $type) {
         try {
-            $schedule_daily = ScheduleDaily::where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
+            $schedule_daily = DailySchedule::where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
             $schedule_daily = self::sortArrayByDateTimeAttr($schedule_daily);
-            return self::printTable($schedule_daily);
+            return self::printTable($schedule_daily, $type);
         }
         catch (\Exception $e) {
             // echo "<h2>Error: ".$e->getMessage()."</h2>";
@@ -241,40 +243,42 @@ class ScheduleController extends Controller
         }
     }
 
-    public static function addScheduleDaily(Request $request) {
-        echo "<h2>Request Updating Special-Schedule</h2>";
-        var_dump($request->all());
+    public static function addDailySchedule(Request $request) {
+        // echo "<h2>Request Updating Special-Schedule</h2>";
+        // var_dump($request->all());
         try {
             if($request->type == "add" && $request->dept_id == "")
                 throw new \Exception("No Attend Department", 1);
 
-            $record = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->first();
+            $record = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->first();
             if($record != null) {
-                echo "<h2>Update Special-Schedule</h2>";
-                ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->update(['type' => $request->type, 'dept_id' => $request->dept_id]);
+                // echo "<h2>Update Special-Schedule</h2>";
+                DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->update(['type' => $request->type, 'dept_id' => $request->dept_id]);
             }
             else {
-                echo "<h2>Add New Special-Schedule</h2>";
-                $new_swt = new ScheduleDaily;
-                $new_swt->doctor_ssn = $request->doctor_ssn;
-                $new_swt->date = $request->date;
-                $new_swt->time = $request->time;
-                $new_swt->type = $request->type;
-                $new_swt->dept_id = $request->dept_id;
-                $new_swt->save();
+                // echo "<h2>Add New Special-Schedule</h2>";
+                $new_ds = new DailySchedule;
+                $new_ds->doctor_id = $request->doctor_id;
+                $new_ds->date = $request->date;
+                $new_ds->time = $request->time;
+                $new_ds->type = $request->type;
+                $new_ds->dept_id = $request->dept_id;
+                $new_ds->save();
             }
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            // echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return false;
         }
-        $this->getScheduleDaily();
+        // $this->getDailySchedule();
+        return true;
     }
 
-    public static function deleteScheduleDaily(Request $request) {
+    public static function deleteDailySchedule(Request $request) {
         echo "<h2>Request Deleting Special-Schedule</h2>";
         var_dump($request->all());
         try {
-            $status = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('date', $request->date)->where('time', $request->time)->delete();
+            $status = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->delete();
             if($status)
                 echo "<h2>Delete Special-Schedule</h2>";
             else
@@ -283,7 +287,7 @@ class ScheduleController extends Controller
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getScheduleDaily();
+        $this->getDailySchedule();
     }
 
 
@@ -294,9 +298,9 @@ class ScheduleController extends Controller
     public static function getSchedule(Request $request) {
         var_dump($request->all());
 
-        $normalTime = ScheduleWeekly::where('doctor_ssn', $request->doctor_ssn)->get()->toArray();
-        $addTime = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('type', 'add')->get()->toArray();
-        $subTime = ScheduleDaily::where('doctor_ssn', $request->doctor_ssn)->where('type', 'sub')->get()->toArray();
+        $normalTime = WeeklySchedule::where('doctor_id', $request->doctor_id)->get()->toArray();
+        $addTime = DailySchedule::where('doctor_id', $request->doctor_id)->where('type', 'add')->get()->toArray();
+        $subTime = DailySchedule::where('doctor_id', $request->doctor_id)->where('type', 'sub')->get()->toArray();
 
         // $addTime = $this->sortArrayByDateTimeAttr($addTime);
         // $subTime = $this->sortArrayByDateTimeAttr($subTime);
@@ -307,7 +311,7 @@ class ScheduleController extends Controller
         echo "<h2>Weekly Schedule (Subtract)</h2>";
         $this->printTable($subTime);
 
-        $schedule = Schedule::where('doctor_ssn', $request->doctor_ssn)->where('date','>=',$request->from)->where('date','<=',$request->to)->get()->toArray();
+        $schedule = Schedule::where('doctor_id', $request->doctor_id)->where('date','>=',$request->from)->where('date','<=',$request->to)->get()->toArray();
         $schedule = $this->sortArrayByDateTimeAttr($schedule);
         $this->printCalendarTable($schedule);
     }
