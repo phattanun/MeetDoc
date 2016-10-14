@@ -84,6 +84,12 @@ Route::post('/backend/Schedule/deleteScheduleDaily', 'ScheduleController@deleteS
 
 Route::post('/backend/Schedule/getSchedule', 'ScheduleController@getSchedule');
 
+// Medicine
+Route::post('/backend/Medicine/create', 'MedicineController@create_medicine');
+Route::post('/backend/Medicine/delete', 'MedicineController@delete_medicine');
+Route::post('/backend/Medicine/detail', 'MedicineController@get_medicine_detail');
+Route::post('/backend/Medicine/update', 'MedicineController@edit_medicine');
+Route::get('/backend/Medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
 Route::post('/backend/{controller}/post',
     function($controller) {
