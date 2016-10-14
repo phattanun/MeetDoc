@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2016 at 10:23 PM
+-- Generation Time: Oct 14, 2016 at 06:55 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,11 +33,19 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `date` date NOT NULL,
   `time` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `symptom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cancel_time` timestamp NULL DEFAULT NULL,
   `queue_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `checkin_time` timestamp NULL DEFAULT NULL,
   `type` char(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`id`, `doctor_ssn`, `patient_ssn`, `date`, `time`, `symptom`, `cancel_time`, `queue_status`, `checkin_time`, `type`) VALUES
+(10, 4321, 1234, '2016-10-26', 'A', 'ไม่สบาย', NULL, 'uncheckedin', NULL, 'R');
 
 -- --------------------------------------------------------
 
@@ -7797,82 +7805,41 @@ CREATE TABLE IF NOT EXISTS `drug` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table `schedule_daily`
 --
 
-CREATE TABLE IF NOT EXISTS `migrations` (
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `migrations`
---
-
-INSERT INTO `migrations` (`migration`, `batch`) VALUES
-('2016_09_30_135846_create_user_table', 1),
-('2016_09_30_135857_create_dept_table', 1),
-('2016_09_30_140021_create_drug_table', 1),
-('2016_09_30_140243_create_appointment_table', 1),
-('2016_09_30_140256_create_disease_table', 1),
-('2016_09_30_140355_create_normal_working_time_table', 1),
-('2016_09_30_140409_create_special_working_time_table', 1),
-('2016_09_30_140434_create_date_dim_table', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `normal_working_time`
---
-
-CREATE TABLE IF NOT EXISTS `normal_working_time` (
-  `doctor_ssn` int(10) unsigned NOT NULL,
-  `day` char(9) COLLATE utf8_unicode_ci NOT NULL,
-  `time` char(1) COLLATE utf8_unicode_ci NOT NULL,
-  `dept_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`day`,`time`,`doctor_ssn`),
-  KEY `dept_id` (`dept_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `normal_working_time`
---
-
-INSERT INTO `normal_working_time` (`doctor_ssn`, `day`, `time`, `dept_id`) VALUES
-(4321, 'Monday', 'A', 1),
-(1234, 'Friday', 'A', 2),
-(1234, 'Monday', 'M', 2),
-(1234, 'Wednesday', 'A', 2),
-(1234, 'Monday', 'A', 3),
-(1234, 'Saturday', 'A', 3),
-(1234, 'Tuesday', 'A', 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `special_working_time`
---
-
-CREATE TABLE IF NOT EXISTS `special_working_time` (
-  `doctor_ssn` int(10) unsigned NOT NULL,
+CREATE TABLE IF NOT EXISTS `schedule_daily` (
+  `doctor_id` int(10) unsigned NOT NULL,
   `date` date NOT NULL,
   `time` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `type` char(3) COLLATE utf8_unicode_ci NOT NULL,
   `dept_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`doctor_ssn`,`date`,`time`,`type`),
+  PRIMARY KEY (`doctor_id`,`date`,`time`,`type`),
   KEY `dept_id` (`dept_id`),
-  KEY `doctor_ssn` (`doctor_ssn`)
+  KEY `doctor_ssn` (`doctor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `special_working_time`
+-- Stand-in structure for view `schedule_view`
+--
+CREATE TABLE IF NOT EXISTS `schedule_view` (
+);
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule_weekly`
 --
 
-INSERT INTO `special_working_time` (`doctor_ssn`, `date`, `time`, `type`, `dept_id`) VALUES
-(1234, '2016-10-10', 'M', 'sub', NULL),
-(1234, '2016-10-11', 'A', 'sub', NULL),
-(1234, '2016-10-16', 'M', 'add', 1),
-(1234, '2016-10-14', 'A', 'add', 3);
+CREATE TABLE IF NOT EXISTS `schedule_weekly` (
+  `doctor_id` int(10) unsigned NOT NULL,
+  `day` char(9) COLLATE utf8_unicode_ci NOT NULL,
+  `time` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `dept_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`day`,`time`,`doctor_id`),
+  KEY `dept_id` (`dept_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -7881,65 +7848,45 @@ INSERT INTO `special_working_time` (`doctor_ssn`, `date`, `time`, `type`, `dept_
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `ssn` bigint(20) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `surname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `gender` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `birthday` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `phone_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`ssn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`ssn`, `name`, `surname`, `gender`, `email`, `address`, `phone_no`, `password`) VALUES
-(0, '', '', 'M', '', '', '', ''),
-(1234, 'John', 'Doe', 'M', 'john.d@email.com', '12/3 john st.', '66812345678', '1234'),
-(4321, 'Jane', 'Doe', 'F', 'jane.d@email.com', '12/3 jane st.', '66812345678', '4321');
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_active` timestamp NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ssn` (`ssn`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=48 ;
 
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `working_time_view`
+-- Structure for view `schedule_view`
 --
-CREATE TABLE IF NOT EXISTS `working_time_view` (
-`date` date
-,`day_of_week` char(9)
-,`day` int(10) unsigned
-,`month` int(10) unsigned
-,`year` int(10) unsigned
-,`time` varchar(1)
-,`doctor_ssn` bigint(10) unsigned
-,`dept_id` bigint(10) unsigned
-);
--- --------------------------------------------------------
-
---
--- Structure for view `working_time_view`
---
-DROP TABLE IF EXISTS `working_time_view`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`meetdoc`@`localhost` SQL SECURITY DEFINER VIEW `working_time_view` AS select `dd`.`date` AS `date`,`dd`.`day_of_week` AS `day_of_week`,`dd`.`day` AS `day`,`dd`.`month` AS `month`,`dd`.`year` AS `year`,ifnull(`swt`.`time`,`nwt`.`time`) AS `time`,ifnull(`swt`.`doctor_ssn`,`nwt`.`doctor_ssn`) AS `doctor_ssn`,ifnull(`swt`.`dept_id`,`nwt`.`dept_id`) AS `dept_id` from ((`date_dim` `dd` left join `normal_working_time` `nwt` on((`dd`.`day_of_week` = `nwt`.`day`))) left join `special_working_time` `swt` on(((`dd`.`date` = `swt`.`date`) and (isnull(`nwt`.`doctor_ssn`) or ((`nwt`.`doctor_ssn` = `swt`.`doctor_ssn`) and (`nwt`.`time` = `swt`.`time`)))))) where (((`swt`.`type` = 'add') or isnull(`swt`.`type`)) and ((`nwt`.`doctor_ssn` is not null) or (`swt`.`doctor_ssn` is not null))) order by `dd`.`datekey`;
+DROP TABLE IF EXISTS `schedule_view`;
+-- in use(#1356 - View 'meetdoc.schedule_view' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them)
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `normal_working_time`
+-- Constraints for table `schedule_daily`
 --
-ALTER TABLE `normal_working_time`
-  ADD CONSTRAINT `nwt_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `schedule_daily`
+  ADD CONSTRAINT `swt_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `special_working_time`
+-- Constraints for table `schedule_weekly`
 --
-ALTER TABLE `special_working_time`
-  ADD CONSTRAINT `swt_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `schedule_weekly`
+  ADD CONSTRAINT `nwt_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
