@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medicine extends Model
 {
-    protected $table = 'drug';
-    protected $primaryKey = 'medical_id';
+    protected $table = 'medicine';
+    protected $primaryKey = 'medicine_id';
     public $timestamps = false;
 }

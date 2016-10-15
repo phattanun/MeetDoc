@@ -283,6 +283,14 @@
             <button type="submit">Submit</button>
         </form>
     @endif
+@elseif($controller == "Diagnosis")
+    @if($page == 'checkin')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="appointment_id"/>
+            <button type="submit">Submit</button>
+        </form>
+    @endif
 @else
     Not found "{{ $controller }}/{{ $page }}"
 @endif

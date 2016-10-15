@@ -94,6 +94,9 @@ Route::post('/backend/Medicine/detail', 'MedicineController@get_medicine_detail'
 Route::post('/backend/Medicine/update', 'MedicineController@edit_medicine');
 Route::get('/backend/Medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
+// Diagnosis
+Route::post('/backend/Diagnosis/checkin', 'DiagnosisController@patient_checkin_by_staff');
+
 Route::post('/backend/{controller}/post',
     function($controller) {
         return View::make('backend', ['controller' => $controller, 'page' => 'post']);
