@@ -273,16 +273,19 @@
     </div>
 
     <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
+        <form id="drug-edit-form" role="form" action="{{ url('/medicine/edit') }}" method="post">
+            {{ csrf_field() }}
+        <input type="hidden" name="medicine_id" id="edit_medicine_id" />
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">แก้ไขข้อมูลยา รหัส D01</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลยา <span id="edit-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
                     <div class="col-md-10">
-                        <input class="form-control"  value="Paracetamol" id="form_control_1"  type="text">
+                        <input class="form-control"  value="" id="edit_medicine_name"  type="text" name="medicine_name">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -291,7 +294,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="Para" id="form_control_1"  type="text">
+                        <input class="form-control" value="" id="edit_business_name"  type="text" name="business_name">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -300,9 +303,9 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10">
-                        <select id="multiple" class="form-control select2-multiple" multiple></option>
+                        <select id="edit-type" class="form-control select2-multiple" multiple name="type[]">
                             <option>SOLUTION</option>
-                            <option selected="selected">CAPSULE</option>
+                            <option>CAPSULE</option>
                             <option>TABLET</option>
                             <option>KIT</option>
                             <option>INJECTION</option>
@@ -315,7 +318,7 @@
                             <option>CREAM</option>
                             <option>SUSPENSION</option>
                             <option>INHALANT</option>
-                            <option selected="selected">RING</option>
+                            <option>RING</option>
                             <option>SUSPENSION/ DROPS</option>
                             <option>SOLUTION/ DROPS</option>
                             <option>IMPLANT</option>
@@ -377,7 +380,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="แก้ปวด" id="form_control_1"  type="text">
+                        <input class="form-control" value="" id="edit_description"  type="text" name="description">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -386,7 +389,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="กินกับน้ำ" id="form_control_1"  type="text">
+                        <input class="form-control" value="" id="edit_instruction"  type="text" name="instruction">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -394,18 +397,20 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="บริษัทยาปลอม" id="form_control_1"  type="text">
+                        <input class="form-control" value="" id="edit_manufacturer"  type="text" name="manufacturer">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+            <button type="submit" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                 <span class="ladda-label">ยืนยัน</span>
                 <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
+        </form>
     </div>
 
 
@@ -609,6 +614,28 @@
             }).fail(function () {
             });
             $('#viewModal').modal();
+        });
+        $('.edit-drug-button').click(function(){
+            var id = $(this).attr('identity');
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/medicine/detail',
+                    {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
+                        $('#edit-title').text(input['medicine_name']);
+                        $('#edit_medicine_id').val(input['medicine_id']);
+                        $('#edit_business_name').val(input['business_name']);
+                        $('#edit_medicine_name').val(input['medicine_name']);
+                        var type = input['type'].split(",");
+                        for(var m=0; m < type.length; m++){
+                            $('#edit-type option').filter(function () { return $(this).html() == type[m]; }).attr('selected','selected');
+                        }
+                        $('#edit_type').val(input['type']);
+                        $('#edit_manufacturer').val(input['manufacturer']);
+                        $('#edit_description').val(input['description']);
+                        $('#edit_instruction').val(input['instruction']);
+                        ComponentsSelect2.init()
+            }).fail(function () {
+            });
+            $('#editModal').modal();
         });
     </script>
 @endsection
