@@ -103,6 +103,8 @@ Route::get('/backend/Medicine/getMedicineList', 'MedicineController@get_medicine
 
 // Diagnosis
 Route::post('/backend/Diagnosis/checkin', 'DiagnosisController@patient_checkin_by_staff');
+Route::post('/backend/Diagnosis/add_physical_record', 'DiagnosisController@add_physical_record');
+Route::get('/backend/Diagnosis/queue', 'DiagnosisController@get_queue');
 
 Route::post('/backend/{controller}/post',
     function($controller) {
