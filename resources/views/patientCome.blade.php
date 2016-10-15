@@ -35,7 +35,8 @@
                     <div class="portlet-body">
                         <!-- BEGIN FORM -->
                         <div class="portlet-body form">
-                            <form class="form-horizontal" role="form">
+                            <form class="form-horizontal" role="form" action="../../backend/Appointment/get" method="get">
+                                {{csrf_field()}}
                                 <div class="form-body" style="padding-bottom: 0px; padding-top: 0px;">
                                     <div class="row">
                                         <div class="col-md-offset-1 col-md-10">
@@ -46,8 +47,8 @@
                                                     </select>
                                                 </div-->
                                                 <div class="input-group input-group select2-bootstrap-append">
-                                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax">
-                                                        <option value="0" selected="selected">คลิกเพื่อกรอกรหัสนัดหมาย</option>
+                                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax" name="appointment_id">
+                                                        <option value="0">คลิกเพื่อกรอกรหัสนัดหมาย</option>
                                                     </select>
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-default" type="button" data-select2-open="select2-button-addons-single-input-group">

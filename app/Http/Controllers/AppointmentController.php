@@ -138,27 +138,25 @@ class AppointmentController extends Controller
         $tmp['items'] = [];
         $tmp['items'][0] = [
             'avatar_url' => 'www.ssfsdm',
-            'appointment_id' => '555',
-            'name' => 'Hello',
+            'name' => 'Hello444',
             'surname' => 'World',
             'department' => 'eye',
-            'time' => 'morning'
+            'time' => 'morning',
+            "created_at"=> "2014-09-18T16:12:01Z",
+            "private"=> false,
+            "id"=> 4444,
+            "html_url"=> "",
         ];
         $tmp['items'][1] = [
             'avatar_url' => 'www.ssfsdm',
-            'appointment_id' => '555',
-            'name' => 'Hello',
+            'name' => 'Hello216546',
             'surname' => 'World',
             'department' => 'eye',
-            'time' => 'morning'
-        ];
-        $tmp['items'][2] = [
-            'avatar_url' => 'www.ssfsdm',
-            'appointment_id' => '555',
-            'name' => 'Hello',
-            'surname' => 'World',
-            'department' => 'eye',
-            'time' => 'morning'
+            'time' => 'morning',
+            "created_at"=> "2014-09-18T16:12:01Z",
+            "private"=> false,
+            "id"=> 24195339,
+            "html_url"=> "",
         ];
 
         return $tmp;

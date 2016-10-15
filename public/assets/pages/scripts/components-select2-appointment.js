@@ -28,7 +28,7 @@ var ComponentsSelect2 = function() {
             var markup = "<div class='select2-result-repository clearfix'>" +
                 "<div class='select2-result-repository__avatar'><img src='" + repo.avatar_url + "' /></div>" +
                 "<div class='select2-result-repository__meta'>" +
-                "<div class='select2-result-repository__title'>" + repo.appointment_id + "</div>";
+                "<div class='select2-result-repository__title'>" + repo.id + "</div>";
 
             if (repo.description) {
                 markup += "<div class='select2-result-repository__description'>" + repo.name + " " + repo.surname + "</div>";
