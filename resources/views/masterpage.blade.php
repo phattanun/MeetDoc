@@ -76,7 +76,7 @@
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
                                 <a>
-                                    <i class="fa fa-user" style="margin-right: 0px"></i> <i class="fa fa-exchange" style="margin-right: 0px"></i> <i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
+                                    <i class="fa fa-user" style="margin-right: 0px"></i> <i class="fa fa-long-arrow-right" style="margin-right: 0px"></i> <i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
                             </li>
                         </ul>
                     </li>
