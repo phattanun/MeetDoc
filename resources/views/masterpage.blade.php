@@ -120,6 +120,7 @@
                         <span class="title">ขัอมูลส่วนตัว</span>
                     </a>
                 </li>
+                @include('sidebar.doctor')
                 @include('sidebar.pharmacist')
                 @include('sidebar.admin')
                 @include('sidebar.patient')

@@ -52,7 +52,7 @@
             <label class="control-label visible-ie8 visible-ie9">ยืนยันรหัสผ่านใหม่</label>
             <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="ยืนยันรหัสผ่านใหม่" name="rpassword" /> </div>
         <div >
-            <button type="submit" class="btn green">ยืนยัน</button>
+            <button type="submit" id="register-submit-btn" class="btn green">ยืนยัน</button>
         </div>
     </form>
     <!-- END LOGIN FORM -->

@@ -48,7 +48,7 @@
                 <strong>สำเร็จ!</strong> ระบบได้ทำการส่งจดหมายเพื่อเปลี่ยนรหัสผ่านไปที่อีเมลของท่านแล้ว กรุณาทำการเปลี่ยนรหัสผ่านภายใน 1 วัน. </div>
         @elseif(isset($success)&&!$success)
             <div class="alert alert-danger" id="password-reset-alert">
-                <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง</div>
+                <strong>ผิดพลาด!</strong> กรุณากรอกข้อมูลให้ถูกต้องและลองใหม่อีกครั้ง</div>
         @else
         @endif
         <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่</p>
@@ -61,8 +61,8 @@
             @endif
         </div>
         <div class="form-actions">
-            <a href="{{url('login')}}" type="button" id="back-btn" class="btn green btn-outline">Back</a>
-            <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
+            <a href="{{url('login')}}" type="button" id="back-btn" class="btn green btn-outline">ย้อนกลับ</a>
+            <button type="submit" class="btn btn-success uppercase pull-right">ส่ง</button>
         </div>
     </form>
     <!-- END FORGOT PASSWORD FORM -->
