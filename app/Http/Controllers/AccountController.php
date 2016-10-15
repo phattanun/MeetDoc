@@ -67,7 +67,7 @@ class AccountController extends Controller
         // self::getUserList();
         $re = [
             "status" => true,
-            "link" => "./resetPassword?id=".$new_user->id."&cfp=".self::generatePasswordLink($request->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
+            "link" => "./password/reset?id=".$new_user->id."&cfp=".self::generatePasswordLink($request->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";
         // var_dump($re);
@@ -91,7 +91,7 @@ class AccountController extends Controller
 
         $re = [
             "status" => true,
-            "link" => "./resetPassword?id=".$user->id."&cfp=".self::generatePasswordLink($user->id, $user->name, $user->surname, $user->password, $user->email, $now)
+            "link" => "./password/reset?id=".$user->id."&cfp=".self::generatePasswordLink($user->ssn, $user->name, $user->surname, $user->password, $user->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";
         // var_dump($re);
@@ -114,10 +114,10 @@ class AccountController extends Controller
             else throw new \Exception("Wrong reset password key", 1);
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
-            return ["message" => $e->getMessage()];
+            // echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return ["status" => false, "msg" => $e->getMessage()];
         }
-        return ["message" => "success"];
+        return ["status" => true];
     }
 
     private static function printTable($array) {

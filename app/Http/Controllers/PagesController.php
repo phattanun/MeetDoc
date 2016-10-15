@@ -40,7 +40,8 @@ class PagesController extends Controller
             // TODO: send email/sms
         }
         else $request->flash();
-        return view('auth/passwords/forget')->with('success', $res['status']);
+        // return view('auth/passwords/forget')->with('success', $res['status']);
+        return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน', 'link' => $res['link']]);
     }
 
     public function changePassword(Request $request) {
@@ -49,13 +50,18 @@ class PagesController extends Controller
         if($res['status']) {
             // TODO: send email/sms
         }
-        return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน']);
+        return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน', 'link' => $res['link']]);
+    }
+
+    public function resetPassword(Request $request) {
+        $res = AccountController::resetPassword($request);
+        return view('auth/confirm')->with(['title' => 'เปลี่ยนรหัสผ่านสำเร็จ']);
     }
 
     public function register(Request $request) {
         $res = AccountController::register($request);
         if($res['status'])
-            return view('auth/confirm')->with(['title' => 'ขอลงทะเบียนสำเร็จ', 'action' => 'ยืนยันการลงทะเบียน']);
+            return view('auth/confirm')->with(['title' => 'ขอลงทะเบียนสำเร็จ', 'action' => 'ยืนยันการลงทะเบียน', 'link' => $res['link']]);
         else $request->flashExcept('id');
         return view('auth/register')->with('msg','รหัสบัตรประจำตัวประชาชนซ้ำ');
     }

@@ -97,7 +97,7 @@
     @elseif($page == "forgetPassword")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="ssn"      placeholder="SSN" /> <= Key <br>
+            <input type="number"    name="id"      placeholder="SSN" /> <= Key <br>
             <button type="submit">Submit</button>
         </form>
     @elseif($page == "resetPassword")
