@@ -300,12 +300,12 @@
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
             <input type="number" name="appointment_id" placeholder="Appointment ID"/><br>
-            <input type="number" name="weight" placeholder="Weight"/><br>
-            <input type="number" name="height" placeholder="Height"/><br>
-            <input type="number" name="systolic" placeholder="Systolic"/><br>
-            <input type="number" name="diastolic" placeholder="Diastolic"/><br>
-            <input type="number" name="temperature" placeholder="Temperature"/><br>
-            <input type="number" name="heart_rate" placeholder="Heart rate"/><br>
+            <input type="number" step="0.01" name="weight" placeholder="Weight"/><br>
+            <input type="number" step="0.01" name="height" placeholder="Height"/><br>
+            <input type="number" step="0.01" name="systolic" placeholder="Systolic"/><br>
+            <input type="number" step="0.01" name="diastolic" placeholder="Diastolic"/><br>
+            <input type="number" step="0.01" name="temperature" placeholder="Temperature"/><br>
+            <input type="number" step="0.01" name="heart_rate" placeholder="Heart rate"/><br>
 
             <button type="submit">Submit</button>
         </form>
