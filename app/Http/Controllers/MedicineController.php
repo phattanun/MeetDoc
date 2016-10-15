@@ -70,10 +70,10 @@ class MedicineController extends Controller
         $medicine->delete();
     }
 
-    public function get_medicine_list()
+    public static function get_medicine_list()
     {
         $all_medicine = Medicine::all()->toArray();
-        $this->printTable($all_medicine);
+        self::printTable($all_medicine);
     }
 
     public function get_medicine_detail(Request $request)

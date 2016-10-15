@@ -67,19 +67,23 @@
             <!-- BEGIN TOP NAVIGATION MENU -->
             <div class="top-menu">
                 <ul class="nav navbar-nav pull-right">
-                    <!-- END TODO DROPDOWN -->
-                    <!-- BEGIN USER LOGIN DROPDOWN -->
-                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                     <li class="dropdown dropdown-user">
-                        <a href="javascript:;" class="dropdown-toggle">
-                            <img alt="" class="img-circle" src="{{url('assets/layouts/layout2/img/avatar3_small.jpg')}}" />
-                            @if(isset($_user)) <span> {{ $_user->name }} </span> @endif
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <img alt="" class="img-circle" src="{{url('assets/layouts/layout/img/avatar3_small.jpg')}}" />
+                            @if(isset($_user)) <span class="username username-hide-on-mobile"> {{ $_user->name }} </span> @endif
+                            <i class="fa fa-angle-down"></i>
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a>
+                                    <i class="fa fa-user" style="margin-right: 0px"></i> <i class="fa fa-long-arrow-right" style="margin-right: 0px"></i> <i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
+                            </li>
+                        </ul>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
                     <!-- BEGIN QUICK SIDEBAR TOGGLER -->
                     <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-                    <li class="dropdown dropdown-extended quick-sidebar-toggler">
+                    <li class="dropdown dropdown-user">
                         <a href="{{ url('logout') }}" class="dropdown-toggle">
                             <i class="icon-logout"></i>
                             <span> Logout </span>

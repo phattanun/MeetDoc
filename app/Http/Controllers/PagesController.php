@@ -118,4 +118,10 @@ class PagesController extends Controller
     public function deleteWeeklySchedule(Request $request) {
 
     }
+
+    // Pharmacist
+    public function drugPage(Request $request) {
+        return MedicineController::get_medicine_list();
+        return view('drug');
+    }
 }

@@ -153,7 +153,7 @@
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
                                                 <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
                                                     <optgroup label="Alaskan">
-                                                        <option value="AK">Alaska</option>
+                                                        <option value="AK" selected="selected">Alaska</option>
                                                         <option value="HI" disabled="disabled">Hawaii</option>
                                                     </optgroup>
                                                     <optgroup label="Pacific Time Zone">
@@ -225,7 +225,8 @@
                                     <!-- END PERSONAL INFO TAB -->
                                     <!-- CHANGE AVATAR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
-                                        <form action="#" role="form">
+                                        <form action="#" role="form" action="{{ url('/profile/picupload') }}" method="post" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
                                             <div class="form-group">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
@@ -235,7 +236,7 @@
                                                                         <span class="btn default btn-file">
                                                                             <span class="fileinput-new"> เลือกรูปภาพ </span>
                                                                             <span class="fileinput-exists"> เปลี่ยน </span>
-                                                                            <input type="file" name="..."> </span>
+                                                                            <input type="file" name="picture"> </span>
                                                         <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> ลบ </a>
                                                     </div>
                                                 </div>
@@ -245,7 +246,7 @@
                                                 </div>
                                             </div>
                                             <div class="margin-top-10">
-                                                <a href="javascript:;" class="btn green"> อัพโหลด </a>
+                                                <button type="submit" class="btn green"> อัพโหลด </button>
                                                 <a href="javascript:;" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>

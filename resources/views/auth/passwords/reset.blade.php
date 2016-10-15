@@ -38,7 +38,7 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="{{ url('/password/reset') }}" method="post">
+    <form class="reset-form" action="{{ url('/password/reset') }}" method="post">
         {{ csrf_field() }}
 
         <h3 class="form-title font-green">เปลี่ยนรหัสผ่าน</h3>

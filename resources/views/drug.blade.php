@@ -77,7 +77,6 @@
                     <thead>
                     <tr>
                         <th> ลำดับที่ </th>
-                        <th> รหัสยา </th>
                         <th> ชื่อตัวยา </th>
                         <th> ชื่อทางการค้า </th>
                         <th></th>
@@ -88,7 +87,6 @@
                     <tbody>
                     <tr>
                         <td> 1 </td>
-                        <td> D01 </td>
                         <td> SN01</td>
                         <td> Paracetamol </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -97,7 +95,6 @@
                     </tr>
                     <tr>
                         <td> 2 </td>
-                        <td> D02 </td>
                         <td> SN02 </td>
                         <td> Paracetamol </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -106,7 +103,6 @@
                     </tr>
                     <tr>
                         <td> 3 </td>
-                        <td> D03 </td>
                         <td> SN03 </td>
                         <td> Paracetamol </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -114,7 +110,6 @@
                         <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                     <tr>
                         <td> 4 </td>
-                        <td> D04 </td>
                         <td> SN04 </td>
                         <td> Paracetamol </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -123,7 +118,6 @@
                     </tr>
                     <tr>
                         <td> 5 </td>
-                        <td> D05 </td>
                         <td> SN05 </td>
                         <td> Paracetamol </td>
                         <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -166,7 +160,6 @@
                                         <thead>
                                         <tr>
                                             <th> ลำดับที่ </th>
-                                            <th> รหัสยา </th>
                                             <th> ชื่อตัวยา </th>
                                             <th> ชื่อทางการค้า </th>
                                             <th></th>
@@ -177,7 +170,6 @@
                                         <tbody>
                                         <tr>
                                             <td> 1 </td>
-                                            <td> D01 </td>
                                             <td> SN01</td>
                                             <td> เช้า </td>
                                             <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -186,7 +178,6 @@
                                         </tr>
                                         <tr>
                                             <td> 2 </td>
-                                            <td> D02 </td>
                                             <td> SN02 </td>
                                             <td> เช้า </td>
                                             <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -195,7 +186,6 @@
                                         </tr>
                                         <tr>
                                             <td> 3 </td>
-                                            <td> D03 </td>
                                             <td> SN03 </td>
                                             <td> บ่าย </td>
                                             <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -203,7 +193,6 @@
                                             <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
                                         <tr>
                                             <td> 4 </td>
-                                            <td> D04 </td>
                                             <td> SN04 </td>
                                             <td> เช้า </td>
                                             <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
@@ -212,7 +201,6 @@
                                         </tr>
                                         <tr>
                                             <td> 5 </td>
-                                            <td> D05 </td>
                                             <td> SN05 </td>
                                             <td> เช้า </td>
                                             <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
