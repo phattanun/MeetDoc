@@ -14,6 +14,10 @@ Route::post('/profile', 'PagesController@editProfile');
 Route::get('/doctor/schedule', 'PagesController@viewSchedule');
 Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
 Route::post('/doctor/daily', 'PagesController@addDailySchedule');
+Route::get('/officer/manage', 'PagesController@viewOfficerManage');
+
+//Staff
+Route::get('/patient/come', 'PagesController@patientCome');
 
 //Pharmacist
 Route::get('/drug/manage', 'PagesController@drugPage');
@@ -41,14 +45,13 @@ Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');
 
 //Admin
 Route::get('/account/manage', 'ProfileController@accountPage');
-Route::get('/officer/manage', 'ProfileController@officerPage');
+// Route::get('/officer/manage', 'ProfileController@officerPage');
 Route::get('/disease/manage', 'ProfileController@diseasePage');
 Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 
 
 //Krit
 // Route::get('/doctor/schedule', 'ProfileController@test1');
-Route::get('/patient/come', 'ProfileController@test2');
 Route::get('/doctor/appointment', 'ProfileController@test3');
 Route::get('/queue', 'ProfileController@test4');
 
@@ -80,6 +83,7 @@ Route::get('/backend/Appointment/getAppointmentList', 'AppointmentController@get
 Route::post('/backend/Appointment/create', 'AppointmentController@create');
 Route::post('/backend/Appointment/cancel', 'AppointmentController@cancel');
 Route::get('/backend/Appointment/cancelApprove', 'AppointmentController@cancelApprove');
+Route::get('/backend/Appointment/search', 'AppointmentController@search');
 
 
 // Weekly Schedule
@@ -104,6 +108,7 @@ Route::get('/backend/Medicine/getMedicineList', 'MedicineController@get_medicine
 // Diagnosis
 Route::post('/backend/Diagnosis/checkin', 'DiagnosisController@patient_checkin_by_staff');
 Route::post('/backend/Diagnosis/add_physical_record', 'DiagnosisController@add_physical_record');
+Route::post('/backend/Diagnosis/get_patient_profile', 'DiagnosisController@get_patient_profile');
 Route::get('/backend/Diagnosis/queue', 'DiagnosisController@get_queue');
 
 Route::post('/backend/{controller}/post',

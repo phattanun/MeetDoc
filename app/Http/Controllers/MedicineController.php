@@ -80,6 +80,13 @@ class MedicineController extends Controller
         return $all_medicine;
     }
 
+    public function search_medicine(Request $request)
+    {
+        $medicine_list = Medicine::where('medicine_name', 'like', '%'.($request->search_name).'%')
+            ->orWhere('business_name', 'like', '%'.($request->search_name).'%')->get();
+        return $medicine_list;
+    }
+
     public function get_medicine_detail(Request $request)
     {
         $medicine = Medicine::findOrFail($request->medicine_id);
