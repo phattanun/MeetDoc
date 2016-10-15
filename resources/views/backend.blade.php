@@ -32,6 +32,14 @@
         <li><a href="{{ action('AppointmentController@create') }}" target="side">create</a></li>
         <li><a href="{{ action('AppointmentController@cancel') }}" target="side">cancel (and approve)</a></li>
     </ul>
+    <h3>MedicineController</h3>
+    <ul>
+        <li><a href="{{ action('MedicineController@get_medicine_list') }}" target="side">get</a></li>
+        <li><a href="{{ action('MedicineController@get_medicine_detail') }}" target="side">detail</a></li>
+        <li><a href="{{ action('MedicineController@create_medicine') }}" target="side">create</a></li>
+        <li><a href="{{ action('MedicineController@delete_medicine') }}" target="side">delete</a></li>
+        <li><a href="{{ action('MedicineController@edit_medicine') }}" target="side">update</a></li>
+    </ul>
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
     <?php
