@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2016 at 04:57 AM
+-- Generation Time: Oct 15, 2016 at 05:08 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -7818,6 +7818,14 @@ CREATE TABLE IF NOT EXISTS `schedule_daily` (
 -- Stand-in structure for view `schedule_view`
 --
 CREATE TABLE IF NOT EXISTS `schedule_view` (
+`date` date
+,`day_of_week` char(9)
+,`day` int(10) unsigned
+,`month` int(10) unsigned
+,`year` int(10) unsigned
+,`time` varchar(1)
+,`doctor_id` bigint(10) unsigned
+,`dept_id` bigint(10) unsigned
 );
 -- --------------------------------------------------------
 
@@ -7863,7 +7871,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Structure for view `schedule_view`
 --
 DROP TABLE IF EXISTS `schedule_view`;
--- in use(#1356 - View 'meetdoc.schedule_view' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them)
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`meetdoc`@`localhost` SQL SECURITY DEFINER VIEW `schedule_view` AS select `dd`.`date` AS `date`,`dd`.`day_of_week` AS `day_of_week`,`dd`.`day` AS `day`,`dd`.`month` AS `month`,`dd`.`year` AS `year`,ifnull(`sd`.`time`,`sw`.`time`) AS `time`,ifnull(`sd`.`doctor_id`,`sw`.`doctor_id`) AS `doctor_id`,ifnull(`sd`.`dept_id`,`sw`.`dept_id`) AS `dept_id` from ((`date_dim` `dd` left join `schedule_weekly` `sw` on((`dd`.`day_of_week` = `sw`.`day`))) left join `schedule_daily` `sd` on(((`dd`.`date` = `sd`.`date`) and (isnull(`sw`.`doctor_id`) or ((`sw`.`doctor_id` = `sd`.`doctor_id`) and (`sw`.`time` = `sd`.`time`)))))) where (((`sd`.`type` = 'add') or isnull(`sd`.`type`)) and ((`sw`.`doctor_id` is not null) or (`sd`.`doctor_id` is not null))) order by `dd`.`datekey`;
 
 --
 -- Constraints for dumped tables
