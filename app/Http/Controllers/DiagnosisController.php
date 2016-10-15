@@ -47,14 +47,19 @@ class DiagnosisController extends Controller
     public function add_physical_record(Request $request)
     {
         $appointment = Appointment::findOrFail($request->appointment_id);
-        $appointment->weight = $request->weight;
-        $appointment->height = $request->height;
-        $appointment->systolic = $request->systolic;
-        $appointment->diastolic = $request->diastolic;
-        $appointment->temperature = $request->temperature;
-        $appointment->heart_rate = $request->heart_rate;
-        $appointment->queue_status = '';
-        $appointment->save();
+
+        try {
+            $appointment->weight = $request->weight;
+            $appointment->height = $request->height;
+            $appointment->systolic = $request->systolic;
+            $appointment->diastolic = $request->diastolic;
+            $appointment->temperature = $request->temperature;
+            $appointment->heart_rate = $request->heart_rate;
+            $appointment->queue_status = 'waiting_doctor';
+            $appointment->save();
+        } catch (Exception $e){
+            echo '<H2>Error</H2>';
+        }
     }
 
     public function patient_checkin_by_staff(Request $request)
@@ -71,16 +76,51 @@ class DiagnosisController extends Controller
             $intime = false;
         if ($appointment['time'] == 'A' && ($now < $start_time_afternoon || $now > $end_time_afternoon))
             $intime = false;
+        if (!is_null($appointment['checkin_time']))
+            $intime = false;
 
         if ($intime) {
             try {
                 $appointment->checkin_time = Carbon::now();
-                $appointment->queue_status = 'checkedin';
+                $appointment->queue_status = 'waiting_staff';
                 $appointment->save();
             } catch (Exception $e) {
                 echo '<H2>Error</H2>';
             }
         }
+    }
+
+    public function get_queue()
+    {
+        $start_time_morning = (new \DateTime())->setTime(9, 0);
+        $end_time_morning = (new \DateTime())->setTime(11, 30);
+        $start_time_afternoon = (new \DateTime())->setTime(13, 0);
+        $end_time_afternoon = (new \DateTime())->setTime(15, 30);
+        $now = new \DateTime('NOW');
+
+        $time = '';
+        if ($start_time_morning <= $now && $now <= $end_time_morning)
+            $time = 'M';
+        else if ($start_time_afternoon <= $now && $now <= $end_time_afternoon)
+            $time = 'A';
+
+        $appointment_list = Appointment::where('date', $now->format('Y-m-d'))->where('time', $time)
+            ->whereNotNull('checkin_time')->orderBy('checkin_time','asc')->get();
+
+        $appointment['waiting_staff'] = [];
+        $appointment['waiting_doctor'] = [];
+        $appointment['waiting_pharmacist'] = [];
+
+        foreach($appointment_list as $app){
+            $array_app = json_decode($app);
+            if($app['queue_status'] == 'waiting_staff')
+                array_push($appointment['waiting_staff'], $array_app);
+            else if($app['queue_status'] == 'waiting_doctor')
+                array_push($appointment['waiting_doctor'], $array_app);
+            else if($app['queue_status'] == 'waiting_pharmacist')
+                array_push($appointment['waiting_pharmacist'], $array_app);
+        }
+        dd($appointment);
     }
 
 }

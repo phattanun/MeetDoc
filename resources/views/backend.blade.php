@@ -40,6 +40,12 @@
         <li><a href="{{ action('MedicineController@delete_medicine') }}" target="side">delete</a></li>
         <li><a href="{{ action('MedicineController@edit_medicine') }}" target="side">update</a></li>
     </ul>
+    <h3>DiagnosisController</h3>
+    <ul>
+        <li><a href="{{ action('DiagnosisController@patient_checkin_by_staff') }}" target="side">check in</a></li>
+        <li><a href="{{ action('DiagnosisController@get_queue') }}" target="side">get queue</a></li>
+        <li><a href="{{ action('DiagnosisController@add_physical_record') }}" target="side">add physical record</a></li>
+    </ul>
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
     <?php
@@ -273,13 +279,13 @@
     @elseif($page == 'delete')
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
-            <input type="number" name="medicine_id">
+            <input type="number" name="medicine_id" placeholder="Medicine ID" /><br>
             <button type="submit">Submit</button>
         </form>
     @elseif($page == 'detail')
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
-            <input type="number" name="medicine_id">
+            <input type="number" name="medicine_id" placeholder="Medicine ID" /><br>
             <button type="submit">Submit</button>
         </form>
     @endif
@@ -287,7 +293,20 @@
     @if($page == 'checkin')
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
-            <input type="number" name="appointment_id"/>
+            <input type="number" name="appointment_id" placeholder="Appointment ID"/><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page=='add_physical_record')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="appointment_id" placeholder="Appointment ID"/><br>
+            <input type="number" name="weight" placeholder="Weight"/><br>
+            <input type="number" name="height" placeholder="Height"/><br>
+            <input type="number" name="systolic" placeholder="Systolic"/><br>
+            <input type="number" name="diastolic" placeholder="Diastolic"/><br>
+            <input type="number" name="temperature" placeholder="Temperature"/><br>
+            <input type="number" name="heart_rate" placeholder="Heart rate"/><br>
+
             <button type="submit">Submit</button>
         </form>
     @endif
