@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\Disease;
 use App\Drug;
+use App\User;
 use Carbon\Carbon;
 use Faker\Provider\DateTime;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class DiagnosisController extends Controller
             $appointment->heart_rate = $request->heart_rate;
             $appointment->queue_status = 'waiting_doctor';
             $appointment->save();
-        } catch (Exception $e){
+        } catch (Exception $e) {
             echo '<H2>Error</H2>';
         }
     }
@@ -105,22 +106,28 @@ class DiagnosisController extends Controller
             $time = 'A';
 
         $appointment_list = Appointment::where('date', $now->format('Y-m-d'))->where('time', $time)
-            ->whereNotNull('checkin_time')->orderBy('checkin_time','asc')->get();
+            ->whereNotNull('checkin_time')->orderBy('checkin_time', 'asc')->get();
 
         $appointment['waiting_staff'] = [];
         $appointment['waiting_doctor'] = [];
         $appointment['waiting_pharmacist'] = [];
 
-        foreach($appointment_list as $app){
+        foreach ($appointment_list as $app) {
             $array_app = json_decode($app);
-            if($app['queue_status'] == 'waiting_staff')
+            if ($app['queue_status'] == 'waiting_staff')
                 array_push($appointment['waiting_staff'], $array_app);
-            else if($app['queue_status'] == 'waiting_doctor')
+            else if ($app['queue_status'] == 'waiting_doctor')
                 array_push($appointment['waiting_doctor'], $array_app);
-            else if($app['queue_status'] == 'waiting_pharmacist')
+            else if ($app['queue_status'] == 'waiting_pharmacist')
                 array_push($appointment['waiting_pharmacist'], $array_app);
         }
         dd($appointment);
+    }
+
+    public function get_user_info(Request $request)
+    {
+        $user = User::where('id', $request->patient_id)->select('id', 'ssn', 'name', 'surname', 'birthday', 'phone_no')->first();
+
     }
 
 }
