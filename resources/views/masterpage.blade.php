@@ -73,7 +73,7 @@
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle">
                             <img alt="" class="img-circle" src="{{url('assets/layouts/layout2/img/avatar3_small.jpg')}}" />
-                            <span> Nick </span>
+                            @if(isset($_user)) <span> {{ $_user->name }} </span> @endif
                         </a>
                     </li>
                     <!-- END USER LOGIN DROPDOWN -->
