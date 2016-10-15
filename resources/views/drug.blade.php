@@ -302,75 +302,9 @@
             <div class="row margin-top-15 margin-bottom-10">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10" id="edit-type-selection">
                         <select id="edit-type" class="form-control select2-multiple" multiple name="type[]">
-                            <option>SOLUTION</option>
-                            <option>CAPSULE</option>
-                            <option>TABLET</option>
-                            <option>KIT</option>
-                            <option>INJECTION</option>
-                            <option>POWDER</option>
-                            <option>GRANULE</option>
-                            <option>OINTMENT</option>
-                            <option>SUPPOSITORY</option>
-                            <option>LOTION</option>
-                            <option>GEL</option>
-                            <option>CREAM</option>
-                            <option>SUSPENSION</option>
-                            <option>INHALANT</option>
-                            <option>RING</option>
-                            <option>SUSPENSION/ DROPS</option>
-                            <option>SOLUTION/ DROPS</option>
-                            <option>IMPLANT</option>
-                            <option>LIQUID</option>
-                            <option>INTRAUTERINE DEVICE</option>
-                            <option>TAPE</option>
-                            <option>EMULSION</option>
-                            <option>LOZENGE</option>
-                            <option>AEROSOL</option>
-                            <option>MOUTHWASH</option>
-                            <option>SYRUP</option>
-                            <option>SPRAY</option>
-                            <option>CONCENTRATE</option>
-                            <option>PILL</option>
-                            <option>PATCH</option>
-                            <option>SHAMPOO</option>
-                            <option>ENEMA</option>
-                            <option>RINSE</option>
-                            <option>ELIXIR</option>
-                            <option>PASTE</option>
-                            <option>CLOTH</option>
-                            <option>DOUCHE</option>
-                            <option>SOAP</option>
-                            <option>INSERT</option>
-                            <option>STICK</option>
-                            <option>PELLET</option>
-                            <option>IRRIGANT</option>
-                            <option>JELLY</option>
-                            <option>OIL</option>
-                            <option>SWAB</option>
-                            <option>DISC</option>
-                            <option>STRIP</option>
-                            <option>SALVE</option>
-                            <option>PLASTER</option>
-                            <option>EXTRACT</option>
-                            <option>DRESSING</option>
-                            <option>SPONGE</option>
-                            <option>TINCTURE</option>
-                            <option>FOR SUSPENSION</option>
-                            <option>GAS</option>
-                            <option>LIPSTICK</option>
-                            <option>LOTION/SHAMPOO</option>
-                            <option>PASTILLE</option>
-                            <option>FILM</option>
-                            <option>LINIMENT</option>
-                            <option>WAFER</option>
-                            <option>FOR SOLUTION</option>
-                            <option>POULTICE</option>
-                            <option>CRYSTAL</option>
-                            <option>CELLULAR SHEET</option>
-                            <option>GLOBULE</option>
-                            <option>INJECTABLE FOAM</option>
+                            @include('drug-type')
                         </select>
                         <div class="form-control-focus"> </div>
                     </div>
@@ -616,6 +550,8 @@
             $('#viewModal').modal();
         });
         $('.edit-drug-button').click(function(){
+            $('.select2-selection__choice').remove();
+            $('#edit-type option').removeAttr('selected');
             var id = $(this).attr('identity');
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/medicine/detail',
@@ -625,14 +561,16 @@
                         $('#edit_business_name').val(input['business_name']);
                         $('#edit_medicine_name').val(input['medicine_name']);
                         var type = input['type'].split(",");
-                        for(var m=0; m < type.length; m++){
-                            $('#edit-type option').filter(function () { return $(this).html() == type[m]; }).attr('selected','selected');
+                        for(var m=type.length-1; m >=0 ; m--){
+//                            $('#edit-type option').filter(function () { return $(this).html() == type[m]; }).attr('selected','selected');
+//                            $('.select2-selection__rendered').prepend('<li class="select2-selection__choice" title="'+type[m]+'"><span class="select2-selection__choice__remove" role="presentation">×</span>'+type[m]+'</li>');
                         }
-                        $('#edit_type').val(input['type']);
+                        $('#edit-type').val(type);
+                        ComponentsSelect2.init();
                         $('#edit_manufacturer').val(input['manufacturer']);
                         $('#edit_description').val(input['description']);
                         $('#edit_instruction').val(input['instruction']);
-                        ComponentsSelect2.init()
+
             }).fail(function () {
             });
             $('#editModal').modal();
