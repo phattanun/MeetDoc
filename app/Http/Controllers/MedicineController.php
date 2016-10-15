@@ -11,22 +11,24 @@ use Mockery\CountValidator\Exception;
 class MedicineController extends Controller
 {
     private static function printTable($array) {
+        $temp = "";
         if(sizeof($array) == 0) {
-            echo "<h4>Empty Table</h4>";
+            $temp .=  "<h4>Empty Table</h4>";
             return;
         }
-        echo "<table border='1'>";
-        echo "<tr>";
+        $temp .=   "<table border='1'>";
+        $temp .=   "<tr>";
         foreach ($array[0] as $key => $value)
-            echo "<th>".$key."</th>";
-        echo "</tr>";
+            $temp .=   "<th>".$key."</th>";
+        $temp .=   "</tr>";
         foreach ($array as $instance) {
-            echo "<tr>";
+            $temp .=   "<tr>";
             foreach($instance as $key => $value)
-                echo "<td>".$value."</td>";
-            echo "</tr>";
+                $temp .=   "<td>".$value."</td>";
+            $temp .=   "</tr>";
         }
-        echo "</table><br>";
+        $temp .=   "</table><br>";
+        return $temp;
     }
 
     public function create_medicine(Request $request)
