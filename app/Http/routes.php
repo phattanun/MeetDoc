@@ -14,6 +14,7 @@ Route::post('/profile', 'PagesController@editProfile');
 Route::get('/doctor/schedule', 'PagesController@viewSchedule');
 Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
 Route::post('/doctor/daily', 'PagesController@addDailySchedule');
+Route::get('/officer/manage', 'PagesController@viewOfficerManage');
 
 //Staff
 Route::get('/patient/come', 'PagesController@patientCome');
@@ -26,7 +27,7 @@ Route::get('/drug/manage', 'PagesController@drugPage');
 Route::post('medicine/create', 'MedicineController@create_medicine');
 Route::post('medicine/delete', 'MedicineController@delete_medicine');
 Route::post('medicine/detail', 'MedicineController@get_medicine_detail');
-Route::post('medicine/update', 'MedicineController@edit_medicine');
+Route::post('medicine/edit', 'MedicineController@edit_medicine');
 Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
 //everyone
@@ -44,7 +45,7 @@ Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');
 
 //Admin
 Route::get('/account/manage', 'ProfileController@accountPage');
-Route::get('/officer/manage', 'ProfileController@officerPage');
+// Route::get('/officer/manage', 'ProfileController@officerPage');
 Route::get('/disease/manage', 'ProfileController@diseasePage');
 Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 
@@ -107,6 +108,7 @@ Route::get('/backend/Medicine/getMedicineList', 'MedicineController@get_medicine
 // Diagnosis
 Route::post('/backend/Diagnosis/checkin', 'DiagnosisController@patient_checkin_by_staff');
 Route::post('/backend/Diagnosis/add_physical_record', 'DiagnosisController@add_physical_record');
+Route::post('/backend/Diagnosis/get_patient_profile', 'DiagnosisController@get_patient_profile');
 Route::get('/backend/Diagnosis/queue', 'DiagnosisController@get_queue');
 
 Route::post('/backend/{controller}/post',

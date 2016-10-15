@@ -51,19 +51,21 @@ class MedicineController extends Controller
 
     public function edit_medicine(Request $request)
     {
-        $medicine = Medicine::findOrFail($request->medicine_id);
-        $edited = array_filter($request->all());
-        $editable = ['medicine_name', 'business_name', 'type', 'description', 'instruction', 'manufacturer'];
-        $filtered = array_intersect_key($edited, array_flip($editable));
-
+        $request = $request->all();
+        $medicine = Medicine::findOrFail($request['medicine_id']);
+        $request['type'] = implode(",",$request['type']);
+//        var_dump($request);
         try {
-            foreach ($filtered as $key => $value)
-                $medicine[$key] = $value;
+            foreach ($request as $key => $value) {
+                if ($key != '_token') {
+                    $medicine[$key] = $value;
+                }
+            }
             $medicine->save();
         } catch (Exception $e) {
             echo '<H2>Error</H2>';
         }
-
+        return redirect('drug/manage');
     }
 
     public function delete_medicine(Request $request)
@@ -76,6 +78,13 @@ class MedicineController extends Controller
     {
         $all_medicine = Medicine::select('medicine_id', 'medicine_name', 'business_name')->get();
         return $all_medicine;
+    }
+
+    public function search_medicine(Request $request)
+    {
+        $medicine_list = Medicine::where('medicine_name', 'like', '%'.($request->search_name).'%')
+            ->orWhere('business_name', 'like', '%'.($request->search_name).'%')->get();
+        return $medicine_list;
     }
 
     public function get_medicine_detail(Request $request)

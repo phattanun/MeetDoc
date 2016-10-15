@@ -45,6 +45,7 @@
         <li><a href="{{ action('DiagnosisController@patient_checkin_by_staff') }}" target="side">check in</a></li>
         <li><a href="{{ action('DiagnosisController@get_queue') }}" target="side">get queue</a></li>
         <li><a href="{{ action('DiagnosisController@add_physical_record') }}" target="side">add physical record</a></li>
+        <li><a href="{{ action('DiagnosisController@get_patient_profile') }}" target="side">get patient profile</a></li>
     </ul>
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
@@ -309,6 +310,27 @@
 
             <button type="submit">Submit</button>
         </form>
+    @elseif($page=='get_patient_profile')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="patient_id" placeholder="User's SSN"/><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    @else
+        Not found "{{ $controller }}/{{ $page }}"
+    @endif
+@elseif($controller == "Message")
+    @if($page == 'email')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="email" name="email" placeholder="Receiver's email" /><br>
+            <input type="text" name="subject" placeholder="Subject" /><br>
+            <input type="text" name="message" placeholder="Message" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @else
+        Not found "{{ $controller }}/{{ $page }}"
     @endif
 @else
     Not found "{{ $controller }}/{{ $page }}"
