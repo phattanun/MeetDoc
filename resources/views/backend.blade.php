@@ -45,6 +45,7 @@
         <li><a href="{{ action('DiagnosisController@patient_checkin_by_staff') }}" target="side">check in</a></li>
         <li><a href="{{ action('DiagnosisController@get_queue') }}" target="side">get queue</a></li>
         <li><a href="{{ action('DiagnosisController@add_physical_record') }}" target="side">add physical record</a></li>
+        <li><a href="{{ action('DiagnosisController@get_patient_profile') }}" target="side">get patient profile</a></li>
     </ul>
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
@@ -306,6 +307,13 @@
             <input type="number" step="0.01" name="diastolic" placeholder="Diastolic"/><br>
             <input type="number" step="0.01" name="temperature" placeholder="Temperature"/><br>
             <input type="number" step="0.01" name="heart_rate" placeholder="Heart rate"/><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page=='get_patient_profile')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="patient_id" placeholder="User's SSN"/><br>
 
             <button type="submit">Submit</button>
         </form>

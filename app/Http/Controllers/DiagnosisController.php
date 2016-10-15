@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Allerrgic;
 use App\Appointment;
 use App\Disease;
 use App\Drug;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Mockery\CountValidator\Exception;
+use App\Http\Controllers\AccountController;
 
 class DiagnosisController extends Controller
 {
@@ -124,10 +126,19 @@ class DiagnosisController extends Controller
         dd($appointment);
     }
 
-    public function get_user_info(Request $request)
+    public function get_patient_profile(Request $request)
     {
         $user = User::where('id', $request->patient_id)->select('id', 'ssn', 'name', 'surname', 'birthday', 'phone_no')->first();
+        $allergic_medicine = Allerrgic::where('user_id', $request->patient_id)->get();
 
+        $user_profile['info'] = $user->toArray();
+        $user_profile['allergic_medicine'] = $allergic_medicine->toArray();
+        dd($user_profile);
+    }
+
+    public function edit_allergic_medicine(Request $request)
+    {
+        
     }
 
 }
