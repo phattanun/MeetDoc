@@ -16,6 +16,9 @@ use App\Http\Controllers\WorkingTimeController;
 
 class PagesController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index','login','logout']]);
+    }
 
     public function index() {
         if(Auth::check()) return view('masterpage');
