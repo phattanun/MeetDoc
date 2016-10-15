@@ -317,6 +317,20 @@
 
             <button type="submit">Submit</button>
         </form>
+    @else
+        Not found "{{ $controller }}/{{ $page }}"
+    @endif
+@elseif($controller == "Message")
+    @if($page == 'email')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="email" name="email" placeholder="Receiver's email" /><br>
+            <input type="text" name="subject" placeholder="Subject" /><br>
+            <input type="text" name="message" placeholder="Message" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @else
+        Not found "{{ $controller }}/{{ $page }}"
     @endif
 @else
     Not found "{{ $controller }}/{{ $page }}"

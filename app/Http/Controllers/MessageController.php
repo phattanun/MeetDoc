@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 use App\Http\Requests;
 
@@ -41,5 +42,10 @@ class MessageController extends Controller
 
         return true;
 
+    }
+
+    public static function sendEmail(Request $request) {
+        var_dump($request->all());
+        return Mail::to($request->receiver)->subject($request->subject)->send();
     }
 }

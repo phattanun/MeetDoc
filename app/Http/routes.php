@@ -14,6 +14,7 @@ Route::post('/profile', 'PagesController@editProfile');
 Route::get('/doctor/schedule', 'PagesController@viewSchedule');
 Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
 Route::post('/doctor/daily', 'PagesController@addDailySchedule');
+Route::get('/officer/manage', 'PagesController@viewOfficerManage');
 
 //Pharmacist
 Route::get('/drug/manage', 'PagesController@drugPage');
@@ -41,7 +42,7 @@ Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');
 
 //Admin
 Route::get('/account/manage', 'ProfileController@accountPage');
-Route::get('/officer/manage', 'ProfileController@officerPage');
+// Route::get('/officer/manage', 'ProfileController@officerPage');
 Route::get('/disease/manage', 'ProfileController@diseasePage');
 Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 
