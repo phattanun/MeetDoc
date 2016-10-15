@@ -6,8 +6,9 @@ Route::get('/', 'PagesController@index');
 Route::get ('/login', 'PagesController@viewLogin');
 Route::post('/login', 'PagesController@login');
 Route::get('/logout', 'AccountController@logout');
-Route::post('/password/forget', 'PagesController@forgetPassword');
-Route::get('/password/change', 'PagesController@changePassword');
+Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Password in Login Page
+Route::get('/password/change', 'PagesController@changePassword'); // Change password in Profile Page
+Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
 Route::get('/profile', 'PagesController@viewProfile');
 Route::post('/profile', 'PagesController@editProfile');
 Route::get('/doctor/schedule', 'PagesController@viewSchedule');

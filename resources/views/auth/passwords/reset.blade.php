@@ -38,13 +38,17 @@
 <!-- BEGIN LOGIN -->
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" action="{{ url('/login') }}" method="post">
+    <form class="login-form" action="{{ url('/password/reset') }}" method="post">
         {{ csrf_field() }}
 
         <h3 class="form-title font-green">เปลี่ยนรหัสผ่าน</h3>
         @if (isset($error))
             <h4> {{ $error }} </h4>
         @endif
+
+        @if (isset($_GET['id'])) <input type="hidden"  name="id"         value="{{ $_GET['id'] }}"> @endif
+        @if (isset($_GET['cfp'])) <input type="hidden"  name="cfp"        value="{{ $_GET['cfp'] }}"> @endif
+
         <div class="form-group">
             <label class="control-label visible-ie8 visible-ie9">รหัสผ่านใหม่</label>
             <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="รหัสผ่านใหม่" name="password" /> </div>

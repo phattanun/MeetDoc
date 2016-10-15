@@ -40,12 +40,15 @@
     <!-- BEGIN LOGIN FORM -->
     <form class="login-form" action="{{ url('/login') }}" method="post">
         {{ csrf_field() }}
-
-        <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>{{ $title }}</h3>
+        @if(isset($link)) <a href="{{ url($link) }}"> @endif
+        @if(isset($title)) <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>{{ $title }}</h3> @endif
+        @if(isset($link)) </a> @endif
+        @if(isset($action))
         <div class="caption text-center">
             {{--<i class="glyphicon glyphicon-alert font-red"></i>--}}
             <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายเพื่อ{{ $action }}ไปทางอีเมล<br>และโทรศัพท์มือถือของท่าน<br>กรุณา{{ $action }}ภายใน 1 วัน</span>
         </div>
+        @endif
     </form>
     <!-- END LOGIN FORM -->
 </div>
