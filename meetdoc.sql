@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2016 at 05:08 AM
+-- Generation Time: Oct 15, 2016 at 08:23 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -7784,16 +7784,33 @@ CREATE TABLE IF NOT EXISTS `disease` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `drug`
+-- Table structure for table `medicine`
 --
 
-CREATE TABLE IF NOT EXISTS `drug` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `medicine` (
+  `medicine_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `business_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `medicine_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `manufacturer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `instruction` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`medicine_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `prescription`
+--
+
+CREATE TABLE IF NOT EXISTS `prescription` (
+  `appointment_id` int(10) unsigned NOT NULL,
+  `medicine_id` int(10) unsigned NOT NULL,
+  `amount` int(11) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -7842,6 +7859,13 @@ CREATE TABLE IF NOT EXISTS `schedule_weekly` (
   KEY `dept_id` (`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `schedule_weekly`
+--
+
+INSERT INTO `schedule_weekly` (`doctor_id`, `day`, `time`, `dept_id`) VALUES
+(1, 'Sunday', 'M', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -7863,7 +7887,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ssn` (`ssn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `ssn`, `name`, `surname`, `gender`, `birthday`, `email`, `address`, `phone_no`, `password`, `last_active`, `remember_token`) VALUES
+(1, 1234, '1234', '1234', 'm', '01/01/2000', '1234@1234.1234', '1234', '1234', '$2y$10$iTieegnHWNkqBEmxscFraeNhxuTk9oY88LKaUykbbm7CauKwHQdmu', '2016-10-15 05:21:08', NULL),
+(2, 4321, '4321', '4321', 'm', '01/01/2000', '4321@4321.4321', '4321', '4321', '$2y$10$ZjkFyKF9kitC8gQbigqWdOInCYvuLoXRd2FD6VC1n8UWvyaI8KmRC', '2016-10-15 03:56:31', NULL);
 
 -- --------------------------------------------------------
 
