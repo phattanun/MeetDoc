@@ -80,7 +80,7 @@ class MedicineController extends Controller
 
     public function get_medicine_detail(Request $request)
     {
-        $medicine = Medicine::findOrFail($request->medicine_id)->toArray();
-        dd($medicine);
+        $medicine = Medicine::findOrFail($request->medicine_id);
+        return $medicine;
     }
 }

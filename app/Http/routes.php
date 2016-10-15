@@ -19,6 +19,13 @@ Route::post('/doctor/daily', 'PagesController@addDailySchedule');
 Route::get('/drug/manage', 'PagesController@drugPage');
 
 
+// Medicine
+Route::post('medicine/create', 'MedicineController@create_medicine');
+Route::post('medicine/delete', 'MedicineController@delete_medicine');
+Route::post('medicine/detail', 'MedicineController@get_medicine_detail');
+Route::post('medicine/update', 'MedicineController@edit_medicine');
+Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
+
 //everyone
 Route::get('/password/reset', 'ProfileController@passwordResetPage');
 Route::get('/password/forget', 'ProfileController@passwordForgetPage');

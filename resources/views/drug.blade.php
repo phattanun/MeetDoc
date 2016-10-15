@@ -84,16 +84,17 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    {!! $drugList !!}
-                    {{--<tr>--}}
-                        {{--<td> 1 </td>--}}
-                        {{--<td> SN01</td>--}}
-                        {{--<td> Paracetamol </td>--}}
-                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
-                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
-                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
-                    {{--</tr>--}}
+                    <tbody id="all-table-body">
+                    @foreach($drugList as $drug)
+                        <tr>
+                            <td>  </td>
+                            <td> {{$drug->medicine_name}} </td>
+                            <td> {{$drug->business_name}} </td>
+                            <td> <button id="view-{{$drug->medicine_id}}" type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
+                            <td> <button id="edit-{{$drug->medicine_id}}" type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
+                            <td> <button id="delete-{{$drug->medicine_id}}" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+                        </tr>
+                    @endforeach
                     {{--<tr>--}}
                         {{--<td> 2 </td>--}}
                         {{--<td> SN02 </td>--}}
@@ -169,45 +170,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td> SN01</td>
-                                            <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                                            <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td> SN02 </td>
-                                            <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                                            <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td> SN03 </td>
-                                            <td> บ่าย </td>
-                                            <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                                            <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                                        <tr>
-                                            <td> 4 </td>
-                                            <td> SN04 </td>
-                                            <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                                            <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                                        </tr>
-                                        <tr>
-                                            <td> 5 </td>
-                                            <td> SN05 </td>
-                                            <td> เช้า </td>
-                                            <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                                            <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                                            <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                                        </tr>
+                                        @foreach($drugList as $drug)
+                                            <tr>
+                                                <td class="view-all-order">  </td>
+                                                <td> {{$drug->medicine_name}} </td>
+                                                <td> {{$drug->business_name}} </td>
+                                                {{--<td> <button id="view-{{$drug->medicine_id}}" type="button" class="btn blue view-drug-button" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
+                                                {{--<td> <button id="edit-{{$drug->medicine_id}}" type="button" class="btn yellow-crusta edit-drug-button" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
+                                                {{--<td> <button id="delete-{{$drug->medicine_id}}" type="button" class="btn red delete-drug-button" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
+                                                <td> <button id="view-{{$drug->medicine_id}}" identity="{{$drug->medicine_id}}" type="button" class="btn blue view-drug-button">ดู</button> </td>
+                                                <td> <button id="edit-{{$drug->medicine_id}}" identity="{{$drug->medicine_id}}" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>
+                                                <td> <button id="delete-{{$drug->medicine_id}}" identity="{{$drug->medicine_id}}" type="button" class="btn red delete-drug-button">ลบ</button></td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -234,14 +209,14 @@
     <div id="viewModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ข้อมูลยา รหัส D01</h4>
+            <h4 class="modal-title">ข้อมูลยา <span id="view-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="Paracetamol" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="Paracetamol" id="view_medicine_name"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -250,7 +225,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="Para" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="Para" id="view_business_name"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -259,7 +234,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="เม็ด" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="เม็ด" id="view_type"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -268,7 +243,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="แก้ปวด" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="แก้ปวด" id="view_description"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -277,7 +252,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="กินกับน้ำ" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="กินกับน้ำ" id="view_instruction"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -286,7 +261,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="บริษัทยาปลอม" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="บริษัทยาปลอม" id="view_manufacturer"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -611,8 +586,29 @@
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
+        var i = 1;
+        $('.view-all-order').each(function () {
+            $(this).text(i);
+            i++;
+        });
         $('tbody tr').click(function () {
             $('#appDetailModal').modal()
+        });
+        $('.view-drug-button').click(function(){
+            var id = $(this).attr('identity');
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/medicine/detail',
+                    {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
+                        $('#view-title').text(input['medicine_name']);
+                        $('#view_business_name').val(input['business_name']);
+                        $('#view_medicine_name').val(input['medicine_name']);
+                        $('#view_type').val(input['type']);
+                        $('#view_manufacturer').val(input['manufacturer']);
+                        $('#view_description').val(input['description']);
+                        $('#view_instruction').val(input['instruction']);
+            }).fail(function () {
+            });
+            $('#viewModal').modal();
         });
     </script>
 @endsection
