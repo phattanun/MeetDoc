@@ -80,10 +80,6 @@ class ProfileController extends Controller
     {
         return view('doctorSchedule');
     }
-    public function test2()
-    {
-        return view('patientCome');
-    }
     public function test3()
     {
         return view('doctorNearAppointment');

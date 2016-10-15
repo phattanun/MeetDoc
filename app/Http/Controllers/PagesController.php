@@ -120,4 +120,10 @@ class PagesController extends Controller
 //        return MedicineController::get_medicine_list();
         return view('drug')->with(['drugList'=> MedicineController::get_medicine_list()]);
     }
+
+    // Staff
+
+    public function patientCome (){
+        return view('patientCome');
+    }
 }

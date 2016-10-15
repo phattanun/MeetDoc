@@ -15,6 +15,9 @@ Route::get('/doctor/schedule', 'PagesController@viewSchedule');
 Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
 Route::post('/doctor/daily', 'PagesController@addDailySchedule');
 
+//Staff
+Route::get('/patient/come', 'PagesController@patientCome');
+
 //Pharmacist
 Route::get('/drug/manage', 'PagesController@drugPage');
 
@@ -48,7 +51,6 @@ Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 
 //Krit
 // Route::get('/doctor/schedule', 'ProfileController@test1');
-Route::get('/patient/come', 'ProfileController@test2');
 Route::get('/doctor/appointment', 'ProfileController@test3');
 Route::get('/queue', 'ProfileController@test4');
 
@@ -80,6 +82,7 @@ Route::get('/backend/Appointment/getAppointmentList', 'AppointmentController@get
 Route::post('/backend/Appointment/create', 'AppointmentController@create');
 Route::post('/backend/Appointment/cancel', 'AppointmentController@cancel');
 Route::get('/backend/Appointment/cancelApprove', 'AppointmentController@cancelApprove');
+Route::get('/backend/Appointment/search', 'AppointmentController@search');
 
 
 // Weekly Schedule

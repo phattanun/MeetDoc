@@ -130,4 +130,37 @@ class AppointmentController extends Controller
             echo "<h2>Error</h2>";
         }
     }
+
+    public static function search(Request $request) {
+        $tmp = [];
+        $tmp['total_count'] = 3;
+        $tmp['incomplete_result'] = true;
+        $tmp['items'] = [];
+        $tmp['items'][0] = [
+            'avatar_url' => 'www.ssfsdm',
+            'appointment_id' => '555',
+            'name' => 'Hello',
+            'surname' => 'World',
+            'department' => 'eye',
+            'time' => 'morning'
+        ];
+        $tmp['items'][1] = [
+            'avatar_url' => 'www.ssfsdm',
+            'appointment_id' => '555',
+            'name' => 'Hello',
+            'surname' => 'World',
+            'department' => 'eye',
+            'time' => 'morning'
+        ];
+        $tmp['items'][2] = [
+            'avatar_url' => 'www.ssfsdm',
+            'appointment_id' => '555',
+            'name' => 'Hello',
+            'surname' => 'World',
+            'department' => 'eye',
+            'time' => 'morning'
+        ];
+
+        return $tmp;
+    }
 }

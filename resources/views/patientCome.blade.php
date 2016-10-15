@@ -13,11 +13,11 @@
 @endsection
 
 @section('pageLevelPluginsCSS')
-    <link href="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
-    <link href="{{url('assets/pages/css/profile.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -40,7 +40,21 @@
                                     <div class="row">
                                         <div class="col-md-offset-1 col-md-10">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="รหัสนัดหมาย">
+                                                <!--div class="input-group input-group-sm select2-bootstrap-prepend">
+                                                    <select id="select2-button-addons-single-input-group-sm" class="form-control js-data-example-ajax" dir="rtl">
+                                                        <option value="0" selected="selected">คลิกเพื่อกรอกรหัสนัดหมาย</option>
+                                                    </select>
+                                                </div-->
+                                                <div class="input-group input-group select2-bootstrap-append">
+                                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax">
+                                                        <option value="0" selected="selected">คลิกเพื่อกรอกรหัสนัดหมาย</option>
+                                                    </select>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default" type="button" data-select2-open="select2-button-addons-single-input-group">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </span>
+                                                </div>
                                             </div>
 
                                         </div>
@@ -65,11 +79,10 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/select2-appointment.full.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/components-select2-appointment.js')}}" type="text/javascript"></script>
 @endsection
 
