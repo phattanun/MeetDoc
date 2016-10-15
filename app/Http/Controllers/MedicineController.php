@@ -10,7 +10,7 @@ use Mockery\CountValidator\Exception;
 
 class MedicineController extends Controller
 {
-    private function printTable($array) {
+    private static function printTable($array) {
         if(sizeof($array) == 0) {
             echo "<h4>Empty Table</h4>";
             return;
