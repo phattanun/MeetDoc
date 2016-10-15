@@ -117,7 +117,7 @@ class PagesController extends Controller
 
     // Pharmacist
     public function drugPage(Request $request) {
-        $drugList = MedicineController::get_medicine_list();
-        return view('drug')->with(['drugList'=> $drugList]);
+//        return MedicineController::get_medicine_list();
+        return view('drug')->with(['drugList'=> MedicineController::get_medicine_list()]);
     }
 }

@@ -85,45 +85,46 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td> 1 </td>
-                        <td> SN01</td>
-                        <td> Paracetamol </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    <tr>
-                        <td> 2 </td>
-                        <td> SN02 </td>
-                        <td> Paracetamol </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    <tr>
-                        <td> 3 </td>
-                        <td> SN03 </td>
-                        <td> Paracetamol </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    <tr>
-                        <td> 4 </td>
-                        <td> SN04 </td>
-                        <td> Paracetamol </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
-                    <tr>
-                        <td> 5 </td>
-                        <td> SN05 </td>
-                        <td> Paracetamol </td>
-                        <td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                        <td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                        <td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                    </tr>
+                    {!! $drugList !!}
+                    {{--<tr>--}}
+                        {{--<td> 1 </td>--}}
+                        {{--<td> SN01</td>--}}
+                        {{--<td> Paracetamol </td>--}}
+                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
+                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
+                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td> 2 </td>--}}
+                        {{--<td> SN02 </td>--}}
+                        {{--<td> Paracetamol </td>--}}
+                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
+                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
+                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td> 3 </td>--}}
+                        {{--<td> SN03 </td>--}}
+                        {{--<td> Paracetamol </td>--}}
+                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
+                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
+                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
+                    {{--<tr>--}}
+                        {{--<td> 4 </td>--}}
+                        {{--<td> SN04 </td>--}}
+                        {{--<td> Paracetamol </td>--}}
+                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
+                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
+                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
+                    {{--</tr>--}}
+                    {{--<tr>--}}
+                        {{--<td> 5 </td>--}}
+                        {{--<td> SN05 </td>--}}
+                        {{--<td> Paracetamol </td>--}}
+                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
+                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
+                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
+                    {{--</tr>--}}
                     </tbody>
                 </table>
             </div>

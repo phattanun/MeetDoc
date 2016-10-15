@@ -75,7 +75,7 @@ class MedicineController extends Controller
     public static function get_medicine_list()
     {
         $all_medicine = Medicine::all()->toArray();
-        self::printTable($all_medicine);
+        return self::printTable($all_medicine);
     }
 
     public function get_medicine_detail(Request $request)
