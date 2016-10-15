@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2016 at 06:55 PM
+-- Generation Time: Oct 15, 2016 at 04:57 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,13 +39,6 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `type` char(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
-
---
--- Dumping data for table `appointment`
---
-
-INSERT INTO `appointment` (`id`, `doctor_ssn`, `patient_ssn`, `date`, `time`, `symptom`, `cancel_time`, `queue_status`, `checkin_time`, `type`) VALUES
-(10, 4321, 1234, '2016-10-26', 'A', 'ไม่สบาย', NULL, 'uncheckedin', NULL, 'R');
 
 -- --------------------------------------------------------
 
@@ -7862,7 +7855,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ssn` (`ssn`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=48 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
