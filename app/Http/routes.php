@@ -31,6 +31,9 @@ Route::post('medicine/edit', 'MedicineController@edit_medicine');
 Route::post('medicine/search', 'MedicineController@search_medicine');
 Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
+// Disease
+
+
 //everyone
 Route::get('/password/reset', 'ProfileController@passwordResetPage');
 Route::get('/password/forget', 'ProfileController@passwordForgetPage');
@@ -47,7 +50,8 @@ Route::get('/appointment/future', 'ProfileController@appointmentFuturePage');
 //Admin
 Route::get('/account/manage', 'ProfileController@accountPage');
 // Route::get('/officer/manage', 'ProfileController@officerPage');
-Route::get('/disease/manage', 'ProfileController@diseasePage');
+Route::get('/disease/manage', 'PagesController@diseasePage');
+Route::get('/disease/temp', 'ProfileController@diseasePage');
 Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 
 

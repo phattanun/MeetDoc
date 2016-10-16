@@ -122,7 +122,6 @@ class PagesController extends Controller
 
     // Pharmacist
     public function drugPage(Request $request) {
-//        return MedicineController::get_medicine_list();
         return view('drug')->with(['drugList'=> MedicineController::get_medicine_list()]);
     }
 
@@ -130,5 +129,10 @@ class PagesController extends Controller
 
     public function patientCome (){
         return view('patientCome');
+    }
+
+    //Admin
+    public function diseasePage(Request $request) {
+        return view('disease')->with(['diseaseList'=> MedicineController::get_medicine_list()]);
     }
 }
