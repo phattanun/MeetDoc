@@ -279,16 +279,16 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-bottom-15">
                         <input class="form-control"  value="" id="edit_medicine_name"  type="text" name="medicine_name">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
                         <input class="form-control" value="" id="edit_business_name"  type="text" name="business_name">
@@ -297,7 +297,7 @@
                 </div>
             </div>
             <div class="row margin-top-15 margin-bottom-10">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10" id="edit-type-selection">
                         <select id="edit-type" class="form-control select2-multiple" multiple name="type[]">
@@ -308,24 +308,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-bottom-15">
                         <input class="form-control" value="" id="edit_description"  type="text" name="description">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-bottom-15">
                         <input class="form-control" value="" id="edit_instruction"  type="text" name="instruction">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>            <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
                         <input class="form-control" value="" id="edit_manufacturer"  type="text" name="manufacturer">
@@ -355,16 +355,16 @@
         </div>
         <div class="modal-body">
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-bottom-15">
                         <input class="form-control"  value="" id="add_medicine_name"  type="text" name="medicine_name" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
                         <input class="form-control" value="" id="add_business_name"  type="text" name="business_name" required>
@@ -373,7 +373,7 @@
                 </div>
             </div>
             <div class="row margin-top-15 margin-bottom-10">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10" id="add-type-selection">
                         <select id="add-type" class="form-control select2-multiple" multiple name="type[]" required>
@@ -384,24 +384,24 @@
                 </div>
             </div>
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-bottom-15">
                         <input class="form-control" value="" id="add_description"  type="text" name="description" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10 margin-bottom-15">
                         <input class="form-control" value="" id="add_instruction"  type="text" name="instruction" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>            <div class="row">
-                <div class="form-group form-md-line-input">
+                <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
                         <input class="form-control" value="" id="add_manufacturer"  type="text" name="manufacturer" required>
