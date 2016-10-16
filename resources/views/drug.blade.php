@@ -154,7 +154,7 @@
                                     <i class="icon-globe theme-font hide"></i>
                                     <span class="caption-subject font-blue-madison bold uppercase">รายการยาทั้งหมด</span>
                                 </div>
-                                <div class="text-right"> <button type="button" class="btn green" data-toggle="modal" data-target="#addModal">เพิ่มข้อมูลยา</button></div>
+                                <div class="text-right"> <button type="button" class="btn green" id="add-drug-btn">เพิ่มข้อมูลยา</button></div>
                             </div>
                             <div class="portlet-body">
                                 <div class="table-responsive">
@@ -513,12 +513,8 @@
 
                 }).fail(function () {
                 });
+                $('#drug-edit-form').validate().resetForm();
                 $('#editModal').modal();
-            });
-            var drugEditFormValidator = $('#drug-edit-form').validate();
-            $('#editModal').on('hidden.bs.modal', function () {
-                drugEditFormValidator.resetForm();
-                $('.row .form-group').removeClass('has-error');
             });
             $(document).on('click','#edit-submit-btn', function(e) {
                 if($('#drug-edit-form').valid()) {
@@ -548,10 +544,9 @@
                     return false;
                 }
             });
-            var drugAddFormValidator = $('#drug-add-form').validate();
-            $('#addModal').on('hidden.bs.modal', function () {
-                drugAddFormValidator.resetForm();
-                $('.row .form-group').removeClass('has-error');
+            $('#add-drug-btn').click(function () {
+                $('#drug-add-form').validate().resetForm();
+                $('#addModal').modal();
             });
             $(document).on('click','#add-submit-btn', function(e) {
                 if($('#drug-add-form').valid()){
