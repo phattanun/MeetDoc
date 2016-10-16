@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Allerrgic extends Model
+class Allergic extends Model
 {
     protected $table = 'allergic';
     public $timestamps = false;
-    protected $primaryKey = array('user_id', 'medicine_id');
+    protected $primaryKey = array('patient_id', 'medicine_id');
 }
