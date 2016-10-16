@@ -379,7 +379,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10" id="add-type-selection">
-                        <select id="edit-type" class="form-control select2-multiple" multiple name="type[]">
+                        <select id="add-type" class="form-control select2-multiple" multiple name="type[]">
                             @include('drug-type')
                         </select>
                         <div class="form-control-focus"> </div>
@@ -544,6 +544,8 @@
                     toastr['success']('เพิ่มข้อมูลยาสำเร็จ', "สำเร็จ");
                     l.stop();
                     $('#addModal').modal('hide');
+                    $('#add-type').val('');
+                    ComponentsSelect2.init();
                     return true;
                 }
                 function showError(responseText, statusText, xhr, $form) {
@@ -553,7 +555,8 @@
                 }
                 var options = {
                     success: showSuccess,
-                    error: showError
+                    error: showError,
+                    clearForm: true
                 };
                 $('#drug-add-form').ajaxSubmit(options);
                 return false;
