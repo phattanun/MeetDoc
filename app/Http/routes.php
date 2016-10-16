@@ -3,19 +3,30 @@
 
 Route::get ('/login', 'PagesController@viewLogin');
 Route::post('/login', 'PagesController@login');
+Route::get('/logout', 'AccountController@logout');
+
+Route::post('/register', 'PagesController@register');
+Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Password in Login Page
+Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
+
+// Backend
+Route::get('/backend', function() { return View::make('backend'); });
+
+// รอย้าย Controller
+Route::get('/register', 'ProfileController@registerPage');
+Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
+Route::get('/password/reset', 'ProfileController@passwordResetPage');
+Route::get('/password/forget', 'ProfileController@passwordForgetPage');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'PagesController@index');
-    
+
     // SearchAPI
     Route::get('/officer/manage/list', 'PagesController@apiGetStaff');
 
     //Merged
     Route::get('/swapRole', 'AccountController@swapRole');
-    Route::get('/logout', 'AccountController@logout');
-    Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Password in Login Page
     Route::get('/password/change', 'PagesController@changePassword'); // Change password in Profile Page
-    Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
     Route::get('/profile', 'PagesController@viewProfile');
     Route::post('/profile', 'PagesController@editProfile');
     Route::get('/doctor/schedule', 'PagesController@viewSchedule');
@@ -48,10 +59,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 
     //everyone
-    Route::get('/password/reset', 'ProfileController@passwordResetPage');
-    Route::get('/password/forget', 'ProfileController@passwordForgetPage');
-    Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
-    Route::get('/register', 'ProfileController@registerPage');
     // Route::get('/profile', 'ProfileController@index');
     //Route::post('/profile', 'ProfileController@testprofile');
     Route::get('/queue', 'PagesController@viewQueue');
@@ -72,13 +79,6 @@ Route::group(['middleware' => 'auth'], function() {
     // Route::auth();
     Route::get('/home', 'ProfileController@index');
     Route::get('/login/officer', 'Auth\AuthController@officerLoginPage');
-
-    Route::post('/register', 'PagesController@register');
-
-    // Backend
-    Route::get('/backend', function() {
-        return View::make('backend');
-    });
 
     // Account
     // Route::post('/backend/Account/login', 'AccountController@login');
