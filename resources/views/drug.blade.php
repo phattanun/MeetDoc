@@ -346,7 +346,7 @@
 
 
     <div id="addModal" class="modal fade" tabindex="-1" data-width="760">
-        <form id="drug-add-form" role="form" action="{{ url('/medicine/create') }}" method="post">
+        <form id="drug-add-form" role="form" action="{{ url('/medicine/create') }}" method="post" novalidate="novalidate">
             {{ csrf_field() }}
         <input type="hidden" name="medicine_id" id="add_medicine_id" />
         <div class="modal-header">
@@ -358,7 +358,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
                     <div class="col-md-10 margin-bottom-15">
-                        <input class="form-control"  value="" id="add_medicine_name"  type="text" name="medicine_name" required>
+                        <input class="form-control"  value="" id="add_medicine_name"  type="text" name="medicine_name" required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -367,7 +367,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="add_business_name"  type="text" name="business_name" required>
+                        <input class="form-control" value="" id="add_business_name"  type="text" name="business_name" required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -376,7 +376,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10" id="add-type-selection">
-                        <select id="add-type" class="form-control select2-multiple" multiple name="type[]" required>
+                        <select id="add-type" class="form-control select2-multiple" multiple name="type[]" required aria-required="true">
                             @include('drug-type')
                         </select>
                         <div class="form-control-focus"> </div>
@@ -387,7 +387,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
                     <div class="col-md-10 margin-bottom-15">
-                        <input class="form-control" value="" id="add_description"  type="text" name="description" required>
+                        <input class="form-control" value="" id="add_description"  type="text" name="description" required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -396,7 +396,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
                     <div class="col-md-10 margin-bottom-15">
-                        <input class="form-control" value="" id="add_instruction"  type="text" name="instruction" required>
+                        <input class="form-control" value="" id="add_instruction"  type="text" name="instruction" required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -404,7 +404,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="add_manufacturer"  type="text" name="manufacturer" required>
+                        <input class="form-control" value="" id="add_manufacturer"  type="text" name="manufacturer" required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -453,6 +453,7 @@
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
@@ -462,6 +463,7 @@
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/drug-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             resetAllOrder();
@@ -537,8 +539,13 @@
                 $('#drug-edit-form').ajaxSubmit(options);
                 return false;
             });
-
+            var drugAddFormValidator = $('#drug-add-form').validate();
+            $('#addModal').on('hidden.bs.modal', function () {
+                drugAddFormValidator.resetForm();
+                $('.row .form-group').removeClass('has-error');
+            });
             $(document).on('click','#add-submit-btn', function(e) {
+                if($('#drug-add-form').valid()){
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
@@ -564,6 +571,7 @@
                 };
                 $('#drug-add-form').ajaxSubmit(options);
                 return false;
+                }
             });
 
             $(document).on('click','.delete-drug-button', function () {
