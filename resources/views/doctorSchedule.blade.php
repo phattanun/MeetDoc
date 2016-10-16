@@ -1,6 +1,6 @@
 @extends('masterpage')
 
-@section('profileNav')
+@section('doctorScheduleNav')
     active
 @endsection
 

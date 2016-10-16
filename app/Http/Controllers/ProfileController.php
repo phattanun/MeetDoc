@@ -34,7 +34,7 @@ class ProfileController extends Controller
     }
     public function diseasePage()
     {
-        return view('disease');
+        return view('disease-temp');
     }
     public function drugPage()
     {

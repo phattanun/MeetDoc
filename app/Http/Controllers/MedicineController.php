@@ -62,9 +62,10 @@ class MedicineController extends Controller
 
     public function search_medicine(Request $request)
     {
-        $medicine_list = Medicine::where('medicine_name', 'like', '%'.($request->search_name).'%')
-            ->orWhere('business_name', 'like', '%'.($request->search_name).'%')->get();
-        return $medicine_list;
+        $keyword= $request->keyword;
+        $medicine_list = Medicine::select('medicine_id', 'medicine_name', 'business_name')->where('medicine_name', 'like', '%'.($keyword).'%')
+            ->orWhere('business_name', 'like', '%'.($keyword).'%')->get();
+        return compact('keyword','medicine_list');
     }
 
     public function get_medicine_detail(Request $request)
