@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Allerrgic;
+use App\Allergic;
 use App\Appointment;
 use App\Disease;
 use App\Drug;
@@ -136,9 +136,29 @@ class DiagnosisController extends Controller
         dd($user_profile);
     }
 
-    public function edit_allergic_medicine(Request $request)
+    public function get_appointment_list(Request $request)
     {
-        
+        $now = new \DateTime('NOW');
+        $appointment_list = Appointment::where('patient_id', $request->patient_id)->where('date', '<', $now->format('Y-m-d'))
+            ->whereNotNull('checkin_time')->get();
+        dd($appointment_list->toArray());
     }
 
+    public function add_allergic_medicine(Request $request)
+    {
+//        dd($request);
+        try {
+            $allergic = new Allergic();
+            $allergic->patient_id = $request->patient_id;
+            $allergic->medicine_id = $request->medicine_id;
+            $allergic->save();
+        } catch (Exception $e) {
+            echo '<H2>Error</H2>';
+        }
+    }
+
+    public function delete_allergic_medicine(Request $request)
+    {
+
+    }
 }

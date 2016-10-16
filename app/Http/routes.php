@@ -110,6 +110,8 @@ Route::post('/backend/Diagnosis/checkin', 'DiagnosisController@patient_checkin_b
 Route::post('/backend/Diagnosis/add_physical_record', 'DiagnosisController@add_physical_record');
 Route::post('/backend/Diagnosis/get_patient_profile', 'DiagnosisController@get_patient_profile');
 Route::get('/backend/Diagnosis/queue', 'DiagnosisController@get_queue');
+Route::post('/backend/Diagnosis/appointment_list', 'DiagnosisController@get_appointment_list');
+Route::post('/backend/Diagnosis/add_allergic_medicine', 'DiagnosisController@add_allergic_medicine');
 
 Route::post('/backend/{controller}/post',
     function($controller) {
