@@ -76,17 +76,9 @@ class ProfileController extends Controller
     {
         return view('appointment-future');
     }
-    public function test1()
-    {
-        return view('doctorSchedule');
-    }
     public function test3()
     {
         return view('doctorNearAppointment');
-    }
-    public function test4()
-    {
-        return view('queue');
     }
 
 }

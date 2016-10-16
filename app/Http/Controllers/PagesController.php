@@ -127,8 +127,13 @@ class PagesController extends Controller
     }
 
     // Staff
-
     public function patientCome (){
         return view('patientCome');
+    }
+
+    //everyone
+    public function viewQueue()
+    {
+        return view('queue');
     }
 }

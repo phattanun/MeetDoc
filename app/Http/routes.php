@@ -37,6 +37,7 @@ Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
 Route::get('/register', 'ProfileController@registerPage');
 // Route::get('/profile', 'ProfileController@index');
 //Route::post('/profile', 'ProfileController@testprofile');
+Route::get('/queue', 'PagesController@viewQueue');
 
 //Patient
 Route::get('/appointment/new', 'ProfileController@newAppointmentPage');
@@ -51,9 +52,7 @@ Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 
 
 //Krit
-// Route::get('/doctor/schedule', 'ProfileController@test1');
 Route::get('/doctor/appointment', 'ProfileController@test3');
-Route::get('/queue', 'ProfileController@test4');
 
 //Auth
 // Route::auth();
