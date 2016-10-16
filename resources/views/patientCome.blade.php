@@ -36,33 +36,28 @@
                     <div class="portlet-body">
                         <!-- BEGIN FORM -->
                         <div class="portlet-body form">
-                            <form class="form-horizontal" role="form" action="../../backend/Appointment/get" method="get">
+                            <form id="appointment-search-form" class="form-horizontal" role="form" action="../../backend/Appointment/get" method="get">
                                 {{csrf_field()}}
                                 <div class="form-body" style="padding-bottom: 0px; padding-top: 0px;">
                                     <div class="row">
                                         <div class="col-md-offset-1 col-md-10">
                                             <div class="form-group">
-                                                <!--div class="input-group input-group-sm select2-bootstrap-prepend">
-                                                    <select id="select2-button-addons-single-input-group-sm" class="form-control js-data-example-ajax" dir="rtl">
-                                                        <option value="0" selected="selected">คลิกเพื่อกรอกรหัสนัดหมาย</option>
-                                                    </select>
-                                                </div-->
                                                 <div class="input-group input-group select2-bootstrap-append">
-                                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax" name="appointment_id">
-                                                        <option value="0">คลิกเพื่อกรอกรหัสนัดหมาย</option>
+                                                    <select id="appointment_select2" class="form-control js-data-example-ajax" name="appointment_select2">
+                                                        <option id="first-label" value="0">คลิกเพื่อกรอกรหัสนัดหมาย</option>
                                                     </select>
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="button" data-select2-open="select2-button-addons-single-input-group">
-                                                        <span class="glyphicon glyphicon-search"></span>
-                                                    </button>
-                                                </span>
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-default" type="button" data-select2-open="appointment_select2" style="margin-left: 5px;">
+                                                            <span class="glyphicon glyphicon-search"></span>
+                                                        </button>
+                                                    </span>
                                                 </div>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="row" style="text-align: right;">
-                                        <button type="submit" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                                        <button type="submit" id="search-appointment-button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                                             <span class="ladda-label">ลงทะเบียน</span>
                                             <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
                                         </button>
@@ -85,12 +80,43 @@
     <script src="{{url('assets/pages/scripts/select2-appointment.full.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-appointment.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/form-validation.js')}}" type="text/javascript"></script>
+    <script>
+        $('#search-appointment-button').click(function(e) {
+            e.preventDefault();
+            if($("#appointment_select2").val()!=0){
+                $('.form-group').removeClass('has-error');
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']("ลงทะเบียนสำเร็จ", "สำเร็จ");
+                    l.stop();
+                    $("#appointment_select2").select2('destroy');
+                    $("#appointment_select2 option").not( document.getElementById( "first-label" ) ).remove();
+                    ComponentsSelect2.init();
+                    return true;
+                }
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+                    return true;
+                }
+                var options = {
+                    success: showSuccess,
+                    error: showError,
+                    clearForm: true
+                };
+                $('#appointment-search-form').ajaxSubmit(options);
+                return false;
+            }
+            else{
+                $('.form-group').addClass('has-error');
+                return false;
+            }
+        });
+    </script>
 @endsection
 
