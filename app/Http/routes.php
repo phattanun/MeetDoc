@@ -117,6 +117,7 @@ Route::post('/backend/Diagnosis/get_patient_profile', 'DiagnosisController@get_p
 Route::get('/backend/Diagnosis/queue', 'DiagnosisController@get_queue');
 Route::post('/backend/Diagnosis/appointment_list', 'DiagnosisController@get_appointment_list');
 Route::post('/backend/Diagnosis/add_allergic_medicine', 'DiagnosisController@add_allergic_medicine');
+Route::post('/backend/Diagnosis/delete_allergic_medicine', 'DiagnosisController@delete_allergic_medicine');
 
 Route::post('/backend/{controller}/post',
     function($controller) {

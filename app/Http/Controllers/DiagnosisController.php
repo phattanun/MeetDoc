@@ -115,7 +115,9 @@ class DiagnosisController extends Controller
         $appointment['waiting_pharmacist'] = [];
 
         foreach ($appointment_list as $app) {
-            $array_app = json_decode($app);
+            $array_app = json_decode($app, true);
+            $patient_info = User::where('id', $app['id'])->first();
+            $array_app['patient_info'] = json_decode($patient_info, true);
             if ($app['queue_status'] == 'waiting_staff')
                 array_push($appointment['waiting_staff'], $array_app);
             else if ($app['queue_status'] == 'waiting_doctor')
@@ -130,7 +132,7 @@ class DiagnosisController extends Controller
     public function get_patient_profile(Request $request)
     {
         $user = User::where('id', $request->patient_id)->select('id', 'ssn', 'name', 'surname', 'birthday', 'phone_no')->first();
-        $allergic_medicine = Allerrgic::where('user_id', $request->patient_id)->get();
+        $allergic_medicine = Allergic::where('patient_id', $request->patient_id)->get();
 
         $user_profile['info'] = $user->toArray();
         $user_profile['allergic_medicine'] = $allergic_medicine->toArray();
@@ -147,7 +149,6 @@ class DiagnosisController extends Controller
 
     public function add_allergic_medicine(Request $request)
     {
-//        dd($request);
         try {
             $allergic = new Allergic();
             $allergic->patient_id = $request->patient_id;
@@ -160,6 +161,8 @@ class DiagnosisController extends Controller
 
     public function delete_allergic_medicine(Request $request)
     {
-
+        $allergic = Allergic::where('patient_id', $request->patient_id)->where('medicine_id', $request->medicine_id);
+        if($allergic->exists())
+            $allergic->delete();
     }
 }
