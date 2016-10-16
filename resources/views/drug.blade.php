@@ -282,7 +282,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
                     <div class="col-md-10 margin-bottom-15">
-                        <input class="form-control"  value="" id="edit_medicine_name"  type="text" name="medicine_name">
+                        <input class="form-control"  value="" id="edit_medicine_name"  type="text" name="medicine_name"  required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -291,7 +291,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="edit_business_name"  type="text" name="business_name">
+                        <input class="form-control" value="" id="edit_business_name"  type="text" name="business_name"  required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -300,7 +300,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10" id="edit-type-selection">
-                        <select id="edit-type" class="form-control select2-multiple" multiple name="type[]">
+                        <select id="edit-type" class="form-control select2-multiple" multiple name="type[]"  required aria-required="true">
                             @include('drug-type')
                         </select>
                         <div class="form-control-focus"> </div>
@@ -311,7 +311,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
                     <div class="col-md-10 margin-bottom-15">
-                        <input class="form-control" value="" id="edit_description"  type="text" name="description">
+                        <input class="form-control" value="" id="edit_description"  type="text" name="description"  required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
                     <div class="col-md-10 margin-bottom-15">
-                        <input class="form-control" value="" id="edit_instruction"  type="text" name="instruction">
+                        <input class="form-control" value="" id="edit_instruction"  type="text" name="instruction"  required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -328,7 +328,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="edit_manufacturer"  type="text" name="manufacturer">
+                        <input class="form-control" value="" id="edit_manufacturer"  type="text" name="manufacturer"  required aria-required="true">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -515,29 +515,38 @@
                 });
                 $('#editModal').modal();
             });
+            var drugEditFormValidator = $('#drug-edit-form').validate();
+            $('#editModal').on('hidden.bs.modal', function () {
+                drugEditFormValidator.resetForm();
+                $('.row .form-group').removeClass('has-error');
+            });
             $(document).on('click','#edit-submit-btn', function(e) {
-                e.preventDefault();
-                var l = Ladda.create(this);
-                l.start();
-                function showSuccess(formData, jqForm, options) {
-                    toastr['success']('แก้ไขข้อมูลยาสำเร็จ', "สำเร็จ");
-                    l.stop();
-                    resetDrugList();
-                    $('#editModal').modal('hide');
-                    return true;
+                if($('#drug-edit-form').valid()) {
+                    e.preventDefault();
+                    var l = Ladda.create(this);
+                    l.start();
+                    function showSuccess(formData, jqForm, options) {
+                        toastr['success']('แก้ไขข้อมูลยาสำเร็จ', "สำเร็จ");
+                        l.stop();
+                        resetDrugList();
+                        $('#editModal').modal('hide');
+                        return true;
+                    }
+
+                    function showError(responseText, statusText, xhr, $form) {
+                        toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                        l.stop();
+                        resetDrugList();
+                        return true;
+                    }
+
+                    var options = {
+                        success: showSuccess,
+                        error: showError
+                    };
+                    $('#drug-edit-form').ajaxSubmit(options);
+                    return false;
                 }
-                function showError(responseText, statusText, xhr, $form) {
-                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
-                    l.stop();
-                    resetDrugList();
-                    return true;
-                }
-                var options = {
-                    success: showSuccess,
-                    error: showError
-                };
-                $('#drug-edit-form').ajaxSubmit(options);
-                return false;
             });
             var drugAddFormValidator = $('#drug-add-form').validate();
             $('#addModal').on('hidden.bs.modal', function () {
