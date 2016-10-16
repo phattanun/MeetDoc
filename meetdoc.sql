@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2016 at 08:23 AM
+-- Generation Time: Oct 16, 2016 at 03:47 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -23,13 +23,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `allergic`
+--
+
+CREATE TABLE IF NOT EXISTS `allergic` (
+  `patient_id` int(11) NOT NULL,
+  `medicine_id` int(11) NOT NULL,
+  PRIMARY KEY (`patient_id`,`medicine_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `appointment`
 --
 
 CREATE TABLE IF NOT EXISTS `appointment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `doctor_ssn` bigint(20) unsigned NOT NULL,
-  `patient_ssn` bigint(20) unsigned NOT NULL,
+  `doctor_id` int(11) unsigned NOT NULL,
+  `patient_id` int(11) unsigned NOT NULL,
   `date` date NOT NULL,
   `time` char(1) COLLATE utf8_unicode_ci NOT NULL,
   `symptom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -38,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `checkin_time` timestamp NULL DEFAULT NULL,
   `type` char(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -7809,7 +7821,8 @@ CREATE TABLE IF NOT EXISTS `prescription` (
   `medicine_id` int(10) unsigned NOT NULL,
   `amount` int(11) NOT NULL,
   `unit` varchar(255) NOT NULL,
-  `note` varchar(255) DEFAULT NULL
+  `note` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`appointment_id`,`medicine_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -7828,6 +7841,16 @@ CREATE TABLE IF NOT EXISTS `schedule_daily` (
   KEY `dept_id` (`dept_id`),
   KEY `doctor_ssn` (`doctor_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `schedule_daily`
+--
+
+INSERT INTO `schedule_daily` (`doctor_id`, `date`, `time`, `type`, `dept_id`) VALUES
+(1, '2016-10-27', 'A', 'sub', NULL),
+(1, '2016-10-28', 'M', 'sub', NULL),
+(1, '2016-10-20', 'A', 'add', 1),
+(1, '2016-10-31', 'M', 'add', 1);
 
 -- --------------------------------------------------------
 
@@ -7864,7 +7887,8 @@ CREATE TABLE IF NOT EXISTS `schedule_weekly` (
 --
 
 INSERT INTO `schedule_weekly` (`doctor_id`, `day`, `time`, `dept_id`) VALUES
-(1, 'Sunday', 'M', 1);
+(1, 'Sunday', 'M', 1),
+(1, 'Tuesday', 'M', 1);
 
 -- --------------------------------------------------------
 
@@ -7885,17 +7909,24 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_active` timestamp NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `dept_id` int(11) NOT NULL,
+  `p_patient` tinyint(1) NOT NULL,
+  `p_doctor` tinyint(1) NOT NULL,
+  `p_nurse` tinyint(1) NOT NULL,
+  `p_pharm` tinyint(1) NOT NULL,
+  `p_officer` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ssn` (`ssn`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `ssn`, `name`, `surname`, `gender`, `birthday`, `email`, `address`, `phone_no`, `password`, `last_active`, `remember_token`) VALUES
-(1, 1234, '1234', '1234', 'm', '01/01/2000', '1234@1234.1234', '1234', '1234', '$2y$10$iTieegnHWNkqBEmxscFraeNhxuTk9oY88LKaUykbbm7CauKwHQdmu', '2016-10-15 05:21:08', NULL),
-(2, 4321, '4321', '4321', 'm', '01/01/2000', '4321@4321.4321', '4321', '4321', '$2y$10$ZjkFyKF9kitC8gQbigqWdOInCYvuLoXRd2FD6VC1n8UWvyaI8KmRC', '2016-10-15 03:56:31', NULL);
+INSERT INTO `user` (`id`, `ssn`, `name`, `surname`, `gender`, `birthday`, `email`, `address`, `phone_no`, `password`, `last_active`, `remember_token`, `dept_id`, `p_patient`, `p_doctor`, `p_nurse`, `p_pharm`, `p_officer`) VALUES
+(1, 1234, '1234', '1234', 'm', '01/01/2000', '1234@1234.1234', '1234', '1234', '$2y$10$iTieegnHWNkqBEmxscFraeNhxuTk9oY88LKaUykbbm7CauKwHQdmu', '2016-10-15 05:21:08', 'KqOrMOsjX3H4R44c8ATVOcwaK6SvFOLIsThXZm4XKyTiGHjvee1NcCroYcFS', 0, 1, 0, 0, 0, 0),
+(2, 4321, '4321', '4321', 'm', '01/01/2000', '4321@4321.4321', '4321', '4321', '$2y$10$ZjkFyKF9kitC8gQbigqWdOInCYvuLoXRd2FD6VC1n8UWvyaI8KmRC', '2016-10-15 03:56:31', NULL, 0, 0, 1, 1, 1, 1),
+(3, 12345, '12345', '54321', 'm', '01/01/1994', '12345@123.5', '54321', '12345', 'XWN1lQgw39OuXP1CnlZ8aFiLEh3JH8RIEHMZkXre6nUGNUM2L2ayQIEUnrlld9OA', '2016-10-15 15:01:43', NULL, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
