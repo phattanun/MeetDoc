@@ -61,6 +61,10 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+        .table .middle tr td,
+        .table .middle tr th{
+            vertical-align: middle;
+        }
 
     </style>
 @endsection
@@ -273,9 +277,9 @@
                                                         <span class="caption-subject font-blue-madison bold uppercase">ประวัติการรักษา</span>
                                                     </div>
                                                 </div>
-                                                <div class="portlet-body">
+                                                <div id="modal-history-table-container" class="portlet-body">
                                                     <!-- BEGIN TABLE -->
-                                                    <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                                    <table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                                         <thead>
                                                         <tr>
                                                             <th class="first"> ครั้งที่ </th>
@@ -419,17 +423,9 @@
                                                                 <td> 1 </td>
                                                                 <td> MD22531 </td>
                                                                 <td> Paracetamol </td>
-                                                                <td> <input class="touchspin" type="text" value="" name=""> </td>
-                                                                <td>
-                                                                    <select class="form-control">
-                                                                        <option>Option 1</option>
-                                                                        <option>Option 2</option>
-                                                                        <option>Option 3</option>
-                                                                        <option>Option 4</option>
-                                                                        <option>Option 5</option>
-                                                                    </select>
-                                                                </td>
-                                                                <td> <input class="form-control" type="text" value="" name=""> </td>
+                                                                <td> 350 </td>
+                                                                <td> เม็ด </td>
+                                                                <td> กินหลังอาหาร </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -691,7 +687,7 @@
                                         </div>
                                         <!-- BEGIN TABLE -->
                                         <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
-                                            <thead>
+                                            <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
                                                 <th> ชื่อ </th>
@@ -703,16 +699,21 @@
                                                 <th class="last"></th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="middle">
                                             @foreach($queue_list['waiting_staff'] as $queue)
                                                 <tr>
                                                     <td>{{$queue->id}}</td>
                                                     <td>{{$queue->id}}</td>
                                                     <td>{{$queue->id}}</td>
+                                                    <td><i class="fa fa-male" aria-hidden="true"></i> {{$queue->id}}</td>
                                                     <td>{{$queue->id}}</td>
                                                     <td>{{$queue->id}}</td>
                                                     <td>{{$queue->id}}</td>
-                                                    <td>{{$queue->id}}</td>
+                                                    <td class="last">
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1({{$queue->id}})"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2({{$queue->id}})"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3({{$queue->id}})"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             <tr>
@@ -919,15 +920,48 @@
             maxboostedstep: 10
         });
 
-        function goToModalTab1(){
+        function goToModalTab1(id){
             $('#tab_modal_1_button').click();
         }
-        function goToModalTab2(){
+        function goToModalTab2(id){
+            $('#modal-history-table_wrapper').remove();
+            var modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+                    '<thead>'+
+                    '<tr>'+
+                    '<th class="first"> ครั้งที่ </th>'+
+                    '<th> วันที่ </th>'+
+                    '<th> ช่วง </th>'+
+                    '<th> แพทย์ </th>'+
+                    '<th> แผนก </th>'+
+                    '<th> อาการ </th>'+
+                    '<th></th>'+
+                    '</tr>'+
+                    '</thead>'+
+                    '<tbody>'+
+                    '<tr>'+
+                    '<td class="first">555</td>'+
+                    '<td>12/10/2559</td>'+
+                    '<td>เช้า</td>'+
+                    '<td>นายแพทย์สวัสดี หายไวไวนะ</td>'+
+                    '<td>แผนกหู คอ จมูก</td>'+
+                    '<td>ใกล้หายแล้ว ไม่รู้จะมาทำไม</td>'+
+                    '<td><a type="button" class="btn btn-default view-history" historyId="1"><i class="fa fa-user"></i> ดูประวัติ</a></td>'+
+                    '</tr>'+
+                    '</tbody>'+
+                    '</table>';
+            $('#modal-history-table-container').append(modalHistoryTable);
+            $('#modal-history-table').DataTable();
             $('#tab_modal_2_button').click();
         }
-        function goToModalTab3(){
+        function goToModalTab3(id){
             $('#tab_modal_3_button').click();
         }
+
+        $(document).on('click','.view-history', function(){
+           var historyId = $(this).attr('historyId');
+            alert(historyId);
+        });
+
 
     </script>
 @endsection
