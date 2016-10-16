@@ -144,13 +144,12 @@ class AccountController extends Controller
         return ["status" => true];
     }
 
-    private static function printTable($array) {
+    public static function officerManageTable($array) {
         $template = '<tr>
             <td> ?0 </td>
             <td> ?1 </td>
             <td> ?2 </td>
             <td> ?3 </td>
-            <td> ?4 </td>
             <td> <select id="multiple" class="form-control select2" ></option>
                         <option selected>แผนกอายุรกรรม</option>
                         <option>ศัลยกรรม</option>
@@ -164,11 +163,11 @@ class AccountController extends Controller
                         <option>รักษาโรคในช่องปากและฟัน</option>
                     </select>
                 </td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?4></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?9></td>
             <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
         </tr>';
 
@@ -195,9 +194,12 @@ class AccountController extends Controller
         return $re;
     }
 
-    public static function getUserList() {
-        $users = User::select(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'])->get()->toArray();
-        return self::printTable($users);
+    public static function getUserList($select = null, $filter = null) {
+        $users = isset($select) ? User::select($select) : User::select();
+        if(isset($filter))
+            $users = $users->where($filter);
+        $users = $users->get()->toArray();
+        return $users;
     }
 
     public static function getProfile(Request $request) {

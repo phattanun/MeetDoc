@@ -12,10 +12,29 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SystemController;
-use App\Http\Controllers\WorkingTimeController;
+use App\Http\Controllers\ScheduleController;
 
 class PagesController extends Controller
 {
+    private static function tableToSearch($table,$key) {
+        $res['total_count'] = sizeof($table);
+        $res['incomplete_result'] = true;
+        $res['items'] = [];
+
+        foreach ($table as $record) {
+            $record["html_url"] = "";
+            $record["key"] = $record[$key];
+            array_push($res['items'], $record);
+        }
+        return $res;
+    }
+
+    public function apiGetStaff() {
+        $res = AccountController::getUserList(['id', 'name', 'surname', 'ssn']);
+        $res = self::tableToSearch($res,'id');
+        return $res;
+    }
+
     public function index() {
         if(Auth::check()) return view('masterpage');
         else return view('auth/login');
@@ -93,8 +112,6 @@ class PagesController extends Controller
         $weekly = ScheduleController::getWeeklySchedule($doctor_id);
         $dailyAdd = ScheduleController::getDailySchedule($doctor_id, 'add');
         $dailySub = ScheduleController::getDailySchedule($doctor_id, 'sub');
-        // var_dump($dailyAdd);
-        // var_dump($dailySub);
         return view('doctorSchedule')->with(['weekly_schedule' => $weekly, 'daily_add_schedule' => $dailyAdd, 'daily_sub_schedule' => $dailySub]);
     }
 
@@ -116,8 +133,21 @@ class PagesController extends Controller
     }
 
     public function viewOfficerManage() {
-        $res = AccountController::getUserList();
+        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
+        $res = AccountController::officerManageTable($res);
         return view('officer')->with('users_list', $res);
+    }
+    public function addStaff(Request $request) {
+        $res = SystemController::addStaff($request);
+        return redirect('officer/manage');
+    }
+    public function removeStaff(Request $request) {
+        $res = SystemController::removeStaff($request);
+        return redirect('officer/manage');
+    }
+    public function changePermission(Request $request) {
+        $res = SystemController::changePermission($request);
+        return redirect('officer/manage');
     }
 
     //Patient

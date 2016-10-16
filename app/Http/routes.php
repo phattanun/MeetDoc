@@ -2,6 +2,10 @@
 
 Route::get('/', 'PagesController@index');
 
+
+// SearchAPI
+Route::get('/officer/manage/list', 'PagesController@apiGetStaff');
+
 //Merged
 Route::get ('/login', 'PagesController@viewLogin');
 Route::post('/login', 'PagesController@login');
@@ -16,6 +20,7 @@ Route::get('/doctor/schedule', 'PagesController@viewSchedule');
 Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
 Route::post('/doctor/daily', 'PagesController@addDailySchedule');
 Route::get('/officer/manage', 'PagesController@viewOfficerManage');
+Route::post('/officer/manage/addStaff', 'PagesController@addStaff');
 
 // Patient
 Route::get('/appointment/new', 'PagesController@newAppointmentPage');
