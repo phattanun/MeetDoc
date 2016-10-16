@@ -93,7 +93,7 @@ class DiagnosisController extends Controller
         }
     }
 
-    public function get_queue()
+    public static function get_queue()
     {
         $start_time_morning = (new \DateTime())->setTime(9, 0);
         $end_time_morning = (new \DateTime())->setTime(11, 30);
@@ -101,7 +101,7 @@ class DiagnosisController extends Controller
         $end_time_afternoon = (new \DateTime())->setTime(15, 30);
         $now = new \DateTime('NOW');
 
-        $time = '';
+        $time = 'M';
         if ($start_time_morning <= $now && $now <= $end_time_morning)
             $time = 'M';
         else if ($start_time_afternoon <= $now && $now <= $end_time_afternoon)
@@ -123,6 +123,7 @@ class DiagnosisController extends Controller
             else if ($app['queue_status'] == 'waiting_pharmacist')
                 array_push($appointment['waiting_pharmacist'], $array_app);
         }
+        return $appointment;
         dd($appointment);
     }
 

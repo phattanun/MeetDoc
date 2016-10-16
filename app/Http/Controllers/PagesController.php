@@ -140,9 +140,14 @@ class PagesController extends Controller
     }
 
     // Staff
-
     public function patientCome (){
         return view('patientCome');
+    }
+
+    //everyone
+    public function viewQueue()
+    {
+        return view('queue')->with(['queue_list' => DiagnosisController::get_queue()]);
     }
 
     //Admin

@@ -64,17 +64,9 @@ class ProfileController extends Controller
     {
         return view('auth.passwords.forget');
     }
-    public function test1()
-    {
-        return view('doctorSchedule');
-    }
     public function test3()
     {
         return view('doctorNearAppointment');
-    }
-    public function test4()
-    {
-        return view('queue');
     }
 
 }

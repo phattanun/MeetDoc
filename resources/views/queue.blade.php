@@ -57,6 +57,10 @@
         .medicine-table>thead>tr>td,.medicine-table>tbody>tr>td{
             vertical-align: middle;
         }
+        #physical-data-body .row{
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
 
     </style>
 @endsection
@@ -308,77 +312,57 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
-                                                <!-- BEGIN PHYSICAL DATA FORM -->
+                                                <!-- BEGIN PHYSICAL DATA -->
                                                 <div class="portlet-title">
                                                     <div class="caption caption-md">
                                                         <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลกายภาพ</span>
                                                     </div>
                                                 </div>
-                                                <div class="portlet-body margin-bottom-20">
-                                                    <!-- BEGIN FORM -->
-                                                    <div class="portlet-body form">
-                                                        <form class="form-horizontal" role="form">
-                                                            <div class="form-body" style="padding-bottom: 0px;">
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">น้ำหนัก</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="กิโลกรัม" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">ส่วนสูง</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="เซนติเมตร" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">อุณหภูมิร่างกาย</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="องศาเซลเซียส" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">ความดันซิสโทลิก</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">ความดันไดแอสโทลิก</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">อัตราการเต้นของหัวใจ</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="ครั้ง/นาที" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                <div id="physical-data-body" class="portlet-body margin-bottom-20">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class="col-md-5 bold">น้ำหนัก</label>
+                                                            <div class="col-md-7">
+                                                                70.00 กิโลกรัม
                                                             </div>
-                                                        </form>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="col-md-5 bold">ส่วนสูง</label>
+                                                            <div class="col-md-7">
+                                                                170.00 เซนติเมตร
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <!-- END FORM -->
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class="col-md-5 bold">อุณหภูมิร่างกาย</label>
+                                                            <div class="col-md-7">
+                                                                32 องศาเซลเซียส
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="col-md-5 bold">ความดันซิสโทลิก</label>
+                                                            <div class="col-md-7">
+                                                                760 มิลลิเมตรปรอท
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label class="col-md-5 bold">ความดันไดแอสโทลิก</label>
+                                                            <div class="col-md-7">
+                                                                766 มิลลเมตรปรอท
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="col-md-5 bold">อัตราการเต้นของหัวใจ</label>
+                                                            <div class="col-md-7">
+                                                                80 ครั้ง/นาที
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <!-- END PHYSICAL DATA FORM -->
+                                                <!-- END PHYSICAL DATA -->
 
                                                 <!-- BEGIN DIAGNOSIS FORM -->
                                                 <div class="portlet-title">
@@ -393,17 +377,15 @@
                                                             <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <label for="select2-button-addons-single-input-group" class="control-label">โรคที่วินิจฉัยได้</label>
-                                                                        <div class="input-group input-group select2-bootstrap-append">
-                                                                            <select id="" class="form-control js-data-example-ajax" multiple>
-                                                                                <option value="0" selected="selected">กรุณาระบุโรค</option>
-                                                                            </select>
-                                                                        </div>
+                                                                        <label class="bold margin-bottom-10">โรคที่วินิจฉัยได้</label>
+                                                                        <div class="disease">- โรคติดยา</div>
+                                                                        <div class="disease">- โรคติดยา</div>
+                                                                        <div class="disease">- โรคติดยา</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group margin-top-20">
-                                                                    <label>รายละเอียดของโรค</label>
-                                                                    <textarea class="form-control" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค"></textarea>
+                                                                    <label class="bold margin-bottom-10">รายละเอียดของโรค</label>
+                                                                    <p>อาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมาก</p>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -722,6 +704,17 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($queue_list['waiting_staff'] as $queue)
+                                                <tr>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                </tr>
+                                            @endforeach
                                             <tr>
                                                 <td>1</td>
                                                 <td>นายกิตติภณ</td>
