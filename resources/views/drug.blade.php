@@ -169,18 +169,15 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="all-drug-list-table-body">
                                         @foreach($drugList as $drug)
                                             <tr>
                                                 <td class="view-all-order">  </td>
                                                 <td> {{$drug->medicine_name}} </td>
                                                 <td> {{$drug->business_name}} </td>
-                                                {{--<td> <button id="view-{{$drug->medicine_id}}" type="button" class="btn blue view-drug-button" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
-                                                {{--<td> <button id="edit-{{$drug->medicine_id}}" type="button" class="btn yellow-crusta edit-drug-button" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
-                                                {{--<td> <button id="delete-{{$drug->medicine_id}}" type="button" class="btn red delete-drug-button" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
-                                                <td> <button id="view-{{$drug->medicine_id}}" identity="{{$drug->medicine_id}}" type="button" class="btn blue view-drug-button">ดู</button> </td>
-                                                <td> <button id="edit-{{$drug->medicine_id}}" identity="{{$drug->medicine_id}}" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>
-                                                <td> <button id="delete-{{$drug->medicine_id}}" identity="{{$drug->medicine_id}}" type="button" class="btn red delete-drug-button">ลบ</button></td>
+                                                <td> <button  identity="{{$drug->medicine_id}}" type="button" class="btn blue view-drug-button">ดู</button> </td>
+                                                <td> <button  identity="{{$drug->medicine_id}}" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>
+                                                <td> <button  identity="{{$drug->medicine_id}}" type="button" class="btn red delete-drug-button">ลบ</button></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -467,15 +464,18 @@
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
-            var i = 1;
-            $('.view-all-order').each(function () {
-                $(this).text(i);
-                i++;
-            });
+            resetAllOrder();
+            function resetAllOrder(){
+                var i = 1;
+                $('.view-all-order').each(function () {
+                    $(this).text(i);
+                    i++;
+                });
+            }
             $('tbody tr').click(function () {
                 $('#appDetailModal').modal()
             });
-            $('.view-drug-button').click(function(){
+            $(document).on('click','.view-drug-button', function(){
                 var id = $(this).attr('identity');
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/medicine/detail',
@@ -492,7 +492,7 @@
                 $('#viewModal').modal();
             });
             var tempData;
-            $('.edit-drug-button').click(function(e){
+            $(document).on('click','.edit-drug-button', function(e){
                 var id = $(this).attr('identity');
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/medicine/detail',
@@ -513,19 +513,21 @@
                 });
                 $('#editModal').modal();
             });
-            $('#edit-submit-btn').click(function(e) {
+            $(document).on('click','#edit-submit-btn', function(e) {
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
                 function showSuccess(formData, jqForm, options) {
                     toastr['success']('แก้ไขข้อมูลยาสำเร็จ', "สำเร็จ");
                     l.stop();
+                    resetDrugList();
                     $('#editModal').modal('hide');
                     return true;
                 }
                 function showError(responseText, statusText, xhr, $form) {
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
                     l.stop();
+                    resetDrugList();
                     return true;
                 }
                 var options = {
@@ -536,13 +538,14 @@
                 return false;
             });
 
-            $('#add-submit-btn').click(function(e) {
+            $(document).on('click','#add-submit-btn', function(e) {
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
                 function showSuccess(formData, jqForm, options) {
                     toastr['success']('เพิ่มข้อมูลยาสำเร็จ', "สำเร็จ");
                     l.stop();
+                    resetDrugList();
                     $('#addModal').modal('hide');
                     $('#add-type').val('');
                     ComponentsSelect2.init();
@@ -551,6 +554,7 @@
                 function showError(responseText, statusText, xhr, $form) {
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
                     l.stop();
+                    resetDrugList();
                     return true;
                 }
                 var options = {
@@ -583,12 +587,33 @@
                         {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
                     l.stop();
                     toastr['success']('ลบข้อมูลยาสำเร็จ', "สำเร็จ");
+                    resetDrugList();
                     $('#removeModal').modal('hide');
                 }).fail(function () {
                     l.stop();
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    resetDrugList();
                 });
             });
+
+            function resetDrugList() {
+                $.get( "{{url('/medicine/getMedicineList')}}").done(function(data) {
+                    $('#all-drug-list-table-body').empty();
+                    for(var m=0;m<data.length;m++){
+                        $('#all-drug-list-table-body').append(
+                        '<tr>'
+                        +'<td class="view-all-order">  </td>'
+                                +'<td>'+ data[m]['medicine_name'] +'</td>'
+                                +'<td>'+ data[m]['business_name'] +'</td>'
+                                +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn blue view-drug-button">ดู</button> </td>'
+                                +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>'
+                                +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn red delete-drug-button">ลบ</button></td>'
+                                +'</tr>'
+                            );
+                    }
+                    resetAllOrder();
+                });
+            }
         });
     </script>
 @endsection
