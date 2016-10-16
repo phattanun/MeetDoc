@@ -40,7 +40,7 @@ class AppointmentController extends Controller
     {
         var_dump($request->all());
         try {
-            $validate = Appointment::where('patient_ssn', $request->patient_ssn)
+            $validate = Appointment::where('patient_id', $request->patient_id)
                                     ->where('date', $request->date)
                                     ->where('time', $request->time)
                                     ->get()->toArray();
@@ -54,8 +54,8 @@ class AppointmentController extends Controller
             $ap->queue_status = 'uncheckedin';
             $ap->checkin_time = null;
             $ap->type = (strtotime($request->date) == strtotime('today') ? 'W' :'R'); // R refers to reserve and W refers to walk-in.
-            $ap->patient_ssn = $request->patient_ssn;
-            $ap->doctor_ssn = $request->doctor_ssn;
+            $ap->patient_id = $request->patient_id;
+            $ap->doctor_id = $request->doctor_id;
             $ap->save();
 
         } catch (\Exception $e) {
@@ -75,7 +75,7 @@ class AppointmentController extends Controller
             $ap = Appointment::findOrFail($request->id);
             $ap->cancel_time = $now;
             $ap->save();
-            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".$this->generateCancelLink($ap->doctor_ssn, $ap->patient_ssn, $now)."'>here</a>";
+            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".$this->generateCancelLink($ap->doctor_id, $ap->patient_id, $now)."'>here</a>";
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
@@ -89,7 +89,7 @@ class AppointmentController extends Controller
         var_dump($request->all());
         try {
             $ap = Appointment::findOrFail($request->aid);
-            if($request->apv == $this->generateCancelLink($ap->doctor_ssn, $ap->patient_ssn, $ap->cancel_time)) {
+            if($request->apv == $this->generateCancelLink($ap->doctor_id, $ap->patient_id, $ap->cancel_time)) {
                 $cancel_time = new \DateTime($ap->cancel_time);
                 if(($now->getTimeStamp() - $cancel_time->getTimeStamp())/3600 < 24)
                     $ap->delete();

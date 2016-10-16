@@ -50,6 +50,7 @@
         Allergic
         <ul>
             <li><a href="{{ action('DiagnosisController@add_allergic_medicine') }}" target="side">add allergic medicine</a></li>
+            <li><a href="{{ action('DiagnosisController@delete_allergic_medicine') }}" target="side">delete allergic medicine</a></li>
         </ul>
     </ul>
 
@@ -77,7 +78,7 @@
     @elseif($page == "register")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="ssn"      placeholder="SSN" /><br>
+            <input type="number"    name="id"      placeholder="SSN" /><br>
             <input type="text"      name="name"     placeholder="Name" /><br>
             <input type="text"      name="surname"  placeholder="Surname" /><br>
             <select name="gender">
@@ -135,8 +136,8 @@
     @if($page == "create")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            <input type="number"    name="patient_ssn"  placeholder="Patient's SSN" /><br>
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
+            <input type="number"    name="patient_id"  placeholder="Patient's ID" /><br>
+            <input type="number"    name="doctor_id"   placeholder="Doctor's ID" /><br>
             <input type="date"      name="date"         placeholder="Date" /><br>
             <select name="time">
                 <option value="M">Morning   ( 8.00 - 11.00)</option>
@@ -331,6 +332,13 @@
             <button type="submit">Submit</button>
         </form>
     @elseif($page=='add_allergic_medicine')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="patient_id" placeholder="User's ID"/><br>
+            <input type="number" name="medicine_id" placeholder="Medicine ID"><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page=='delete_allergic_medicine')
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
             <input type="number" name="patient_id" placeholder="User's ID"/><br>
