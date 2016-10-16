@@ -133,8 +133,9 @@ class PagesController extends Controller
     //everyone
     public function viewQueue()
     {
-        return view('queue');
-        
+        return view('queue')->with(['queue_list' => DiagnosisController::get_queue()]);
+    }
+
     //Admin
     public function diseasePage(Request $request) {
         return view('disease')->with(['diseaseList'=> MedicineController::get_medicine_list()]);

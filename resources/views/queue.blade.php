@@ -704,6 +704,17 @@
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach($queue_list['waiting_staff'] as $queue)
+                                                <tr>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue->id}}</td>
+                                                </tr>
+                                            @endforeach
                                             <tr>
                                                 <td>1</td>
                                                 <td>นายกิตติภณ</td>
