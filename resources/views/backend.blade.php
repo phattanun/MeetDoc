@@ -46,7 +46,13 @@
         <li><a href="{{ action('DiagnosisController@get_queue') }}" target="side">get queue</a></li>
         <li><a href="{{ action('DiagnosisController@add_physical_record') }}" target="side">add physical record</a></li>
         <li><a href="{{ action('DiagnosisController@get_patient_profile') }}" target="side">get patient profile</a></li>
+        <li><a href="{{ action('DiagnosisController@get_appointment_list') }}" target="side">get appointment list</a></li>
+        Allergic
+        <ul>
+            <li><a href="{{ action('DiagnosisController@add_allergic_medicine') }}" target="side">add allergic medicine</a></li>
+        </ul>
     </ul>
+
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
     <?php
@@ -313,8 +319,22 @@
     @elseif($page=='get_patient_profile')
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
-            <input type="number" name="patient_id" placeholder="User's SSN"/><br>
+            <input type="number" name="patient_id" placeholder="User's ID"/><br>
 
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page=='appointment_list')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="patient_id" placeholder="User's ID"/><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page=='add_allergic_medicine')
+        <form action="{{$page}}" method="post">
+            {{csrf_field()}}
+            <input type="number" name="patient_id" placeholder="User's ID"/><br>
+            <input type="number" name="medicine_id" placeholder="Medicine ID"><br>
             <button type="submit">Submit</button>
         </form>
     @else
