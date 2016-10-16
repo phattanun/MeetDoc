@@ -23,6 +23,7 @@
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     @yield('pageLevelPluginsCSS')
+    <link href="{{url('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="{{url('assets/global/css/components.min.css')}}" rel="stylesheet" id="style_components" type="text/css" />
@@ -169,6 +170,8 @@
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS -->
     @yield('pageLevelPluginsScript')
+    <script src="{{url('assets/global/plugins/bootstrap-toastr/toastr.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/jquery.form.min.js')}}" type="text/javascript"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <!-- BEGIN THEME GLOBAL SCRIPTS -->
     <script src="{{url('assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
@@ -176,10 +179,29 @@
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
     @yield('pageLevelScripts')
     <!-- END PAGE LEVEL SCRIPTS -->
+    <script src="{{url('assets/pages/scripts/ui-toastr.min.js')}}" type="text/javascript"></script>
     <!-- BEGIN THEME LAYOUT SCRIPTS -->
     <script src="{{url('assets/layouts/layout2/scripts/layout.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/layouts/layout2/scripts/demo.min.js')}}" type="text/javascript"></script>
     <!-- END THEME LAYOUT SCRIPTS -->
+    <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        });
+    </script>
 </div>
 </body>
 

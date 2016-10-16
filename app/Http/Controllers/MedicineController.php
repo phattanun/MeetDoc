@@ -34,6 +34,7 @@ class MedicineController extends Controller
     public function create_medicine(Request $request)
     {
         $input = $request->all();
+        $input['type'] = implode(",",$input['type']);
         try {
             $medicine = new Medicine();
             $medicine->medicine_name = $input['medicine_name'];
