@@ -36,8 +36,7 @@ class PagesController extends Controller
     }
 
     public function index() {
-        if(Auth::check()) return view('masterpage');
-        else return view('auth/login');
+        return view('masterpage');
     }
 
     public function viewLogin() {
