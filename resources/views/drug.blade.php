@@ -358,7 +358,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
                     <div class="col-md-10">
-                        <input class="form-control"  value="" id="add_medicine_name"  type="text" name="medicine_name">
+                        <input class="form-control"  value="" id="add_medicine_name"  type="text" name="medicine_name" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -367,7 +367,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="add_business_name"  type="text" name="business_name">
+                        <input class="form-control" value="" id="add_business_name"  type="text" name="business_name" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -376,7 +376,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10" id="add-type-selection">
-                        <select id="add-type" class="form-control select2-multiple" multiple name="type[]">
+                        <select id="add-type" class="form-control select2-multiple" multiple name="type[]" required>
                             @include('drug-type')
                         </select>
                         <div class="form-control-focus"> </div>
@@ -387,7 +387,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="add_description"  type="text" name="description">
+                        <input class="form-control" value="" id="add_description"  type="text" name="description" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -396,7 +396,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="add_instruction"  type="text" name="instruction">
+                        <input class="form-control" value="" id="add_instruction"  type="text" name="instruction" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -404,7 +404,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
-                        <input class="form-control" value="" id="add_manufacturer"  type="text" name="manufacturer">
+                        <input class="form-control" value="" id="add_manufacturer"  type="text" name="manufacturer" required>
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
