@@ -251,8 +251,8 @@
     @elseif($page == "getSchedule")
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
-            Doctor SSN:
-            <input type="number"    name="doctor_ssn"   placeholder="Doctor's SSN" /><br>
+            Doctor id:
+            <input type="number"    name="doctor_id"   placeholder="Doctor's id" /><br>
             From: <input type="date" name="from" /><br>
             To:   <input type="date" name="to" /><br>
             <button type="submit">Submit</button>
