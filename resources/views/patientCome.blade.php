@@ -15,6 +15,7 @@
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -60,10 +61,11 @@
 
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-offset-9 col-md-3">
-                                            <button type="submit" class="btn green">ลงทะเบียน</button>
-                                        </div>
+                                    <div class="row" style="text-align: right;">
+                                        <button type="submit" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                                            <span class="ladda-label">ลงทะเบียน</span>
+                                            <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -81,9 +83,14 @@
 
 @section('pageLevelPluginsScript')
     <script src="{{url('assets/pages/scripts/select2-appointment.full.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-appointment.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/form-validation.js')}}" type="text/javascript"></script>
 @endsection
 
