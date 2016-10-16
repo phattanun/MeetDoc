@@ -10,27 +10,6 @@ use Mockery\CountValidator\Exception;
 
 class MedicineController extends Controller
 {
-    private static function printTable($array) {
-        $temp = "";
-        if(sizeof($array) == 0) {
-            $temp .=  "<h4>Empty Table</h4>";
-            return;
-        }
-        $temp .=   "<table border='1'>";
-        $temp .=   "<tr>";
-        foreach ($array[0] as $key => $value)
-            $temp .=   "<th>".$key."</th>";
-        $temp .=   "</tr>";
-        foreach ($array as $instance) {
-            $temp .=   "<tr>";
-            foreach($instance as $key => $value)
-                $temp .=   "<td>".$value."</td>";
-            $temp .=   "</tr>";
-        }
-        $temp .=   "</table><br>";
-        return $temp;
-    }
-
     public function create_medicine(Request $request)
     {
         $input = $request->all();
