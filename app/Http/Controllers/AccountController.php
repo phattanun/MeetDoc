@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use App\User;
 
@@ -23,8 +24,31 @@ class AccountController extends Controller
         else echo '<h3>Not Login Yet</h3>';
     }
 
+    public static function swapRole() {
+        $user = Auth::user();
+        if(!is_null($user)) {
+            switch (Session::get('_role')) {
+                case 'Patient':
+                    if($user->staff)
+                        Session::set('_role', 'Staff');
+                    break;
+
+                case 'Staff':
+                    if($user->p_patient)
+                        Session::set('_role', 'Patient');
+                    break;
+
+                default:
+                    Session::set('_role', 'Patient');
+                    break;
+            }
+        }
+        return redirect('');
+    }
+
     public static function logout(){
         if(Auth::check()) {
+            Session::flush();
             Auth::logout();
         }
         return redirect('/login');

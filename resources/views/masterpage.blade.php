@@ -71,12 +71,14 @@
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="{{url('assets/layouts/layout/img/avatar3_small.jpg')}}" />
-                            @if(isset($_user)) <span class="username username-hide-on-mobile"> {{ $_user->name }} </span> @endif
+                            <span class="username username-hide-on-mobile"> {{ $_user->name }} ({{ Session::get('_role') }}) </span>
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
+                            @if($_user->staff) <li>เราเป็นเจ้าหน้าที่</li> @endif
+                            @if($_user->p_patient) <li>เราเป็นผู้ป่วย</li> @endif
                             <li>
-                                <a>
+                                <a href="{{ url('swapRole') }}">
                                     <i class="fa fa-user" style="margin-right: 0px"></i> <i class="fa fa-long-arrow-right" style="margin-right: 0px"></i> <i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
                             </li>
                         </ul>

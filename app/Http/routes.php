@@ -5,6 +5,7 @@ Route::get('/', 'PagesController@index');
 //Merged
 Route::get ('/login', 'PagesController@viewLogin');
 Route::post('/login', 'PagesController@login');
+Route::get('/swapRole', 'AccountController@swapRole');
 Route::get('/logout', 'AccountController@logout');
 Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Password in Login Page
 Route::get('/password/change', 'PagesController@changePassword'); // Change password in Profile Page
