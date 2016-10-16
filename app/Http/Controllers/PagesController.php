@@ -120,6 +120,20 @@ class PagesController extends Controller
         return view('officer')->with('users_list', $res);
     }
 
+    //Patient
+    public function newAppointmentPage()
+    {
+        return view('appointment-new');
+    }
+    public function appointmentHistoryPage()
+    {
+        return view('appointment-history');
+    }
+    public function appointmentFuturePage()
+    {
+        return view('appointment-future');
+    }
+
     // Pharmacist
     public function drugPage(Request $request) {
         return view('drug')->with(['drugList'=> MedicineController::get_medicine_list()]);

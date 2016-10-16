@@ -64,18 +64,6 @@ class ProfileController extends Controller
     {
         return view('auth.passwords.forget');
     }
-    public function newAppointmentPage()
-    {
-        return view('appointment-new');
-    }
-    public function appointmentHistoryPage()
-    {
-        return view('appointment-history');
-    }
-    public function appointmentFuturePage()
-    {
-        return view('appointment-future');
-    }
     public function test1()
     {
         return view('doctorSchedule');

@@ -293,13 +293,21 @@
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script>
-        $('#more-result').click(function () {
-            $('.more-result').show();
-            $(this).hide()
+        $(document).ready(function() {
+            jQuery().datepicker && $(".date-picker").datepicker({
+                rtl: App.isRTL(),
+                orientation: "left",
+                autoclose: !0
+            }).datepicker('setDate', new Date());
+
+            $('#more-result').click(function () {
+                $('.more-result').show();
+                $(this).hide()
+            });
         });
     </script>
 @endsection
