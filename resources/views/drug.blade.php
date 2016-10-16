@@ -38,6 +38,8 @@
             </div>
         </div>
         <div class="portlet-body">
+            <form id="drug-search-form" role="form" action="{{ url('/medicine/search') }}" method="post" novalidate="novalidate">
+                {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -46,7 +48,7 @@
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-10">
-                                <input class="form-control" name="" placeholder="กรุณากรอกชื่อยา" />
+                                <input class="form-control" name="keyword" placeholder="กรุณากรอกชื่อยา" required aria-required="true" />
                             </div>
                         </div>
                     </div>
@@ -55,20 +57,21 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-actions right1">
-                        <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                        <button type="submit" id="search-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                             <span class="ladda-label">ค้นหา</span>
                             <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
-                        <button type="button" class="btn default">ยกเลิก</button>
+                        <button type="button" id="cancel-search-btn" class="btn default">ยกเลิก</button>
                     </div>
                 </div>
             </div>
+                </form>
         </div>
     </div>
-    <div class="portlet light ">
+    <div class="portlet light hidden" id="search-result-porlet">
         <div class="portlet-title">
             <div class="caption caption-md">
                 <i class="icon-globe theme-font hide"></i>
-                <span class="caption-subject font-blue-madison bold uppercase">ผลการค้นหา "Parac"</span>
+                <span class="caption-subject font-blue-madison bold uppercase">ผลการค้นหา "<span id="search-keyword"></span>"</span>
             </div>
         </div>
         <div class="portlet-body">
@@ -84,48 +87,7 @@
                         <th></th>
                     </tr>
                     </thead>
-                    <tbody id="all-table-body">
-                    @foreach($drugList as $drug)
-                        <tr>
-                            <td>  </td>
-                            <td> {{$drug->medicine_name}} </td>
-                            <td> {{$drug->business_name}} </td>
-                            <td> <button id="view-{{$drug->medicine_id}}" type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>
-                            <td> <button id="edit-{{$drug->medicine_id}}" type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>
-                            <td> <button id="delete-{{$drug->medicine_id}}" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-                        </tr>
-                    @endforeach
-                    {{--<tr>--}}
-                        {{--<td> 2 </td>--}}
-                        {{--<td> SN02 </td>--}}
-                        {{--<td> Paracetamol </td>--}}
-                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
-                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
-                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td> 3 </td>--}}
-                        {{--<td> SN03 </td>--}}
-                        {{--<td> Paracetamol </td>--}}
-                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
-                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
-                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
-                    {{--<tr>--}}
-                        {{--<td> 4 </td>--}}
-                        {{--<td> SN04 </td>--}}
-                        {{--<td> Paracetamol </td>--}}
-                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
-                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
-                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
-                    {{--</tr>--}}
-                    {{--<tr>--}}
-                        {{--<td> 5 </td>--}}
-                        {{--<td> SN05 </td>--}}
-                        {{--<td> Paracetamol </td>--}}
-                        {{--<td> <button type="button" class="btn blue" data-toggle="modal" data-target="#viewModal">ดู</button> </td>--}}
-                        {{--<td> <button type="button" class="btn yellow-crusta" data-toggle="modal" data-target="#editModal">แก้ไข</button> </td>--}}
-                        {{--<td> <button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>--}}
-                    {{--</tr>--}}
+                    <tbody id="search-result-table-body">
                     </tbody>
                 </table>
             </div>
@@ -461,15 +423,22 @@
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/drug-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
+            var keyword=null;
             resetAllOrder();
             function resetAllOrder(){
                 var i = 1;
                 $('.view-all-order').each(function () {
+                    $(this).text(i);
+                    i++;
+                });
+            }
+            function resetResultOrder(){
+                var i = 1;
+                $('.result-order').each(function () {
                     $(this).text(i);
                     i++;
                 });
@@ -525,6 +494,7 @@
                         toastr['success']('แก้ไขข้อมูลยาสำเร็จ', "สำเร็จ");
                         l.stop();
                         resetDrugList();
+                        resetResultList(keyword);
                         $('#editModal').modal('hide');
                         return true;
                     }
@@ -533,6 +503,7 @@
                         toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
                         l.stop();
                         resetDrugList();
+                        resetResultList(keyword);
                         return true;
                     }
 
@@ -557,6 +528,7 @@
                     toastr['success']('เพิ่มข้อมูลยาสำเร็จ', "สำเร็จ");
                     l.stop();
                     resetDrugList();
+                    resetResultList(keyword);
                     $('#addModal').modal('hide');
                     $('#add-type').val('');
                     ComponentsSelect2.init();
@@ -566,6 +538,7 @@
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
                     l.stop();
                     resetDrugList();
+                    resetResultList(keyword);
                     return true;
                 }
                 var options = {
@@ -600,14 +573,15 @@
                     l.stop();
                     toastr['success']('ลบข้อมูลยาสำเร็จ', "สำเร็จ");
                     resetDrugList();
+                    resetResultList(keyword);
                     $('#removeModal').modal('hide');
                 }).fail(function () {
                     l.stop();
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
                     resetDrugList();
+                    resetResultList(keyword);
                 });
             });
-
             function resetDrugList() {
                 $.get( "{{url('/medicine/getMedicineList')}}").done(function(data) {
                     $('#all-drug-list-table-body').empty();
@@ -626,6 +600,92 @@
                     resetAllOrder();
                 });
             }
+
+            function resetResultList(keyword){
+                var URL_ROOT = '{{Request::root()}}';
+                $.post(URL_ROOT+'/medicine/search',
+                        {keyword:  keyword, _token: '{{csrf_token()}}'}).done(function (input) {
+                    $('#search-keyword').text(input['keyword']);
+                    $('#search-result-table-body').empty();
+                    var data = input['medicine_list'];
+                    if(data.length>0){
+                        for(var m=0;m<data.length;m++){
+                            $('#search-result-table-body').append(
+                                    '<tr id="result-row-'+data[m]['medicine_id']+'">'
+                                    +'<td class="result-order"></td>'
+                                    +'<td id="result-medicine_name-'+data[m]['medicine_id']+'">'+ data[m]['medicine_name'] +'</td>'
+                                    +'<td id="result-business_name-'+data[m]['medicine_id']+'">'+ data[m]['business_name'] +'</td>'
+                                    +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn blue view-drug-button">ดู</button> </td>'
+                                    +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>'
+                                    +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn red delete-drug-button">ลบ</button></td>'
+                                    +'</tr>'
+                            );
+                        }
+                        resetResultOrder();
+                    }
+                    else {
+                        $('#search-result-table-body').append(
+                                '<tr>'
+                                +'<td colspan="6" class="text-center font-red sbold">ไม่พบข้อมูล</td>'
+                                +'</tr>'
+                        );
+                    }
+                });
+            }
+
+            $('#search-btn').click(function (e) {
+                if($('#drug-search-form').valid()){
+                    e.preventDefault();
+                    var l = Ladda.create(this);
+                    l.start();
+                    function showSuccess(input) {
+                        l.stop();
+                        keyword = input['keyword'];
+                        $('#search-keyword').text(input['keyword']);
+                        $('#search-result-table-body').empty();
+                        var data = input['medicine_list'];
+                        if(data.length>0){
+                            for(var m=0;m<data.length;m++){
+                                $('#search-result-table-body').append(
+                                        '<tr id="result-row-'+data[m]['medicine_id']+'">'
+                                        +'<td class="result-order"></td>'
+                                        +'<td id="result-medicine_name-'+data[m]['medicine_id']+'">'+ data[m]['medicine_name'] +'</td>'
+                                        +'<td id="result-business_name-'+data[m]['medicine_id']+'">'+ data[m]['business_name'] +'</td>'
+                                        +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn blue view-drug-button">ดู</button> </td>'
+                                        +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>'
+                                        +'<td> <button  identity="'+ data[m]['medicine_id']+'" type="button" class="btn red delete-drug-button">ลบ</button></td>'
+                                        +'</tr>'
+                                );
+                            }
+                            resetResultOrder();
+                        }
+                        else {
+                            $('#search-result-table-body').append(
+                                    '<tr>'
+                                    +'<td colspan="6" class="text-center font-red sbold">ไม่พบข้อมูล</td>'
+                                    +'</tr>'
+                            );
+                        }
+                        $('#search-result-porlet').removeClass('hidden');
+                        return true;
+                    }
+                    function showError(responseText, statusText, xhr, $form) {
+                        toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                        l.stop();
+                        return true;
+                    }
+                    var options = {
+                        success: showSuccess,
+                        error: showError,
+                        clearForm: true
+                    };
+                    $('#drug-search-form').ajaxSubmit(options);
+                    return false;
+                }
+            });
+            $('#cancel-search-btn').click(function () {
+                $('#search-result-porlet').addClass('hidden');
+            });
         });
     </script>
 @endsection

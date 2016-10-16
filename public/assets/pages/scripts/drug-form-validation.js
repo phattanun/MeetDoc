@@ -2,7 +2,7 @@ var FormValidation = function () {
 
     // basic validation
     var handleValidation1 = function() {
-        // for more info visit the official plugin documentation: 
+        // for more info visit the official plugin documentation:
             // http://docs.jquery.com/Plugins/Validation
 
             var form1 = $('#drug-add-form');
@@ -62,7 +62,7 @@ var FormValidation = function () {
                     }
                 },
 
-                invalidHandler: function (event, validator) { //display error alert on form submit              
+                invalidHandler: function (event, validator) { //display error alert on form submit
                     success1.hide();
                     error1.show();
                 },
@@ -199,108 +199,85 @@ var FormValidation = function () {
             });
 
 
-    }
-
-
-    // advance validation
+    }// basic validation
     var handleValidation3 = function() {
-        // for more info visit the official plugin documentation: 
-        // http://docs.jquery.com/Plugins/Validation
+        // for more info visit the official plugin documentation:
+            // http://docs.jquery.com/Plugins/Validation
 
-            var form3 = $('#form_sample_3');
-            var error3 = $('.alert-danger', form3);
-            var success3 = $('.alert-success', form3);
+            var form1 = $('#drug-search-form');
+            var error1 = $('.alert-danger', form1);
+            var success1 = $('.alert-success', form1);
 
-            //IMPORTANT: update CKEDITOR textarea with actual content before submit
-            form3.on('submit', function() {
-                for(var instanceName in CKEDITOR.instances) {
-                    CKEDITOR.instances[instanceName].updateElement();
-                }
-            })
-
-            form3.validate({
+            form1.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
                 focusInvalid: false, // do not focus the last invalid input
-                ignore: "", // validate all fields including form hidden input
+                ignore: "",  // validate all fields including form hidden input
+                messages: {
+                    select_multi: {
+                        maxlength: jQuery.validator.format("Max {0} items allowed for selection"),
+                        minlength: jQuery.validator.format("At least {0} items must be selected")
+                    }
+                },
                 rules: {
                     name: {
                         minlength: 2,
                         required: true
                     },
+                    input_group: {
+                        email: true,
+                        required: true
+                    },
                     email: {
                         required: true,
                         email: true
-                    },  
-                    options1: {
-                        required: true
                     },
-                    options2: {
-                        required: true
+                    url: {
+                        required: true,
+                        url: true
                     },
-                    select2tags: {
-                        required: true
+                    number: {
+                        required: true,
+                        number: true
                     },
-                    datepicker: {
-                        required: true
+                    digits: {
+                        required: true,
+                        digits: true
+                    },
+                    creditcard: {
+                        required: true,
+                        creditcard: true
                     },
                     occupation: {
                         minlength: 5,
                     },
-                    membership: {
+                    select: {
                         required: true
                     },
-                    service: {
+                    select_multi: {
                         required: true,
-                        minlength: 2
-                    },
-                    markdown: {
-                        required: true
-                    },
-                    editor1: {
-                        required: true
-                    },
-                    editor2: {
-                        required: true
+                        minlength: 1,
+                        maxlength: 3
                     }
                 },
 
-                messages: { // custom messages for radio buttons and checkboxes
-                    membership: {
-                        required: "Please select a Membership type"
-                    },
-                    service: {
-                        required: "Please select  at least 2 types of Service",
-                        minlength: jQuery.validator.format("Please select  at least {0} types of Service")
-                    }
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    success1.hide();
+                    error1.show();
                 },
 
                 errorPlacement: function (error, element) { // render error placement for each input type
-                    if (element.parent(".input-group").size() > 0) {
-                        error.insertAfter(element.parent(".input-group"));
-                    } else if (element.attr("data-error-container")) { 
-                        error.appendTo(element.attr("data-error-container"));
-                    } else if (element.parents('.radio-list').size() > 0) { 
-                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
-                    } else if (element.parents('.radio-inline').size() > 0) { 
-                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-list').size() > 0) {
-                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
-                    } else if (element.parents('.checkbox-inline').size() > 0) { 
-                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    var cont = $(element).parent('.input-group');
+                    if (cont) {
+                        cont.after(error);
                     } else {
-                        error.insertAfter(element); // for other inputs, just perform default behavior
+                        element.after(error);
                     }
                 },
 
-                invalidHandler: function (event, validator) { //display error alert on form submit   
-                    success3.hide();
-                    error3.show();
-                    App.scrollTo(error3, -200);
-                },
-
                 highlight: function (element) { // hightlight error inputs
-                   $(element)
+
+                    $(element)
                         .closest('.form-group').addClass('has-error'); // set error class to the control group
                 },
 
@@ -315,27 +292,16 @@ var FormValidation = function () {
                 },
 
                 submitHandler: function (form) {
-                    success3.show();
-                    error3.hide();
-                    form[0].submit(); // submit the form
+                    success1.show();
+                    error1.hide();
                 }
-
             });
 
-             //apply validation on select2 dropdown value change, this only needed for chosen dropdown integration.
-            $('.select2me', form3).change(function () {
-                form3.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
-            });
 
-            //initialize datepicker
-            $('.date-picker').datepicker({
-                rtl: App.isRTL(),
-                autoclose: true
-            });
-            $('.date-picker .form-control').change(function() {
-                form3.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input 
-            })
     }
+
+
+    // advance validation
 
     var handleWysihtml5 = function() {
         if (!jQuery().wysihtml5) {

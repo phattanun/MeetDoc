@@ -28,6 +28,7 @@ Route::post('medicine/create', 'MedicineController@create_medicine');
 Route::post('medicine/delete', 'MedicineController@delete_medicine');
 Route::post('medicine/detail', 'MedicineController@get_medicine_detail');
 Route::post('medicine/edit', 'MedicineController@edit_medicine');
+Route::post('medicine/search', 'MedicineController@search_medicine');
 Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
 //everyone
