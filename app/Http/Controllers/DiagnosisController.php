@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Allergic;
 use App\Appointment;
+use App\Department;
 use App\Disease;
 use App\Drug;
 use App\User;
@@ -116,8 +117,13 @@ class DiagnosisController extends Controller
 
         foreach ($appointment_list as $app) {
             $array_app = json_decode($app, true);
-            $patient_info = User::where('id', $app['id'])->first();
+            $patient_info = User::where('id', $app['patient_id'])->first();
+            $birthday = date_create_from_format('d/m/Y', $patient_info['birthday']);
+            $age = $now->diff($birthday);
+            $patient_info['age'] = $age->y;
             $array_app['patient_info'] = json_decode($patient_info, true);
+            $dept_id = User::where('id', $app['doctor_id'])->first()['dept_id'];
+            $array_app['department'] = Department::find($dept_id)['name'];
             if ($app['queue_status'] == 'waiting_staff')
                 array_push($appointment['waiting_staff'], $array_app);
             else if ($app['queue_status'] == 'waiting_doctor')
@@ -125,7 +131,7 @@ class DiagnosisController extends Controller
             else if ($app['queue_status'] == 'waiting_pharmacist')
                 array_push($appointment['waiting_pharmacist'], $array_app);
         }
-        return $appointment;
+        //return $appointment;
         dd($appointment);
     }
 
