@@ -102,7 +102,7 @@ class DiagnosisController extends Controller
         $end_time_afternoon = (new \DateTime())->setTime(15, 30);
         $now = new \DateTime('NOW');
 
-        $time = 'M';
+        $time = 'A';
         if ($start_time_morning <= $now && $now <= $end_time_morning)
             $time = 'M';
         else if ($start_time_afternoon <= $now && $now <= $end_time_afternoon)
@@ -131,8 +131,8 @@ class DiagnosisController extends Controller
             else if ($app['queue_status'] == 'waiting_pharmacist')
                 array_push($appointment['waiting_pharmacist'], $array_app);
         }
-        //return $appointment;
-        dd($appointment);
+        return $appointment;
+//        dd($appointment);
     }
 
     public function get_patient_profile(Request $request)

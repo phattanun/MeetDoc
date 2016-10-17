@@ -31,10 +31,12 @@
             color: blue;
         }
         .first-no-column thead tr .first,.first-no-column tbody tr .first{
-            width: 25px;
+            width: 25px !important;
         }
         .first-no-column thead tr .last,.first-no-column tbody tr .last{
-            width: 375px;
+            width: 400px !important;
+            max-width: 400px !important;
+            min-width: 400px !important;
         }
         .portlet.light.modal-portlet{
             padding: 0px;
@@ -686,7 +688,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                        <table id="tab1_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                             <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
@@ -743,7 +745,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                        <table id="tab2_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                             <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
@@ -801,7 +803,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                        <table id="tab3_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                             <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
@@ -875,7 +877,27 @@
     <script src="{{url('assets/pages/scripts/components-select2-diagnosis.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
-            $('.data-table').DataTable();
+            $('#tab1_table').DataTable({
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "400px", "targets": 7 }
+                ],
+                fixedColumns: true
+            });
+            $('#tab2_table').DataTable({
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "400px", "targets": 7 }
+                ],
+                fixedColumns: true
+            });
+            $('#tab3_table').DataTable({
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "400px", "targets": 7 }
+                ],
+                fixedColumns: true
+            });
         });
         $(".touchspin").TouchSpin({
             min: 0,
