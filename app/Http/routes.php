@@ -127,6 +127,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Diagnosis/add_allergic_medicine', 'DiagnosisController@add_allergic_medicine');
     Route::post('/backend/Diagnosis/delete_allergic_medicine', 'DiagnosisController@delete_allergic_medicine');
 
+    // System
+    Route::post('/backend/Disease/add_disease', 'SystemController@add_disease');
+    Route::post('/backend/Disease/edit_disease', 'SystemController@edit_disease');
+    Route::post('/backend/Disease/delete_disease', 'SystemController@delete_disease');
+    Route::get('/backend/Disease/disease_list', 'SystemController@disease_list');
+
     Route::post('/backend/{controller}/post',
         function($controller) {
             return View::make('backend', ['controller' => $controller, 'page' => 'post']);

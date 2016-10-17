@@ -53,7 +53,13 @@
             <li><a href="{{ action('DiagnosisController@delete_allergic_medicine') }}" target="side">delete allergic medicine</a></li>
         </ul>
     </ul>
-
+    <h3>SystemController</h3>
+    <ul>
+        <li><a href="{{ action('SystemController@disease_list') }}" target="side">get disease list</a></li>
+        <li><a href="{{ action('SystemController@add_disease') }}" target="side">add disease</a></li>
+        <li><a href="{{ action('SystemController@edit_disease') }}" target="side">edit disease</a></li>
+        <li><a href="{{ action('SystemController@delete_disease') }}" target="side">delete disease</a></li>
+    </ul>
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
     <?php
@@ -359,6 +365,31 @@
         </form>
     @else
         Not found "{{ $controller }}/{{ $page }}"
+    @endif
+@elseif($controller == "Disease")
+    @if($page == 'add_disease')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="text" name="disease_name" placeholder="Disease name" /><br>
+            <input type="text" name="disease_icd10" placeholder="Disease ICD10" /><br>
+            <input type="text" name="disease_snomed" placeholder="Disease SNOMED" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == 'edit_disease')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="number" name="disease_id" placeholder="Disease ID" /><br>
+            <input type="text" name="disease_name" placeholder="Disease name" /><br>
+            <input type="text" name="disease_icd10" placeholder="Disease ICD10" /><br>
+            <input type="text" name="disease_snomed" placeholder="Disease SNOMED" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == 'delete_disease')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="number" name="disease_id" placeholder="Disease ID" /><br>
+            <button type="submit">Submit</button>
+        </form>
     @endif
 @else
     Not found "{{ $controller }}/{{ $page }}"
