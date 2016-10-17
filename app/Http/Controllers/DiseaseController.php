@@ -52,9 +52,16 @@ class DiseaseController extends Controller
 
     public function search_disease(Request $request)
     {
+
         $keyword= $request->keyword;
+        if ($keyword != ""){
         $disease_list = Disease::where('icd10', 'like', '%'.($keyword).'%')
-            ->orWhere('snomed', 'like', '%'.($keyword).'%')->orWhere('drg', 'like', '%'.($keyword).'%')->get();
+            ->orWhere('snomed', 'like', '%'.($keyword).'%')->orWhere('drg', 'like', '%'.($keyword).'%')
+            ->orWhere('name', 'like', '%'.($keyword).'%')->get();
+        }
+        else {
+            $disease_list = [];
+        }
         return compact('keyword','disease_list');
     }
 

@@ -21,10 +21,6 @@ var FormValidation = function () {
                     }
                 },
                 rules: {
-                    name: {
-                        minlength: 2,
-                        required: true
-                    },
                     input_group: {
                         email: true,
                         required: true
@@ -121,10 +117,6 @@ var FormValidation = function () {
                     }
                 },
                 rules: {
-                    name: {
-                        minlength: 2,
-                        required: true
-                    },
                     input_group: {
                         email: true,
                         required: true
@@ -220,10 +212,6 @@ var FormValidation = function () {
                     }
                 },
                 rules: {
-                    name: {
-                        minlength: 2,
-                        required: true
-                    },
                     input_group: {
                         email: true,
                         required: true

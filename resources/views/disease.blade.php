@@ -34,7 +34,7 @@
         <div class="portlet-title">
             <div class="caption caption-md">
                 <i class="icon-globe theme-font hide"></i>
-                <span class="caption-subject font-blue-madison bold uppercase">ค้นหายาที่ต้องการดู/แก้ไข/ลบข้อมูล</span>
+                <span class="caption-subject font-blue-madison bold uppercase">ค้นหารหัสโรคที่ต้องการดู/แก้ไข/ลบข้อมูล</span>
             </div>
         </div>
         <div class="portlet-body">
@@ -44,11 +44,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="row">
-                                <label class="col-md-2 control-label text-right">ชื่อยา
+                                <label class="col-md-4 control-label text-right">ชื่อโรคหรือรหัสโรค
                                     <span class="required" aria-required="true"> * </span>
                                 </label>
-                                <div class="col-md-10">
-                                    <input class="form-control" name="keyword" placeholder="กรุณากรอกชื่อยา" required aria-required="true" />
+                                <div class="col-md-8">
+                                    <input class="form-control" name="keyword" placeholder="กรุณากรอกรหัสโรค ICD10, SNOMED, DRG หรือชื่อโรค" required aria-required="true" />
                                 </div>
                             </div>
                         </div>
@@ -174,13 +174,13 @@
     <div id="viewModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ข้อมูลยา <span id="view-title"></span></h4>
+            <h4 class="modal-title">ข้อมูลรหัสโรค <span id="view-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค ICD10</label>
-                    <div class="col-md-10">
+                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
+                    <div class="col-md-9">
                         <input class="form-control" readonly="" value="" id="view_icd10"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
@@ -188,8 +188,8 @@
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค SNOMED</label>
-                    <div class="col-md-10">
+                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
+                    <div class="col-md-9">
                         <input class="form-control" readonly="" value="" id="view_snomed"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
@@ -197,8 +197,8 @@
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค DRG</label>
-                    <div class="col-md-10">
+                    <label class="col-md-3 control-label" for="form_control_1">รหัสโรค DRG</label>
+                    <div class="col-md-9">
                         <input class="form-control" readonly="" value="" id="view_drg"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
@@ -206,8 +206,8 @@
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">ชื่อโรค</label>
-                    <div class="col-md-10">
+                    <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
+                    <div class="col-md-9">
                         <input class="form-control" readonly="" value="" id="view_name"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
@@ -225,13 +225,13 @@
             <input type="hidden" name="id" id="edit_disease_id" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">แก้ไขข้อมูลยา <span id="edit-title"></span></h4>
+                <h4 class="modal-title">แก้ไขข้อมูลรหัสโรค <span id="edit-title"></span></h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค ICD10</label>
-                        <div class="col-md-10 margin-bottom-15">
+                        <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control"  value="" id="edit_icd10"  type="text" name="icd10"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -239,8 +239,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค SNOMED</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="edit_snomed"  type="text" name="snomed"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -248,8 +248,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค DRG</label>
-                        <div class="col-md-10 margin-bottom-15">
+                        <label class="col-md-3 control-label" for="form_control_1">รหัสโรค DRG</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control"  value="" id="edit_drg"  type="text" name="drg"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -257,8 +257,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ชื่อโรค</label>
-                        <div class="col-md-10 margin-bottom-15">
+                        <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="edit_name"  type="text" name="name"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -281,13 +281,13 @@
             <input type="hidden" name="id" id="add_disease_id" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">เพิ่มข้อมูลยา</h4>
+                <h4 class="modal-title">เพิ่มข้อมูลรหัสโรค</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค ICD10</label>
-                        <div class="col-md-10 margin-bottom-15">
+                        <label class="col-md-3 control-label" for="form_control_1">รหัสโรค ICD10</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control"  value="" id="add_icd10"  type="text" name="icd10" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -295,8 +295,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค SNOMED</label>
-                        <div class="col-md-10">
+                        <label class="col-md-3 control-label" for="form_control_1">รหัสโรค SNOMED</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="add_snomed"  type="text" name="snomed" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -304,8 +304,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค DRG</label>
-                        <div class="col-md-10 margin-bottom-15">
+                        <label class="col-md-3 control-label" for="form_control_1">รหัสโรค DRG</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="add_drg"  type="text" name="drg" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -313,8 +313,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ชื่อโรค</label>
-                        <div class="col-md-10 margin-bottom-15">
+                        <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
+                        <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="add_name"  type="text" name="name" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
@@ -332,12 +332,12 @@
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="320">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบข้อมูลยา <span id="delete-disease-title"></span></h4>
+            <h4 class="modal-title">ลบข้อมูลรหัสโรค โรค<span id="delete-disease-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ท่านแน่ใจหรือไม่ว่าต้องการลบข้อมูลยานี้</span>
+                <span class="caption-subject font-red sbold uppercase">ท่านแน่ใจหรือไม่ว่าต้องการลบข้อมูลรหัสโรคนี้</span>
             </div>
         </div>
         <div class="modal-footer">
