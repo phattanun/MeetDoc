@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -145,34 +146,10 @@ class AccountController extends Controller
     }
 
     public static function officerManageTable($array) {
-        $template = '<tr>
-            <td> ?0 </td>
-            <td> ?1 </td>
-            <td> ?2 </td>
-            <td> ?3 </td>
-            <td> <select id="multiple" class="form-control select2" ></option>
-                        <option selected>แผนกอายุรกรรม</option>
-                        <option>ศัลยกรรม</option>
-                        <option>สูติ</option>
-                        <option>จักษุ</option>
-                        <option>โรคผิวหนัง</option>
-                        <option>อวัยวะปัสสาวะ</option>
-                        <option>หัวใจ</option>
-                        <option>หู คอ จมูก</option>
-                        <option>รังสี</option>
-                        <option>รักษาโรคในช่องปากและฟัน</option>
-                    </select>
-                </td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?4></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
-            <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
-        </tr>';
-
         $re = "";
         $search = array();
+        $alldept = Department::all();
+        $tempDept = "";
         for ($i=0; $i < 10; $i++)
             array_push($search, "?".$i);
         foreach ($array as $record) {
@@ -189,6 +166,28 @@ class AccountController extends Controller
                 }
                 array_push($replace, $value);
             }
+            for($i = 0; $i<sizeof($alldept); $i++){
+                if($record['dept_id']==$alldept[$i]['id'])
+                    $tempDept .= '<option selected value='.$alldept[$i]['id'].'>'.$alldept[$i]['name'].'</option>';
+                else
+                    $tempDept .= '<option value='.$alldept[$i]['id'].'>'.$alldept[$i]['name'].'</option>';
+            }
+            $template = '<tr>
+            <td> ?0 </td>
+            <td> ?1 </td>
+            <td> ?2 </td>
+            <td> ?3 </td>
+            <td> <select class="form-control select2-dept" id="?0" >'
+                .$tempDept.
+                '</select>
+                </td>
+            <td><input type="checkbox" id="?0" isa="p_patient" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
+            <td><input type="checkbox" id="?0" isa="p_doctor" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
+            <td><input type="checkbox" id="?0" isa="p_nurse" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
+            <td><input type="checkbox" id="?0" isa="p_pharm" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
+            <td><input type="checkbox" id="?0" isa="p_officer" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?9></td>
+            <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+        </tr>';
             $re .= strtr($template,array_combine($search,$replace));
         }
         return $re;

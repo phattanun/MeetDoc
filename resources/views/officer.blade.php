@@ -92,7 +92,7 @@
                         <th>ผู้ป่วย</th>
                         <th>แพทย์</th>
                         <th>พยาบาล</th>
-                        <th>เภสัช</th>
+                        <th>เภสัชกร</th>
                         <th>เจ้าหน้าที่</th>
                     </tr>
                     </thead>
@@ -157,11 +157,11 @@
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
         var ComponentsSelect2 = function() {
-
             var searchStaff = function() {
-
                 $.fn.select2.defaults.set("theme", "bootstrap");
-
+                $(".select2-dept").select2({
+                    width: null
+                });
                 function formatUser(user) {
                     if (user.loading) return user.text;
 
@@ -250,5 +250,31 @@
                 ComponentsSelect2.init();
             });
         }
+        $(document).on('switchChange.bootstrapSwitch','.make-switch', function () {
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/officer/manage/changePermission',
+                    {id:  this.id, type:$(this).attr('isa'),permission:this.checked, _token: '{{csrf_token()}}'}).done(function (input) {
+                if(input=="success")
+                    toastr['success']('แก้ไขสิทธิสำเร็จ', "สำเร็จ");
+                else {
+                    toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+                }
+            }).fail(function () {
+                toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+            });
+        });
+        $(document).on('change','.select2-dept', function () {
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/officer/manage/changeDepartment',
+                    {id:  this.id, dept_id: this.value, _token: '{{csrf_token()}}'}).done(function (input) {
+                        if(input=="success")
+                            toastr['success']('แก้ไขสิทธิสำเร็จ', "สำเร็จ");
+                        else {
+                            toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+                        }
+            }).fail(function () {
+                toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+            });
+        });
     </script>
 @endsection
