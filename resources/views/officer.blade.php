@@ -282,14 +282,19 @@
             $('#removeModal').modal();
         });
         $(document).on('click','#remove-staff-btn', function () {
+            var l = Ladda.create(this);
+            l.start();
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/officer/manage/removeStaff',
                     {id:  $(this).attr('identity'), _token: '{{csrf_token()}}'}).done(function (input) {
                         if(input=="success"){
+                            l.stop();
                             toastr['success']('ลบสถานะบุคลากรสำเร็จ', "สำเร็จ");
                             resetStaffList();
+                            $('#removeModal').modal('hide');
                         }
                         else {
+                            l.stop();
                             toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
                         }
             }).fail(function () {
