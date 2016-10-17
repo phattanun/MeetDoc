@@ -81,6 +81,9 @@ class ScheduleController extends Controller
     private static function printCalendarTable($array) {
         $dow = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         $time = ['Morning', 'Afternoon'];
+        function charToTime($c, $time) {
+            return $c == 'M' ? $time[0] : $time[1];
+        }
         $date = new \DateTime("@".strtotime($array[0]['date']));
         $date->modify('last Sunday');
         $table[$date->format('Y-m-d')]['day'] = $date->format('j');
@@ -88,7 +91,7 @@ class ScheduleController extends Controller
         $table[$date->format('Y-m-d')]['dow'] = $date->format('l');
         $table[$date->format('Y-m-d')]['free'] = True;
         foreach ($array as $record) {
-            while($date->getTimeStamp() != strtotime($record['date'])) {
+            while($date->getTimeStamp() < strtotime($record['date'])) {
                 $date->modify("+1 day");
                 $table[$date->format('Y-m-d')]['day'] = $date->format('j');
                 $table[$date->format('Y-m-d')]['month'] = $date->format('M');
@@ -296,23 +299,8 @@ class ScheduleController extends Controller
     // ############################
 
     public static function getSchedule(Request $request) {
-        var_dump($request->all());
-
-        $normalTime = WeeklySchedule::where('doctor_id', $request->doctor_id)->get()->toArray();
-        $addTime = DailySchedule::where('doctor_id', $request->doctor_id)->where('type', 'add')->get()->toArray();
-        $subTime = DailySchedule::where('doctor_id', $request->doctor_id)->where('type', 'sub')->get()->toArray();
-
-        // $addTime = $this->sortArrayByDateTimeAttr($addTime);
-        // $subTime = $this->sortArrayByDateTimeAttr($subTime);
-
-        $this->printWeeklyTable($normalTime);
-        echo "<h2>Daily Schedule (Add)</h2>";
-        $this->printTable($addTime);
-        echo "<h2>Weekly Schedule (Subtract)</h2>";
-        $this->printTable($subTime);
-
         $schedule = Schedule::where('doctor_id', $request->doctor_id)->where('date','>=',$request->from)->where('date','<=',$request->to)->get()->toArray();
-        $schedule = $this->sortArrayByDateTimeAttr($schedule);
-        $this->printCalendarTable($schedule);
+        $schedule = self::sortArrayByDateTimeAttr($schedule);
+        self::printCalendarTable($schedule);
     }
 }

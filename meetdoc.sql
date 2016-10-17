@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2016 at 03:47 PM
+-- Generation Time: Oct 16, 2016 at 07:16 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -32,6 +32,13 @@ CREATE TABLE IF NOT EXISTS `allergic` (
   PRIMARY KEY (`patient_id`,`medicine_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `allergic`
+--
+
+INSERT INTO `allergic` (`patient_id`, `medicine_id`) VALUES
+(1234, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -50,7 +57,14 @@ CREATE TABLE IF NOT EXISTS `appointment` (
   `checkin_time` timestamp NULL DEFAULT NULL,
   `type` char(1) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`id`, `doctor_id`, `patient_id`, `date`, `time`, `symptom`, `cancel_time`, `queue_status`, `checkin_time`, `type`) VALUES
+(1, 1234, 1234, '2016-10-26', 'M', 'ฟหก', NULL, 'uncheckedin', NULL, 'R');
 
 -- --------------------------------------------------------
 
@@ -7910,6 +7924,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_active` timestamp NOT NULL,
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dept_id` int(11) NOT NULL,
+  `staff` tinyint(1) NOT NULL,
   `p_patient` tinyint(1) NOT NULL,
   `p_doctor` tinyint(1) NOT NULL,
   `p_nurse` tinyint(1) NOT NULL,
@@ -7923,10 +7938,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `ssn`, `name`, `surname`, `gender`, `birthday`, `email`, `address`, `phone_no`, `password`, `last_active`, `remember_token`, `dept_id`, `p_patient`, `p_doctor`, `p_nurse`, `p_pharm`, `p_officer`) VALUES
-(1, 1234, '1234', '1234', 'm', '01/01/2000', '1234@1234.1234', '1234', '1234', '$2y$10$iTieegnHWNkqBEmxscFraeNhxuTk9oY88LKaUykbbm7CauKwHQdmu', '2016-10-15 05:21:08', 'KqOrMOsjX3H4R44c8ATVOcwaK6SvFOLIsThXZm4XKyTiGHjvee1NcCroYcFS', 0, 1, 0, 0, 0, 0),
-(2, 4321, '4321', '4321', 'm', '01/01/2000', '4321@4321.4321', '4321', '4321', '$2y$10$ZjkFyKF9kitC8gQbigqWdOInCYvuLoXRd2FD6VC1n8UWvyaI8KmRC', '2016-10-15 03:56:31', NULL, 0, 0, 1, 1, 1, 1),
-(3, 12345, '12345', '54321', 'm', '01/01/1994', '12345@123.5', '54321', '12345', 'XWN1lQgw39OuXP1CnlZ8aFiLEh3JH8RIEHMZkXre6nUGNUM2L2ayQIEUnrlld9OA', '2016-10-15 15:01:43', NULL, 0, 0, 0, 0, 0, 0);
+INSERT INTO `user` (`id`, `ssn`, `name`, `surname`, `gender`, `birthday`, `email`, `address`, `phone_no`, `password`, `last_active`, `remember_token`, `dept_id`, `staff`, `p_patient`, `p_doctor`, `p_nurse`, `p_pharm`, `p_officer`) VALUES
+(1, 1234, '1234', '1234', 'm', '01/01/2000', '1234@1234.1234', '1234', '1234', '$2y$10$iTieegnHWNkqBEmxscFraeNhxuTk9oY88LKaUykbbm7CauKwHQdmu', '2016-10-15 05:21:08', 'zVzN0LRuAjAu7vNvLflRq7YuI2LjoZUHXOF4L1LUpdkP8eDUxx8XgsrRqEsI', 0, 1, 1, 0, 0, 0, 0),
+(2, 4321, '4321', '4321', 'm', '01/01/2000', '4321@4321.4321', '4321', '4321', '$2y$10$ZjkFyKF9kitC8gQbigqWdOInCYvuLoXRd2FD6VC1n8UWvyaI8KmRC', '2016-10-15 03:56:31', '7F6FVUtfJZJdMqBQhQ2s6Vf9BjbichOYFqcQQA6wq3Wp0CpcGpL6BilzU0fg', 0, 1, 0, 1, 1, 1, 1),
+(3, 12345, '12345', '54321', 'm', '01/01/1994', '12345@123.5', '54321', '12345', '$2y$10$hsoB3utFngYjIBfl0WwpYuf2614aLECnhK/m39S7l8V.UFgRsOWvC', '2016-10-16 17:01:44', 'DLNzUf2rI1Hnp3qUMH9n1zoEtEVxc2iqAJNTRBGUOyYoPQxG9ZaCGchMW8Nq', 0, 0, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 

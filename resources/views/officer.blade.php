@@ -40,27 +40,28 @@
         <div class="portlet-body">
             <div class="row text-left">
                 <div class="col-md-9">
-                    <div class="form-group">
+                    <form class="form-group" action="{{ url('/officer/manage/addStaff') }}" method="post">
+                        {{ csrf_field() }}
                         <div class="row">
                             <label class="col-md-2 control-label text-right">ค้นหาบัญชีผู้ใช้
                                 <span class="required" aria-required="true"> * </span>
                             </label>
                             <div class="col-md-9 margin-bottom-10">
                                 <div class="input-group input-group select2-bootstrap-prepend">
-                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax"  >
+                                    <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax" name="id"  >
                                         <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-actions right1">
-                                    <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                                    <button type="submit" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                                         <span class="ladda-label">เพิ่ม</span>
                                         <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -79,7 +80,6 @@
                 <table class="table table-hover">
                     <thead>
                     <tr >
-                        <th style="vertical-align:middle" rowspan="2">ลำดับที่</th>
                         <th style="vertical-align:middle" rowspan="2">รหัสโรงพยาบาล</th>
                         <th style="vertical-align:middle" rowspan="2">รหัสบัตรประจำตัวประชาชน</th>
                         <th style="vertical-align:middle" rowspan="2">ชื่อ</th>
@@ -98,22 +98,6 @@
                     </thead>
                     <tbody><?php echo $users_list ?></tbody>
                 </table>
-            </div>
-            <div class="search-pagination text-right">
-                <ul class="pagination">
-                    <li class="page-active">
-                        <a href="javascriptt:;"> 1 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 2 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 3 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 4 </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -154,7 +138,18 @@
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/components-select2-drug.min.js')}}" type="text/javascript"></script>
+    <style>
+        .select2-result-staff__avatar {
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+        .select2-result-staff__avatar > img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
@@ -164,5 +159,99 @@
         $('tbody tr').click(function () {
             $('#appDetailModal').modal()
         });
+        var ComponentsSelect2 = function() {
+
+            var searchStaff = function() {
+
+                $.fn.select2.defaults.set("theme", "bootstrap");
+
+                function formatUser(user) {
+                    if (user.loading) return user.text;
+
+                    var markup = "<div class='select2-result-staff clearfix'>" +
+                        "<div class='select2-result-staff__avatar'><img src='{{ url('assets/pages/media/profile/profile_user.jpg') }}' /></div>" +
+                        "<div class='select2-result-staff__meta'>" +
+                        "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
+
+                    markup += "<div class='select2-result-staff__details'>" +
+                        "<div class='select2-result-staff__id'></span> รหัสโรงพยาบาล : " + user.id + "</div>" +
+                        "<div class='select2-result-staff__ssn'></span> รหัสประจำตัวประชาชน : " + user.ssn + " </div>" +
+                        "</div>" +
+                        "</div></div>";
+
+                    return markup;
+                }
+
+                function formatUserSelection(user) {
+                    return (user.key==undefined ? user.key : user.key + "," + user.name+ " " + user.surname) || user.text;
+                }
+
+                $(".js-data-example-ajax").select2({
+                    width: "off",
+                    ajax: {
+                        url: "{{ url('officer/manage/list') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term, // search term
+                                page: params.page
+                            };
+                        },
+                        processResults: function(data, page) {
+                            return {
+                                results: data.items
+                            };
+                        },
+                        cache: true
+                    },
+                    escapeMarkup: function(markup) {
+                        return markup;
+                    },
+                    minimumInputLength: 1,
+                    templateResult: formatUser,
+                    templateSelection: formatUserSelection
+                });
+
+                $("button[data-select2-open]").click(function() {
+                    $("#" + $(this).data("select2-open")).select2("open");
+                });
+
+                $(":checkbox").on("click", function() {
+                    $(this).parent().nextAll("select").prop("disabled", !this.checked);
+                });
+
+                $(".select2, .select2-multiple, .select2-allow-clear, .js-data-example-ajax").on("select2:open", function() {
+                    if ($(this).parents("[class*='has-']").length) {
+                        var classNames = $(this).parents("[class*='has-']")[0].className.split(/\s+/);
+
+                        for (var i = 0; i < classNames.length; ++i) {
+                            if (classNames[i].match("has-")) {
+                                $("body > .select2-container").addClass(classNames[i]);
+                            }
+                        }
+                    }
+                });
+
+                $(".js-btn-set-scaling-classes").on("click", function() {
+                    $("#select2-multiple-input-sm, #select2-single-input-sm").next(".select2-container--bootstrap").addClass("input-sm");
+                    $("#select2-multiple-input-lg, #select2-single-input-lg").next(".select2-container--bootstrap").addClass("input-lg");
+                    $(this).removeClass("btn-primary btn-outline").prop("disabled", true);
+                });
+            }
+
+            return {
+                init: function() {
+                    searchStaff();
+                }
+            };
+
+        }();
+
+        if (App.isAngularJsApp() === false) {
+            jQuery(document).ready(function() {
+                ComponentsSelect2.init();
+            });
+        }
     </script>
 @endsection

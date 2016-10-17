@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 use App\User;
 
@@ -23,8 +24,31 @@ class AccountController extends Controller
         else echo '<h3>Not Login Yet</h3>';
     }
 
+    public static function swapRole() {
+        $user = Auth::user();
+        if(!is_null($user)) {
+            switch (Session::get('_role')) {
+                case 'Patient':
+                    if($user->staff)
+                        Session::set('_role', 'Staff');
+                    break;
+
+                case 'Staff':
+                    if($user->p_patient)
+                        Session::set('_role', 'Patient');
+                    break;
+
+                default:
+                    Session::set('_role', 'Patient');
+                    break;
+            }
+        }
+        return redirect('');
+    }
+
     public static function logout(){
         if(Auth::check()) {
+            Session::flush();
             Auth::logout();
         }
         return redirect('/login');
@@ -120,13 +144,12 @@ class AccountController extends Controller
         return ["status" => true];
     }
 
-    private static function printTable($array) {
+    public static function officerManageTable($array) {
         $template = '<tr>
             <td> ?0 </td>
             <td> ?1 </td>
             <td> ?2 </td>
             <td> ?3 </td>
-            <td> ?4 </td>
             <td> <select id="multiple" class="form-control select2" ></option>
                         <option selected>แผนกอายุรกรรม</option>
                         <option>ศัลยกรรม</option>
@@ -140,11 +163,11 @@ class AccountController extends Controller
                         <option>รักษาโรคในช่องปากและฟัน</option>
                     </select>
                 </td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?4></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
             <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?9></td>
             <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
         </tr>';
 
@@ -171,9 +194,12 @@ class AccountController extends Controller
         return $re;
     }
 
-    public static function getUserList() {
-        $users = User::select(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'])->get()->toArray();
-        return self::printTable($users);
+    public static function getUserList($select = null, $filter = null) {
+        $users = isset($select) ? User::select($select) : User::select();
+        if(isset($filter))
+            $users = $users->where($filter);
+        $users = $users->get()->toArray();
+        return $users;
     }
 
     public static function getProfile(Request $request) {
