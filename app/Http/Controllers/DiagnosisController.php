@@ -67,7 +67,7 @@ class DiagnosisController extends Controller
             array_push($diagnosis_info, json_decode($appointment, true));
         }
 
-        dd($diagnosis_info);
+        return json_encode($diagnosis_info);
     }
 
     public function add_given_medicine(Request $request)

@@ -8,5 +8,4 @@ class Prescription extends Model
 {
     protected $table = 'prescription';
     public $timestamps = false;
-    protected $primaryKey = 'appointment_id', 'medicine_id';
 }
