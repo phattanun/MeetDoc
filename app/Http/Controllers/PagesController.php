@@ -136,17 +136,22 @@ class PagesController extends Controller
         $res = AccountController::officerManageTable($res);
         return view('officer')->with('users_list', $res);
     }
+    public function getStaffList() {
+        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
+        $res = AccountController::officerManageTable($res);
+        return $res;
+    }
     public function addStaff(Request $request) {
         $res = SystemController::addStaff($request);
         return redirect('officer/manage');
     }
     public function removeStaff(Request $request) {
         $res = SystemController::removeStaff($request);
-        return redirect('officer/manage');
+        return $res;
     }
     public function changePermission(Request $request) {
         $res = SystemController::changePermission($request);
-        return "".$res;
+        return $res;
     }
 
     //Patient

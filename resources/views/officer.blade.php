@@ -96,7 +96,7 @@
                         <th>เจ้าหน้าที่</th>
                     </tr>
                     </thead>
-                    <tbody><?php echo $users_list ?></tbody>
+                    <tbody id="staff-table-body"><?php echo $users_list ?></tbody>
                 </table>
             </div>
         </div>
@@ -115,7 +115,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+            <button type="button" id="remove-staff-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                 <span class="ladda-label">ยืนยัน</span>
                 <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
@@ -153,15 +153,11 @@
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
         var ComponentsSelect2 = function() {
             var searchStaff = function() {
                 $.fn.select2.defaults.set("theme", "bootstrap");
-                $(".select2-dept").select2({
-                    width: null
-                });
                 function formatUser(user) {
                     if (user.loading) return user.text;
 
@@ -248,6 +244,9 @@
         if (App.isAngularJsApp() === false) {
             jQuery(document).ready(function() {
                 ComponentsSelect2.init();
+                $(".select2-dept").select2({
+                    width: null
+                });
             });
         }
         $(document).on('switchChange.bootstrapSwitch','.make-switch', function () {
@@ -263,12 +262,13 @@
                 toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
             });
         });
+
         $(document).on('change','.select2-dept', function () {
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/officer/manage/changeDepartment',
                     {id:  this.id, dept_id: this.value, _token: '{{csrf_token()}}'}).done(function (input) {
                         if(input=="success")
-                            toastr['success']('แก้ไขสิทธิสำเร็จ', "สำเร็จ");
+                            toastr['success']('แก้ไขแผนกสำเร็จ', "สำเร็จ");
                         else {
                             toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
                         }
@@ -276,5 +276,39 @@
                 toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
             });
         });
+
+        $(document).on('click','.delete-staff-btn', function () {
+            $('#remove-staff-btn').attr('identity',this.id);
+            $('#removeModal').modal();
+        });
+        $(document).on('click','#remove-staff-btn', function () {
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/officer/manage/removeStaff',
+                    {id:  $(this).attr('identity'), _token: '{{csrf_token()}}'}).done(function (input) {
+                        if(input=="success"){
+                            toastr['success']('ลบสถานะบุคลากรสำเร็จ', "สำเร็จ");
+                            resetStaffList();
+                        }
+                        else {
+                            toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+                        }
+            }).fail(function () {
+                toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+            });
+        });
+        
+        function resetStaffList() {
+            $('#staff-table-body').empty();
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/officer/getStaffList',
+                    {id:  $(this).attr('identity'), _token: '{{csrf_token()}}'}).done(function (input) {
+                $('#staff-table-body').html(input);
+                $(".select2-dept").select2({
+                    width: null
+                });
+                $('.make-switch').bootstrapSwitch();
+            }).fail(function () {
+            });
+        }
     </script>
 @endsection
