@@ -702,17 +702,17 @@
                                             <tbody class="middle">
                                             @foreach($queue_list['waiting_staff'] as $queue)
                                                 <tr>
-                                                    <td>{{$queue->id}}</td>
-                                                    <td>{{$queue->id}}</td>
-                                                    <td>{{$queue->id}}</td>
-                                                    <td><i class="fa fa-male" aria-hidden="true"></i> {{$queue->id}}</td>
-                                                    <td>{{$queue->id}}</td>
-                                                    <td>{{$queue->id}}</td>
-                                                    <td>{{$queue->id}}</td>
+                                                    <td>{{$queue['patient_info']['id']}}</td>
+                                                    <td>{{$queue['patient_info']['name']}}</td>
+                                                    <td>{{$queue['patient_info']['surname']}}</td>
+                                                    <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
+                                                    <td>{{$queue['patient_info']['birthday']}}</td>
+                                                    <td>{{$queue['patient_info']['dept_id']}}</td>
+                                                    <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1({{$queue->id}})"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2({{$queue->id}})"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3({{$queue->id}})"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -730,147 +730,6 @@
                                                     <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-history"></i> ประวัติการรักษา</button>
-                                                    <button type="button" class="btn btn-default"><i class="fa fa-save"></i> บันทึกข้อมูล</button>
-                                                </td>
-                                            </tr>
-
                                             </tbody>
                                         </table>
                                         <!-- END TABLE -->
@@ -878,11 +737,117 @@
                                     <!-- END CHECK PHYSICAL DATA TAB -->
                                     <!-- BEGIN WAIT DOCTOR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
+                                        <div class="portlet-title margin-bottom-20">
+                                            <div class="caption caption-md">
+                                                <span class="caption-subject font-blue-madison bold uppercase">ตารางผู้ป่วยรอตรวจรักษา</span>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN TABLE -->
+                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                            <thead class="middle">
+                                            <tr>
+                                                <th class="first"> ลำดับที่ </th>
+                                                <th> ชื่อ </th>
+                                                <th> นามสกุล </th>
+                                                <th> เพศ </th>
+                                                <th> อายุ </th>
+                                                <th> แผนก </th>
+                                                <th> อาการ </th>
+                                                <th class="last"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="middle">
+                                            @foreach($queue_list['waiting_doctor'] as $queue)
+                                                <tr>
+                                                    <td>{{$queue['patient_info']['id']}}</td>
+                                                    <td>{{$queue['patient_info']['name']}}</td>
+                                                    <td>{{$queue['patient_info']['surname']}}</td>
+                                                    <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
+                                                    <td>{{$queue['patient_info']['birthday']}}</td>
+                                                    <td>{{$queue['patient_info']['dept_id']}}</td>
+                                                    <td>{{$queue['symptom']}}</td>
+                                                    <td class="last">
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1({{$queue['patient_info']['id']}})"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2({{$queue['patient_info']['id']}})"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3({{$queue['patient_info']['id']}})"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr>
+                                                <td>1</td>
+                                                <td>นายกิตติภณ</td>
+                                                <td>พละการ</td>
+                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
+                                                <td>21</td>
+                                                <td>แผนกหู คอ จมูก</td>
+                                                <td>สบายดี</td>
+                                                <td class="last">
+                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1()"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2()"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- END TABLE -->
                                     </div>
                                     <!-- END WAIT DOCTOR TAB -->
 
                                     <!-- BEGIN WAIT MEDICINE TAB -->
                                     <div class="tab-pane" id="tab_1_3">
+                                        <div class="portlet-title margin-bottom-20">
+                                            <div class="caption caption-md">
+                                                <span class="caption-subject font-blue-madison bold uppercase">ตารางผู้ป่วยรอรับยา</span>
+                                            </div>
+                                        </div>
+                                        <!-- BEGIN TABLE -->
+                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                            <thead class="middle">
+                                            <tr>
+                                                <th class="first"> ลำดับที่ </th>
+                                                <th> ชื่อ </th>
+                                                <th> นามสกุล </th>
+                                                <th> เพศ </th>
+                                                <th> อายุ </th>
+                                                <th> แผนก </th>
+                                                <th> อาการ </th>
+                                                <th class="last"></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="middle">
+                                            @foreach($queue_list['waiting_pharmacist'] as $queue)
+                                                <tr>
+                                                    <td>{{$queue['patient_info']['id']}}</td>
+                                                    <td>{{$queue['patient_info']['name']}}</td>
+                                                    <td>{{$queue['patient_info']['surname']}}</td>
+                                                    <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
+                                                    <td>{{$queue['patient_info']['birthday']}}</td>
+                                                    <td>{{$queue['patient_info']['dept_id']}}</td>
+                                                    <td>{{$queue['symptom']}}</td>
+                                                    <td class="last">
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1({{$queue['patient_info']['id']}})"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2({{$queue['patient_info']['id']}})"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3({{$queue['patient_info']['id']}})"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr>
+                                                <td>1</td>
+                                                <td>นายกิตติภณ</td>
+                                                <td>พละการ</td>
+                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
+                                                <td>21</td>
+                                                <td>แผนกหู คอ จมูก</td>
+                                                <td>สบายดี</td>
+                                                <td class="last">
+                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1()"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2()"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- END TABLE -->
                                     </div>
                                     <!-- END WAIT MEDICINE TAB -->
                                 </div>
@@ -920,10 +885,18 @@
             maxboostedstep: 10
         });
 
-        function goToModalTab1(id){
+        $(document).on('click','.goToModalTab1', function(){
+            var id = $(this).attr('diagnosisId');
+            alert(id);
             $('#tab_modal_1_button').click();
-        }
-        function goToModalTab2(id){
+        });
+//        function goToModalTab1(id){
+//            $('#tab_modal_1_button').click();
+//        }
+//        function goToModalTab2(id){
+        $(document).on('click','.goToModalTab2', function(){
+            var id = $(this).attr('diagnosisId');
+            alert(id);
             $('#modal-history-table_wrapper').remove();
             var modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
                     '<thead>'+
@@ -939,7 +912,7 @@
                     '</thead>'+
                     '<tbody>'+
                     '<tr>'+
-                    '<td class="first">555</td>'+
+                    '<td class="first">'+id+'</td>'+
                     '<td>12/10/2559</td>'+
                     '<td>เช้า</td>'+
                     '<td>นายแพทย์สวัสดี หายไวไวนะ</td>'+
@@ -952,7 +925,7 @@
             $('#modal-history-table-container').append(modalHistoryTable);
             $('#modal-history-table').DataTable();
             $('#tab_modal_2_button').click();
-        }
+        });
         function goToModalTab3(id){
             $('#tab_modal_3_button').click();
         }
