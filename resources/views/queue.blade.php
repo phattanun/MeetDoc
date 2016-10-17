@@ -914,18 +914,52 @@
             $('#tab_modal_1_button').click();
         });
 
+        var diagnosis_history;
+        var modalHistoryTable;
+
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('diagnosisId');
             alert(id);
-            {{--var URL_ROOT = '{{Request::root()}}';--}}
-            {{--$.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',--}}
-                    {{--{patient_id:  1, _token: '{{csrf_token()}}'}).done(function (input) {--}}
-                {{--console.log(input);--}}
-            {{--}).fail(function () {--}}
-            {{--});--}}
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',
+                    {patient_id:  1, _token: '{{csrf_token()}}'}).done(function (input) {
+                console.log(input);
+                diagnosis_history = input;
+                $('#modal-history-table_wrapper').remove();
+                modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+                        '<thead>'+
+                        '<tr>'+
+                        '<th class="first"> ครั้งที่ </th>'+
+                        '<th> วันที่ </th>'+
+                        '<th> ช่วง </th>'+
+                        '<th> แพทย์ </th>'+
+                        '<th> แผนก </th>'+
+                        '<th> อาการ </th>'+
+                        '<th></th>'+
+                        '</tr>'+
+                        '</thead>'+
+                        '<tbody>';
+                var tmp;
+                for(tmp in diagnosis_history){
+                    console.log(diagnosis_history[tmp]);
+                    alert(diagnosis_history[tmp]['id']);
+                    modalHistoryTable+=
+                            '<tr>'+
+                            '<td class="first">'+id+'</td>'+
+                            '<td>12/10/2559</td>'+
+                            '<td>เช้า</td>'+
+                            '<td>นายแพทย์สวัสดี หายไวไวนะ</td>'+
+                            '<td>แผนกหู คอ จมูก</td>'+
+                            '<td>ใกล้หายแล้ว ไม่รู้จะมาทำไม</td>'+
+                            '<td><a type="button" class="btn btn-default view-history" historyId="1"><i class="fa fa-user"></i> ดูประวัติ</a></td>'+
+                            '</tr>';
+                }
 
-            $('#modal-history-table_wrapper').remove();
-            var modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+            }).fail(function () {
+            });
+
+
+            modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
                     '<thead>'+
                     '<tr>'+
                     '<th class="first"> ครั้งที่ </th>'+
