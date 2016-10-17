@@ -63,8 +63,13 @@ class MedicineController extends Controller
     public function search_medicine(Request $request)
     {
         $keyword= $request->keyword;
+        if ($keyword != ""){
         $medicine_list = Medicine::select('medicine_id', 'medicine_name', 'business_name')->where('medicine_name', 'like', '%'.($keyword).'%')
             ->orWhere('business_name', 'like', '%'.($keyword).'%')->get();
+        }
+        else {
+            $medicine_list = [];
+        }
         return compact('keyword','medicine_list');
     }
 

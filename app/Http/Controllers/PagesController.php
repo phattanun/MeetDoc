@@ -146,7 +146,7 @@ class PagesController extends Controller
     }
     public function changePermission(Request $request) {
         $res = SystemController::changePermission($request);
-        return redirect('officer/manage');
+        return "".$res;
     }
 
     //Patient

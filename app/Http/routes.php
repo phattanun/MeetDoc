@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
     Route::get('/officer/manage', 'PagesController@viewOfficerManage');
     Route::post('/officer/manage/addStaff', 'PagesController@addStaff');
+    Route::post('/officer/manage/removeStaff', 'PagesController@removeStaff');
+    Route::post('/officer/manage/changePermission', 'PagesController@changePermission');
+    Route::post('/officer/manage/changeDepartment', 'SystemController@changeDepartment');
 
     // Patient
     Route::get('/appointment/new', 'PagesController@newAppointmentPage');
@@ -56,10 +59,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
     // Disease
-    Route::post('/disease/create', 'SystemController@add_disease');
-    Route::post('/disease/edit', 'SystemController@edit_disease');
-    Route::post('/disease/delete', 'SystemController@delete_disease');
-    Route::get('/disease/getDeseaseList', 'SystemController@disease_list');
+    Route::post('/disease/create', 'DiseaseController@add_disease');
+    Route::post('/disease/edit', 'DiseaseController@edit_disease');
+    Route::post('/disease/delete', 'DiseaseController@delete_disease');
+    Route::post('/disease/detail', 'DiseaseController@get_disease_detail');
+    Route::post('/disease/search', 'DiseaseController@search_disease');
+    Route::get('/disease/getDiseaseList', 'DiseaseController@get_disease_list');
 
     //everyone
     // Route::get('/profile', 'ProfileController@index');

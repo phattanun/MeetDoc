@@ -92,7 +92,7 @@
                         <th>ผู้ป่วย</th>
                         <th>แพทย์</th>
                         <th>พยาบาล</th>
-                        <th>เภสัช</th>
+                        <th>เภสัชกร</th>
                         <th>เจ้าหน้าที่</th>
                     </tr>
                     </thead>
@@ -126,7 +126,7 @@
 @section('pageLevelPluginsScript')
     <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/select2/js/select2.full.officer.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
@@ -156,15 +156,12 @@
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
-        $('tbody tr').click(function () {
-            $('#appDetailModal').modal()
-        });
         var ComponentsSelect2 = function() {
-
             var searchStaff = function() {
-
                 $.fn.select2.defaults.set("theme", "bootstrap");
-
+                $(".select2-dept").select2({
+                    width: null
+                });
                 function formatUser(user) {
                     if (user.loading) return user.text;
 
@@ -253,5 +250,31 @@
                 ComponentsSelect2.init();
             });
         }
+        $(document).on('switchChange.bootstrapSwitch','.make-switch', function () {
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/officer/manage/changePermission',
+                    {id:  this.id, type:$(this).attr('isa'),permission:this.checked, _token: '{{csrf_token()}}'}).done(function (input) {
+                if(input=="success")
+                    toastr['success']('แก้ไขสิทธิสำเร็จ', "สำเร็จ");
+                else {
+                    toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+                }
+            }).fail(function () {
+                toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+            });
+        });
+        $(document).on('change','.select2-dept', function () {
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/officer/manage/changeDepartment',
+                    {id:  this.id, dept_id: this.value, _token: '{{csrf_token()}}'}).done(function (input) {
+                        if(input=="success")
+                            toastr['success']('แก้ไขสิทธิสำเร็จ', "สำเร็จ");
+                        else {
+                            toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+                        }
+            }).fail(function () {
+                toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+            });
+        });
     </script>
 @endsection

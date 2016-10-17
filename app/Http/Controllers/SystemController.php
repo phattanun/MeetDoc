@@ -40,11 +40,23 @@ class SystemController extends Controller
     {
         try {
             $user = User::findOrFail($request->id);
-            $user[$request->type] = $request->permission;
+            $user[$request->type] = ($request->permission=="true") ? 1:0;
             $user->save();
         } catch (\Exception $e) {
-            return false;
+            return "fail";
         }
-        return true;
+        return "success";
+    }
+
+    public static function changeDepartment(Request $request)
+    {
+        try {
+            $user = User::findOrFail($request->id);
+            $user['dept_id'] = $request->dept_id;
+            $user->save();
+        } catch (\Exception $e) {
+            return "fail";
+        }
+        return "success";
     }
 }
