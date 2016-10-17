@@ -1,6 +1,6 @@
 /***
-Wrapper/Helper Class for datagrid based on jQuery Datatable Plugin
-***/
+ Wrapper/Helper Class for datagrid based on jQuery Datatable Plugin
+ ***/
 var Datatable = function() {
 
     var tableOptions; // main options
@@ -52,7 +52,7 @@ var Datatable = function() {
                         "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
                         "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
                         "infoEmpty": "No records found to show",
-                        "emptyTable": "ไม่มีข้อมูล"/*No data available in table*/,
+                        "emptyTable": "ไม่มีข้อมูล"No data available in table,
                         "zeroRecords": "No matching records found",
                         "paginate": {
                             "previous": "Prev",

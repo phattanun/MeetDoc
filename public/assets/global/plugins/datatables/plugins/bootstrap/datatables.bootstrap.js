@@ -1,4 +1,4 @@
-./* Set the defaults for DataTables initialisation */
+/* Set the defaults for DataTables initialisation */
 $.extend(true, $.fn.dataTable.defaults, {
     "dom": "<'row'<'col-md-6 col-sm-6'l><'col-md-6 col-sm-6'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-5'i><'col-md-7 col-sm-7'p>>", // default layout with horizobtal scrollable datatable
     //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // datatable layout without  horizobtal scroll(used when bootstrap dropdowns used in the datatable cells)
@@ -49,40 +49,40 @@ $.fn.dataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx
                 btnClass = '';
 
                 switch (button) {
-                case 'ellipsis':
-                    btnDisplay = '&hellip;';
-                    btnClass = 'disabled';
-                    break;
+                    case 'ellipsis':
+                        btnDisplay = '&hellip;';
+                        btnClass = 'disabled';
+                        break;
 
-                case 'first':
-                    btnDisplay = lang.sFirst;
-                    btnClass = button + (page > 0 ?
-                        '' : ' disabled');
-                    break;
+                    case 'first':
+                        btnDisplay = lang.sFirst;
+                        btnClass = button + (page > 0 ?
+                                '' : ' disabled');
+                        break;
 
-                case 'previous':
-                    btnDisplay = lang.sPrevious;
-                    btnClass = button + (page > 0 ?
-                        '' : ' disabled');
-                    break;
+                    case 'previous':
+                        btnDisplay = lang.sPrevious;
+                        btnClass = button + (page > 0 ?
+                                '' : ' disabled');
+                        break;
 
-                case 'next':
-                    btnDisplay = lang.sNext;
-                    btnClass = button + (page < pages - 1 ?
-                        '' : ' disabled');
-                    break;
+                    case 'next':
+                        btnDisplay = lang.sNext;
+                        btnClass = button + (page < pages - 1 ?
+                                '' : ' disabled');
+                        break;
 
-                case 'last':
-                    btnDisplay = lang.sLast;
-                    btnClass = button + (page < pages - 1 ?
-                        '' : ' disabled');
-                    break;
+                    case 'last':
+                        btnDisplay = lang.sLast;
+                        btnClass = button + (page < pages - 1 ?
+                                '' : ' disabled');
+                        break;
 
-                default:
-                    btnDisplay = button + 1;
-                    btnClass = page === button ?
-                        'active' : '';
-                    break;
+                    default:
+                        btnDisplay = button + 1;
+                        btnClass = page === button ?
+                            'active' : '';
+                        break;
                 }
 
                 if (btnDisplay) {
@@ -91,13 +91,13 @@ $.fn.dataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx
                         'aria-controls': settings.sTableId,
                         'tabindex': settings.iTabIndex,
                         'id': idx === 0 && typeof button === 'string' ?
-                            settings.sTableId + '_' + button : null
+                        settings.sTableId + '_' + button : null
                     })
                         .append($('<a>', {
                                 'href': '#'
                             })
                             .html(btnDisplay)
-                    )
+                        )
                         .appendTo(container);
 
                     settings.oApi._fnBindAction(
@@ -117,8 +117,8 @@ $.fn.dataTable.ext.renderer.pageButton.bootstrap = function (settings, host, idx
 }
 
 /***
-Custom Pagination
-***/
+ Custom Pagination
+ ***/
 
 /* API method to get paging information */
 $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings) {
@@ -336,7 +336,7 @@ $.extend($.fn.dataTableExt.oPagination, {
                 '<a href="#" class="btn btn-sm default prev disabled"><i class="fa fa-angle-left"></i></a>' +
                 '<input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini" maxlenght="5" style="text-align:center; margin: 0 5px;">' +
                 '<a href="#" class="btn btn-sm default next disabled"><i class="fa fa-angle-right"></i></a> ' +
-                (oLang.pageOf ? oLang.pageOf + ' <span class="pagination-panel-total"></span>': '') + 
+                (oLang.pageOf ? oLang.pageOf + ' <span class="pagination-panel-total"></span>': '') +
                 '</div>'
             );
 
