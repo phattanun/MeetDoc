@@ -80,8 +80,10 @@
                     <thead>
                     <tr>
                         <th> ลำดับที่ </th>
-                        <th> ชื่อตัวยา </th>
-                        <th> ชื่อทางการค้า </th>
+                        <th> ICD10 </th>
+                        <th> SNOMED </th>
+                        <th> DRG </th>
+                        <th> ชื่อโรค </th>
                         <th></th>
                         <th></th>
                         <th></th>
