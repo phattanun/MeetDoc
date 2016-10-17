@@ -8,5 +8,4 @@ class GivenMedicine extends Model
 {
     protected $table = 'given_medicine';
     public $timestamps = false;
-    protected $primaryKey = 'appointment_id', 'medicine_id';
 }
