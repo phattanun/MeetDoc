@@ -31,10 +31,12 @@
             color: blue;
         }
         .first-no-column thead tr .first,.first-no-column tbody tr .first{
-            width: 25px;
+            width: 25px !important;
         }
         .first-no-column thead tr .last,.first-no-column tbody tr .last{
-            width: 375px;
+            width: 400px !important;
+            max-width: 400px !important;
+            min-width: 400px !important;
         }
         .portlet.light.modal-portlet{
             padding: 0px;
@@ -447,7 +449,7 @@
                             <!-- BEGIN WAIT MEDICINE TAB -->
                             <div class="tab-pane" id="tab_modal_3">
                                 <!-- BEGIN PHYSICAL DATA FORM -->
-                                <div class="normal-content">
+                                <div id="modal_tab3_physical_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
@@ -526,7 +528,7 @@
                                 </div>
                                 <!-- END PHYSICAL DATA FORM -->
                                 <!-- BEGIN DIAGNOSIS FORM -->
-                                <div class="normal-content">
+                                <div id="modal_tab3_diagnosis_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
@@ -565,7 +567,7 @@
                                 </div>
                                 <!-- END DIAGNOSIS FORM -->
                                 <!-- BEGIN MEDICINE FORM -->
-                                <div class="normal-content">
+                                <div id="modal_tab3_medicine_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
@@ -686,7 +688,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                        <table id="tab1_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                             <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
@@ -706,8 +708,8 @@
                                                     <td>{{$queue['patient_info']['name']}}</td>
                                                     <td>{{$queue['patient_info']['surname']}}</td>
                                                     <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
-                                                    <td>{{$queue['patient_info']['birthday']}}</td>
-                                                    <td>{{$queue['patient_info']['dept_id']}}</td>
+                                                    <td>{{$queue['patient_info']['age']}}</td>
+                                                    <td>{{$queue['department']}}</td>
                                                     <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
                                                         <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
@@ -725,9 +727,9 @@
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
                                                 <td class="last">
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1()"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2()"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="111" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -743,7 +745,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                        <table id="tab2_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                             <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
@@ -763,13 +765,13 @@
                                                     <td>{{$queue['patient_info']['name']}}</td>
                                                     <td>{{$queue['patient_info']['surname']}}</td>
                                                     <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
-                                                    <td>{{$queue['patient_info']['birthday']}}</td>
-                                                    <td>{{$queue['patient_info']['dept_id']}}</td>
+                                                    <td>{{$queue['patient_info']['age']}}</td>
+                                                    <td>{{$queue['department']}}</td>
                                                     <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1({{$queue['patient_info']['id']}})"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2({{$queue['patient_info']['id']}})"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3({{$queue['patient_info']['id']}})"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -782,9 +784,9 @@
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
                                                 <td class="last">
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1()"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2()"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="1111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="1111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="1111" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -801,7 +803,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table class="table table-striped table-bordered table-hover order-column first-no-column data-table">
+                                        <table id="tab3_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
                                             <thead class="middle">
                                             <tr>
                                                 <th class="first"> ลำดับที่ </th>
@@ -821,13 +823,13 @@
                                                     <td>{{$queue['patient_info']['name']}}</td>
                                                     <td>{{$queue['patient_info']['surname']}}</td>
                                                     <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
-                                                    <td>{{$queue['patient_info']['birthday']}}</td>
-                                                    <td>{{$queue['patient_info']['dept_id']}}</td>
+                                                    <td>{{$queue['patient_info']['age']}}</td>
+                                                    <td>{{$queue['department']}}</td>
                                                     <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1({{$queue['patient_info']['id']}})"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2({{$queue['patient_info']['id']}})"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3({{$queue['patient_info']['id']}})"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -840,9 +842,9 @@
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
                                                 <td class="last">
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab1()"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab2()"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default" data-toggle="modal" href="#full" onclick="goToModalTab3()"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="11111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="11111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="11111" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -875,7 +877,28 @@
     <script src="{{url('assets/pages/scripts/components-select2-diagnosis.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
-            $('.data-table').DataTable();
+            $('#tab1_table').DataTable({
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "400px", "targets": 7 }
+                ],
+                fixedColumns: true
+            });
+            $('#tab2_table').DataTable({
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "400px", "targets": 7 }
+                ],
+                fixedColumns: true
+            });
+            $('#tab3_table').DataTable({
+                "autoWidth": false,
+                "columnDefs": [
+                    { "width": "400px", "targets": 7 }
+                ],
+                fixedColumns: true
+            });
+            $('#modal-history-table').DataTable();
         });
         $(".touchspin").TouchSpin({
             min: 0,
@@ -890,13 +913,17 @@
             alert(id);
             $('#tab_modal_1_button').click();
         });
-//        function goToModalTab1(id){
-//            $('#tab_modal_1_button').click();
-//        }
-//        function goToModalTab2(id){
+
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('diagnosisId');
             alert(id);
+            {{--var URL_ROOT = '{{Request::root()}}';--}}
+            {{--$.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',--}}
+                    {{--{patient_id:  1, _token: '{{csrf_token()}}'}).done(function (input) {--}}
+                {{--console.log(input);--}}
+            {{--}).fail(function () {--}}
+            {{--});--}}
+
             $('#modal-history-table_wrapper').remove();
             var modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
                     '<thead>'+
@@ -926,9 +953,24 @@
             $('#modal-history-table').DataTable();
             $('#tab_modal_2_button').click();
         });
-        function goToModalTab3(id){
+
+        $(document).on('click','.goToModalTab3', function(){
+            var id = $(this).attr('diagnosisId');
+            var step = $(this).attr('step');
+            alert(id+" "+step);
+            if(step == 1){
+                $('#modal_tab3_physical_form').show();
+                $('#modal_tab3_diagnosis_form').hide();
+                $('#modal_tab3_medicine_form').hide();
+            }
+            else{
+                $('#modal_tab3_physical_form').show();
+                $('#modal_tab3_diagnosis_form').show();
+                $('#modal_tab3_medicine_form').show();
+            }
             $('#tab_modal_3_button').click();
-        }
+        });
+
 
         $(document).on('click','.view-history', function(){
            var historyId = $(this).attr('historyId');
