@@ -19,9 +19,9 @@ class SystemController extends Controller
             $user->staff = true;
             $user->save();
         } catch (\Exception $e) {
-            return false;
+            return "fail";
         }
-        return true;
+        return "success";
     }
 
     public static function removeStaff(Request $request)
@@ -31,9 +31,9 @@ class SystemController extends Controller
             $user->staff = false;
             $user->save();
         } catch (\Exception $e) {
-            return false;
+            return "fail";
         }
-        return true;
+        return "success";
     }
 
     public static function changePermission(Request $request)
