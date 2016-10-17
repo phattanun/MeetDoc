@@ -175,7 +175,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="Paracetamol" id="view_medicine_name"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_medicine_name"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -184,7 +184,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="Para" id="view_business_name"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_business_name"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -193,7 +193,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="เม็ด" id="view_type"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_type"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="แก้ปวด" id="view_description"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_description"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="กินกับน้ำ" id="view_instruction"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_instruction"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="บริษัทยาปลอม" id="view_manufacturer"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_manufacturer"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>

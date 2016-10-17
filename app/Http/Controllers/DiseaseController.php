@@ -42,9 +42,9 @@ class DiseaseController extends Controller
         $disease->delete();
     }
 
-    public static function disease_list()
+    public static function get_disease_list()
     {
         $disease_list = Disease::all();
-        dd($disease_list->toArray());
+        return $disease_list;
     }
 }

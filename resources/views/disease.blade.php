@@ -124,22 +124,26 @@
                     <thead>
                     <tr>
                         <th> ลำดับที่ </th>
-                        <th> ชื่อตัวยา </th>
-                        <th> ชื่อทางการค้า </th>
+                        <th> ICD10 </th>
+                        <th> SNOMED </th>
+                        <th> DRG </th>
+                        <th> ชื่อโรค </th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody id="all-drug-list-table-body">
-                    @foreach($drugList as $drug)
+                    @foreach($diseaseList as $disease)
                         <tr>
                             <td class="view-all-order">  </td>
-                            <td> {{$drug->medicine_name}} </td>
-                            <td> {{$drug->business_name}} </td>
-                            <td> <button  identity="{{$drug->medicine_id}}" type="button" class="btn blue view-drug-button">ดู</button> </td>
-                            <td> <button  identity="{{$drug->medicine_id}}" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>
-                            <td> <button  identity="{{$drug->medicine_id}}" type="button" class="btn red delete-drug-button">ลบ</button></td>
+                            <td> {{$disease->icd10}} </td>
+                            <td> {{$disease->snomed}} </td>
+                            <td> {{$disease->drg}} </td>
+                            <td> {{$disease->name}} </td>
+                            <td> <button  identity="{{$disease->id}}" type="button" class="btn blue view-drug-button">ดู</button> </td>
+                            <td> <button  identity="{{$disease->id}}" type="button" class="btn yellow-crusta edit-drug-button">แก้ไข</button> </td>
+                            <td> <button  identity="{{$disease->id}}" type="button" class="btn red delete-drug-button">ลบ</button></td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -173,54 +177,36 @@
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
+                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค ICD10</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="Paracetamol" id="view_medicine_name"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_icd10"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
+                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค SNOMED</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="Para" id="view_business_name"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_snomed"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
+                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค DRG</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="เม็ด" id="view_type"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_drg"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
+                    <label class="col-md-2 control-label" for="form_control_1">ชื่อโรค</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="แก้ปวด" id="view_description"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
-                    <div class="col-md-10">
-                        <input class="form-control" readonly="" value="กินกับน้ำ" id="view_instruction"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
-                    <div class="col-md-10">
-                        <input class="form-control" readonly="" value="บริษัทยาปลอม" id="view_manufacturer"  type="text">
+                        <input class="form-control" readonly="" value="" id="view_name"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -232,7 +218,7 @@
     </div>
 
     <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
-        <form id="drug-edit-form" role="form" action="{{ url('/medicine/edit') }}" method="post">
+        <form id="drug-edit-form" role="form" action="{{ url('/disease/edit') }}" method="post">
             {{ csrf_field() }}
             <input type="hidden" name="medicine_id" id="edit_medicine_id" />
             <div class="modal-header">
@@ -242,60 +228,40 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
+                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค ICD10</label>
                         <div class="col-md-10 margin-bottom-15">
-                            <input class="form-control"  value="" id="edit_medicine_name"  type="text" name="medicine_name"  required aria-required="true">
+                            <input class="form-control"  value="" id="edit_icd10"  type="text" name="icd10"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
+                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค SNOMED</label>
                         <div class="col-md-10">
-                            <input class="form-control" value="" id="edit_business_name"  type="text" name="business_name"  required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row margin-top-15 margin-bottom-10">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
-                        <div class="col-md-10" id="edit-type-selection">
-                            <select id="edit-type" class="form-control select2-multiple" multiple name="type[]"  required aria-required="true">
-                                @include('drug-type')
-                            </select>
+                            <input class="form-control" value="" id="edit_snomed"  type="text" name="snomed"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
+                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค DRG</label>
                         <div class="col-md-10 margin-bottom-15">
-                            <input class="form-control" value="" id="edit_description"  type="text" name="description"  required aria-required="true">
+                            <input class="form-control"  value="" id="edit_drg"  type="text" name="drg"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
+                        <label class="col-md-2 control-label" for="form_control_1">ชื่อโรค</label>
                         <div class="col-md-10 margin-bottom-15">
-                            <input class="form-control" value="" id="edit_instruction"  type="text" name="instruction"  required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>            <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
-                        <div class="col-md-10">
-                            <input class="form-control" value="" id="edit_manufacturer"  type="text" name="manufacturer"  required aria-required="true">
+                            <input class="form-control" value="" id="edit_name"  type="text" name="name"  required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" id="edit-submit-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">

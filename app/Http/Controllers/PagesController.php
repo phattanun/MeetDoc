@@ -181,6 +181,6 @@ class PagesController extends Controller
 
     //Admin
     public function diseasePage(Request $request) {
-        return view('disease')->with(['diseaseList'=> MedicineController::get_medicine_list()]);
+        return view('disease')->with(['diseaseList'=> DiseaseController::get_disease_list()]);
     }
 }
