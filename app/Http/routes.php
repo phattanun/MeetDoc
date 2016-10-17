@@ -56,7 +56,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
     // Disease
-
+    Route::post('/disease/create', 'SystemController@add_disease');
+    Route::post('/disease/edit', 'SystemController@edit_disease');
+    Route::post('/disease/delete', 'SystemController@delete_disease');
+    Route::get('/disease/getDeseaseList', 'SystemController@disease_list');
 
     //everyone
     // Route::get('/profile', 'ProfileController@index');
