@@ -40,7 +40,7 @@
         <div class="portlet-body">
             <div class="row text-left">
                 <div class="col-md-9">
-                    <form class="form-group" action="{{ url('/officer/manage/addStaff') }}" method="post">
+                    <form id="add-staff-form" class="form-group" action="{{ url('/officer/manage/addStaff') }}" method="post">
                         {{ csrf_field() }}
                         <div class="row">
                             <label class="col-md-2 control-label text-right">ค้นหาบัญชีผู้ใช้
@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-md-1">
                                 <div class="form-actions right1">
-                                    <button type="submit" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                                    <button type="submit" id="add-staff-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                                         <span class="ladda-label">เพิ่ม</span>
                                         <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
                                 </div>
@@ -295,6 +295,31 @@
             }).fail(function () {
                 toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
             });
+        });
+
+        $('#add-staff-btn').click(function () {
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('เพิ่มบุคลากรสำเร็จ', "สำเร็จ");
+                    l.stop();
+                    resetStaffList();
+                    $('#editModal').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#add-staff-form').ajaxSubmit(options);
+                return false;
         });
         
         function resetStaffList() {

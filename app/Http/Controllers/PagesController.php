@@ -143,7 +143,7 @@ class PagesController extends Controller
     }
     public function addStaff(Request $request) {
         $res = SystemController::addStaff($request);
-        return redirect('officer/manage');
+        return $res;
     }
     public function removeStaff(Request $request) {
         $res = SystemController::removeStaff($request);
