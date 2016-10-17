@@ -64,10 +64,13 @@ class DiagnosisController extends Controller
             $given_medicine = GivenMedicine::where('appointment_id', $appointment['id'])->get();
             $appointment['prescription'] = json_decode($prescription, true);
             $appointment['given_medicine'] = json_decode($given_medicine, true);
+            $appointment['disease'] = $appointment->disease()->get();
+            $doctor = User::where('id', $appointment['doctor_id'])->first();
+            $appointment['doctor'] = $doctor;
             array_push($diagnosis_info, json_decode($appointment, true));
         }
 
-        return json_encode($diagnosis_info);
+        return $diagnosis_info;
     }
 
     public function add_given_medicine(Request $request)
