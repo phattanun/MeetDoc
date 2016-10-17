@@ -14,9 +14,10 @@ class DiseaseController extends Controller
     {
         try {
             $disease = new Disease();
-            $disease->name = $request->disease_name;
-            $disease->icd10 = $request->disease_icd10;
-            $disease->snomed = $request->disease_snomed;
+            $disease->name = $request->name;
+            $disease->icd10 = $request->icd10;
+            $disease->snomed = $request->snomed;
+            $disease->drg = $request->drg;
             $disease->save();
         } catch (Exception $e) {
             echo '<H2>Error</H2>';
@@ -25,11 +26,12 @@ class DiseaseController extends Controller
 
     public function edit_disease(Request $request)
     {
-        $disease = Disease::findOrFail($request->disease_id);
+        $disease = Disease::findOrFail($request->id);
         try {
-            $disease->name = $request->disease_name;
-            $disease->icd10 = $request->disease_icd10;
-            $disease->snomed = $request->disease_snomed;
+            $disease->name = $request->name;
+            $disease->icd10 = $request->icd10;
+            $disease->snomed = $request->snomed;
+            $disease->drg = $request->drg;
             $disease->save();
         } catch (Exception $e) {
             echo '<H2>Error</H2>';
@@ -38,8 +40,22 @@ class DiseaseController extends Controller
 
     public function delete_disease(Request $request)
     {
-        $disease = Disease::findOrFail($request->disease_id);
+        $disease = Disease::findOrFail($request->id);
         $disease->delete();
+    }
+
+    public function get_disease_detail(Request $request)
+    {
+        $disease = Disease::findOrFail($request->id);
+        return $disease;
+    }
+
+    public function search_disease(Request $request)
+    {
+        $keyword= $request->keyword;
+        $disease_list = Disease::where('icd10', 'like', '%'.($keyword).'%')
+            ->orWhere('snomed', 'like', '%'.($keyword).'%')->orWhere('drg', 'like', '%'.($keyword).'%')->get();
+        return compact('keyword','disease_list');
     }
 
     public static function get_disease_list()
