@@ -313,7 +313,7 @@
                                 </div>
                                 <!-- END HISTORY TABLE -->
 
-                                <div class="normal-content">
+                                <div id="history_detail" class="normal-content">
 
                                     <div class="row">
                                         <div class="col-md-12">
@@ -328,7 +328,7 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label class="col-md-5 bold">น้ำหนัก</label>
-                                                            <div class="col-md-7">
+                                                            <div id="history_detail_weight" class="col-md-7">
                                                                 70.00 กิโลกรัม
                                                             </div>
                                                         </div>
@@ -918,7 +918,8 @@
 
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('diagnosisId');
-            alert('ss'+id);
+            $('#history_detail').hide();
+//            alert('ss'+id);
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',
                     {patient_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
@@ -1012,9 +1013,12 @@
 
 
         $(document).on('click','.view-history', function(){
-           var historyId = $(this).attr('historyId');
-            alert(historyId);
+            var historyId = $(this).attr('historyId');
+//            alert(historyId);
+            $('#history_detail_weight').text(diagnosis_history[historyId]['weight']+' กิโลกรัม');
+            $('#history_detail').show();
         });
+
 
 
     </script>
