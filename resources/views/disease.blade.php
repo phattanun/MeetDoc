@@ -218,9 +218,9 @@
     </div>
 
     <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
-        <form id="drug-edit-form" role="form" action="{{ url('/disease/edit') }}" method="post">
+        <form id="disease-edit-form" role="form" action="{{ url('/disease/edit') }}" method="post">
             {{ csrf_field() }}
-            <input type="hidden" name="medicine_id" id="edit_medicine_id" />
+            <input type="hidden" name="id" id="edit_disease_id" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">แก้ไขข้อมูลยา <span id="edit-title"></span></h4>
@@ -274,9 +274,9 @@
 
 
     <div id="addModal" class="modal fade" tabindex="-1" data-width="760">
-        <form id="drug-add-form" role="form" action="{{ url('/medicine/create') }}" method="post" novalidate="novalidate">
+        <form id="disease-add-form" role="form" action="{{ url('/disease/create') }}" method="post" novalidate="novalidate">
             {{ csrf_field() }}
-            <input type="hidden" name="medicine_id" id="add_medicine_id" />
+            <input type="hidden" name="id" id="add_disease_id" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">เพิ่มข้อมูลยา</h4>
@@ -284,60 +284,40 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ชื่อตัวยา</label>
+                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค ICD10</label>
                         <div class="col-md-10 margin-bottom-15">
-                            <input class="form-control"  value="" id="add_medicine_name"  type="text" name="medicine_name" required aria-required="true">
+                            <input class="form-control"  value="" id="add_icd10"  type="text" name="icd10" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ชื่อทางการค้า</label>
+                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค SNOMED</label>
                         <div class="col-md-10">
-                            <input class="form-control" value="" id="add_business_name"  type="text" name="business_name" required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row margin-top-15 margin-bottom-10">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ประเภท</label>
-                        <div class="col-md-10" id="add-type-selection">
-                            <select id="add-type" class="form-control select2-multiple" multiple name="type[]" required aria-required="true">
-                                @include('drug-type')
-                            </select>
+                            <input class="form-control" value="" id="add_snomed"  type="text" name="snomed" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">คำอธิบาย</label>
+                        <label class="col-md-2 control-label" for="form_control_1">รหัสโรค DRG</label>
                         <div class="col-md-10 margin-bottom-15">
-                            <input class="form-control" value="" id="add_description"  type="text" name="description" required aria-required="true">
+                            <input class="form-control" value="" id="add_drg"  type="text" name="drg" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">วิธีใช้</label>
+                        <label class="col-md-2 control-label" for="form_control_1">ชื่อโรค</label>
                         <div class="col-md-10 margin-bottom-15">
-                            <input class="form-control" value="" id="add_instruction"  type="text" name="instruction" required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>            <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="form_control_1">ผู้ผลิต</label>
-                        <div class="col-md-10">
-                            <input class="form-control" value="" id="add_manufacturer"  type="text" name="manufacturer" required aria-required="true">
+                            <input class="form-control" value="" id="add_name"  type="text" name="name" required aria-required="true">
                             <div class="form-control-focus"> </div>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" id="add-submit-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
@@ -347,12 +327,10 @@
             </div>
         </form>
     </div>
-
-
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="320">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบข้อมูลยา <span id="delete-drug-title"></span></h4>
+            <h4 class="modal-title">ลบข้อมูลยา <span id="delete-disease-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
@@ -361,7 +339,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" id="confirm-delete-drug-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+            <button type="button" id="confirm-delete-disease-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                 <span class="ladda-label">ยืนยัน</span>
                 <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
@@ -390,7 +368,7 @@
     <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/drug-form-validation.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/disease-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             var keyword=null;
@@ -409,9 +387,6 @@
                     i++;
                 });
             }
-            $('tbody tr').click(function () {
-                $('#appDetailModal').modal()
-            });
             $(document).on('click','.view-drug-button', function(){
                 var id = $(this).attr('identity');
                 var URL_ROOT = '{{Request::root()}}';
@@ -448,11 +423,11 @@
 
                 }).fail(function () {
                 });
-                $('#drug-edit-form').validate().resetForm();
+                $('#disease-edit-form').validate().resetForm();
                 $('#editModal').modal();
             });
             $(document).on('click','#edit-submit-btn', function(e) {
-                if($('#drug-edit-form').valid()) {
+                if($('#disease-edit-form').valid()) {
                     e.preventDefault();
                     var l = Ladda.create(this);
                     l.start();
@@ -477,16 +452,16 @@
                         success: showSuccess,
                         error: showError
                     };
-                    $('#drug-edit-form').ajaxSubmit(options);
+                    $('#disease-edit-form').ajaxSubmit(options);
                     return false;
                 }
             });
             $('#add-drug-btn').click(function () {
-                $('#drug-add-form').validate().resetForm();
+                $('#disease-add-form').validate().resetForm();
                 $('#addModal').modal();
             });
             $(document).on('click','#add-submit-btn', function(e) {
-                if($('#drug-add-form').valid()){
+                if($('#disease-add-form').valid()){
                     e.preventDefault();
                     var l = Ladda.create(this);
                     l.start();
@@ -512,7 +487,7 @@
                         error: showError,
                         clearForm: true
                     };
-                    $('#drug-add-form').ajaxSubmit(options);
+                    $('#disease-add-form').ajaxSubmit(options);
                     return false;
                 }
             });
@@ -522,13 +497,13 @@
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/medicine/detail',
                         {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
-                    $('#delete-drug-title').text(input['medicine_name']);
-                    $('#confirm-delete-drug-btn').attr('identity',id);
+                    $('#delete-disease-title').text(input['medicine_name']);
+                    $('#confirm-delete-disease-btn').attr('identity',id);
                 }).fail(function () {
                 });
                 $('#removeModal').modal();
             });
-            $(document).on('click','#confirm-delete-drug-btn', function (e) {
+            $(document).on('click','#confirm-delete-disease-btn', function (e) {
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();

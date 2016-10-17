@@ -443,9 +443,6 @@
                     i++;
                 });
             }
-            $('tbody tr').click(function () {
-                $('#appDetailModal').modal()
-            });
             $(document).on('click','.view-drug-button', function(){
                 var id = $(this).attr('identity');
                 var URL_ROOT = '{{Request::root()}}';

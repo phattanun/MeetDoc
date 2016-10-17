@@ -5,7 +5,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation:
             // http://docs.jquery.com/Plugins/Validation
 
-            var form1 = $('#drug-add-form');
+            var form1 = $('#disease-add-form');
             var error1 = $('.alert-danger', form1);
             var success1 = $('.alert-success', form1);
 
@@ -105,7 +105,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation:
             // http://docs.jquery.com/Plugins/Validation
 
-            var form1 = $('#drug-edit-form');
+            var form1 = $('#disease-edit-form');
             var error1 = $('.alert-danger', form1);
             var success1 = $('.alert-success', form1);
 
@@ -204,7 +204,7 @@ var FormValidation = function () {
         // for more info visit the official plugin documentation:
             // http://docs.jquery.com/Plugins/Validation
 
-            var form1 = $('#drug-search-form');
+            var form1 = $('#disease-search-form');
             var error1 = $('.alert-danger', form1);
             var success1 = $('.alert-success', form1);
 
