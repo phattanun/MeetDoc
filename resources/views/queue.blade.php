@@ -449,7 +449,7 @@
                             <!-- BEGIN WAIT MEDICINE TAB -->
                             <div class="tab-pane" id="tab_modal_3">
                                 <!-- BEGIN PHYSICAL DATA FORM -->
-                                <div class="normal-content">
+                                <div id="modal_tab3_physical_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
@@ -528,7 +528,7 @@
                                 </div>
                                 <!-- END PHYSICAL DATA FORM -->
                                 <!-- BEGIN DIAGNOSIS FORM -->
-                                <div class="normal-content">
+                                <div id="modal_tab3_diagnosis_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
@@ -567,7 +567,7 @@
                                 </div>
                                 <!-- END DIAGNOSIS FORM -->
                                 <!-- BEGIN MEDICINE FORM -->
-                                <div class="normal-content">
+                                <div id="modal_tab3_medicine_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="portlet light ">
@@ -917,6 +917,13 @@
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('diagnosisId');
             alert(id);
+            {{--var URL_ROOT = '{{Request::root()}}';--}}
+            {{--$.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',--}}
+                    {{--{patient_id:  1, _token: '{{csrf_token()}}'}).done(function (input) {--}}
+                {{--console.log(input);--}}
+            {{--}).fail(function () {--}}
+            {{--});--}}
+
             $('#modal-history-table_wrapper').remove();
             var modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
                     '<thead>'+
@@ -951,6 +958,16 @@
             var id = $(this).attr('diagnosisId');
             var step = $(this).attr('step');
             alert(id+" "+step);
+            if(step == 1){
+                $('#modal_tab3_physical_form').show();
+                $('#modal_tab3_diagnosis_form').hide();
+                $('#modal_tab3_medicine_form').hide();
+            }
+            else{
+                $('#modal_tab3_physical_form').show();
+                $('#modal_tab3_diagnosis_form').show();
+                $('#modal_tab3_medicine_form').show();
+            }
             $('#tab_modal_3_button').click();
         });
 
