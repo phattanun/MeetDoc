@@ -33,7 +33,7 @@ class DiagnosisController extends Controller
 
         $prescription_list = [];
         foreach ($medicine_list as $medicine) {
-            array_push($prescription_list, ['appointment_id' => $appointment['id'], 'medicine_id' => $medicine['id'], 'amount' => $medicine['amount'], 'unit'=>$medicine['unit'],'note'=>$medicine['note']]);
+            array_push($prescription_list, ['appointment_id' => $appointment['id'], 'medicine_id' => $medicine['id'], 'amount' => $medicine['amount'], 'unit' => $medicine['unit'], 'note' => $medicine['note']]);
         }
         DB::table('prescription')->insert($prescription_list);
 
