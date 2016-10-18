@@ -37,17 +37,6 @@ class DiagnosisController extends Controller
         }
         DB::table('prescription')->insert($prescription_list);
 
-//        $drug_name_list = $request->drug_name_list;
-//        $drug_amount_list = $request->drug_amount_list;
-//        $drug_unit_list = $request->drug_unit_list;
-//        $drug_note_list = $request->drug_note_list;
-//
-//        for ($i = 0; $i < count($drug_name_list); $i++)
-//        {
-//            $drug_id = Drug::where('name',$drug_name_list[$i])->first();
-//            $appointment->drug()->attach($drug_id, ['amount'=>$drug_amount_list[$id], 'unit'=>$drug_unit_list[$id], 'note'=>$drug_note_list[$id]]);
-//        }
-
         $appointment->description = $request->diagnosis_description;
         $appointment->save();
 
@@ -55,21 +44,24 @@ class DiagnosisController extends Controller
 
     public function diagnosis_record_and_receive_medicine(Request $request)
     {
-        $appointment_list = Appointment::where('patient_id', $request->patient_id)->whereNotNull('checkin_time')->get();
+        $appointment_list = Appointment::where('patient_id', $request->patient_id)->whereNotNull('checkin_time')->where('queue_status', 'complete')->get();
 
         $diagnosis_info = [];
 
         foreach ($appointment_list as $appointment) {
-            $prescription = Prescription::where('appointment_id', $appointment['id'])->get();
-            $given_medicine = GivenMedicine::where('appointment_id', $appointment['id'])->get();
+
+            $prescription = $appointment->prescription()->withPivot('amount', 'unit', 'note')->get();
+            $given_medicine = $appointment->given_medicine()->withPivot('amount', 'unit', 'note')->get();
             $appointment['prescription'] = json_decode($prescription, true);
             $appointment['given_medicine'] = json_decode($given_medicine, true);
             $appointment['disease'] = $appointment->disease()->get();
-            $doctor = User::where('id', $appointment['doctor_id'])->first();
-            $appointment['doctor'] = $doctor;
+            $appointment['doctor'] = $appointment->doctor()->first();
+            $appointment['department'] = Department::where('id', $appointment['doctor']['dept_id'])->first()['name'];
+
             array_push($diagnosis_info, json_decode($appointment, true));
         }
 
+//        dd($diagnosis_info);
         return $diagnosis_info;
     }
 
@@ -153,7 +145,7 @@ class DiagnosisController extends Controller
         $end_time_afternoon = (new \DateTime())->setTime(15, 30);
         $now = new \DateTime('NOW');
 
-        $time = 'A';
+        $time = 'M';
         if ($start_time_morning <= $now && $now <= $end_time_morning)
             $time = 'M';
         else if ($start_time_afternoon <= $now && $now <= $end_time_afternoon)
@@ -168,7 +160,7 @@ class DiagnosisController extends Controller
 
         foreach ($appointment_list as $app) {
             $array_app = json_decode($app, true);
-            $patient_info = User::where('id', $app['patient_id'])->first();
+            $patient_info = $app->patient()->first();
             $birthday = date_create_from_format('d/m/Y', $patient_info['birthday']);
             $age = $now->diff($birthday);
             $patient_info['age'] = $age->y;
@@ -182,18 +174,21 @@ class DiagnosisController extends Controller
             else if ($app['queue_status'] == 'waiting_pharmacist')
                 array_push($appointment['waiting_pharmacist'], $array_app);
         }
-        return $appointment;
+
 //        dd($appointment);
+        return $appointment;
     }
 
     public function get_patient_profile(Request $request)
     {
         $user = User::where('id', $request->patient_id)->select('id', 'ssn', 'name', 'surname', 'birthday', 'phone_no')->first();
-        $allergic_medicine = Allergic::where('patient_id', $request->patient_id)->get();
+        $allergic_medicine = $user->allergic_medicine()->get();
 
         $user_profile['info'] = $user->toArray();
         $user_profile['allergic_medicine'] = $allergic_medicine->toArray();
-        dd($user_profile);
+
+//        dd($user_profile);
+        return $user_profile;
     }
 
     public function get_appointment_list(Request $request)
@@ -201,7 +196,9 @@ class DiagnosisController extends Controller
         $now = new \DateTime('NOW');
         $appointment_list = Appointment::where('patient_id', $request->patient_id)->where('date', '<', $now->format('Y-m-d'))
             ->whereNotNull('checkin_time')->get();
-        dd($appointment_list->toArray());
+
+//        dd($appointment_list);
+        return $appointment_list;
     }
 
     public function add_allergic_medicine(Request $request)

@@ -27,4 +27,9 @@ class User extends Model implements AuthenticatableContract
     {
         return 'remember_token';
     }
+
+    public function allergic_medicine()
+    {
+        return $this->belongsToMany('App\Medicine', 'allergic', 'patient_id', 'medicine_id');
+    }
 }
