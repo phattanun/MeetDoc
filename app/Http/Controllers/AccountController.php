@@ -217,7 +217,6 @@ class AccountController extends Controller
             // Debug
             // echo "Editing request.";
             // var_dump($request->all());
-
             $user = User::findOrFail($request->id);
             $edited = array_filter($request->all());
             $editable_field = ['name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
@@ -231,9 +230,8 @@ class AccountController extends Controller
                 $user[$key] = $value;
             $user->save();
 
-            // Debug
-            // echo "Edited Profile.";
-            // var_dump($user['attributes']);
+            if(!DiagnosisController::edit_allergic_medicine($request))
+                return false;
         }
         catch (\Exception $e) {
             // echo "<h2>Error: ".$e->getMessage()."</h2>";

@@ -85,6 +85,8 @@ class PagesController extends Controller
 
     public function viewProfile() {
         $user = Auth::user();
+        $allergic_medicine = DiagnosisController::get_allergic_medicine($user);
+        $medicine_list = MedicineController::get_medicine_list();
         return view('profile')->with([
             'hid' => $user->id,
             'ssn' => $user->ssn,
@@ -95,7 +97,8 @@ class PagesController extends Controller
             'address' => $user->address,
             'email' => $user->email,
             'phone_no' => $user->phone_no,
-            'drugAllergy' => [],
+            'allergic_medicine' => $allergic_medicine,
+            'medicine_list'=> $medicine_list
         ]);
     }
 

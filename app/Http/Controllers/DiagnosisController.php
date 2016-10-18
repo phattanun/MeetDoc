@@ -201,22 +201,31 @@ class DiagnosisController extends Controller
         return $appointment_list;
     }
 
-    public function add_allergic_medicine(Request $request)
+    public static function get_allergic_medicine($user)
     {
-        try {
-            $allergic = new Allergic();
-            $allergic->patient_id = $request->patient_id;
-            $allergic->medicine_id = $request->medicine_id;
-            $allergic->save();
-        } catch (Exception $e) {
-            echo '<H2>Error</H2>';
+        $allergic_medicine_list = $user->allergic_medicine()->get();
+        $allergic_medicine_name_list = [];
+        foreach ($allergic_medicine_list as $allergic_medicine) {
+            array_push($allergic_medicine_name_list, $allergic_medicine['medicine_name']);
         }
+        return $allergic_medicine_name_list;
     }
 
-    public function delete_allergic_medicine(Request $request)
+    public static function edit_allergic_medicine(Request $request)
     {
-        $allergic = Allergic::where('patient_id', $request->patient_id)->where('medicine_id', $request->medicine_id);
-        if ($allergic->exists())
-            $allergic->delete();
+        Allergic::where('patient_id', $request->id)->delete();
+        $allergic_medicine = [];
+        if (!is_null($request->drugAllergy)) {
+            foreach ($request->drugAllergy as $drug) {
+                array_push($allergic_medicine, ['patient_id' => $request->id, 'medicine_id' => $drug]);
+            }
+            try {
+                DB::table('allergic')->insert($allergic_medicine);
+            } catch (\Exception $e) {
+                return false;
+            }
+        }
+        return true;
     }
+
 }

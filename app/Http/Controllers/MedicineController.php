@@ -56,7 +56,7 @@ class MedicineController extends Controller
 
     public static function get_medicine_list()
     {
-        $all_medicine = Medicine::select('medicine_id', 'medicine_name', 'business_name')->get();
+        $all_medicine = Medicine::all();
         return $all_medicine;
     }
 
@@ -78,4 +78,6 @@ class MedicineController extends Controller
         $medicine = Medicine::findOrFail($request->medicine_id);
         return $medicine;
     }
+
+
 }
