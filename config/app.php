@@ -14,6 +14,19 @@ return [
     ],
 
     /*
+     * Open and close time Environment
+     */
+
+    'open_hour_morning' => env('OPEN_HOUR_MORNING', 9),
+    'open_minute_morning' => env('OPEN_MINUTE_MORNING', 0),
+    'close_hour_morning' => env('CLOSE_HOUR_MORNING', 11),
+    'close_minute_morning' => env('CLOSE_MINUTE_MORNING', 30),
+    'open_hour_afternoon' => env('OPEN_HOUR_AFTERNOON', 13),
+    'open_minute_afternoon' => env('OPEN_MINUTE_AFTERNOON', 0),
+    'close_hour_afternoon' => env('CLOSE_HOUR_AFTERNOON', 15),
+    'close_minute_afternoon' => env('CLOSE_MINUTE_AFTERNOON', 30),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------

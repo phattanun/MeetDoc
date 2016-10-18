@@ -112,10 +112,10 @@ class DiagnosisController extends Controller
     public function patient_checkin_by_staff(Request $request)
     {
         $appointment = Appointment::findOrFail($request->appointment_id);
-        $start_time_morning = (new \DateTime())->setTime(9, 0);
-        $end_time_morning = (new \DateTime())->setTime(11, 30);
-        $start_time_afternoon = (new \DateTime())->setTime(13, 0);
-        $end_time_afternoon = (new \DateTime())->setTime(15, 30);
+        $start_time_morning = (new \DateTime())->setTime(\Config::get('app.open_hour_morning'), \Config::get('app.open_minute_morning'));
+        $end_time_morning = (new \DateTime())->setTime(\Config::get('app.close_hour_morning'), \Config::get('app.close_minute_morning'));
+        $start_time_afternoon = (new \DateTime())->setTime(\Config::get('app.open_hour_afternoon'), \Config::get('app.open_minute_afternoon'));
+        $end_time_afternoon = (new \DateTime())->setTime(\Config::get('app.close_hour_afternoon'), \Config::get('app.close_minute_afternoon'));
         $now = new \DateTime('NOW');
         $intime = true;
 
@@ -139,13 +139,13 @@ class DiagnosisController extends Controller
 
     public static function get_queue()
     {
-        $start_time_morning = (new \DateTime())->setTime(9, 0);
-        $end_time_morning = (new \DateTime())->setTime(11, 30);
-        $start_time_afternoon = (new \DateTime())->setTime(13, 0);
-        $end_time_afternoon = (new \DateTime())->setTime(15, 30);
+        $start_time_morning = (new \DateTime())->setTime(\Config::get('app.open_hour_morning'), \Config::get('app.open_minute_morning'));
+        $end_time_morning = (new \DateTime())->setTime(\Config::get('app.close_hour_morning'), \Config::get('app.close_minute_morning'));
+        $start_time_afternoon = (new \DateTime())->setTime(\Config::get('app.open_hour_afternoon'), \Config::get('app.open_minute_afternoon'));
+        $end_time_afternoon = (new \DateTime())->setTime(\Config::get('app.close_hour_afternoon'), \Config::get('app.close_minute_afternoon'));
         $now = new \DateTime('NOW');
 
-        $time = 'M';
+        $time = '';
         if ($start_time_morning <= $now && $now <= $end_time_morning)
             $time = 'M';
         else if ($start_time_afternoon <= $now && $now <= $end_time_afternoon)
