@@ -21,6 +21,7 @@
     <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -63,7 +64,7 @@
                                                 <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd-mm-yyyy">
+                                                    <input class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                                 </div>
                                             </div>
                                         </div>
@@ -283,7 +284,7 @@
     <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
@@ -298,12 +299,7 @@
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
-            jQuery().datepicker && $(".date-picker").datepicker({
-                rtl: App.isRTL(),
-                orientation: "left",
-                autoclose: !0
-            }).datepicker('setDate', new Date());
-
+            jQuery().datepicker && $(".date-picker").datepicker().datepicker('setDate', new Date());
             $('#more-result').click(function () {
                 $('.more-result').show();
                 $(this).hide()
