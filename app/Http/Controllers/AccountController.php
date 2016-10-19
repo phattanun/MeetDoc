@@ -177,7 +177,7 @@ class AccountController extends Controller
             <td> ?1 </td>
             <td> ?2 </td>
             <td> ?3 </td>
-            <td> <select class="form-control select2-dept" id="?0" >'
+            <td> <select class="form-control select2-dept" id="?0"  data-live-search="true">'
                 .$tempDept.
                 '</select>
                 </td>
@@ -238,6 +238,10 @@ class AccountController extends Controller
             return false;
         }
         return $user;
+    }
+
+    public static function getDoctorByDepartment(Request $request) {
+        return User::select(['id','name','surname'])->where(['dept_id'=>$request->dept_id,'staff'=>1, 'p_doctor'=>1])->get();
     }
 
 }

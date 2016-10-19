@@ -44,6 +44,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/appointment/history', 'PagesController@appointmentHistoryPage');
     Route::get('/appointment/future', 'PagesController@appointmentFuturePage');
 
+    // Admin
+    Route::post('/department/doctor/get', 'AccountController@getDoctorByDepartment');
+
     //Staff
     Route::get('/patient/come', 'PagesController@patientCome');
 

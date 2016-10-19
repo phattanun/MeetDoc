@@ -160,7 +160,7 @@ class PagesController extends Controller
     //Patient
     public function newAppointmentPage()
     {
-        return view('appointment-new');
+        return view('appointment-new')->with('departments', DepartmentController::getAllDepartment());
     }
     public function appointmentHistoryPage()
     {

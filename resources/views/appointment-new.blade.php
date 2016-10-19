@@ -46,12 +46,11 @@
                                                 <label class="control-label col-md-2 text-right">แผนก
                                                     <span class="required" aria-required="true"> * </span></label>
                                                 <div class="col-md-10">
-                                                    <select class="bs-select form-control" data-live-search="true" data-size="8">
-                                                        <option value="AF">Afghanistan</option>
-                                                        <option value="AL">Albania</option>
-                                                        <option value="DZ">Algeria</option>
-                                                        <option value="AS">American Samoa</option>
-                                                        <option value="AD">Andorra</option>
+                                                    <select id="select-department" class="bs-select form-control" data-live-search="true" data-size="8">
+                                                        <option>กรุณาเลือกแผนก</option>
+                                                        @foreach($departments as $department)
+                                                            <option value="{{$department['id']}}">{{$department['name']}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -76,12 +75,8 @@
                                             <div class="row">
                                                 <label class="control-label col-md-2 text-right">แพทย์</label>
                                                 <div class="col-md-10">
-                                                    <select class="bs-select form-control" data-live-search="true" data-size="8">
-                                                        <option value="AF">Afghanistan</option>
-                                                        <option value="AL">Albania</option>
-                                                        <option value="DZ">Algeria</option>
-                                                        <option value="AS">American Samoa</option>
-                                                        <option value="AD">Andorra</option>
+                                                    <select id="select-doctor" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
+                                                        <option>กรุณาเลือกแพทย์</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -94,11 +89,11 @@
                                                 <div class="col-md-10">
                                                     <div class="mt-checkbox-inline">
                                                         <label class="mt-checkbox">
-                                                            <input id="inlineCheckbox21" value="option1" type="checkbox"> เช้า
+                                                            <input id="inlineCheckbox21" value="option1" type="checkbox" checked> เช้า
                                                             <span></span>
                                                         </label>
                                                         <label class="mt-checkbox">
-                                                            <input id="inlineCheckbox22" value="option2" type="checkbox"> บ่าย
+                                                            <input id="inlineCheckbox22" value="option2" type="checkbox" checked> บ่าย
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -299,10 +294,29 @@
     <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
-            jQuery().datepicker && $(".date-picker").datepicker().datepicker('setDate', new Date());
+            jQuery().datepicker && $(".date-picker").datepicker({
+                todayHighlight: true
+            }).datepicker('setDate', new Date());
+
             $('#more-result').click(function () {
                 $('.more-result').show();
                 $(this).hide()
+            });
+
+            $('#select-department').on('change', function () {
+                $.post('{{url('/department/doctor/get')}}',
+                        {dept_id:  this.value, _token: '{{csrf_token()}}'}).done(function (input) {
+                        $('#select-doctor').empty();
+                        $('#select-doctor').removeAttr('disabled');
+                        $('#select-doctor').append('<option value="0">กรุณาเลือกแพทย์</option>');
+                        for(var i=0;i<input.length;i++){
+                            $('#select-doctor').append(
+                              '<option>'+input[i]['name']+' '+input[i]['surname']+'</option>'
+                            );
+                        }
+                        $('#select-doctor').selectpicker('refresh');
+                }).fail(function () {
+                });
             });
         });
     </script>
