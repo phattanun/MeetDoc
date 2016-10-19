@@ -59,11 +59,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="row">
-                                            <label class="control-label col-md-2 text-right">วันที่
-                                                <span class="required" aria-required="true"> * </span>
-                                                </label>
+                                                <label class="control-label col-md-2 text-right">แพทย์</label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <select id="select-doctor" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
+                                                        <option>กรุณาเลือกแพทย์ หรือให้ระบบเลือกแพทย์อัตโนมัติ</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,11 +73,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="row">
-                                                <label class="control-label col-md-2 text-right">แพทย์</label>
+                                                <label class="control-label col-md-2 text-right">วันที่
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
                                                 <div class="col-md-10">
-                                                    <select id="select-doctor" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
-                                                        <option>กรุณาเลือกแพทย์</option>
-                                                    </select>
+                                                    <input class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                                 </div>
                                             </div>
                                         </div>
@@ -119,10 +119,9 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-actions right1">
-                                            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                                            <button id="search-btn" type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                                                 <span class="ladda-label">ค้นหา</span>
                                                 <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
-                                            <button type="button" class="btn default">ยกเลิก</button>
                                         </div>
                                     </div>
                                 </div>
@@ -308,7 +307,7 @@
                         {dept_id:  this.value, _token: '{{csrf_token()}}'}).done(function (input) {
                         $('#select-doctor').empty();
                         $('#select-doctor').removeAttr('disabled');
-                        $('#select-doctor').append('<option value="0">กรุณาเลือกแพทย์</option>');
+                        $('#select-doctor').append('<option value="0">เลือกแพทย์อัตโนมัติ</option>');
                         for(var i=0;i<input.length;i++){
                             $('#select-doctor').append(
                               '<option>'+input[i]['name']+' '+input[i]['surname']+'</option>'
