@@ -298,9 +298,13 @@ class ScheduleController extends Controller
     //        Query Function
     // ############################
 
-    public static function getSchedule(Request $request) {
-        $schedule = Schedule::where('doctor_id', $request->doctor_id)->where('date','>=',$request->from)->where('date','<=',$request->to)->get()->toArray();
-        $schedule = self::sortArrayByDateTimeAttr($schedule);
-        self::printCalendarTable($schedule);
+    public static function searchSchedule(Request $request) {
+        if($request->doctor_id=="0"){
+            $schedule = Schedule::where('date','>=',$request->from)->get()->toArray();
+            return self::sortArrayByDateTimeAttr($schedule);
+        }
+        $schedule = Schedule::where('doctor_id', $request->doctor_id)->where('date','>=',$request->from)->get()->toArray();
+        return self::sortArrayByDateTimeAttr($schedule);
+
     }
 }
