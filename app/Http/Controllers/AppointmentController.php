@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\App;
 
 class AppointmentController extends Controller
 {
-    private function printTable($array) {
+    private static function printTable($array) {
         if(sizeof($array) == 0) {
             echo "<h4>Empty Table</h4>";
             return;
@@ -30,13 +30,71 @@ class AppointmentController extends Controller
         echo "</table><br>";
     }
 
-    public function getAppointmentList() {
+
+    public static function recentAppointmentTable($array) {
+        $template = '<tr>
+            <td> ?0 </td>
+            <td> ?1 </td>
+            <td> ?2 </td>
+            <td> ?3 </td>
+            <td> <select id="multiple" class="form-control select2" ></option>
+                        <option selected>แผนกอายุรกรรม</option>
+                        <option>ศัลยกรรม</option>
+                        <option>สูติ</option>
+                        <option>จักษุ</option>
+                        <option>โรคผิวหนัง</option>
+                        <option>อวัยวะปัสสาวะ</option>
+                        <option>หัวใจ</option>
+                        <option>หู คอ จมูก</option>
+                        <option>รังสี</option>
+                        <option>รักษาโรคในช่องปากและฟัน</option>
+                    </select>
+                </td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?4></td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
+            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
+            <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+        </tr>';
+
+        $re = "";
+        $search = array();
+        for ($i=0; $i < 10; $i++)
+            array_push($search, "?".$i);
+        foreach ($array as $record) {
+            $replace = array();
+            foreach ($record as $key => $value) {
+                switch($key) {
+                    case 'p_patient':
+                    case 'p_doctor':
+                    case 'p_nurse':
+                    case 'p_pharm':
+                    case 'p_officer':
+                        $value = ($value ? 'checked' : '');
+                        break;
+                }
+                array_push($replace, $value);
+            }
+            $re .= strtr($template,array_combine($search,$replace));
+        }
+        return $re;
+    }
+
+    public static function getRecentAppointments($select=null, $filter=null) {
+        $apps = isset($select) ? Appointment::select($select) : Appointment::select();
+        if(isset($filter))
+            $apps = $apps->where($filter);
+        return
+    }
+
+    public static function getAppointmentList() {
         $apps = Appointment::all()->toArray();
-        $this->printTable($apps);
+        self::printTable($apps);
     }
 
 
-    public function create(Request $request)
+    public static function create(Request $request)
     {
         var_dump($request->all());
         try {
@@ -61,35 +119,35 @@ class AppointmentController extends Controller
         } catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getAppointmentList();
+        self::getAppointmentList();
     }
 
-    private function generateCancelLink($doctor_id, $patient_id, $time) {
+    private static function generateCancelLink($doctor_id, $patient_id, $time) {
         return hash('ripemd256', "CanCel".$doctor_id.$time.$patient_id."aPProVed");
     }
 
-    public function cancel(Request $request) {
+    public static function cancel(Request $request) {
         date_default_timezone_set('Asia/Bangkok');
         $now = date('Y-m-d H:i:s');
         try {
             $ap = Appointment::findOrFail($request->id);
             $ap->cancel_time = $now;
             $ap->save();
-            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".$this->generateCancelLink($ap->doctor_id, $ap->patient_id, $now)."'>here</a>";
+            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)."'>here</a>";
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getAppointmentList();
+        self::getAppointmentList();
     }
 
-    public function cancelApprove(Request $request) {
+    public static function cancelApprove(Request $request) {
         date_default_timezone_set('Asia/Bangkok');
         $now = new \DateTime('NOW');
         var_dump($request->all());
         try {
             $ap = Appointment::findOrFail($request->aid);
-            if($request->apv == $this->generateCancelLink($ap->doctor_id, $ap->patient_id, $ap->cancel_time)) {
+            if($request->apv == self::generateCancelLink($ap->doctor_id, $ap->patient_id, $ap->cancel_time)) {
                 $cancel_time = new \DateTime($ap->cancel_time);
                 if(($now->getTimeStamp() - $cancel_time->getTimeStamp())/3600 < 24)
                     $ap->delete();
@@ -100,10 +158,10 @@ class AppointmentController extends Controller
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        $this->getAppointmentList();
+        self::getAppointmentList();
     }
 
-    public function edit(Request $request) {
+    public static function edit(Request $request) {
         try {
             // Debug
             echo "Editing request.";
