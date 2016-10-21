@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/officer/manage/removeStaff', 'PagesController@removeStaff');
     Route::post('/officer/manage/changePermission', 'PagesController@changePermission');
     Route::post('/officer/manage/changeDepartment', 'SystemController@changeDepartment');
+    Route::get('/doctor/appointment', 'PagesController@viewRecentAppointment');
 
     // Appointment
     Route::get('/appointment/new', 'PagesController@newAppointmentPage');
@@ -87,7 +88,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 
     //Krit
-    Route::get('/doctor/appointment', 'ProfileController@test3');
+    // Route::get('/doctor/appointment', 'ProfileController@test3');
 
     //Auth
     // Route::auth();

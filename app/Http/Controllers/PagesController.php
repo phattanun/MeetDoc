@@ -134,6 +134,11 @@ class PagesController extends Controller
 
     }
 
+    public function viewRecentAppointment() {
+        $res = AppointmentController::getRecentAppointments(['doctor_id' => Auth::user()->id]);
+        return view('doctorNearAppointment')->with('recent_appointment', $res);
+    }
+
     public function viewOfficerManage() {
         $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);

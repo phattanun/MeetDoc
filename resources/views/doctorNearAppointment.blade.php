@@ -54,68 +54,7 @@
                                 <th> อาการ </th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr class="odd gradeX">
-                                <td>07/10/2559</td>
-                                <td>เช้า</td>
-                                <td>แผนกหู คอ จมูก</td>
-                                <td>นายกิตติภณ</td>
-                                <td>พละการ</td>
-                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                <td>21</td>
-                                <td>สบายดีมากๆ</td>
-                            </tr>
-                            <tr class="odd gradeX">
-                                <td>07/10/2559</td>
-                                <td>เช้า</td>
-                                <td>แผนกหู คอ จมูก</td>
-                                <td>นายกิตติภพ</td>
-                                <td>พละการ</td>
-                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                <td>21</td>
-                                <td>สบายดีมากๆ</td>
-                            </tr>
-                            <tr class="odd gradeX">
-                                <td>07/10/2559</td>
-                                <td>เช้า</td>
-                                <td>แผนกหู คอ จมูก</td>
-                                <td>ก</td>
-                                <td>ก</td>
-                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                <td>21</td>
-                                <td>สบายดีมากๆ</td>
-                            </tr>
-                            <tr class="odd gradeX">
-                                <td>07/10/2559</td>
-                                <td>เช้า</td>
-                                <td>แผนกหู คอ จมูก</td>
-                                <td>ข</td>
-                                <td>ข</td>
-                                <td><i class="fa fa-female" aria-hidden="true"></i> หญิง</td>
-                                <td>21</td>
-                                <td>สบายดีมากๆ</td>
-                            </tr>
-                            <tr class="odd gradeX">
-                                <td>07/10/2559</td>
-                                <td>เช้า</td>
-                                <td>แผนกหู คอ จมูก</td>
-                                <td>ค</td>
-                                <td>ค</td>
-                                <td><i class="fa fa-female" aria-hidden="true"></i> หญิง</td>
-                                <td>21</td>
-                                <td>สบายดีมากๆ</td>
-                            </tr>
-                            <tr class="odd gradeX">
-                                <td>07/10/2559</td>
-                                <td>เช้า</td>
-                                <td>แผนกหู คอ จมูก</td>
-                                <td>ง</td>
-                                <td>ง</td>
-                                <td> <i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                <td>21</td>
-                                <td>สบายดีมากๆ</td>
-                            </tr>
-                            </tbody>
+                            <tbody><?php echo $recent_appointment; ?></tbody>
                         </table>
                         <!-- END TABLE -->
                     </div>
@@ -140,4 +79,3 @@
         });
     </script>
 @endsection
-

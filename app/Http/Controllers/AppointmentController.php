@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+use DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 
@@ -32,46 +32,34 @@ class AppointmentController extends Controller
 
 
     public static function recentAppointmentTable($array) {
-        $template = '<tr>
+        $template = '<tr class="odd gradeX">
             <td> ?0 </td>
             <td> ?1 </td>
             <td> ?2 </td>
             <td> ?3 </td>
-            <td> <select id="multiple" class="form-control select2" ></option>
-                        <option selected>แผนกอายุรกรรม</option>
-                        <option>ศัลยกรรม</option>
-                        <option>สูติ</option>
-                        <option>จักษุ</option>
-                        <option>โรคผิวหนัง</option>
-                        <option>อวัยวะปัสสาวะ</option>
-                        <option>หัวใจ</option>
-                        <option>หู คอ จมูก</option>
-                        <option>รังสี</option>
-                        <option>รักษาโรคในช่องปากและฟัน</option>
-                    </select>
-                </td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?4></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
-            <td><input type="checkbox" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
-            <td><button id="cancel-app" type="button" class="btn red" data-toggle="modal" data-target="#removeModal">ลบ</button></td>
+            <td> ?4 </td>
+            <td><i class="fa fa-?5" aria-hidden="true"></i> ?6 </td>
+            <td> ?7 </td>
+            <td> ?8 </td>
         </tr>';
 
         $re = "";
         $search = array();
-        for ($i=0; $i < 10; $i++)
+        for ($i=0; $i < 9; $i++)
             array_push($search, "?".$i);
         foreach ($array as $record) {
             $replace = array();
             foreach ($record as $key => $value) {
-                switch($key) {
-                    case 'p_patient':
-                    case 'p_doctor':
-                    case 'p_nurse':
-                    case 'p_pharm':
-                    case 'p_officer':
-                        $value = ($value ? 'checked' : '');
+                switch ($key) {
+                    case 'time':
+                        $value = ($value == 'M') ? 'เช้า' : 'บ่าย';
+                        break;
+                    case 'gender':
+                        array_push($replace, ($value == 'm') ? 'male' : 'female');
+                        $value = ($value == 'm') ? 'ชาย' : 'หญิง';
+                        break;
+                    case 'birthday':
+                        $value = (new \DateTime('NOW'))->diff(new \DateTime($value))->format('%Y');
                         break;
                 }
                 array_push($replace, $value);
@@ -81,11 +69,17 @@ class AppointmentController extends Controller
         return $re;
     }
 
-    public static function getRecentAppointments($select=null, $filter=null) {
-        $apps = isset($select) ? Appointment::select($select) : Appointment::select();
+    public static function getRecentAppointments($filter=null) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d');
+        $apps = DB::table('appointment')
+                    ->join('user','user.id','=','appointment.patient_id')
+                    ->join('dept','dept.id','=','appointment.dept_id')
+                    ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom');
         if(isset($filter))
             $apps = $apps->where($filter);
-        return '';
+        $apps = $apps->where('date','>=',$now)->orderBy('date','ASC')->get();
+        return self::recentAppointmentTable($apps);
     }
 
     public static function getAppointmentList() {
