@@ -39,10 +39,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/officer/manage/changePermission', 'PagesController@changePermission');
     Route::post('/officer/manage/changeDepartment', 'SystemController@changeDepartment');
 
-    // Patient
+    // Appointment
     Route::get('/appointment/new', 'PagesController@newAppointmentPage');
     Route::get('/appointment/history', 'PagesController@appointmentHistoryPage');
     Route::get('/appointment/future', 'PagesController@appointmentFuturePage');
+    Route::post('/schedule/search', 'ScheduleController@searchSchedule');
 
     // Admin
     Route::post('/department/doctor/get', 'AccountController@getDoctorByDepartment');

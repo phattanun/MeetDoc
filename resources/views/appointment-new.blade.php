@@ -39,6 +39,8 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
+                                <form id="search-form" role="form" action="{{ url('/schedule/search') }}" method="post" novalidate="novalidate">
+                                    {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -46,8 +48,8 @@
                                                 <label class="control-label col-md-2 text-right">แผนก
                                                     <span class="required" aria-required="true"> * </span></label>
                                                 <div class="col-md-10">
-                                                    <select id="select-department" class="bs-select form-control" data-live-search="true" data-size="8">
-                                                        <option>กรุณาเลือกแผนก</option>
+                                                    <select id="select-department" name="dept_id" class="bs-select form-control" data-live-search="true" data-size="8" required aria-required="true">
+                                                        <option value="">กรุณาเลือกแผนก</option>
                                                         @foreach($departments as $department)
                                                             <option value="{{$department['id']}}">{{$department['name']}}</option>
                                                         @endforeach
@@ -61,7 +63,7 @@
                                             <div class="row">
                                                 <label class="control-label col-md-2 text-right">แพทย์</label>
                                                 <div class="col-md-10">
-                                                    <select id="select-doctor" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
+                                                    <select id="select-doctor" name="doctor_id" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
                                                         <option>กรุณาเลือกแพทย์ หรือให้ระบบเลือกแพทย์อัตโนมัติ</option>
                                                     </select>
                                                 </div>
@@ -77,7 +79,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-10">
-                                                    <input class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <input name="date" class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd/mm/yyyy" data-date-start-date="+0d" required aria-required="true">
                                                 </div>
                                             </div>
                                         </div>
@@ -85,15 +87,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <div class="row">
-                                            <label class="control-label col-md-2 text-right">ช่วงเวลา</label>
+                                            <label class="control-label col-md-2 text-right">ช่วงเวลา <span class="required" aria-required="true"> * </span></label>
                                                 <div class="col-md-10">
                                                     <div class="mt-checkbox-inline">
                                                         <label class="mt-checkbox">
-                                                            <input id="inlineCheckbox21" value="option1" type="checkbox" checked> เช้า
+                                                            <input class="checkboxValidate" name="isMorning" id="inlineCheckbox21" value="M" type="checkbox" checked> เช้า
                                                             <span></span>
                                                         </label>
                                                         <label class="mt-checkbox">
-                                                            <input id="inlineCheckbox22" value="option2" type="checkbox" checked> บ่าย
+                                                            <input class="checkboxValidate" name="isAfternoon" id="inlineCheckbox22" value="A" type="checkbox" checked> บ่าย
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -110,7 +112,7 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control" name="" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้"></textarea>
+                                                <textarea class="form-control" name="symptom" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้" required aria-required="true"></textarea>
                                             </div>
                                             </div>
                                         </div>
@@ -125,10 +127,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
             <!-- END PROFILE CONTENT -->
-                        <div class="portlet light ">
+                        <div id="search-result-porlet" class="portlet light hidden">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-globe theme-font hide"></i>
@@ -148,46 +151,7 @@
                                             <th></th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td> <button type="button" class="btn blue"  data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>
-                                            <td> <a id="more-result" type="button" class="btn red">ไม่ว่าง</a></td>
-                                        </tr>
-                                        <tr  class="more-result">
-                                            <td> 2 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
-                                            <td> </td>
-                                        </tr>
-                                        <tr class="more-result">
-                                            <td> 3 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> บ่าย </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
-                                            <td>  </td>
-                                        <tr class="more-result">
-                                            <td> 4 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td>  <button type="button" class="btn blue">ทำการนัดหมาย</button>  </td>
-                                            <td> </td>
-                                        </tr>
-                                        <tr class="more-result">
-                                            <td> 5 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                            <td> <button type="button" class="btn blue">ทำการนัดหมาย</button> </td>
-                                            <td> </td>
-                                        </tr>
+                                        <tbody id="search-result-table-body">
                                         </tbody>
                                     </table>
                                 </div>
@@ -195,7 +159,7 @@
                         </div>
             <!-- END PROFILE CONTENT -->
 
-    <div id="confirmAppModal" class="modal fade" data-backdrop="static" tabindex="-1" data-width="760">
+    <div id="confirmAppModal" class="modal fade" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">ยืนยันการนัดหมาย</h4>
@@ -272,10 +236,10 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>--}}
+{{--    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
 {{--    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>--}}
@@ -283,21 +247,24 @@
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
+<script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
 {{--    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>--}}
-    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
+{{--    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>--}}
+{{--    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>--}}
+    <script src="{{url('assets/pages/scripts/form-validation-appointment.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             jQuery().datepicker && $(".date-picker").datepicker({
-                todayHighlight: true
+                todayHighlight: true,
+                autoclose:!0
             }).datepicker('setDate', new Date());
 
-            $('#more-result').click(function () {
+            $(document).on('click','#more-result', function () {
                 $('.more-result').show();
                 $(this).hide()
             });
@@ -310,12 +277,91 @@
                         $('#select-doctor').append('<option value="0">เลือกแพทย์อัตโนมัติ</option>');
                         for(var i=0;i<input.length;i++){
                             $('#select-doctor').append(
-                              '<option>'+input[i]['name']+' '+input[i]['surname']+'</option>'
+                              '<option value="'+ input[i]['id'] +'">'+input[i]['name']+' '+input[i]['surname']+'</option>'
                             );
                         }
                         $('#select-doctor').selectpicker('refresh');
                 }).fail(function () {
                 });
+            });
+            function resetResultOrder(){
+                var i = 1;
+                $('.result-order').each(function () {
+                    $(this).text(i);
+                    i++;
+                });
+            }
+            $('#search-btn').click(function (e) {
+                if($('#search-form').valid()){
+                    e.preventDefault();
+                    var l = Ladda.create(this);
+                    l.start();
+                    function showSuccess(input) {
+                        l.stop();
+                        $('#search-result-table-body').empty();
+                        if(input.length==1){
+                            $('#search-result-table-body').append(
+                            '<tr>'
+                           + '<td>1</td>'
+                           + '<td>'+input[0]["date"].split().reverse().join("/")+'</td>'
+                           + '<td>'+((input[0]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
+                           + '<td>'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'</td>'
+                           + '<td><button type="button" class="btn blue" dname="" dsurname="" did="" date="" time="" data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>'
+                                  +  '<td></td>'
+                                  +  '</tr>'
+                            );
+                        }
+                        else if(input.length>1){
+                            for(var m=0;m<input.length;m++){
+                                if(m==0){
+                                    $('#search-result-table-body').append(
+                                            '<tr>'
+                                            + '<td class="result-order"></td>'
+                                            + '<td>'+input[m]["date"].split().reverse().join("/")+'</td>'
+                                            + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
+                                            + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
+                                            + '<td> <button type="button"  dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'"  class="btn blue make-appointment-btn">ทำการนัดหมาย</button> </td>'
+                                            +  '<td> <a id="more-result" type="button" class="btn red">ไม่ว่าง</a></td>'
+                                            +  '</tr>'
+                                    );
+                                }
+                                else {
+                                    $('#search-result-table-body').append(
+                                            '<tr class="more-result">'
+                                            + '<td class="result-order"></td>'
+                                            + '<td>'+input[m]["date"].split().reverse().join("/")+'</td>'
+                                            + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
+                                            + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
+                                            + '<td><button type="button" class="btn blue"  data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>'
+                                            +  '<td></td>'
+                                            +  '</tr>'
+                                    );
+                                }
+                            }
+                            resetResultOrder();
+                        }
+                        else {
+                            $('#search-result-table-body').append(
+                                    '<tr>'
+                                    +'<td colspan="6" class="text-center font-red sbold">ไม่พบข้อมูล</td>'
+                                    +'</tr>'
+                            );
+                        }
+                        $('#search-result-porlet').removeClass('hidden');
+                        return true;
+                    }
+                    function showError(responseText, statusText, xhr, $form) {
+                        toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                        l.stop();
+                        return true;
+                    }
+                    var options = {
+                        success: showSuccess,
+                        error: showError
+                    };
+                    $('#search-form').ajaxSubmit(options);
+                    return false;
+                }
             });
         });
     </script>
