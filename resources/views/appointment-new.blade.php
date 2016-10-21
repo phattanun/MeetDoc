@@ -167,45 +167,45 @@
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">แผนก</label>
+                    <label class="col-md-2 control-label" for="confirm_department">แผนก</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="หัวใจและหลอดเลือด" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="" id="confirm_department"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">แพทย์</label>
+                    <label class="col-md-2 control-label" for="confirm_doctor">แพทย์</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="นายพัทธนันท์ อัครพันธุ์ธัช" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="" id="confirm_doctor"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">อาการ</label>
+                    <label class="col-md-2 control-label" for="confirm_symptom">อาการ</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="หัวใจมันเต้นแรงจนแทบทนไม่ไหว" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="" id="confirm_symptom"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">วันที่</label>
+                    <label class="col-md-2 control-label" for="confirm_date">วันที่</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="06/10/2016" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="" id="confirm_date"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">ช่วงเวลา</label>
+                    <label class="col-md-2 control-label" for="confirm_time">ช่วงเวลา</label>
                     <div class="col-md-10">
-                        <input class="form-control" readonly="" value="เช้า" id="form_control_1"  type="text">
+                        <input class="form-control" readonly="" value="" id="confirm_time"  type="text">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -306,7 +306,7 @@
                            + '<td>'+input[0]["date"].split().reverse().join("/")+'</td>'
                            + '<td>'+((input[0]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
                            + '<td>'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'</td>'
-                           + '<td><button type="button" class="btn blue" dname="" dsurname="" did="" date="" time="" data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>'
+                           + '<td><button type="button" class="btn blue make-appointment-btn" dname="'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'" did="'+input[0]['doctor_id']+'" date="'+input[0]["date"]+'" time="'+input[0]["time"]+'">ทำการนัดหมาย</button> </td>'
                                   +  '<td></td>'
                                   +  '</tr>'
                             );
@@ -320,7 +320,7 @@
                                             + '<td>'+input[m]["date"].split().reverse().join("/")+'</td>'
                                             + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
                                             + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
-                                            + '<td> <button type="button"  dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'"  class="btn blue make-appointment-btn">ทำการนัดหมาย</button> </td>'
+                                            + '<td> <button class="btn blue make-appointment-btn" type="button"  dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
                                             +  '<td> <a id="more-result" type="button" class="btn red">ไม่ว่าง</a></td>'
                                             +  '</tr>'
                                     );
@@ -332,7 +332,7 @@
                                             + '<td>'+input[m]["date"].split().reverse().join("/")+'</td>'
                                             + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
                                             + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
-                                            + '<td><button type="button" class="btn blue"  data-toggle="modal" data-target="#confirmAppModal">ทำการนัดหมาย</button> </td>'
+                                            + '<td><button type="button" class="btn blue make-appointment-btn"  deptname="'+input[m]["user"]["name"]+'" deptid="'+input[m]["user"]["dept_id"]+'" dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
                                             +  '<td></td>'
                                             +  '</tr>'
                                     );
@@ -363,6 +363,13 @@
                     return false;
                 }
             });
+
+            $(document).on('click','#make-appointment-btn', function () {
+                $('#confirm_doctor').val($(this).attr('dname'));
+                $('#confirm_department').val($(this).attr('dname'));
+                $('#confirmAppModal').modal();
+            });
+
         });
     </script>
 @endsection
