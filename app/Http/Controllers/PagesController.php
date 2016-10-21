@@ -157,10 +157,16 @@ class PagesController extends Controller
         return $res;
     }
 
-    //Patient
+    //Appointment
     public function newAppointmentPage()
     {
         return view('appointment-new')->with('departments', DepartmentController::getAllDepartment());
+    }
+    public function createAppointmentPage(Request $request)
+    {
+        $user = Auth::user();
+        $request->patient_id = $user['id'];
+        return AppointmentController::create($request);
     }
     public function appointmentHistoryPage()
     {

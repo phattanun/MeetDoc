@@ -112,7 +112,7 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-10">
-                                                <textarea class="form-control" name="symptom" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้" required aria-required="true"></textarea>
+                                                <textarea id="symptom" class="form-control" name="symptom" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้" required aria-required="true"></textarea>
                                             </div>
                                             </div>
                                         </div>
@@ -179,6 +179,7 @@
                     <label class="col-md-2 control-label" for="confirm_doctor">แพทย์</label>
                     <div class="col-md-10">
                         <input class="form-control" readonly="" value="" id="confirm_doctor"  type="text">
+                        <input class="form-control" value="" id="confirm_doctor_id"  type="hidden">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -197,6 +198,7 @@
                     <label class="col-md-2 control-label" for="confirm_date">วันที่</label>
                     <div class="col-md-10">
                         <input class="form-control" readonly="" value="" id="confirm_date"  type="text">
+                        <input class="form-control" value="" id="confirm_date_original"  type="hidden">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -206,15 +208,15 @@
                     <label class="col-md-2 control-label" for="confirm_time">ช่วงเวลา</label>
                     <div class="col-md-10">
                         <input class="form-control" readonly="" value="" id="confirm_time"  type="text">
+                        <input class="form-control" value="" id="confirm_time_original"  type="hidden" name="">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn green" data-toggle="modal" data-target="#emailConfirmAlertModal">ยืนยัน</button>
+            <button type="button" class="btn green" id="confirm-app-btn">ยืนยัน</button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-
         </div>
     </div>
 
@@ -303,10 +305,10 @@
                             $('#search-result-table-body').append(
                             '<tr>'
                            + '<td>1</td>'
-                           + '<td>'+input[0]["date"].split().reverse().join("/")+'</td>'
+                           + '<td>'+input[0]["date"].split('-').reverse().join("/")+'</td>'
                            + '<td>'+((input[0]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
                            + '<td>'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'</td>'
-                           + '<td><button type="button" class="btn blue make-appointment-btn" dname="'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'" did="'+input[0]['doctor_id']+'" date="'+input[0]["date"]+'" time="'+input[0]["time"]+'">ทำการนัดหมาย</button> </td>'
+                           + '<td><button type="button" class="btn blue make-appointment-btn"   deptname="'+input[m]["department"]["name"]+'" deptid="'+input[m]["dept_id"]+'"  dname="'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'" did="'+input[0]['doctor_id']+'" date="'+input[0]["date"]+'" time="'+input[0]["time"]+'">ทำการนัดหมาย</button> </td>'
                                   +  '<td></td>'
                                   +  '</tr>'
                             );
@@ -317,10 +319,10 @@
                                     $('#search-result-table-body').append(
                                             '<tr>'
                                             + '<td class="result-order"></td>'
-                                            + '<td>'+input[m]["date"].split().reverse().join("/")+'</td>'
+                                            + '<td>'+input[m]["date"].split('-').reverse().join("/")+'</td>'
                                             + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
                                             + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
-                                            + '<td> <button class="btn blue make-appointment-btn" type="button"  dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
+                                            + '<td> <button class="btn blue make-appointment-btn" type="button"   deptname="'+input[m]["department"]["name"]+'" deptid="'+input[m]["dept_id"]+'"  dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
                                             +  '<td> <a id="more-result" type="button" class="btn red">ไม่ว่าง</a></td>'
                                             +  '</tr>'
                                     );
@@ -329,10 +331,10 @@
                                     $('#search-result-table-body').append(
                                             '<tr class="more-result">'
                                             + '<td class="result-order"></td>'
-                                            + '<td>'+input[m]["date"].split().reverse().join("/")+'</td>'
+                                            + '<td>'+input[m]["date"].split('-').reverse().join("/")+'</td>'
                                             + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
                                             + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
-                                            + '<td><button type="button" class="btn blue make-appointment-btn"  deptname="'+input[m]["user"]["name"]+'" deptid="'+input[m]["user"]["dept_id"]+'" dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
+                                            + '<td><button type="button" class="btn blue make-appointment-btn"  deptname="'+input[m]["department"]["name"]+'" deptid="'+input[m]["dept_id"]+'" dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
                                             +  '<td></td>'
                                             +  '</tr>'
                                     );
@@ -363,13 +365,34 @@
                     return false;
                 }
             });
-
-            $(document).on('click','#make-appointment-btn', function () {
+            $(document).on('click','.make-appointment-btn', function () {
                 $('#confirm_doctor').val($(this).attr('dname'));
-                $('#confirm_department').val($(this).attr('dname'));
+                $('#confirm_doctor_id').val($(this).attr('did'));
+                $('#confirm_department').val($(this).attr('deptname'));
+                $('#confirm_department_id').val($(this).attr('deptid'));
+                $('#confirm_symptom').val($('#symptom').val());
+                $('#confirm_date').val($(this).attr('date').split('-').reverse().join("/"));
+                $('#confirm_time').val(($(this).attr('time')=="M") ? "เช้า":"บ่าย");
+                $('#confirm_date_original').val($(this).attr('date'));
+                $('#confirm_time_original').val($(this).attr('time'));
                 $('#confirmAppModal').modal();
             });
+            $('#confirm-app-btn').click(function () {
+                $.post('{{url('/appointment/new')}}',
+                        {date:   $('#confirm_date_original').val(), time:  $('#confirm_time_original').val(), symptom:   $('#confirm_symptom').val(), doctor_id:  $('#confirm_doctor_id').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                    if(input=='success'){
+                        toastr['success']("ทำการนัดหมายสำเร็จ", "สำเร็จ");
+                        $('#emailConfirmAlertModal').modal();
+                    }
+                    else if(input=='duplicate') {
+                        toastr['warning']("ท่านมีนัดแล้วในวันและช่วงเวลานี้", "ขออภัย");
+                    }
 
+                }).fail(function () {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                });
+
+            });
         });
     </script>
 @endsection

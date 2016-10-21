@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     // Appointment
     Route::get('/appointment/new', 'PagesController@newAppointmentPage');
+    Route::post('/appointment/new', 'PagesController@createAppointmentPage');
     Route::get('/appointment/history', 'PagesController@appointmentHistoryPage');
     Route::get('/appointment/future', 'PagesController@appointmentFuturePage');
     Route::post('/schedule/search', 'ScheduleController@searchSchedule');

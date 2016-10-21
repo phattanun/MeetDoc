@@ -85,7 +85,7 @@ class AppointmentController extends Controller
         $apps = isset($select) ? Appointment::select($select) : Appointment::select();
         if(isset($filter))
             $apps = $apps->where($filter);
-        return
+        return '';
     }
 
     public static function getAppointmentList() {
@@ -96,14 +96,14 @@ class AppointmentController extends Controller
 
     public static function create(Request $request)
     {
-        var_dump($request->all());
+//        var_dump($request->all());
         try {
             $validate = Appointment::where('patient_id', $request->patient_id)
                                     ->where('date', $request->date)
                                     ->where('time', $request->time)
                                     ->get()->toArray();
             if(sizeof($validate) > 0)
-                throw new \Exception("Duplicate Appointment", 1);
+                return 'duplicate';
 
             $ap = new Appointment();
             $ap->date = $request->date;
@@ -119,7 +119,8 @@ class AppointmentController extends Controller
         } catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
-        self::getAppointmentList();
+        return 'success';
+//        self::getAppointmentList();
     }
 
     private static function generateCancelLink($doctor_id, $patient_id, $time) {

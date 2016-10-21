@@ -319,9 +319,12 @@ class ScheduleController extends Controller
             $query->where('time',$request->isMorning)
                 ->orWhere('time',$request->isAfternoon);
         })->where('dept_id',$request->dept_id)
-            ->with(array('user'=>function($query){
-                $query->select('id','name','surname');
-            }))
+            ->with(array(
+                'user'=>function($query){
+                    $query->select('id','name','surname');
+                },
+                'department'
+            ))
             ->take(10)->get()->toArray();
         return self::sortArrayByDateTimeAttr($schedule);
 
