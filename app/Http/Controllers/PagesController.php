@@ -179,7 +179,7 @@ class PagesController extends Controller
     }
     public function appointmentFuturePage()
     {
-        return view('appointment-future');
+        return view('appointment-future')->with('appList',AppointmentController::getFutureAppointments(Auth::user()['id']));
     }
 
     // Pharmacist

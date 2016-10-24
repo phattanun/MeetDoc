@@ -82,6 +82,16 @@ class AppointmentController extends Controller
         return self::recentAppointmentTable($apps);
     }
 
+    public static function getFutureAppointments($patient_id) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d');
+        $apps = DB::table('appointment')
+                    ->join('user','user.id','=','appointment.doctor_id')
+                    ->join('dept','dept.id','=','user.dept_id')
+                    ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','>=',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
+        return $apps;
+    }
+
     public static function getAppointmentList() {
         $apps = Appointment::all()->toArray();
         self::printTable($apps);
@@ -128,12 +138,14 @@ class AppointmentController extends Controller
             $ap = Appointment::findOrFail($request->id);
             $ap->cancel_time = $now;
             $ap->save();
-            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)."'>here</a>";
+//            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)."'>here</a>";
+            return 'success';
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+//            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return 'fail';
         }
-        self::getAppointmentList();
+//        self::getAppointmentList();
     }
 
     public static function cancelApprove(Request $request) {
