@@ -52,7 +52,6 @@ class DiagnosisController extends Controller
 
             $prescription = $appointment->prescription()->withPivot('amount', 'unit', 'note')->get();
             $appointment['prescription'] = json_decode($prescription, true);
-            $appointment['given_medicine'] = json_decode($given_medicine, true);
             $appointment['disease'] = $appointment->disease()->get();
             $appointment['doctor'] = $appointment->doctor()->first();
             $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
@@ -64,31 +63,12 @@ class DiagnosisController extends Controller
         return $diagnosis_info;
     }
 
-//    public function add_given_medicine(Request $request)
-//    {
-//        try {
-//            $given_medicine = new GivenMedicine();
-//            $given_medicine->appointment_id = $request->appointment_id;
-//            $given_medicine->medicine_id = $request->medicine_id;
-//            $given_medicine->amount = $request->amount;
-//            $given_medicine->unit = $request->unit;
-//            $given_medicine->note = $request->note;
-//            $given_medicine->save();
-//        } catch (Exception $e) {
-//            echo '<H2>Error</H2>';
-//        }
-//    }
-//
-//    public function edit_given_medicine(Request $request)
-//    {
-//        DB::table('given_medicine')->where('appointment_id', $request->appointment_id)->where('medicine_id', $request->medicine_id)
-//            ->update(['amount' => $request->amount, 'unit' => $request->unit, 'note' => $request->note]);
-//    }
-//
-//    public function delete_given_medicine(Request $request)
-//    {
-//        GivenMedicine::where('appointment_id', $request->appointment_id)->where('medicine_id', $request->medicine_id)->delete();
-//    }
+    public function give_medicine(Request $request)
+    {
+        $appointment = Appointment::where('id', $request->appointment_id)->first();
+        $appointment->queue_status = 'complete';
+        $appointment->save();
+    }
 
     public function add_physical_record(Request $request)
     {
@@ -176,8 +156,8 @@ class DiagnosisController extends Controller
                 $appointment['waiting_pharmacist'][$array_app['id']] = $array_app;
         }
 
-        dd($appointment);
-//        return $appointment;
+//        dd($appointment);
+        return $appointment;
     }
 
     public function get_patient_profile(Request $request)
