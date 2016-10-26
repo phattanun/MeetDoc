@@ -56,7 +56,7 @@ class DiagnosisController extends Controller
             $appointment['given_medicine'] = json_decode($given_medicine, true);
             $appointment['disease'] = $appointment->disease()->get();
             $appointment['doctor'] = $appointment->doctor()->first();
-            $appointment['department'] = Department::where('id', $appointment['doctor']['dept_id'])->first()['name'];
+            $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
 
             array_push($diagnosis_info, json_decode($appointment, true));
         }
@@ -165,8 +165,7 @@ class DiagnosisController extends Controller
             $age = $now->diff($birthday);
             $patient_info['age'] = $age->y;
             $array_app['patient_info'] = json_decode($patient_info, true);
-            $dept_id = User::where('id', $app['doctor_id'])->first()['dept_id'];
-            $array_app['department'] = Department::find($dept_id)['name'];
+            $array_app['department'] = Department::find($app['dept_id'])['name'];
             if ($app['queue_status'] == 'waiting_staff')
                 array_push($appointment['waiting_staff'], $array_app);
             else if ($app['queue_status'] == 'waiting_doctor')
