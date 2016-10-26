@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\Prescription;
 use Illuminate\Http\Request;
 
 use DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -106,8 +108,12 @@ class AppointmentController extends Controller
         $apps = DB::table('appointment')
                     ->join('user','user.id','=','appointment.doctor_id')
                     ->join('dept','dept.id','=','appointment.dept_id')
-                    ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','<',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
-        return $apps;
+                    ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom','weight','height','systolic','diastolic','temperature','heart_rate','diagnosis')->where('appointment.id',$request->id)->orderBy('date','ASC')->get();
+        $prescription = Prescription::where('appointment_id',$request->id)->with("medicine")->get();
+        if($apps[0]->patient_id==$user_id)
+            return compact('prescription','apps');
+        else
+            return "fail";
     }
 
     public static function getAppointmentList() {

@@ -8,4 +8,8 @@ class Prescription extends Model
 {
     protected $table = 'prescription';
     public $timestamps = false;
+    public function medicine()
+    {
+        return $this->belongsTo('App\Medicine', 'medicine_id');
+    }
 }
