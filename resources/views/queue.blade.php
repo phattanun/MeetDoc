@@ -61,7 +61,7 @@
         .medicine-table>thead>tr>td,.medicine-table>tbody>tr>td{
             vertical-align: middle;
         }
-        #physical-data-body .row{
+        #history-detail-physical-data-body .row{
             margin-top: 5px;
             margin-bottom: 5px;
         }
@@ -326,7 +326,7 @@
                                                         <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลกายภาพ</span>
                                                     </div>
                                                 </div>
-                                                <div id="physical-data-body" class="portlet-body margin-bottom-20">
+                                                <div id="history-detail-physical-data-body" class="portlet-body margin-bottom-20">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label class="col-md-5 bold">น้ำหนัก</label>
@@ -336,7 +336,7 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="col-md-5 bold">ส่วนสูง</label>
-                                                            <div class="col-md-7">
+                                                            <div id="history_detail_height" class="col-md-7">
                                                                 170.00 เซนติเมตร
                                                             </div>
                                                         </div>
@@ -344,28 +344,28 @@
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <label class="col-md-5 bold">อุณหภูมิร่างกาย</label>
-                                                            <div class="col-md-7">
+                                                            <div id="history_detail_temperature"  class="col-md-7">
                                                                 32 องศาเซลเซียส
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label class="col-md-5 bold">ความดันซิสโทลิก</label>
-                                                            <div class="col-md-7">
-                                                                760 มิลลิเมตรปรอท
+                                                            <label class="col-md-5 bold">อัตราการเต้นของหัวใจ</label>
+                                                            <div id="history_detail_heart_rate"  class="col-md-7">
+                                                                80 ครั้ง/นาที
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <label class="col-md-5 bold">ความดันไดแอสโทลิก</label>
-                                                            <div class="col-md-7">
-                                                                766 มิลลเมตรปรอท
+                                                            <label class="col-md-5 bold">ความดันซิสโทลิก</label>
+                                                            <div id="history_detail_systolic"  class="col-md-7">
+                                                                760 มิลลิเมตรปรอท
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <label class="col-md-5 bold">อัตราการเต้นของหัวใจ</label>
-                                                            <div class="col-md-7">
-                                                                80 ครั้ง/นาที
+                                                            <label class="col-md-5 bold">ความดันไดแอสโทลิก</label>
+                                                            <div id="history_detail_diastolic"  class="col-md-7">
+                                                                766 มิลลเมตรปรอท
                                                             </div>
                                                         </div>
                                                     </div>
@@ -383,9 +383,12 @@
                                                     <div class="portlet-body form">
                                                         <form class="form" role="form">
                                                             <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <label class="bold margin-bottom-10">โรคที่วินิจฉัยได้</label>
+                                                                    </div>
+                                                                    <div id="disease_container" class="col-md-12">
                                                                         <div class="disease">- โรคติดยา</div>
                                                                         <div class="disease">- โรคติดยา</div>
                                                                         <div class="disease">- โรคติดยา</div>
@@ -393,7 +396,7 @@
                                                                 </div>
                                                                 <div class="form-group margin-top-20">
                                                                     <label class="bold margin-bottom-10">รายละเอียดของโรค</label>
-                                                                    <p>อาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมาก</p>
+                                                                    <p id="diagnosis_description">อาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมากอาการหนักมาก งานเยอะมาก</p>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -422,8 +425,8 @@
                                                                 <th> หมายเหตุ </th>
                                                             </tr>
                                                             </thead>
-                                                            <tbody>
-                                                            <tr>
+                                                            <tbody id="medicine-container">
+                                                            <tr class="medicine-list">
                                                                 <td> 1 </td>
                                                                 <td> MD22531 </td>
                                                                 <td> Paracetamol </td>
@@ -1039,6 +1042,32 @@
             var historyId = $(this).attr('historyId');
 //            alert(historyId);
             $('#history_detail_weight').text(diagnosis_history[historyId]['weight']+' กิโลกรัม');
+            $('#history_detail_height').text(diagnosis_history[historyId]['height']+' เซนติเมตร');
+            $('#history_detail_temperature').text(diagnosis_history[historyId]['temperature']+' องศาเซลเซียส');
+            $('#history_detail_heart_rate').text(diagnosis_history[historyId]['heart_rate']+' ครั้ง/นาที');
+            $('#history_detail_systolic').text(diagnosis_history[historyId]['systolic']+' มิลลิเมตรปรอท');
+            $('#history_detail_diastolic').text(diagnosis_history[historyId]['diastolic']+' มิลลิเมตรปรอท');
+
+            $('.disease').remove();
+            for(var tmp in diagnosis_history[historyId]['disease']){
+                $('#disease_container').append('<div class="disease">- '+diagnosis_history[historyId]['disease'][tmp]['name']+'</div>');
+            }
+
+            $('#diagnosis_description').text(diagnosis_history[historyId]['diagnosis']);
+
+            $('.medicine-list').remove()
+            var i=1;
+            for(var tmp in diagnosis_history[historyId]['prescription']){
+                $('#medicine-container').append('<tr class="medicine-list">'+
+                        '<td> '+i+' </td>'+
+                        '<td> '+diagnosis_history[historyId]['prescription'][tmp]['medicine_name']+' </td>'+
+                        '<td> '+diagnosis_history[historyId]['prescription'][tmp]['business_name']+' </td>'+
+                        '<td> '+diagnosis_history[historyId]['prescription'][tmp]['pivot']['amount']+' </td>'+
+                        '<td> '+diagnosis_history[historyId]['prescription'][tmp]['pivot']['unit']+' </td>'+
+                        '<td> '+diagnosis_history[historyId]['prescription'][tmp]['description']+' </td>'+
+                        '</tr>');
+                i++;
+            }
             $('#history_detail').show();
         });
 
