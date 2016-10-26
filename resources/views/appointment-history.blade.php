@@ -42,48 +42,23 @@
                                             <th> ช่วงเวลา </th>
                                             <th> แผนก </th>
                                             <th> แพทย์ </th>
+                                            <th> อาการ </th>
+                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td> AP01 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td> AP02 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td> AP03 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> บ่าย </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                        <tr>
-                                            <td> 4 </td>
-                                            <td> AP04 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 5 </td>
-                                            <td> AP05 </td>
-                                            <td> 06/10/2016 </td>
-                                            <td> เช้า </td>
-                                            <td> หัวใจและหลอดเลือด </td>
-                                            <td> นายแพทย์พัทธนันท์ อัครพันธุ์ธัช </td>
-                                        </tr>
+                                        @foreach($appList as $app)
+                                            <tr>
+                                                <td class="result-order"></td>
+                                                <td>{{$app->app_id}}</td>
+                                                <td>{{join('/',array_reverse(explode("-", $app->date)))}}</td>
+                                                <td>@if($app->time=="M")เช้า (9.00 - 11.30 น.)@else บ่าย (13.00 - 15.30 น.)@endif</td>
+                                                <td>{{$app->dept_name}}</td>
+                                                <td>{{$app->name}} {{$app->surname}}</td>
+                                                <td>{{$app->symptom}}</td>
+                                                <td><button id="{{$app->app_id}}" type="button" class="postpone-btn btn blue">ดู</button> </td>
+                                            <tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -227,25 +202,25 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
+    {{--<script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>
+    {{--<script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>--}}
+    {{--<script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>--}}
     <script>
         $('tbody tr').click(function () {
             $('#appDetailModal').modal()
