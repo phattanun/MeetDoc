@@ -1078,6 +1078,7 @@
                 function showSuccess(formData, jqForm, options) {
                     toastr['success']('บันทึกข้อมูลทางกายภาพสำเร็จ', "สำเร็จ");
                     l.stop();
+                    resetQueue();
 //                    resetDrugList();
 //                    resetResultList(keyword);
 //                    $('#editModal').modal('hide');
@@ -1100,6 +1101,10 @@
                 return false;
             }
         });
+
+        function resetQueue(){
+            $('.physical-form').val('');
+        }
 
 
 
