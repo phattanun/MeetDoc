@@ -422,7 +422,6 @@
                                                                 <th> ชื่อยา </th>
                                                                 <th> จำนวน </th>
                                                                 <th> หน่วย </th>
-                                                                <th> หมายเหตุ </th>
                                                             </tr>
                                                             </thead>
                                                             <tbody id="medicine-container">
@@ -432,7 +431,6 @@
                                                                 <td> Paracetamol </td>
                                                                 <td> 350 </td>
                                                                 <td> เม็ด </td>
-                                                                <td> กินหลังอาหาร </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -1064,7 +1062,6 @@
                         '<td> '+diagnosis_history[historyId]['prescription'][tmp]['business_name']+' </td>'+
                         '<td> '+diagnosis_history[historyId]['prescription'][tmp]['pivot']['amount']+' </td>'+
                         '<td> '+diagnosis_history[historyId]['prescription'][tmp]['pivot']['unit']+' </td>'+
-                        '<td> '+diagnosis_history[historyId]['prescription'][tmp]['description']+' </td>'+
                         '</tr>');
                 i++;
             }
