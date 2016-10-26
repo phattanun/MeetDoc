@@ -48,9 +48,7 @@
         <li><a href="{{ action('DiagnosisController@get_patient_profile') }}" target="side">get patient profile</a></li>
         <li><a href="{{ action('DiagnosisController@get_appointment_list') }}" target="side">get appointment list</a></li>
         <li><a href="{{ action('DiagnosisController@diagnosis_record_and_receive_medicine') }}" target="side">view diagnosis record</a></li>
-        <li><a href="{{ action('DiagnosisController@add_given_medicine') }}" target="side">add given medicine</a></li>
-        <li><a href="{{ action('DiagnosisController@edit_given_medicine') }}" target="side">edit given medicine</a></li>
-        <li><a href="{{ action('DiagnosisController@delete_given_medicine') }}" target="side">delete given medicine</a></li>
+        <li><a href="{{ action('DiagnosisController@give_medicine') }}" target="side">give medicine</a></li>
         Allergic
         <ul>
             <li><a href="{{ action('DiagnosisController@add_allergic_medicine') }}" target="side">add allergic medicine</a></li>
@@ -362,31 +360,10 @@
 
             <button type="submit">Submit</button>
         </form>
-    @elseif($page=='add_given_medicine')
+    @elseif($page=='give_medicine')
         <form action="{{$page}}" method="post">
             {{csrf_field()}}
             <input type="number" name="appointment_id" placeholder="Appointment ID"/><br>
-            <input type="number" name="medicine_id" placeholder="Medicine ID"><br>
-            <input type="number" name="amount" placeholder="amount"><br>
-            <input type="text" name="unit" placeholder="unit"><br>
-            <input type="text" name="note" placeholder="note"><br>
-            <button type="submit">Submit</button>
-        </form>
-    @elseif($page=='edit_given_medicine')
-        <form action="{{$page}}" method="post">
-            {{csrf_field()}}
-            <input type="number" name="appointment_id" placeholder="Appointment ID"/><br>
-            <input type="number" name="medicine_id" placeholder="Medicine ID"><br>
-            <input type="number" name="amount" placeholder="amount"><br>
-            <input type="text" name="unit" placeholder="unit"><br>
-            <input type="text" name="note" placeholder="note"><br>
-            <button type="submit">Submit</button>
-        </form>
-    @elseif($page=='delete_given_medicine')
-        <form action="{{$page}}" method="post">
-            {{csrf_field()}}
-            <input type="number" name="appointment_id" placeholder="Appointment ID"/><br>
-            <input type="number" name="medicine_id" placeholder="Medicine ID"><br>
             <button type="submit">Submit</button>
         </form>
     @else
