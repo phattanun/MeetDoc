@@ -16,6 +16,8 @@
     <link href="{{url('assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -453,8 +455,9 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- BEGIN FORM -->
-                                            <form class="form-horizontal" role="form">
-                                                <input id="physical-form-appointment-id" name="appointment_id" class="physical-form" type="hidden">
+                                            <form id="physical-form" class="form-horizontal" action="../backend/Diagnosis/add_physical_record" method="post" role="form">
+                                                {{csrf_field()}}
+                                                <input id="physical-form-appointment-id" name="appointment_id" class="physical-form" type="hidden" required>
                                                 <div class="portlet light ">
                                                     <div class="portlet-title">
                                                         <div class="caption caption-md">
@@ -469,7 +472,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">น้ำหนัก</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control physical-form" name="weight" placeholder="กิโลกรัม" type="text">
+                                                                                <input class="form-control physical-form" name="weight" placeholder="กิโลกรัม" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -477,7 +480,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">ส่วนสูง</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control physical-form" name="height" placeholder="เซนติเมตร" type="text">
+                                                                                <input class="form-control physical-form" name="height" placeholder="เซนติเมตร" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -487,7 +490,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">อุณหภูมิร่างกาย</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control physical-form" name="temperature" placeholder="องศาเซลเซียส" type="text">
+                                                                                <input class="form-control physical-form" name="temperature" placeholder="องศาเซลเซียส" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -495,7 +498,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">อัตราการเต้นของหัวใจ</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control physical-form" name="heart_rate" placeholder="ครั้ง/นาที" type="text">
+                                                                                <input class="form-control physical-form" name="heart_rate" placeholder="ครั้ง/นาที" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -505,7 +508,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">ความดันซิสโทลิก</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control physical-form" name="systolic" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                                <input class="form-control physical-form" name="systolic" placeholder="มิลลิเมตรปรอท" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -513,7 +516,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">ความดันไดแอสโทลิก</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control physical-form" name="diastolic" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                                <input class="form-control physical-form" name="diastolic" placeholder="มิลลิเมตรปรอท" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -522,7 +525,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <a type="submit" id="physical-form-submit" class="btn btn-success pull-right physical-form"><i class="fa fa-save"></i> บันทึก</a>
+                                                <div class="row" style="text-align: right;">
+                                                    <div class="col-md-12">
+                                                        <button type="submit" id="physical-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button physical-form" data-style="expand-right">
+                                                            <span class="ladda-label">ลงทะเบียน</span>
+                                                            <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </form>
                                             <!-- END FORM -->
                                         </div>
@@ -872,10 +882,16 @@
 
     <script src="{{url('assets/global/plugins/fuelux/js/spinner.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js')}}" type="text/javascript"></script>
+
+    <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
+
+    <script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-diagnosis.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/physical-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
             $('#tab1_table').DataTable({
@@ -1017,12 +1033,45 @@
             $('#tab_modal_3_button').click();
         });
 
-
+///////////////////////////////////////ModelTab2////////////////////////////////////////////////
         $(document).on('click','.view-history', function(){
             var historyId = $(this).attr('historyId');
 //            alert(historyId);
             $('#history_detail_weight').text(diagnosis_history[historyId]['weight']+' กิโลกรัม');
             $('#history_detail').show();
+        });
+
+///////////////////////////////////////ModelTab3////////////////////////////////////////////////
+
+        $(document).on('click','#physical-form-submit-button', function(e) {
+            if($('#physical-form').valid()) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('บันทึกข้อมูลทางกายภาพสำเร็จ', "สำเร็จ");
+                    l.stop();
+//                    resetDrugList();
+//                    resetResultList(keyword);
+//                    $('#editModal').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+//                    resetDrugList();
+//                    resetResultList(keyword);
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#physical-form').ajaxSubmit(options);
+                return false;
+            }
         });
 
 
