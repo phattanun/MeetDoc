@@ -52,7 +52,6 @@ class DiagnosisController extends Controller
 
             $prescription = $appointment->prescription()->withPivot('amount', 'unit', 'note')->get();
             $appointment['prescription'] = json_decode($prescription, true);
-            $appointment['given_medicine'] = json_decode($given_medicine, true);
             $appointment['disease'] = $appointment->disease()->get();
             $appointment['doctor'] = $appointment->doctor()->first();
             $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
