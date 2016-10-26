@@ -16,6 +16,8 @@
     <link href="{{url('assets/global/plugins/datatables/datatables.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -452,23 +454,25 @@
                                 <div id="modal_tab3_physical_form" class="normal-content">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="portlet light ">
-                                                <div class="portlet-title">
-                                                    <div class="caption caption-md">
-                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลกายภาพ</span>
+                                            <!-- BEGIN FORM -->
+                                            <form id="physical-form" class="form-horizontal" action="../backend/Diagnosis/add_physical_record" method="post" role="form">
+                                                {{csrf_field()}}
+                                                <input id="physical-form-appointment-id" name="appointment_id" class="physical-form" type="hidden" required>
+                                                <div class="portlet light ">
+                                                    <div class="portlet-title">
+                                                        <div class="caption caption-md">
+                                                            <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลกายภาพ</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="portlet-body">
-                                                    <!-- BEGIN FORM -->
-                                                    <div class="portlet-body form">
-                                                        <form class="form-horizontal" role="form">
+                                                    <div class="portlet-body">
+                                                        <div class="portlet-body form">
                                                             <div class="form-body" style="padding-bottom: 0px;">
                                                                 <div class="row">
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">น้ำหนัก</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="กิโลกรัม" type="text">
+                                                                                <input class="form-control physical-form" name="weight" placeholder="กิโลกรัม" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -476,7 +480,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">ส่วนสูง</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="เซนติเมตร" type="text">
+                                                                                <input class="form-control physical-form" name="height" placeholder="เซนติเมตร" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -486,25 +490,7 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">อุณหภูมิร่างกาย</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="องศาเซลเซียส" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">ความดันซิสโทลิก</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group">
-                                                                            <label class="col-md-5 control-label">ความดันไดแอสโทลิก</label>
-                                                                            <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="มิลลิเมตรปรอท" type="text">
+                                                                                <input class="form-control physical-form" name="temperature" placeholder="องศาเซลเซียส" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -512,17 +498,43 @@
                                                                         <div class="form-group">
                                                                             <label class="col-md-5 control-label">อัตราการเต้นของหัวใจ</label>
                                                                             <div class="col-md-7">
-                                                                                <input class="form-control" placeholder="ครั้ง/นาที" type="text">
+                                                                                <input class="form-control physical-form" name="heart_rate" placeholder="ครั้ง/นาที" type="text" required>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ความดันซิสโทลิก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control physical-form" name="systolic" placeholder="มิลลิเมตรปรอท" type="text" required>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label class="col-md-5 control-label">ความดันไดแอสโทลิก</label>
+                                                                            <div class="col-md-7">
+                                                                                <input class="form-control physical-form" name="diastolic" placeholder="มิลลิเมตรปรอท" type="text" required>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
+                                                        </div>
                                                     </div>
-                                                    <!-- END FORM -->
                                                 </div>
-                                            </div>
+                                                <div class="row" style="text-align: right;">
+                                                    <div class="col-md-12">
+                                                        <button type="submit" id="physical-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button physical-form" data-style="expand-right">
+                                                            <span class="ladda-label">ลงทะเบียน</span>
+                                                            <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- END FORM -->
                                         </div>
                                     </div>
                                 </div>
@@ -711,9 +723,9 @@
                                                     <td>{{$queue['department']}}</td>
                                                     <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
-                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -726,9 +738,9 @@
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
                                                 <td class="last">
-                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="111" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" appointmentId="111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" appointmentId="111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="111" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -768,9 +780,9 @@
                                                     <td>{{$queue['department']}}</td>
                                                     <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
-                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -783,9 +795,9 @@
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
                                                 <td class="last">
-                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="1111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="1111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="1111" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" appointmentId="1111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" appointmentId="1111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="1111" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -826,9 +838,9 @@
                                                     <td>{{$queue['department']}}</td>
                                                     <td>{{$queue['symptom']}}</td>
                                                     <td class="last">
-                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="{{$queue['patient_info']['id']}}" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="{{$queue['patient_info']['id']}}" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -841,9 +853,9 @@
                                                 <td>แผนกหู คอ จมูก</td>
                                                 <td>สบายดี</td>
                                                 <td class="last">
-                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" diagnosisId="11111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" diagnosisId="11111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" diagnosisId="11111" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
+                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" appointmentId="11111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
+                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" appointmentId="11111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
+                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="11111" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -870,10 +882,16 @@
 
     <script src="{{url('assets/global/plugins/fuelux/js/spinner.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js')}}" type="text/javascript"></script>
+
+    <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
+
+    <script src="{{url('assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-diagnosis.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/physical-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
             $('#tab1_table').DataTable({
@@ -908,7 +926,7 @@
         });
 
         $(document).on('click','.goToModalTab1', function(){
-            var id = $(this).attr('diagnosisId');
+            var id = $(this).attr('appointmentId');
             alert(id);
             $('#tab_modal_1_button').click();
         });
@@ -917,7 +935,7 @@
         var modalHistoryTable;
 
         $(document).on('click','.goToModalTab2', function(){
-            var id = $(this).attr('diagnosisId');
+            var id = $(this).attr('appointmentId');
             $('#history_detail').hide();
 //            alert('ss'+id);
             var URL_ROOT = '{{Request::root()}}';
@@ -995,28 +1013,65 @@
         });
 
         $(document).on('click','.goToModalTab3', function(){
-            var id = $(this).attr('diagnosisId');
+            var id = $(this).attr('appointmentId');
             var step = $(this).attr('step');
             alert(id+" "+step);
             if(step == 1){
                 $('#modal_tab3_physical_form').show();
                 $('#modal_tab3_diagnosis_form').hide();
                 $('#modal_tab3_medicine_form').hide();
+
+                $('#physical-form-appointment-id').val(id);
             }
             else{
                 $('#modal_tab3_physical_form').show();
                 $('#modal_tab3_diagnosis_form').show();
                 $('#modal_tab3_medicine_form').show();
+
+                $('.physical-form').attr('disabled','disabled');
             }
             $('#tab_modal_3_button').click();
         });
 
-
+///////////////////////////////////////ModelTab2////////////////////////////////////////////////
         $(document).on('click','.view-history', function(){
             var historyId = $(this).attr('historyId');
 //            alert(historyId);
             $('#history_detail_weight').text(diagnosis_history[historyId]['weight']+' กิโลกรัม');
             $('#history_detail').show();
+        });
+
+///////////////////////////////////////ModelTab3////////////////////////////////////////////////
+
+        $(document).on('click','#physical-form-submit-button', function(e) {
+            if($('#physical-form').valid()) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('บันทึกข้อมูลทางกายภาพสำเร็จ', "สำเร็จ");
+                    l.stop();
+//                    resetDrugList();
+//                    resetResultList(keyword);
+//                    $('#editModal').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+//                    resetDrugList();
+//                    resetResultList(keyword);
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#physical-form').ajaxSubmit(options);
+                return false;
+            }
         });
 
 
