@@ -91,11 +91,11 @@
                                                 <div class="col-md-10">
                                                     <div class="mt-checkbox-inline">
                                                         <label class="mt-checkbox">
-                                                            <input class="checkboxValidate" name="isMorning" id="inlineCheckbox21" value="M" type="checkbox" checked> เช้า
+                                                            <input class="checkboxValidate" name="isMorning" id="inlineCheckbox21" value="M" type="checkbox" checked> เช้า (9.00 - 11.30 น.)
                                                             <span></span>
                                                         </label>
                                                         <label class="mt-checkbox">
-                                                            <input class="checkboxValidate" name="isAfternoon" id="inlineCheckbox22" value="A" type="checkbox" checked> บ่าย
+                                                            <input class="checkboxValidate" name="isAfternoon" id="inlineCheckbox22" value="A" type="checkbox" checked> บ่าย (13.00 - 15.30 น.)
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -229,7 +229,7 @@
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 15 นาที</span>
+                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 1 วัน</span>
             </div>
         </div>
         <div class="modal-footer">
@@ -307,7 +307,7 @@
                             '<tr>'
                            + '<td>1</td>'
                            + '<td>'+input[0]["date"].split('-').reverse().join("/")+'</td>'
-                           + '<td>'+((input[0]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
+                           + '<td>'+((input[0]["time"]=="M") ? "เช้า (9.00 - 11.30 น.)":"บ่าย (13.00 - 15.30 น.)")+'</td>'
                            + '<td>'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'</td>'
                            + '<td><button type="button" class="btn blue make-appointment-btn"   deptname="'+input[m]["department"]["name"]+'" deptid="'+input[m]["dept_id"]+'"  dname="'+input[0]["user"]["name"]+' '+input[0]["user"]["surname"]+'" did="'+input[0]['doctor_id']+'" date="'+input[0]["date"]+'" time="'+input[0]["time"]+'">ทำการนัดหมาย</button> </td>'
                                   +  '<td></td>'
@@ -321,7 +321,7 @@
                                             '<tr>'
                                             + '<td class="result-order"></td>'
                                             + '<td>'+input[m]["date"].split('-').reverse().join("/")+'</td>'
-                                            + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
+                                            + '<td>'+((input[m]["time"]=="M") ? "เช้า (9.00 - 11.30 น.)":"บ่าย (13.00 - 15.30 น.)")+'</td>'
                                             + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
                                             + '<td> <button class="btn blue make-appointment-btn" type="button"   deptname="'+input[m]["department"]["name"]+'" deptid="'+input[m]["dept_id"]+'"  dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
                                             +  '<td> <a id="more-result" type="button" class="btn red">ไม่ว่าง</a></td>'
@@ -333,7 +333,7 @@
                                             '<tr class="more-result">'
                                             + '<td class="result-order"></td>'
                                             + '<td>'+input[m]["date"].split('-').reverse().join("/")+'</td>'
-                                            + '<td>'+((input[m]["time"]=="M") ? "เช้า":"บ่าย")+'</td>'
+                                            + '<td>'+((input[m]["time"]=="M") ? "เช้า (9.00 - 11.30 น.)":"บ่าย (13.00 - 15.30 น.)")+'</td>'
                                             + '<td>'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'</td>'
                                             + '<td><button type="button" class="btn blue make-appointment-btn"  deptname="'+input[m]["department"]["name"]+'" deptid="'+input[m]["dept_id"]+'" dname="'+input[m]["user"]["name"]+' '+input[m]["user"]["surname"]+'" did="'+input[m]['doctor_id']+'" date="'+input[m]["date"]+'" time="'+input[m]["time"]+'">ทำการนัดหมาย</button> </td>'
                                             +  '<td></td>'
@@ -373,7 +373,7 @@
                 $('#confirm_department_id').val($(this).attr('deptid'));
                 $('#confirm_symptom').val($('#symptom').val());
                 $('#confirm_date').val($(this).attr('date').split('-').reverse().join("/"));
-                $('#confirm_time').val(($(this).attr('time')=="M") ? "เช้า":"บ่าย");
+                $('#confirm_time').val(($(this).attr('time')=="M") ? "เช้า (9.00 - 11.30 น.)":"บ่าย (13.00 - 15.30 น.)");
                 $('#confirm_date_original').val($(this).attr('date'));
                 $('#confirm_time_original').val($(this).attr('time'));
                 $('#confirmAppModal').modal();

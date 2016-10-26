@@ -87,8 +87,18 @@ class AppointmentController extends Controller
         $now = date('Y-m-d');
         $apps = DB::table('appointment')
                     ->join('user','user.id','=','appointment.doctor_id')
-                    ->join('dept','dept.id','=','user.dept_id')
+                    ->join('dept','dept.id','=','appointment.dept_id')
                     ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','>=',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
+        return $apps;
+    }
+
+    public static function getPastAppointments($patient_id) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d');
+        $apps = DB::table('appointment')
+                    ->join('user','user.id','=','appointment.doctor_id')
+                    ->join('dept','dept.id','=','appointment.dept_id')
+                    ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','<',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
         return $apps;
     }
 
