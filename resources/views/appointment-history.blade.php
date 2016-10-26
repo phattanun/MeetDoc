@@ -56,7 +56,7 @@
                                                 <td>{{$app->dept_name}}</td>
                                                 <td>{{$app->name}} {{$app->surname}}</td>
                                                 <td>{{$app->symptom}}</td>
-                                                <td><button id="{{$app->app_id}}" type="button" class="postpone-btn btn blue">ดู</button> </td>
+                                                <td><button id="{{$app->app_id}}" type="button" class="view-btn btn blue">ดู</button> </td>
                                             <tr>
                                         @endforeach
                                         </tbody>
@@ -118,6 +118,55 @@
                 </div>
             </div>
             <hr>
+            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">น้ำหนัก</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">ส่วนสูง</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">Systolic</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">Diastolic</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">อุณหภูมิ</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>            <div class="row">
+                <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="form_control_1">อัตราการเต้นของหัวใจ</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="โรคหัวใจ" id="form_control_1"  type="text">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">ผลการวินิจจัย</label>
@@ -222,9 +271,20 @@
     {{--<script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>--}}
     {{--<script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>--}}
     <script>
-        $('tbody tr').click(function () {
-            $('#appDetailModal').modal()
-        });
+        $(document).ready(function () {
+            resetResultOrder();
+            function resetResultOrder(){
+                var i = 1;
+                $('.result-order').each(function () {
+                    $(this).text(i);
+                    i++;
+                });
+            }
+
+            $(document).on('click','.view-btn ',function () {
+                $("#appDetailModal").modal();
+            });
+        })
     </script>
 @endsection
 
