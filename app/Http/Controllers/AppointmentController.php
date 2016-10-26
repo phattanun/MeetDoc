@@ -101,6 +101,14 @@ class AppointmentController extends Controller
                     ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','<',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
         return $apps;
     }
+    public static function getAppointmentDetail(Request $request) {
+        $user_id = Auth::user()['id'];
+        $apps = DB::table('appointment')
+                    ->join('user','user.id','=','appointment.doctor_id')
+                    ->join('dept','dept.id','=','appointment.dept_id')
+                    ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','<',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
+        return $apps;
+    }
 
     public static function getAppointmentList() {
         $apps = Appointment::all()->toArray();
