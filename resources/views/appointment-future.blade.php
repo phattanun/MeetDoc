@@ -149,6 +149,16 @@
                 toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
             });
         });
+        $(document).ready(function () {
+            resetResultOrder();
+            function resetResultOrder(){
+                var i = 1;
+                $('.result-order').each(function () {
+                    $(this).text(i);
+                    i++;
+                });
+            }
+        })
     </script>
 @endsection
 

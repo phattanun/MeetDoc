@@ -175,7 +175,7 @@ class PagesController extends Controller
     }
     public function appointmentHistoryPage()
     {
-        return view('appointment-history');
+        return view('appointment-history')->with('appList',AppointmentController::getPastAppointments(Auth::user()['id']));
     }
     public function appointmentFuturePage()
     {
