@@ -52,8 +52,8 @@
                                             <tr>
                                                 <td class="result-order"></td>
                                                 <td>{{$app->app_id}}</td>
-                                                <td>{{$app->date}}</td>
-                                                <td>{{$app->time}}</td>
+                                                <td>{{join('/',array_reverse(explode("-", $app->date)))}}</td>
+                                                <td>@if($app->time=="M")เช้า (9.00 - 11.30 น.)@else บ่าย (13.00 - 15.30 น.)@endif</td>
                                                 <td>{{$app->dept_name}}</td>
                                                 <td>{{$app->name}} {{$app->surname}}</td>
                                                 <td>{{$app->symptom}}</td>
