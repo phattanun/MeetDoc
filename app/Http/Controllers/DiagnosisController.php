@@ -176,8 +176,8 @@ class DiagnosisController extends Controller
                 $appointment['waiting_pharmacist'][$array_app['id']] = $array_app;
         }
 
-        dd($appointment);
-//        return $appointment;
+//        dd($appointment);
+        return $appointment;
     }
 
     public function get_patient_profile(Request $request)
