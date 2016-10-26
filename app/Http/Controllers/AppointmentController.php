@@ -118,6 +118,7 @@ class AppointmentController extends Controller
             $ap->type = (strtotime($request->date) == strtotime('today') ? 'W' :'R'); // R refers to reserve and W refers to walk-in.
             $ap->patient_id = $request->patient_id;
             $ap->doctor_id = $request->doctor_id;
+            $ap->dept_id = $request->dept_id;
             $ap->save();
 
         } catch (\Exception $e) {

@@ -170,6 +170,7 @@
                     <label class="col-md-2 control-label" for="confirm_department">แผนก</label>
                     <div class="col-md-10">
                         <input class="form-control" readonly="" value="" id="confirm_department"  type="text">
+                        <input class="form-control" value="" id="confirm_department_id"  type="hidden">
                         <div class="form-control-focus"> </div>
                     </div>
                 </div>
@@ -379,7 +380,7 @@
             });
             $('#confirm-app-btn').click(function () {
                 $.post('{{url('/appointment/new')}}',
-                        {date:   $('#confirm_date_original').val(), time:  $('#confirm_time_original').val(), symptom:   $('#confirm_symptom').val(), doctor_id:  $('#confirm_doctor_id').val(), _token: '{{csrf_token()}}'}).done(function (input) {
+                        {date:   $('#confirm_date_original').val(), time:  $('#confirm_time_original').val(), symptom:   $('#confirm_symptom').val(), doctor_id:  $('#confirm_doctor_id').val(),dept_id: $('#confirm_department_id').val(), _token: '{{csrf_token()}}'}).done(function (input) {
                     if(input=='success'){
                         toastr['success']("ทำการนัดหมายสำเร็จ", "สำเร็จ");
                         $('#emailConfirmAlertModal').modal();
