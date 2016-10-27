@@ -11,6 +11,7 @@ Route::post('/password/reset', 'PagesController@resetPassword'); // Reset passwo
 
 // Backend
 Route::get('/backend', function() { return View::make('backend'); });
+Route::post('/backend/Message/send_email', 'MessageController@sendEmail');
 
 // รอย้าย Controller
 Route::get('/register', 'ProfileController@registerPage');
@@ -152,17 +153,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Disease/delete_disease', 'SystemController@delete_disease');
     Route::get('/backend/Disease/disease_list', 'SystemController@disease_list');
 
-    Route::get('/sendemailnaja', 'MessageController@testEmail');
-
-    Route::post('/backend/{controller}/post',
-        function($controller) {
-            return View::make('backend', ['controller' => $controller, 'page' => 'post']);
-        }
-    );
-    Route::get('/backend/{controller}/{page?}',
-        function($controller, $page = null){
-            return View::make('backend', ['controller' => $controller, 'page' => $page ]);
-        }
-    );
-
 });
+
+Route::post('/backend/{controller}/post',
+    function($controller) {
+        return View::make('backend', ['controller' => $controller, 'page' => 'post']);
+    }
+);
+Route::get('/backend/{controller}/{page?}',
+    function($controller, $page = null){
+        return View::make('backend', ['controller' => $controller, 'page' => $page ]);
+    }
+);
