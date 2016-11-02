@@ -1079,11 +1079,11 @@
                 function showSuccess(formData, jqForm, options) {
                     toastr['success']('บันทึกข้อมูลทางกายภาพสำเร็จ', "สำเร็จ");
                     l.stop();
-                    clearPhysicalForm();
                     resetQueue();
+                    clearPhysicalForm();
 //                    resetDrugList();
 //                    resetResultList(keyword);
-//                    $('#full').modal('hide');
+                    $('#full').modal('hide');
                     return true;
                 }
 
@@ -1160,7 +1160,11 @@
                     i++;
                 }
                 waiting_staff_table += '</tbody></table>';
-                $('#tab_1_1').append(waiting_staff_table);
+                if(i==1)
+                    $('#tab_1_1').append('<div class="row"><div id="tab1_table_wrapper" class="col-md-12" style="text-align:center;"><h3>ไม่มีผู้ป่วยรอตรวจข้อมูลทางกายภาพ</h3></div></div>');
+                else
+                    $('#tab_1_1').append(waiting_staff_table);
+
                 $('#tab1_table').DataTable();
 
                 /////////tab2_table/////////////////////////////////////
@@ -1204,7 +1208,11 @@
                     i++;
                 }
                 waiting_doctor_table += '</tbody></table>';
-                $('#tab_1_2').append(waiting_doctor_table);
+                if(i==1)
+                    $('#tab_1_2').append('<div class="row"><div id="tab2_table_wrapper" class="col-md-12" style="text-align:center;"><h3>ไม่มีผู้ป่วยรอตรวจรักษา</h3></div></div>');
+                else
+                    $('#tab_1_2').append(waiting_doctor_table);
+
                 $('#tab2_table').DataTable();
 
                 /////////tab3_table/////////////////////////////////////
@@ -1248,7 +1256,11 @@
                     i++;
                 }
                 waiting_pharmacist_table += '</tbody></table>';
-                $('#tab_1_3').append(waiting_pharmacist_table);
+                if(i==1)
+                    $('#tab_1_3').append('<div class="row"><div id="tab1_table_wrapper" class="col-md-12" style="text-align:center;"><h3>ไม่มีผู้ป่วยรอรับยา</h3></div></div>');
+                else
+                    $('#tab_1_3').append(waiting_pharmacist_table);
+
                 $('#tab3_table').DataTable();
 
             }).fail(function () {
