@@ -181,6 +181,10 @@ class PagesController extends Controller
     {
         return view('appointment-future')->with('appList',AppointmentController::getFutureAppointments(Auth::user()['id']));
     }
+    public function appointmentEditPage(Request $request)
+    {
+        return view('appointment-edit')->with('app',AppointmentController::getBriefAppointmentDetail($request->id));
+    }
 
     // Pharmacist
     public function drugPage(Request $request) {
