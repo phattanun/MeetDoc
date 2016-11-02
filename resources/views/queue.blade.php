@@ -74,6 +74,7 @@
 @endsection
 
 @section('content')
+        <button onclick="resetQueue()"></button>
     <!-- /.modal -->
     <div class="modal fade bs-modal-lg" id="full" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -1082,7 +1083,7 @@
                     resetQueue();
 //                    resetDrugList();
 //                    resetResultList(keyword);
-//                    $('#editModal').modal('hide');
+//                    $('#full').modal('hide');
                     return true;
                 }
 
@@ -1107,10 +1108,152 @@
             $('.physical-form').val('');
         }
 
+        var allTableData;
         function resetQueue(){
-            $('#tab1_table').remove();
-            $('#tab2_table').remove();
-            $('#tab3_table').remove();
+            var URL_ROOT = '{{Request::root()}}';
+
+            $.get(URL_ROOT+'/backend/Diagnosis/queue',
+                    {}).done(function (input) {
+                alert();
+                console.log(input);
+                allTableData= input;
+                /////////tab1_table/////////////////////////////////////
+                $('#tab1_table_wrapper').remove();
+                var waiting_staff_table ='<table id="tab1_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+                        '<thead class="middle">'+
+                        '<tr>'+
+                        '    <th class="first"> ลำดับที่ </th>'+
+                        '    <th> ชื่อ </th>'+
+                        '    <th> นามสกุล </th>'+
+                        '    <th> เพศ </th>'+
+                        '    <th> อายุ </th>'+
+                        '    <th> แผนก </th>'+
+                        '    <th> อาการ </th>'+
+                        '    <th class="last"></th>'+
+                        '</tr>'+
+                        '</thead>'+
+                        '<tbody class="middle">';
+
+                var tmp;
+                var i = 1;
+                var sexTH,sexEN;
+                console.log(allTableData['waiting_staff']);
+                var waiting_staff = allTableData['waiting_staff'];
+                for(tmp in waiting_staff){
+                    if(waiting_staff[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
+                    else{sexTH = 'หญิง'; sexEN = 'female';}
+
+                    waiting_staff_table += '<tr>'+
+                        '<td>'+i+'</td>'+
+                        '<td>'+waiting_staff[tmp]['patient_info']['name']+'</td>'+
+                        '<td>'+waiting_staff[tmp]['patient_info']['surname']+'</td>'+
+                        '<td><i class="fa fa-'+sexEN+'" aria-hidden="true"></i> '+sexTH+'</td>'+
+                        '<td>'+waiting_staff[tmp]['patient_info']['age']+'</td>'+
+                        '<td>'+waiting_staff[tmp]['department']+'</td>'+
+                        '<td>'+waiting_staff[tmp]['symptom']+'</td>'+
+                        '<td class="last">'+
+                        '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                        '</td>'+
+                    '</tr>';
+                    i++;
+                }
+                waiting_staff_table += '</tbody></table>';
+                $('#tab_1_1').append(waiting_staff_table);
+                $('#tab1_table').DataTable();
+
+                /////////tab2_table/////////////////////////////////////
+                $('#tab2_table_wrapper').remove();
+                var waiting_doctor_table ='<table id="tab2_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+                        '<thead class="middle">'+
+                        '<tr>'+
+                        '    <th class="first"> ลำดับที่ </th>'+
+                        '    <th> ชื่อ </th>'+
+                        '    <th> นามสกุล </th>'+
+                        '    <th> เพศ </th>'+
+                        '    <th> อายุ </th>'+
+                        '    <th> แผนก </th>'+
+                        '    <th> อาการ </th>'+
+                        '    <th class="last"></th>'+
+                        '</tr>'+
+                        '</thead>'+
+                        '<tbody class="middle">';
+
+                i = 1;
+                console.log(allTableData['waiting_doctor']);
+                var waiting_doctor = allTableData['waiting_doctor'];
+                for(tmp in waiting_doctor){
+                    if(waiting_doctor[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
+                    else{sexTH = 'หญิง'; sexEN = 'female';}
+
+                    waiting_doctor_table += '<tr>'+
+                            '<td>'+i+'</td>'+
+                            '<td>'+waiting_doctor[tmp]['patient_info']['name']+'</td>'+
+                            '<td>'+waiting_doctor[tmp]['patient_info']['surname']+'</td>'+
+                            '<td><i class="fa fa-'+sexEN+'" aria-hidden="true"></i> '+sexTH+'</td>'+
+                            '<td>'+waiting_doctor[tmp]['patient_info']['age']+'</td>'+
+                            '<td>'+waiting_doctor[tmp]['department']+'</td>'+
+                            '<td>'+waiting_doctor[tmp]['symptom']+'</td>'+
+                            '<td class="last">'+
+                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_doctor[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '</td>'+
+                            '</tr>';
+                    i++;
+                }
+                waiting_doctor_table += '</tbody></table>';
+                $('#tab_1_2').append(waiting_doctor_table);
+                $('#tab2_table').DataTable();
+
+                /////////tab3_table/////////////////////////////////////
+                $('#tab3_table_wrapper').remove();
+                var waiting_pharmacist_table ='<table id="tab3_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+                        '<thead class="middle">'+
+                        '<tr>'+
+                        '    <th class="first"> ลำดับที่ </th>'+
+                        '    <th> ชื่อ </th>'+
+                        '    <th> นามสกุล </th>'+
+                        '    <th> เพศ </th>'+
+                        '    <th> อายุ </th>'+
+                        '    <th> แผนก </th>'+
+                        '    <th> อาการ </th>'+
+                        '    <th class="last"></th>'+
+                        '</tr>'+
+                        '</thead>'+
+                        '<tbody class="middle">';
+
+                i = 1;
+                console.log(allTableData['waiting_pharmacist']);
+                var waiting_pharmacist = allTableData['waiting_pharmacist'];
+                for(tmp in waiting_pharmacist){
+                    if(waiting_pharmacist[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
+                    else{sexTH = 'หญิง'; sexEN = 'female';}
+
+                    waiting_pharmacist_table += '<tr>'+
+                            '<td>'+i+'</td>'+
+                            '<td>'+waiting_pharmacist[tmp]['patient_info']['name']+'</td>'+
+                            '<td>'+waiting_pharmacist[tmp]['patient_info']['surname']+'</td>'+
+                            '<td><i class="fa fa-'+sexEN+'" aria-hidden="true"></i> '+sexTH+'</td>'+
+                            '<td>'+waiting_pharmacist[tmp]['patient_info']['age']+'</td>'+
+                            '<td>'+waiting_pharmacist[tmp]['department']+'</td>'+
+                            '<td>'+waiting_pharmacist[tmp]['symptom']+'</td>'+
+                            '<td class="last">'+
+                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '</td>'+
+                            '</tr>';
+                    i++;
+                }
+                waiting_pharmacist_table += '</tbody></table>';
+                $('#tab_1_3').append(waiting_pharmacist_table);
+                $('#tab3_table').DataTable();
+
+            }).fail(function () {
+            });
+
         }
 
 
