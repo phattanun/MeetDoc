@@ -1,4 +1,8 @@
 @if( !isset($controller) && !isset($page))
+    <h3>MessageController</h3>
+    <ul>
+        <li><a href="{{ action('MessageController@sendEmail') }}" target="side">email</a></li>
+    </ul>
     <h3>AccountController</h3>
     <ul>
         <li><a href="{{ action('PagesController@viewLogin') }}" target="side">login</a></li>
@@ -370,12 +374,12 @@
         Not found "{{ $controller }}/{{ $page }}"
     @endif
 @elseif($controller == "Message")
-    @if($page == 'email')
+    @if($page == 'send_email')
         <form action="{{$page}}" method="post" >
             {{ csrf_field() }}
             <input type="email" name="email" placeholder="Receiver's email" /><br>
-            <input type="text" name="subject" placeholder="Subject" /><br>
-            <input type="text" name="message" placeholder="Message" /><br>
+            <input type="text" name="subject" placeholder="Subject" value="[MeetDoc] Testing"/><br>
+            <input type="text" name="message" placeholder="Message" value="Hello World!" /><br>
             <button type="submit">Submit</button>
         </form>
     @else
