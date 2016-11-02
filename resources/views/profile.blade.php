@@ -47,30 +47,6 @@
                 </div>
                 <!-- END PORTLET MAIN -->
                 <!-- PORTLET MAIN -->
-                <div class="portlet light ">
-                    <!-- STAT -->
-                    <div class="row list-separated ">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 37 </div>
-                            <div class="uppercase profile-stat-text"> ไปตามนัด </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 51 </div>
-                            <div class="uppercase profile-stat-text"> เลื่อนนัด </div>
-                        </div>
-                    </div>
-                    <div class="row list-separated ">
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 37 </div>
-                            <div class="uppercase profile-stat-text"> ยกเลิกนัด </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 51 </div>
-                            <div class="uppercase profile-stat-text"> การนัดหมายทั้งหมด </div>
-                        </div>
-                    </div>
-                    <!-- END STAT -->
-                </div>
                 <!-- END PORTLET MAIN -->
             </div>
             <!-- END BEGIN PROFILE SIDEBAR -->
