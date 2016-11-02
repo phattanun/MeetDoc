@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
+use App\AppointmentDisease;
+use App\Disease;
 use App\Prescription;
 use Illuminate\Http\Request;
 
@@ -110,8 +112,9 @@ class AppointmentController extends Controller
                     ->join('dept','dept.id','=','appointment.dept_id')
                     ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom','weight','height','systolic','diastolic','temperature','heart_rate','diagnosis')->where('appointment.id',$request->id)->orderBy('date','ASC')->get();
         $prescription = Prescription::where('appointment_id',$request->id)->with("medicine")->get();
+        $disease = AppointmentDisease::where('appointment_id',$request->id)->with('disease')->get();
         if($apps[0]->patient_id==$user_id)
-            return compact('prescription','apps');
+            return compact('apps','disease','prescription');
         else
             return "fail";
     }
