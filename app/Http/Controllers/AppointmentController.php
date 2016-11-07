@@ -123,7 +123,7 @@ class AppointmentController extends Controller
         $apps = DB::table('appointment')
                     ->join('user','user.id','=','appointment.doctor_id')
                     ->join('dept','dept.id','=','appointment.dept_id')
-                    ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.symptom','appointment.time', 'dept.name as dept_name', 'dept.id as dept_id', 'user.name', 'user.surname')->where('appointment.id',$id)->orderBy('date','ASC')->get();
+                    ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.symptom','appointment.time', 'dept.name as dept_name', 'dept.id as dept_id', 'user.id as doctor_id', 'user.name', 'user.surname')->where('appointment.id',$id)->orderBy('date','ASC')->get();
         if($apps[0]->patient_id==$user_id)
             return $apps[0];
         else
@@ -166,6 +166,33 @@ class AppointmentController extends Controller
 //        self::getAppointmentList();
     }
 
+    public static function edit(Request $request) {
+        try {
+            $validate = Appointment::where('patient_id', $request->patient_id)->where('id','!=',$request->old_app_id)
+                ->where('date', $request->date)
+                ->where('time', $request->time)
+                ->get()->toArray();
+            if(sizeof($validate) > 0)
+                return 'duplicate';
+
+            $ap = new Appointment();
+            $ap->date = $request->date;
+            $ap->time = $request->time;
+            $ap->symptom = $request->symptom;
+            $ap->queue_status = 'uncheckedin';
+            $ap->checkin_time = null;
+            $ap->type = (strtotime($request->date) == strtotime('today') ? 'W' :'R'); // R refers to reserve and W refers to walk-in.
+            $ap->patient_id = $request->patient_id;
+            $ap->doctor_id = $request->doctor_id;
+            $ap->dept_id = $request->dept_id;
+            $ap->save();
+            Appointment::find($request->old_app_id)->delete();
+        } catch (\Exception $e) {
+            echo "<h2>Error: ".$e->getMessage()."</h2>";
+        }
+        return 'success';
+    }
+
     private static function generateCancelLink($doctor_id, $patient_id, $time) {
         return hash('ripemd256', "CanCel".$doctor_id.$time.$patient_id."aPProVed");
     }
@@ -205,34 +232,6 @@ class AppointmentController extends Controller
             echo "<h2>Error: ".$e->getMessage()."</h2>";
         }
         self::getAppointmentList();
-    }
-
-    public static function edit(Request $request) {
-        try {
-            // Debug
-            echo "Editing request.";
-            var_dump($request->all());
-
-            $ap = Appointment::findOrFail($request->id);
-            $edited = array_filter($request->all());
-            $editable_field = ['name', 'surname', 'gender', 'email', 'address', 'phone_no', 'password'];
-            $filtered = array_intersect_key($edited, array_flip($editable_field));
-
-            // Debug
-            echo "Editing...";
-            var_dump($filtered);
-
-            foreach ($filtered as $key => $value)
-                $ap[$key] = $value;
-            $ap->save();
-
-            // Debug
-            echo "Edited Profile.";
-            var_dump($ap['attributes']);
-        }
-        catch (\Exception $e) {
-            echo "<h2>Error</h2>";
-        }
     }
 
     public static function search(Request $request) {

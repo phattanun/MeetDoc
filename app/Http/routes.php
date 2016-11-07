@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/appointment/cancel', 'AppointmentController@cancel');
     Route::post('/appointment/detail', 'AppointmentController@getAppointmentDetail');
     Route::post('/appointment/edit', 'PagesController@appointmentEditPage');
+    Route::post('/appointment/edit/submit', 'PagesController@editAppointmentPage');
 
     // Admin
     Route::post('/department/doctor/get', 'AccountController@getDoctorByDepartment');
