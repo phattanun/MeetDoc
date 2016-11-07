@@ -66,7 +66,7 @@
                         </div>
             <!-- END PROFILE CONTENT -->
 
-    <div id="appDetailModal" class="modal fade" tabindex="-1" data-width="760">
+    <div id="appDetailModal" class="modal fade modal-scroll" tabindex="-1" data-width="760">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             <h4 class="modal-title">ประวัติการนัดหมายรหัส <span id="view-title"></span></h4>
@@ -178,7 +178,7 @@
             </div>
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-2 control-label" for="form_control_1">รหัสโรค</label>
+                    <label class="col-md-2 control-label" for="form_control_1">โรค</label>
                     <div class="col-md-10">
                         <input class="form-control" readonly="" value="" id="view-disease"  type="text">
                         <div class="form-control-focus"> </div>
@@ -189,7 +189,8 @@
                 <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="form_control_1">รายการยา</label>
                     <div class="col-md-10">
-                        <div class="table-responsive">
+                        <input class="form-control hidden" readonly="" value="-" id="view-medicine"  type="text">
+                        <div class="table-responsive" id="medicine-list">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
@@ -201,41 +202,6 @@
                                 </tr>
                                 </thead>
                                 <tbody id="view-drug-table-body">
-                                <tr>
-                                    <td> 1 </td>
-                                    <td> Paracetamol </td>
-                                    <td> 5 </td>
-                                    <td> เม็ด/5mg </td>
-                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
-                                </tr>
-                                <tr>
-                                    <td> 2 </td>
-                                    <td> Paracetamol </td>
-                                    <td> 5 </td>
-                                    <td> เม็ด/5mg </td>
-                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
-                                </tr>
-                                <tr>
-                                    <td> 3 </td>
-                                    <td> Paracetamol </td>
-                                    <td> 5 </td>
-                                    <td> เม็ด/5mg </td>
-                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
-                                </tr>
-                                <tr>
-                                    <td> 4 </td>
-                                    <td> Paracetamol </td>
-                                    <td> 5 </td>
-                                    <td> เม็ด/5mg </td>
-                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
-                                </tr>
-                                <tr>
-                                    <td> 5 </td>
-                                    <td> Paracetamol </td>
-                                    <td> 5 </td>
-                                    <td> เม็ด/5mg </td>
-                                    <td> กลืนพร้อมน้ำปริมาณมาก </td>
-                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -266,12 +232,68 @@
                     i++;
                 });
             }
+            function resetMedicineOrder(){
+                var i = 1;
+                $('.medicine-order').each(function () {
+                    $(this).text(i);
+                    i++;
+                });
+            }
             $(document).on('click','.view-btn ',function () {
                 $.post('{{url('/appointment/detail')}}',
                         {id:  this.id, _token: '{{csrf_token()}}'}).done(function (input) {
-                            input=input[0];
-                    $('#view-title').text(input['app_id']);
+                    var app = input['apps'][0];
+                    $('#view-title').text(app['app_id']);
+                    $('#view-department').val(app['dept_name']);
+                    $('#view-doctor').val(app['name'] + ' '+ app['surname']);
+                    $('#view-symptom').val(app['symptom']);
+                    $('#view-date').val(app['date'].split('-').reverse().join('/'));
+                    $('#view-time').val((app["time"]=="M") ? "เช้า (9.00 - 11.30 น.)":"บ่าย (13.00 - 15.30 น.)");
 
+                    $('#view-weight').val((app["weight"]==null) ? "-":(app["weight"] + ' กิโลกรัม'));
+                    $('#view-height').val((app["height"]==null) ? "-":(app["height"] + ' เซนติเมตร'));
+                    $('#view-systolic').val((app["systolic"]==null) ? "-":(app["systolic"] + ' มิลลิเมตรปรอท'));
+                    $('#view-diastoloic').val((app["diastolic"]==null) ? "-":(app["diastolic"] + ' มิลลิเมตรปรอท'));
+                    $('#view-temperature').val((app["temperature"]==null) ? "-":(app["temperature"] + ' องศาเซลเซียส'));
+                    $('#view-heartrate').val((app["heart_rate"]==null) ? "-":(app["heart_rate"] + ' ครั้งต่อนาที'));
+                    $('#view-diagnosis').val((app["diagnosis"]==null) ? "-":(app["diagnosis"]));
+
+                    var disease = input['disease'];
+                    if(disease.length>0){
+                        var diseasestr = "";
+                        for(var i=0;i<disease.length;i++){
+                            if(i!=disease.length-1)
+                                diseasestr += disease[i]['disease']['name']+ ', ';
+                            else
+                                diseasestr += disease[i]['disease']['name'];
+                        }
+                        $('#view-disease').val(diseasestr);
+                    }
+                    else {
+                        $('#view-disease').val("-");
+                    }
+                    var prescription = input['prescription'];
+                    if(prescription.length>0){
+                        $('#medicine-list').removeClass('hidden');
+                        $('#view-medicine').addClass('hidden');
+                        $('#view-drug-table-body').empty();
+                        for(var i=0;i<prescription.length;i++){
+                            $('#view-drug-table-body').append(
+                            '<tr>'
+                            + '<td class="medicine-order"></td>'
+                            + '<td>'+ prescription[i]['medicine']['business_name'] +'</td>'
+                            + '<td>'+ prescription[i]['amount'] +'</td>'
+                            + '<td>'+ prescription[i]['unit'] +'</td>'
+                            + '<td>'+ prescription[i]['medicine']['instruction'] +'</td>'
+                            + '</tr>'
+                            );
+                        }
+                    }
+                    else {
+                        $('#medicine-list').addClass('hidden');
+                        $('#view-medicine').removeClass('hidden');
+                    }
+                        resetMedicineOrder();
                     if(input == 'fail')
                         toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
                 }).fail(function () {
