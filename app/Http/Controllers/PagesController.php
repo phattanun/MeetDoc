@@ -13,6 +13,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\ScheduleController;
+use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
 {
@@ -36,7 +37,10 @@ class PagesController extends Controller
     }
 
     public function index() {
-        return view('masterpage');
+         if(Session::get('_role')=='Patient')
+            return self::appointmentFuturePage();
+        elseif (Session::get('_role')=='Staff')
+            return self::viewRecentAppointment();
     }
 
     public function viewLogin() {
