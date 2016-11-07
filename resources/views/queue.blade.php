@@ -560,7 +560,7 @@
                                                                     <div class="col-md-12">
                                                                         <label for="select2-button-addons-single-input-group" class="control-label">โรคที่วินิจฉัยได้</label>
                                                                         <div class="input-group input-group select2-bootstrap-append">
-                                                                            <select id="" class="form-control js-data-example-ajax" multiple>
+                                                                            <select id="disease_select2" class="form-control js-data-example-ajax" name="disease_select2" multiple>
                                                                                 <option value="0" selected="selected">กรุณาระบุโรค</option>
                                                                             </select>
                                                                         </div>
@@ -1039,7 +1039,6 @@
                 $('#physical-form-submit-row').hide();
 
                 $('#physical-form-appointment-id').val(id);
-//                alert(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
