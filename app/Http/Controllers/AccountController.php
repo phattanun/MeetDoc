@@ -243,5 +243,8 @@ class AccountController extends Controller
     public static function getDoctorByDepartment(Request $request) {
         return User::select(['id','name','surname'])->where(['dept_id'=>$request->dept_id,'staff'=>1, 'p_doctor'=>1])->get();
     }
+    public static function getDoctorByDepartment2($id) {
+        return User::select(['id','name','surname'])->where(['dept_id'=>$id,'staff'=>1, 'p_doctor'=>1])->get();
+    }
 
 }

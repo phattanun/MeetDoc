@@ -63,7 +63,7 @@
                                             <div class="row">
                                                 <label class="control-label col-md-2 text-right">แพทย์</label>
                                                 <div class="col-md-10">
-                                                    <select id="select-doctor" name="doctor_id" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
+                                                    <select id="select-doctor" name="doctor_id" class="bs-select form-control" data-live-search="true" disabled>
                                                         <option>กรุณาเลือกแพทย์ หรือให้ระบบเลือกแพทย์อัตโนมัติ</option>
                                                     </select>
                                                 </div>

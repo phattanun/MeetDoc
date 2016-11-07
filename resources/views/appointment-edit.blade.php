@@ -35,7 +35,7 @@
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">ค้นหาวันเวลานัดหมาย</span>
+                                    <span class="caption-subject font-blue-madison bold uppercase">ค้นหาวันเวลานัดหมายใหม่</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -51,7 +51,11 @@
                                                     <select id="select-department" name="dept_id" class="bs-select form-control" data-live-search="true" data-size="8" required aria-required="true">
                                                         <option value="">กรุณาเลือกแผนก</option>
                                                         @foreach($departments as $department)
-                                                            <option value="{{$department['id']}}">{{$department['name']}}</option>
+                                                            @if($app->dept_id==$department['id'])
+                                                                <option selected value="{{$department['id']}}">{{$department['name']}}</option>
+                                                            @else
+                                                                <option value="{{$department['id']}}">{{$department['name']}}</option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -63,8 +67,11 @@
                                             <div class="row">
                                                 <label class="control-label col-md-2 text-right">แพทย์</label>
                                                 <div class="col-md-10">
-                                                    <select id="select-doctor" name="doctor_id" class="bs-select form-control" data-live-search="true" data-size="8" disabled>
-                                                        <option>กรุณาเลือกแพทย์ หรือให้ระบบเลือกแพทย์อัตโนมัติ</option>
+                                                    <select id="select-doctor" name="doctor_id" class="bs-select form-control" data-live-search="true">
+                                                        <option value="0">เลือกแพทย์อัตโนมัติ</option>
+                                                        @foreach($doctors as $doctor)
+                                                            <option value="{{$doctor['id']}}">{{$doctor['name']}} {{$doctor['surname']}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -79,7 +86,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-10">
-                                                    <input name="date" class="form-control form-control-inline date-picker" size="16" value="" type="text" data-date-format="dd/mm/yyyy" data-date-start-date="+0d" required aria-required="true">
+                                                    <input name="date" class="form-control form-control-inline date-picker" size="16" value="{{join('/',array_reverse(explode('-',$app->date)))}}" type="text" data-date-format="dd/mm/yyyy" required aria-required="true">
                                                 </div>
                                             </div>
                                         </div>
@@ -91,11 +98,11 @@
                                                 <div class="col-md-10">
                                                     <div class="mt-checkbox-inline">
                                                         <label class="mt-checkbox">
-                                                            <input class="checkboxValidate" name="isMorning" id="inlineCheckbox21" value="M" type="checkbox" checked> เช้า (9.00 - 11.30 น.)
+                                                            <input class="checkboxValidate" name="isMorning" id="inlineCheckbox21" value="M" type="checkbox" @if($app->time=='M') checked @endif> เช้า (9.00 - 11.30 น.)
                                                             <span></span>
                                                         </label>
                                                         <label class="mt-checkbox">
-                                                            <input class="checkboxValidate" name="isAfternoon" id="inlineCheckbox22" value="A" type="checkbox" checked> บ่าย (13.00 - 15.30 น.)
+                                                            <input class="checkboxValidate" name="isAfternoon" id="inlineCheckbox22" value="A" type="checkbox" @if($app->time=='A') checked @endif> บ่าย (13.00 - 15.30 น.)
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -112,7 +119,7 @@
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-10">
-                                                <textarea id="symptom" class="form-control" name="symptom" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้" required aria-required="true"></textarea>
+                                                <textarea id="symptom" class="form-control" name="symptom" rows="3" placeholder="กรอกอาการป่วยของท่าน เช่น ปวดหัว ตัวร้อน เป็นไข้" required aria-required="true">{{$app->symptom}}</textarea>
                                             </div>
                                             </div>
                                         </div>
@@ -239,13 +246,9 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-{{--    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>--}}
-{{--    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
-{{--    <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-{{--    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
@@ -254,18 +257,14 @@
 @endsection
 
 @section('pageLevelScripts')
-{{--    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
-{{--    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>--}}
-{{--    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>--}}
-{{--    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/form-validation-appointment.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
             jQuery().datepicker && $(".date-picker").datepicker({
                 todayHighlight: true,
                 autoclose:!0
-            }).datepicker('setDate', new Date());
+            });
 
             $(document).on('click','#more-result', function () {
                 $('.more-result').show();

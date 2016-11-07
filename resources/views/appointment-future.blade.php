@@ -50,7 +50,7 @@
                                                 <td>{{$app->dept_name}}</td>
                                                 <td>{{$app->name}} {{$app->surname}}</td>
                                                 <td>{{$app->symptom}}</td>
-                                                <td><button id="{{$app->app_id}}" type="button" class="postpone-btn btn yellow-crusta">แก้ไข</button> </td>
+                                                <td><form role="form" action="{{url('/appointment/edit')}}" method="post"> {{ csrf_field() }}<input name="id" type="hidden" value="{{$app->app_id}}"><button id="{{$app->app_id}}" type="submit" class="postpone-btn btn yellow-crusta">แก้ไข</button></form></td>
                                                 <td><a id="{{$app->app_id}}" type="button" class="cancel-app-btn btn red">ยกเลิก</a></td>
                                             <tr>
                                         @endforeach
@@ -114,6 +114,19 @@
                     i++;
                 });
             }
+            {{--$(document).on('click','.postpone-btn', function () {--}}
+                {{--$.post('{{url('/appointment/edit')}}',--}}
+                        {{--{id: this.id, _token: '{{csrf_token()}}'}).done(function (input) {--}}
+                    {{--if(input=='success'){--}}
+
+                    {{--}--}}
+                    {{--else if(input=='fail'){--}}
+                        {{--toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");--}}
+                    {{--}--}}
+                {{--}).fail(function () {--}}
+                    {{--toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");--}}
+                {{--});--}}
+            {{--});--}}
             $(document).on('click','.cancel-app-btn', function () {
                 $('#confirm-cancel-app-btn').attr('identity',this.id);
                 $('#cancelAppModal').modal();
@@ -121,7 +134,6 @@
             $('#confirm-cancel-app-btn').click(function () {
                 var l = Ladda.create(this);
                 l.start();
-                var URL_ROOT = 'Request::root()}}';
                 $.post('{{url('/appointment/cancel')}}',
                         {id:  $(this).attr('identity'), _token: '{{csrf_token()}}'}).done(function (input) {
                     l.stop();
