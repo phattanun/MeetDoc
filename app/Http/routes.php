@@ -149,13 +149,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Diagnosis/give_medicine', 'DiagnosisController@give_medicine');
 
     // System
-    Route::post('/backend/Disease/add_disease', 'SystemController@add_disease');
-    Route::post('/backend/Disease/edit_disease', 'SystemController@edit_disease');
-    Route::post('/backend/Disease/delete_disease', 'SystemController@delete_disease');
-    Route::get('/backend/Disease/disease_list', 'SystemController@disease_list');
+    Route::post('/backend/Disease/add_disease', 'DiseaseController@add_disease');
+    Route::post('/backend/Disease/edit_disease', 'DiseaseController@edit_disease');
+    Route::post('/backend/Disease/delete_disease', 'DiseaseController@delete_disease');
+    Route::get('/backend/Disease/disease_list', 'DiseaseController@get_disease_list');
 
     // Message
     Route::post('/backend/Message/send_sms', 'MessageController@send_sms');
+    Route::get('/backend/Message/verify_registration', 'MessageController@sms_tester');
 
 });
 
