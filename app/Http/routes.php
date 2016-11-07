@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/schedule/search', 'ScheduleController@searchSchedule');
     Route::post('/appointment/cancel', 'AppointmentController@cancel');
     Route::post('/appointment/detail', 'AppointmentController@getAppointmentDetail');
-    Route::post('/appointment/edit', 'AppointmentController@appointmentEditPage');
+    Route::post('/appointment/edit', 'PagesController@appointmentEditPage');
 
     // Admin
     Route::post('/department/doctor/get', 'AccountController@getDoctorByDepartment');
