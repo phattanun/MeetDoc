@@ -62,10 +62,10 @@
     </ul>
     <h3>SystemController</h3>
     <ul>
-        <li><a href="{{ action('SystemController@disease_list') }}" target="side">get disease list</a></li>
-        <li><a href="{{ action('SystemController@add_disease') }}" target="side">add disease</a></li>
-        <li><a href="{{ action('SystemController@edit_disease') }}" target="side">edit disease</a></li>
-        <li><a href="{{ action('SystemController@delete_disease') }}" target="side">delete disease</a></li>
+        <li><a href="{{ action('DiseaseController@get_disease_list') }}" target="side">get disease list</a></li>
+        <li><a href="{{ action('DiseaseController@add_disease') }}" target="side">add disease</a></li>
+        <li><a href="{{ action('DiseaseController@edit_disease') }}" target="side">edit disease</a></li>
+        <li><a href="{{ action('DiseaseController@delete_disease') }}" target="side">delete disease</a></li>
     </ul>
     <iframe name="side" style="width: 75%;height: 99%;position: absolute;right:0px;top:0px;"></iframe>
 @elseif($page == "get")
