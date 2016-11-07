@@ -173,6 +173,12 @@ class PagesController extends Controller
         $request->patient_id = $user['id'];
         return AppointmentController::create($request);
     }
+    public function editAppointmentPage(Request $request)
+    {
+        $user = Auth::user();
+        $request->patient_id = $user['id'];
+        return AppointmentController::edit($request);
+    }
     public function appointmentHistoryPage()
     {
         return view('appointment-history')->with('appList',AppointmentController::getPastAppointments(Auth::user()['id']));
