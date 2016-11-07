@@ -935,6 +935,7 @@
 
         var diagnosis_history;
         var modalHistoryTable;
+        var allTableData;
 
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('patientId');
@@ -1024,7 +1025,7 @@
                 $('#modal_tab3_diagnosis_form').hide();
                 $('#modal_tab3_medicine_form').hide();
 
-                $('#physical-form-appointment-id').val(id);
+                clearPhysicalForm();
             }
             else{
                 $('#modal_tab3_physical_form').show();
@@ -1032,6 +1033,15 @@
                 $('#modal_tab3_medicine_form').show();
 
                 $('.physical-form').attr('disabled','disabled');
+
+                $('#physical-form-appointment-id').val(id);
+//                alert(allTableData['waiting_doctor'][id]['weight']);
+                $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
+                $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
+                $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
+                $("input[name~='heart_rate'].physical-form").val(allTableData['waiting_doctor'][id]['heart_rate']);
+                $("input[name~='systolic'].physical-form").val(allTableData['waiting_doctor'][id]['systolic']);
+                $("input[name~='diastolic'].physical-form").val(allTableData['waiting_doctor'][id]['diastolic']);
             }
             $('#tab_modal_3_button').click();
         });
@@ -1108,7 +1118,6 @@
             $('.physical-form').val('');
         }
 
-        var allTableData;
         function resetQueue(){
             var URL_ROOT = '{{Request::root()}}';
 
@@ -1202,7 +1211,7 @@
                             '<td class="last">'+
                             '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
                             '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_doctor[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
                     i++;
@@ -1250,7 +1259,7 @@
                             '<td class="last">'+
                             '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
                             '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
                     i++;
