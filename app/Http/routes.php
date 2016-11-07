@@ -153,6 +153,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Disease/delete_disease', 'SystemController@delete_disease');
     Route::get('/backend/Disease/disease_list', 'SystemController@disease_list');
 
+    // Message
+    Route::post('/backend/Message/send_sms', 'MessageController@send_sms');
+
 });
 
 Route::post('/backend/{controller}/post',

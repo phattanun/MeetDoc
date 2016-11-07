@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Http\Requests;
+use Mockery\CountValidator\Exception;
 
 define('APPLICATION_NAME', 'MeetDocPlus');
 define('CREDENTIALS_PATH', base_path('.credentials/gmail_credential.json'));
@@ -14,15 +15,16 @@ define('SCOPES', implode(' ', array(\Google_Service_Gmail::GMAIL_SEND)));
 
 class MessageController extends Controller
 {
-    public function send_sms($receive_phone_number, $sms_text){
+    public function send_sms(Request $request){
+
 
         $SMS = \Config::get('app.SMS');
 
         $fields = array(
             'key' => $SMS['sms_api_key'],
             'secret' => $SMS['sms_api_secret'],
-            'phone' => $receive_phone_number,
-            'message' => $sms_text
+            'phone' => $request->receive_phone_number,
+            'message' => $request->sms_text
         );
 
         $postvars='';
@@ -33,14 +35,28 @@ class MessageController extends Controller
             $sep='&';
         }
 
-        $ch = curl_init();
-        curl_setopt($ch,CURLOPT_URL,$SMS['sms_url']);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch,CURLOPT_POST,count($fields));
-        curl_setopt($ch,CURLOPT_POSTFIELDS,$postvars);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+        try {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $SMS['sms_url']);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+            curl_setopt($ch, CURLOPT_POST, count($fields));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $result = json_decode(curl_exec($ch));
+            $result = curl_exec($ch);
+
+            if ($result == false)
+                throw new Exception(curl_error($ch), curl_errno($ch));
+        } catch (Exception $e) {
+            trigger_error(sprintf(
+                'Curl failed with error #%d: %s',
+                $e->getCode(), $e->getMessage()),
+                E_USER_ERROR);
+        }
+
+        dd($result);
+//        $result = json_decode(curl_exec($ch));
+
         if(array_key_exists('error', $result)){
             return false;
         }

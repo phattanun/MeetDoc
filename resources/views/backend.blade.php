@@ -2,6 +2,7 @@
     <h3>MessageController</h3>
     <ul>
         <li><a href="{{ action('MessageController@sendEmail') }}" target="side">email</a></li>
+        <li><a href="{{ action('MessageController@send_sms') }}" target="side">sms</a></li>
     </ul>
     <h3>AccountController</h3>
     <ul>
@@ -380,6 +381,13 @@
             <input type="email" name="email" placeholder="Receiver's email" /><br>
             <input type="text" name="subject" placeholder="Subject" value="[MeetDoc] Testing"/><br>
             <input type="text" name="message" placeholder="Message" value="Hello World!" /><br>
+            <button type="submit">Submit</button>
+        </form>
+    @elseif($page == 'send_sms')
+        <form action="{{$page}}" method="post" >
+            {{ csrf_field() }}
+            <input type="text" name="receive_phone_number" placeholder="Phone number" /><br>
+            <input type="text" name="sms_text" placeholder="Message" /><br>
             <button type="submit">Submit</button>
         </form>
     @else
