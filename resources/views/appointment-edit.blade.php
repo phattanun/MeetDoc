@@ -9,7 +9,7 @@
 @endsection
 
 @section('title-inside')
-    <a href="{{url('appointment/future')}}">การนัดหมายในอนาคต</a> / แก้ไขการนัดหมาย
+    <a href="{{url('appointment/future')}}">การนัดหมายในอนาคต</a> / แก้ไขการนัดหมาย รหัส {{$app->app_id}}
 @endsection
 
 @section('pageLevelPluginsCSS')
