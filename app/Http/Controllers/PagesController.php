@@ -183,7 +183,9 @@ class PagesController extends Controller
     }
     public function appointmentEditPage(Request $request)
     {
-        return view('appointment-edit')->with('app',AppointmentController::getBriefAppointmentDetail($request->id));
+        $app=AppointmentController::getBriefAppointmentDetail($request->id);
+        $doctors = AccountController::getDoctorByDepartment2($app->dept_id);
+        return view('appointment-edit')->with(['app'=>$app,'departments'=>DepartmentController::getAllDepartment(),'doctors'=>$doctors]);
     }
 
     // Pharmacist

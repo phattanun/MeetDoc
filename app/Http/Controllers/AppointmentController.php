@@ -118,14 +118,14 @@ class AppointmentController extends Controller
         else
             return "fail";
     }
-    public static function getBriefAppointmentDetail(Request $request) {
+    public static function getBriefAppointmentDetail($id) {
         $user_id = Auth::user()['id'];
         $apps = DB::table('appointment')
                     ->join('user','user.id','=','appointment.doctor_id')
                     ->join('dept','dept.id','=','appointment.dept_id')
-                    ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname')->where('appointment.id',$request->id)->orderBy('date','ASC')->get();
+                    ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.symptom','appointment.time', 'dept.name as dept_name', 'dept.id as dept_id', 'user.name', 'user.surname')->where('appointment.id',$id)->orderBy('date','ASC')->get();
         if($apps[0]->patient_id==$user_id)
-            return $apps;
+            return $apps[0];
         else
             return "fail";
     }
