@@ -527,7 +527,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row" style="text-align: right;">
+                                                <div class="row" style="text-align: right;" id="physical-form-submit-row">
                                                     <div class="col-md-12">
                                                         <button type="submit" id="physical-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button physical-form" data-style="expand-right">
                                                             <span class="ladda-label">ลงทะเบียน</span>
@@ -1025,14 +1025,18 @@
                 $('#modal_tab3_diagnosis_form').hide();
                 $('#modal_tab3_medicine_form').hide();
 
+                $('.physical-form').removeAttr('disabled');
+                $('#physical-form-submit-row').show();
+
                 clearPhysicalForm();
             }
-            else{
+            else if(step == 2){
                 $('#modal_tab3_physical_form').show();
                 $('#modal_tab3_diagnosis_form').show();
                 $('#modal_tab3_medicine_form').show();
 
                 $('.physical-form').attr('disabled','disabled');
+                $('#physical-form-submit-row').hide();
 
                 $('#physical-form-appointment-id').val(id);
 //                alert(allTableData['waiting_doctor'][id]['weight']);
@@ -1042,6 +1046,11 @@
                 $("input[name~='heart_rate'].physical-form").val(allTableData['waiting_doctor'][id]['heart_rate']);
                 $("input[name~='systolic'].physical-form").val(allTableData['waiting_doctor'][id]['systolic']);
                 $("input[name~='diastolic'].physical-form").val(allTableData['waiting_doctor'][id]['diastolic']);
+            }
+            else{
+                $('.physical-form').attr('disabled','disabled');
+                $('.diagnosis-form').attr('disabled','disabled');
+                $('.medicine-form').attr('disabled','disabled');
             }
             $('#tab_modal_3_button').click();
         });
