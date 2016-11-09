@@ -22,10 +22,12 @@
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/pages/css/search.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
     <link href="{{url('assets/global/plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/pages/css/officer.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/pages/css/newapp.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
@@ -35,12 +37,27 @@
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">ค้นหาวันเวลานัดหมาย</span>
+                                    <span class="caption-subject font-blue-madison bold uppercase">เลือกบัญชีผู้ใช้และค้นหาวันเวลานัดหมาย</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
                                 <form id="search-form" role="form" action="{{ url('/schedule/search') }}" method="post" novalidate="novalidate">
                                     {{ csrf_field() }}
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-md-1 control-label text-right">บัญชีผู้ใช้
+                                                <span class="required" aria-required="true"> * </span>
+                                            </label>
+                                            <div class="col-md-11 margin-bottom-15">
+                                                {{--<div class="input-group select2-bootstrap-prepend">--}}
+                                                <div class=" select2-bootstrap-prepend">
+                                                    <select id="select-user" class="form-control js-data-example-ajax" name="user_id"  required aria-required="true" >
+                                                        <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -48,7 +65,7 @@
                                                 <label class="control-label col-md-2 text-right">แผนก
                                                     <span class="required" aria-required="true"> * </span></label>
                                                 <div class="col-md-10">
-                                                    <select id="select-department" name="dept_id" class="bs-select form-control" data-live-search="true" data-size="8" required aria-required="true">
+                                                    <select id="select-department" name="dept_id" class="bs-select form-control" data-live-search="true" required aria-required="true">
                                                         <option value="">กรุณาเลือกแผนก</option>
                                                         @foreach($departments as $department)
                                                             <option value="{{$department['id']}}">{{$department['name']}}</option>
@@ -239,10 +256,7 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-{{--    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>--}}
-{{--    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>--}}
-    <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
-{{--    <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>--}}
+    <script src="{{url('assets/global/plugins/select2/js/select2.full.officer.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
 {{--    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>--}}
@@ -254,14 +268,118 @@
 @endsection
 
 @section('pageLevelScripts')
+    <style>
+        .select2-result-staff__avatar {
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+        .select2-result-staff__avatar > img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 {{--    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
 {{--    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>--}}
 {{--    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>--}}
 {{--    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/form-validation-appointment.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
+            var ComponentsSelect2 = function() {
+                var searchStaff = function() {
+                    $.fn.select2.defaults.set("theme", "bootstrap");
+                    function formatUser(user) {
+                        if (user.loading) return user.text;
+
+                        var markup = "<div class='select2-result-staff clearfix'>" +
+                                "<div class='select2-result-staff__avatar'><img src='{{ url('assets/pages/media/profile/profile_user.jpg') }}' /></div>" +
+                                "<div class='select2-result-staff__meta'>" +
+                                "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
+
+                        markup += "<div class='select2-result-staff__details'>" +
+                                "<div class='select2-result-staff__id'></span> รหัสโรงพยาบาล : " + user.id + "</div>" +
+                                "<div class='select2-result-staff__ssn'></span> รหัสประจำตัวประชาชน : " + user.ssn + " </div>" +
+                                "</div>" +
+                                "</div></div>";
+
+                        return markup;
+                    }
+
+                    function formatUserSelection(user) {
+                        return (user.key==undefined ? user.key : user.key + "," + user.name+ " " + user.surname) || user.text;
+                    }
+
+                    $(".js-data-example-ajax").select2({
+                        width: "off",
+                        ajax: {
+                            url: "{{ url('officer/manage/list') }}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term, // search term
+                                    page: params.page
+                                };
+                            },
+                            processResults: function(data, page) {
+                                return {
+                                    results: data.items
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function(markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1,
+                        templateResult: formatUser,
+                        templateSelection: formatUserSelection
+                    });
+
+                    $("button[data-select2-open]").click(function() {
+                        $("#" + $(this).data("select2-open")).select2("open");
+                    });
+
+                    $(":checkbox").on("click", function() {
+                        $(this).parent().nextAll("select").prop("disabled", !this.checked);
+                    });
+
+                    $(".select2, .select2-multiple, .select2-allow-clear, .js-data-example-ajax").on("select2:open", function() {
+                        if ($(this).parents("[class*='has-']").length) {
+                            var classNames = $(this).parents("[class*='has-']")[0].className.split(/\s+/);
+
+                            for (var i = 0; i < classNames.length; ++i) {
+                                if (classNames[i].match("has-")) {
+                                    $("body > .select2-container").addClass(classNames[i]);
+                                }
+                            }
+                        }
+                    });
+
+                    $(".js-btn-set-scaling-classes").on("click", function() {
+                        $("#select2-multiple-input-sm, #select2-single-input-sm").next(".select2-container--bootstrap").addClass("input-sm");
+                        $("#select2-multiple-input-lg, #select2-single-input-lg").next(".select2-container--bootstrap").addClass("input-lg");
+                        $(this).removeClass("btn-primary btn-outline").prop("disabled", true);
+                    });
+                }
+
+                return {
+                    init: function() {
+                        searchStaff();
+                    }
+                };
+
+            }();
+
+            if (App.isAngularJsApp() === false) {
+                jQuery(document).ready(function() {
+                    ComponentsSelect2.init();
+                });
+            }
             jQuery().datepicker && $(".date-picker").datepicker({
                 todayHighlight: true,
                 autoclose:!0
