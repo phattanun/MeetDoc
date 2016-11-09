@@ -541,123 +541,134 @@
                                     </div>
                                 </div>
                                 <!-- END PHYSICAL DATA FORM -->
-                                <!-- BEGIN DIAGNOSIS FORM -->
-                                <div id="modal_tab3_diagnosis_form" class="normal-content">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="portlet light ">
-                                                <div class="portlet-title">
-                                                    <div class="caption caption-md">
-                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลวินิจฉัยโรค</span>
+                                <form id="diagnosis-form" class="form-horizontal" action="../backend/Diagnosis/add_physical_record" method="post" role="form">
+                                    {{csrf_field()}}
+                                    <input id="diagnosis-form-appointment-id" name="appointment_id" class="diagnosis-form" type="hidden" required>
+                                    <!-- BEGIN DIAGNOSIS FORM -->
+                                    <div id="modal_tab3_diagnosis_form" class="normal-content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="portlet light ">
+                                                    <div class="portlet-title">
+                                                        <div class="caption caption-md">
+                                                            <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลวินิจฉัยโรค</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="portlet-body">
-                                                    <!-- BEGIN FORM -->
-                                                    <div class="portlet-body form">
-                                                        <form class="form" role="form">
-                                                            <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <label for="select2-button-addons-single-input-group" class="control-label">โรคที่วินิจฉัยได้</label>
-                                                                        <div class="input-group input-group select2-bootstrap-append">
-                                                                            <select id="disease_select2" class="form-control js-data-example-ajax" name="disease_select2" multiple>
-                                                                                <option value="0" selected="selected">กรุณาระบุโรค</option>
-                                                                            </select>
+                                                    <div class="portlet-body">
+                                                        <!-- BEGIN FORM -->
+                                                        <div class="portlet-body form">
+                                                                <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <label class="control-label">โรคที่วินิจฉัยได้</label>
+                                                                            <div class="input-group input-group select2-bootstrap-append">
+                                                                                <select id="disease_select2" class="form-control js-data-disease-ajax diagnosis-form" name="disease_select2" multiple required>
+                                                                                    <option value="0" selected="selected">กรุณาระบุโรค</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 margin-top-20">
+                                                                            <label>รายละเอียดของโรค</label>
+                                                                            <textarea id="diagnosis_detail" name="diagnosis_detail" class="form-control diagnosis-form" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค" required></textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group margin-top-20">
-                                                                    <label>รายละเอียดของโรค</label>
-                                                                    <textarea class="form-control" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </form>
+                                                        </div>
+                                                        <!-- END FORM -->
                                                     </div>
-                                                    <!-- END FORM -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- END DIAGNOSIS FORM -->
-                                <!-- BEGIN MEDICINE FORM -->
-                                <div id="modal_tab3_medicine_form" class="normal-content">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="portlet light ">
-                                                <div class="portlet-title">
-                                                    <div class="caption caption-md">
-                                                        <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลสั่งยา</span>
+                                    <!-- END DIAGNOSIS FORM -->
+                                    <!-- BEGIN MEDICINE FORM -->
+                                    <div id="modal_tab3_medicine_form" class="normal-content">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="portlet light ">
+                                                    <div class="portlet-title">
+                                                        <div class="caption caption-md">
+                                                            <span class="caption-subject font-blue-madison bold uppercase">ข้อมูลสั่งยา</span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="portlet-body">
-                                                    <!-- BEGIN FORM -->
-                                                    <div class="portlet-body form">
-                                                        <form class="form form-group" role="form">
-                                                            <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                <div class="row">
-                                                                    <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
-                                                                        <span class="required" aria-required="true"> * </span>
-                                                                    </label>
-                                                                    <div class="col-md-7 margin-bottom-10">
-                                                                        <div class="input-group select2-bootstrap-prepend">
-                                                                            <select class="form-control js-data-example-ajax" multiple></select>
+                                                    <div class="portlet-body">
+                                                        <!-- BEGIN FORM -->
+                                                        <div class="portlet-body form">
+                                                            <form class="form form-group" role="form">
+                                                                <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                                    <div class="row">
+                                                                        <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
+                                                                            <span class="required" aria-required="true"> * </span>
+                                                                        </label>
+                                                                        <div class="col-md-7 margin-bottom-10">
+                                                                            <div class="input-group select2-bootstrap-prepend">
+                                                                                <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-1">
+                                                                            <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-1">
-                                                                        <button type="button" class="btn btn-success">เพิ่ม</button>
-                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
+                                                            </form>
+                                                        </div>
+                                                        <!-- END FORM -->
+                                                        <!-- BEGIN TABLE -->
+                                                        <div class="table-scrollable">
+                                                            <table class="table table-striped table-hover medicine-table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th> ลำดับที่ </th>
+                                                                    <th> รหัสยา </th>
+                                                                    <th> ชื่อยา </th>
+                                                                    <th> จำนวน </th>
+                                                                    <th> หน่วย </th>
+                                                                    <th></th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="medicine-table-body">
+                                                                <tr id="medicine-table-body-row-1">
+                                                                    <input type="hidden" value="152" name="medicine[]['id']">
+                                                                    <td>1</td>
+                                                                    <td>MD22531</td>
+                                                                    <td>Paracetamol</td>
+                                                                    <td><input class="touchspin" type="text" value="" name="medicine[]['amount']"></td>
+                                                                    <td>
+                                                                        <select class="form-control" name="medicine[]['unit']">
+                                                                            <option>Option 1</option>
+                                                                            <option>Option 2</option>
+                                                                            <option>Option 3</option>
+                                                                            <option>Option 4</option>
+                                                                            <option>Option 5</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="javascript:;" class="btn red"> ลบ
+                                                                            <i class="fa fa-trash"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- END TABLE -->
                                                     </div>
-                                                    <!-- END FORM -->
-                                                    <!-- BEGIN TABLE -->
-                                                    <div class="table-scrollable">
-                                                        <table class="table table-striped table-hover medicine-table">
-                                                            <thead>
-                                                            <tr>
-                                                                <th> ลำดับที่ </th>
-                                                                <th> รหัสยา </th>
-                                                                <th> ชื่อยา </th>
-                                                                <th> จำนวน </th>
-                                                                <th> หน่วย </th>
-                                                                <th> หมายเหตุ </th>
-                                                                <th></th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td> 1 </td>
-                                                                <td> MD22531 </td>
-                                                                <td> Paracetamol </td>
-                                                                <td> <input class="touchspin" type="text" value="" name=""> </td>
-                                                                <td>
-                                                                    <select class="form-control">
-                                                                        <option>Option 1</option>
-                                                                        <option>Option 2</option>
-                                                                        <option>Option 3</option>
-                                                                        <option>Option 4</option>
-                                                                        <option>Option 5</option>
-                                                                    </select>
-                                                                </td>
-                                                                <td> <input class="form-control" type="text" value="" name=""> </td>
-                                                                <td>
-                                                                    <a href="javascript:;" class="btn red"> ลบ
-                                                                        <i class="fa fa-trash"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <!-- END TABLE -->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- END MEDICINE FORM -->
+                                    <!-- END MEDICINE FORM -->
+                                    <div class="row" style="text-align: right;" id="diagnosis-form-submit-row">
+                                        <div class="col-md-12">
+                                            <button type="submit" id="diagnosis-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button diagnosis-form" data-style="expand-right">
+                                                <span class="ladda-label">บันทึกข้อมูล</span>
+                                                <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <!-- END WAIT MEDICINE TAB -->
                         </div>
@@ -892,7 +903,7 @@
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/components-select2-diagnosis.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/components-select2-diagnosis.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/physical-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
@@ -1089,6 +1100,7 @@
 
 ///////////////////////////////////////ModelTab3////////////////////////////////////////////////
 
+        //physical-form
         $(document).on('click','#physical-form-submit-button', function(e) {
             if($('#physical-form').valid()) {
                 e.preventDefault();
@@ -1284,6 +1296,62 @@
             });
 
         }
+
+        //diagnosis-form
+        $(document).on('click','#add_medicine_button', function(){
+            alert('aaa');
+            var medicine = $('#medicine_select2').val();
+            console.log(medicine);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',
+                    {patient_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
+                alert();
+                console.log(input);
+//                diagnosis_history = input;
+//                $('#modal-history-table_wrapper').remove();
+//                modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+//                        '<thead>'+
+//                        '<tr>'+
+//                        '<th class="first"> ครั้งที่ </th>'+
+//                        '<th> วันที่ </th>'+
+//                        '<th> ช่วง </th>'+
+//                        '<th> แพทย์ </th>'+
+//                        '<th> แผนก </th>'+
+//                        '<th> อาการ </th>'+
+//                        '<th></th>'+
+//                        '</tr>'+
+//                        '</thead>'+
+//                        '<tbody>';
+//                var tmp;
+//                var i = 1;
+//                var time;
+//                for(tmp in diagnosis_history){
+//                    console.log(diagnosis_history[tmp]);
+//                    alert(diagnosis_history[tmp]['id']);
+//                    if(diagnosis_history[tmp]['time'] == 'M')
+//                        time = 'เช้า';
+//                    else if(diagnosis_history[tmp]['time'] == 'A')
+//                        time = 'บ่าย';
+//
+//                    modalHistoryTable+=
+//                            '<tr>'+
+//                            '<td class="first">'+i+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['date']+'</td>'+
+//                            '<td>'+time+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['doctor']['name']+' '+diagnosis_history[tmp]['doctor']['surname']+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['doctor']['dept_id']+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['symptom']+'</td>'+
+//                            '<td><a type="button" class="btn btn-default view-history" historyId="'+tmp+'"><i class="fa fa-user"></i> ดูประวัติ</a></td>'+
+//                            '</tr>';
+//                }
+//                modalHistoryTable+='</tbody></table>';
+//
+//                $('#modal-history-table-container').append(modalHistoryTable);
+//                $('#modal-history-table').DataTable();
+//                $('#tab_modal_2_button').click();
+            }).fail(function () {
+            });
+        });
 
 
 

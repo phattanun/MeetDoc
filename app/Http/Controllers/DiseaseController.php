@@ -70,4 +70,21 @@ class DiseaseController extends Controller
         $disease_list = Disease::all();
         return $disease_list;
     }
+
+    public static function search_disease_list(Request $request) {
+        $tmp = [];
+        $tmp['total_count'] = 3;
+        $tmp['incomplete_result'] = true;
+        $tmp['items'] = [];
+        $tmp['items'][0] = [
+            'name' => 'Hello444',
+            "id"=> 4444
+        ];
+        $tmp['items'][1] = [
+            'name' => 'Hello216546',
+            "id"=> 24195339
+        ];
+
+        return $tmp;
+    }
 }
