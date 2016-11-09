@@ -1,9 +1,3 @@
-<li class="nav-item  @yield('queueNav')">
-    <a href="{{url('/queue')}}" class="nav-link nav-toggle">
-        <i class="icon-users"></i>
-        <span class="title">จัดการคิว</span>
-    </a>
-</li>
 <li class="nav-item  @yield('doctorAppointmentNav')">
     <a href="{{url('/doctor/appointment')}}" class="nav-link nav-toggle">
         <i class="icon-calendar"></i>

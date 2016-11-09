@@ -32,7 +32,7 @@
 </div>
 <!-- END LOGO -->
 <div class="content">
-    <div>
+    <div class="text-center">
         @if(isset($link)) <a href="{{ url($link) }}"> @endif
         @if(isset($title)) <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>{{ $title }}</h3> @endif
         @if(isset($link)) </a> @endif
@@ -43,7 +43,7 @@
         </div>
         @endif
         <br>
-        <h4 class="font-green bold" style="text-align:center"><a href="{{ url('') }}">กลับสู่หน้าหลัก</a></h4>
+        <a href="{{ url('') }}" type="button" id="register-back-btn" class="btn green btn-outline" style="text-align:center">กลับสู่หน้าหลัก</a>
     </div>
 </div>
 <div class="copyright">

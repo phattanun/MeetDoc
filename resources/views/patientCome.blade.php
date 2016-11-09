@@ -1,15 +1,15 @@
 @extends('masterpage')
 
-@section('profileNav')
+@section('registerNav')
     active
 @endsection
 
 @section('title')
-    ลงทะเบียนผู้ป่วยเข้ารับการตรวจ
+    ลงทะเบียนผู้ป่วยเข้าตรวจ
 @endsection
 
 @section('title-inside')
-    ลงทะเบียนผู้ป่วยเข้ารับการตรวจ
+    ลงทะเบียนผู้ป่วยเข้าตรวจ
 @endsection
 
 @section('pageLevelPluginsCSS')
