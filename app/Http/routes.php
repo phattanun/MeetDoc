@@ -154,6 +154,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Disease/edit_disease', 'DiseaseController@edit_disease');
     Route::post('/backend/Disease/delete_disease', 'DiseaseController@delete_disease');
     Route::get('/backend/Disease/disease_list', 'DiseaseController@get_disease_list');
+    Route::get('/backend/Disease/search', 'DiseaseController@search_disease_list');
 
     // Message
     Route::post('/backend/Message/send_sms', 'MessageController@send_sms');
