@@ -36,6 +36,14 @@ class PagesController extends Controller
         return $res;
     }
 
+    /**
+     * @return mixed
+     */
+    public function viewOfficerNewAppointmentPage()
+    {
+        return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());
+    }
+
     public function index() {
          if(Session::get('_role')=='Patient')
             return self::appointmentFuturePage();
@@ -60,8 +68,10 @@ class PagesController extends Controller
         if($res['status']) {
             // TODO: send email/sms
         }
-        else $request->flash();
-        // return view('auth/passwords/forget')->with('success', $res['status']);
+        else {
+            // Fake Forget Password
+            return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน']);
+        };
         return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน', 'link' => $res['link']]);
     }
 
@@ -144,12 +154,12 @@ class PagesController extends Controller
     }
 
     public function viewOfficerManage() {
-        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
+        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_admin','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);
         return view('officer')->with('users_list', $res);
     }
     public function getStaffList() {
-        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
+        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_admin','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);
         return $res;
     }
