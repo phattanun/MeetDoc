@@ -68,8 +68,10 @@ class PagesController extends Controller
         if($res['status']) {
             // TODO: send email/sms
         }
-        else $request->flash();
-        // return view('auth/passwords/forget')->with('success', $res['status']);
+        else {
+            // Fake Forget Password
+            return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน']);
+        };
         return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน', 'link' => $res['link']]);
     }
 
