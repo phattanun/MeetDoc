@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
     Route::get('/officer/manage', 'PagesController@viewOfficerManage');
+    Route::get('/officer/appointment/new', 'PagesController@viewOfficerNewAppointmentPage');
     Route::post('/officer/getStaffList', 'PagesController@getStaffList');
     Route::post('/officer/manage/addStaff', 'PagesController@addStaff');
     Route::post('/officer/manage/removeStaff', 'PagesController@removeStaff');

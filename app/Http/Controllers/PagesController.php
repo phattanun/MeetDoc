@@ -36,6 +36,14 @@ class PagesController extends Controller
         return $res;
     }
 
+    /**
+     * @return mixed
+     */
+    public function viewOfficerNewAppointmentPage()
+    {
+        return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());
+    }
+
     public function index() {
          if(Session::get('_role')=='Patient')
             return self::appointmentFuturePage();
