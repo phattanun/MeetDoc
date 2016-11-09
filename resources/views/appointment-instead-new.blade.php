@@ -37,7 +37,7 @@
                             <div class="portlet-title">
                                 <div class="caption caption-md">
                                     <i class="icon-globe theme-font hide"></i>
-                                    <span class="caption-subject font-blue-madison bold uppercase">เลือกบัญชีผู้ใช้และค้นหาวันเวลานัดหมาย</span>
+                                    <span class="caption-subject font-blue-madison bold uppercase">เลือกผู้ป่วยและค้นหาวันเวลานัดหมาย</span>
                                 </div>
                             </div>
                             <div class="portlet-body">
@@ -45,7 +45,7 @@
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="form-group">
-                                            <label class="col-md-1 control-label text-right">บัญชีผู้ใช้
+                                            <label class="col-md-1 control-label text-right">ผู้ป่วย
                                                 <span class="required" aria-required="true"> * </span>
                                             </label>
                                             <div class="col-md-11 margin-bottom-15">
@@ -184,6 +184,16 @@
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
+                    <label class="col-md-2 control-label" for="confirm_patient">ผู้ป่วย</label>
+                    <div class="col-md-10">
+                        <input class="form-control" readonly="" value="" id="confirm_patient"  type="text">
+                        <input class="form-control" value="" id="confirm_patient_id"  type="hidden">
+                        <div class="form-control-focus"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-md-line-input">
                     <label class="col-md-2 control-label" for="confirm_department">แผนก</label>
                     <div class="col-md-10">
                         <input class="form-control" readonly="" value="" id="confirm_department"  type="text">
@@ -310,7 +320,7 @@
                     }
 
                     function formatUserSelection(user) {
-                        return (user.key==undefined ? user.key : user.key + "," + user.name+ " " + user.surname) || user.text;
+                        return (user.key==undefined ? user.key : user.name+ " " + user.surname) || user.text;
                     }
 
                     $(".js-data-example-ajax").select2({
@@ -485,6 +495,9 @@
                 }
             });
             $(document).on('click','.make-appointment-btn', function () {
+                var data = $("#select-user").select2('data')[0];
+                $('#confirm_patient').val(data.name+" "+data.surname);
+                $('#confirm_patient_id').val($(this).attr('did'));
                 $('#confirm_doctor').val($(this).attr('dname'));
                 $('#confirm_doctor_id').val($(this).attr('did'));
                 $('#confirm_department').val($(this).attr('deptname'));
