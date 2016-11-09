@@ -152,12 +152,12 @@ class PagesController extends Controller
     }
 
     public function viewOfficerManage() {
-        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
+        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_admin','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);
         return view('officer')->with('users_list', $res);
     }
     public function getStaffList() {
-        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_patient','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
+        $res = AccountController::getUserList(['id','ssn','name','surname','dept_id','p_admin','p_doctor','p_nurse','p_pharm','p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);
         return $res;
     }
