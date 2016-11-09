@@ -625,18 +625,18 @@
                                                                     <th> ชื่อยา </th>
                                                                     <th> จำนวน </th>
                                                                     <th> หน่วย </th>
-                                                                    <th> หมายเหตุ </th>
                                                                     <th></th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                <tr>
-                                                                    <td> 1 </td>
-                                                                    <td> MD22531 </td>
-                                                                    <td> Paracetamol </td>
-                                                                    <td> <input class="touchspin" type="text" value="" name=""> </td>
+                                                                <tbody id="medicine-table-body">
+                                                                <tr id="medicine-table-body-row-1">
+                                                                    <input type="hidden" value="152" name="medicine[]['id']">
+                                                                    <td>1</td>
+                                                                    <td>MD22531</td>
+                                                                    <td>Paracetamol</td>
+                                                                    <td><input class="touchspin" type="text" value="" name="medicine[]['amount']"></td>
                                                                     <td>
-                                                                        <select class="form-control">
+                                                                        <select class="form-control" name="medicine[]['unit']">
                                                                             <option>Option 1</option>
                                                                             <option>Option 2</option>
                                                                             <option>Option 3</option>
@@ -644,7 +644,6 @@
                                                                             <option>Option 5</option>
                                                                         </select>
                                                                     </td>
-                                                                    <td> <input class="form-control" type="text" value="" name=""> </td>
                                                                     <td>
                                                                         <a href="javascript:;" class="btn red"> ลบ
                                                                             <i class="fa fa-trash"></i>
