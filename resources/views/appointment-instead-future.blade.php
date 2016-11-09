@@ -1,65 +1,71 @@
 @extends('masterpage')
 
-@section('futureAppNav')
+@section('insteadEditNav')
     active
 @endsection
 
 @section('title')
-    การนัดหมายในอนาคต
+    แก้ไขการนัดหมายของผู้ป่วย
 @endsection
 
 @section('title-inside')
-    การนัดหมายในอนาคต
+    แก้ไขการนัดหมายของผู้ป่วย
 @endsection
 
 @section('pageLevelPluginsCSS')
     <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/pages/css/search.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
+    <link href="{{url('assets/pages/css/officer.css')}}" rel="stylesheet" type="text/css" />
+    <style>
+        .select2-result-staff__avatar {
+            float: left;
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+        }
+        .select2-result-staff__avatar > img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 @endsection
 
 @section('content')
-            <!-- END PROFILE CONTENT -->
-                        <div class="portlet light ">
-                            <div class="portlet-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th> ลำดับที่ </th>
-                                            <th> รหัสการนัดหมาย </th>
-                                            <th> วันที่ </th>
-                                            <th> ช่วงเวลา </th>
-                                            <th> แผนก </th>
-                                            <th> แพทย์ </th>
-                                            <th> อาการ </th>
-                                            <th>  </th>
-                                            <th>  </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($appList as $app)
-                                            <tr>
-                                                <td class="result-order"></td>
-                                                <td>{{$app->app_id}}</td>
-                                                <td>{{join('/',array_reverse(explode("-", $app->date)))}}</td>
-                                                <td>@if($app->time=="M")เช้า (9.00 - 11.30 น.)@else บ่าย (13.00 - 15.30 น.)@endif</td>
-                                                <td>{{$app->dept_name}}</td>
-                                                <td>{{$app->name}} {{$app->surname}}</td>
-                                                <td>{{$app->symptom}}</td>
-                                                <td><form role="form" action="{{url('/appointment/edit')}}" method="post"> {{ csrf_field() }}<input name="id" type="hidden" value="{{$app->app_id}}"><button id="{{$app->app_id}}" type="submit" class="postpone-btn btn yellow-crusta">แก้ไข</button></form></td>
-                                                <td><a id="{{$app->app_id}}" type="button" class="cancel-app-btn btn red">ยกเลิก</a></td>
-                                            <tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="caption caption-md">
+                <i class="icon-globe theme-font hide"></i>
+                <span class="caption-subject font-blue-madison bold uppercase">ค้นหาผู้ป่วย</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-md-1 control-label text-right">ผู้ป่วย
+                        <span class="required" aria-required="true"> * </span>
+                    </label>
+                    <div class="col-md-9 margin-bottom-15">
+                        <div class=" select2-bootstrap-prepend">
+                            <select id="select-user" class="form-control js-data-example-ajax" name="user_id"  required aria-required="true" >
+                                <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
+                            </select>
                         </div>
-            <!-- END PROFILE CONTENT -->
+                    </div>
+                    <div class="col-md-2">
+                        <button id="ok-btn" type="submit" class="btn btn-success">ตกลง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div id="cancelAppModal" class="modal fade" tabindex="-1" data-width="320">
         <div class="modal-header">
@@ -97,6 +103,7 @@
 @endsection
 
 @section('pageLevelPluginsScript')
+    <script src="{{url('assets/global/plugins/select2/js/select2.full.officer.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
@@ -106,54 +113,102 @@
 @section('pageLevelScripts')
     <script>
         $(document).ready(function () {
-            resetResultOrder();
-            function resetResultOrder(){
-                var i = 1;
-                $('.result-order').each(function () {
-                    $(this).text(i);
-                    i++;
+            var ComponentsSelect2 = function() {
+                var searchStaff = function() {
+                    $.fn.select2.defaults.set("theme", "bootstrap");
+                    function formatUser(user) {
+                        if (user.loading) return user.text;
+
+                        var markup = "<div class='select2-result-staff clearfix'>" +
+                                "<div class='select2-result-staff__avatar'><img src='{{ url('assets/pages/media/profile/profile_user.jpg') }}' /></div>" +
+                                "<div class='select2-result-staff__meta'>" +
+                                "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
+
+                        markup += "<div class='select2-result-staff__details'>" +
+                                "<div class='select2-result-staff__id'></span> รหัสโรงพยาบาล : " + user.id + "</div>" +
+                                "<div class='select2-result-staff__ssn'></span> รหัสประจำตัวประชาชน : " + user.ssn + " </div>" +
+                                "</div>" +
+                                "</div></div>";
+
+                        return markup;
+                    }
+
+                    function formatUserSelection(user) {
+                        return (user.key==undefined ? user.key : user.name+ " " + user.surname) || user.text;
+                    }
+
+                    $(".js-data-example-ajax").select2({
+                        width: "off",
+                        ajax: {
+                            url: "{{ url('officer/manage/list') }}",
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term, // search term
+                                    page: params.page
+                                };
+                            },
+                            processResults: function(data, page) {
+                                return {
+                                    results: data.items
+                                };
+                            },
+                            cache: true
+                        },
+                        escapeMarkup: function(markup) {
+                            return markup;
+                        },
+                        minimumInputLength: 1,
+                        templateResult: formatUser,
+                        templateSelection: formatUserSelection
+                    });
+
+                    $("button[data-select2-open]").click(function() {
+                        $("#" + $(this).data("select2-open")).select2("open");
+                    });
+
+                    $(":checkbox").on("click", function() {
+                        $(this).parent().nextAll("select").prop("disabled", !this.checked);
+                    });
+
+                    $(".select2, .select2-multiple, .select2-allow-clear, .js-data-example-ajax").on("select2:open", function() {
+                        if ($(this).parents("[class*='has-']").length) {
+                            var classNames = $(this).parents("[class*='has-']")[0].className.split(/\s+/);
+
+                            for (var i = 0; i < classNames.length; ++i) {
+                                if (classNames[i].match("has-")) {
+                                    $("body > .select2-container").addClass(classNames[i]);
+                                }
+                            }
+                        }
+                    });
+
+                    $(".js-btn-set-scaling-classes").on("click", function() {
+                        $("#select2-multiple-input-sm, #select2-single-input-sm").next(".select2-container--bootstrap").addClass("input-sm");
+                        $("#select2-multiple-input-lg, #select2-single-input-lg").next(".select2-container--bootstrap").addClass("input-lg");
+                        $(this).removeClass("btn-primary btn-outline").prop("disabled", true);
+                    });
+                }
+
+                return {
+                    init: function() {
+                        searchStaff();
+                    }
+                };
+
+            }();
+
+            if (App.isAngularJsApp() === false) {
+                jQuery(document).ready(function() {
+                    ComponentsSelect2.init();
                 });
             }
-            {{--$(document).on('click','.postpone-btn', function () {--}}
-                {{--$.post('{{url('/appointment/edit')}}',--}}
-                        {{--{id: this.id, _token: '{{csrf_token()}}'}).done(function (input) {--}}
-                    {{--if(input=='success'){--}}
 
-                    {{--}--}}
-                    {{--else if(input=='fail'){--}}
-                        {{--toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");--}}
-                    {{--}--}}
-                {{--}).fail(function () {--}}
-                    {{--toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");--}}
-                {{--});--}}
-            {{--});--}}
-            $(document).on('click','.cancel-app-btn', function () {
-                $('#confirm-cancel-app-btn').attr('identity',this.id);
-                $('#cancelAppModal').modal();
+            $('#ok-btn').click(function () {
+                window.location.replace('{{url('/officer/appointment/edit')}}/'+$("#select-user").val());
             });
-            $('#confirm-cancel-app-btn').click(function () {
-                var l = Ladda.create(this);
-                l.start();
-                $.post('{{url('/appointment/cancel')}}',
-                        {id:  $(this).attr('identity'), _token: '{{csrf_token()}}'}).done(function (input) {
-                    l.stop();
-                    if(input=='success'){
-                        toastr['success']('ขอยกเลิกการนัดหมายสำเร็จ', "สำเร็จ");
-                        $('#cancelAppModal').modal('hide');
-                        $('#emailConfirmAlertModal').modal();
-                    }
-                    else if(input=='fail'){
-                        l.stop();
-                        toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
-                    }
-                }).fail(function () {
-                    l.stop();
-                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
-                });
-            });
-            $(document).on('click','.postpone-btn', function () {
 
-            })
         })
     </script>
 @endsection

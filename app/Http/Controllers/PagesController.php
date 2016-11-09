@@ -43,6 +43,10 @@ class PagesController extends Controller
     {
         return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());
     }
+    public function viewOfficerFutureAppointmentPage()
+    {
+        return view('appointment-instead-future')->with('appList',AppointmentController::getFutureAppointments(Auth::user()['id']));
+    }
 
     public function index() {
          if(Session::get('_role')=='Patient')

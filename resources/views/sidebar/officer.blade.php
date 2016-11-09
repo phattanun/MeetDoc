@@ -10,8 +10,8 @@
         <span class="title">นัดหมายแทนผู้ป่วย</span>
     </a>
 </li>
-<li class="nav-item  @yield('insteadAppNav')">
-    <a href="{{url('/officer/appointment/new')}}" class="nav-link nav-toggle">
+<li class="nav-item  @yield('insteadEditNav')">
+    <a href="{{url('/officer/appointment/edit')}}" class="nav-link nav-toggle">
         <i class="fa fa-pencil-square-o"></i>
         <span class="title">แก้ไขการนัดหมายของผู้ป่วย</span>
     </a>
