@@ -19,9 +19,7 @@ class GlobalComposer {
         $_user = Auth::user();
         if(is_null($_user))
             return $view;
-        if(Session::get('_role') == null)
-            Session::set('_role', ($_user->staff ? 'Staff' : 'Patient'));
-        //     return $view->redirect('/');
+        $_user->role = Session::get('_role');
         return $view->with('_user', $_user);
     }
 

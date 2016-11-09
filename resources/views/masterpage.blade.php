@@ -71,17 +71,15 @@
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="{{url('assets/layouts/layout/img/avatar3_small.jpg')}}" />
-                            <span class="username username-hide-on-mobile"> {{ $_user->name }} @if(Session::get('_role')=='Patient')(ผู้ป่วย)@elseif(Session::get('_role')=='Staff')(บุคลากร)@endif </span>
+                            <span class="username username-hide-on-mobile"> {{ $_user->name }} @if($_user->role=='Patient')(ผู้ป่วย)@elseif($_user->role=='Staff')(บุคลากร)@endif </span>
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
-                            {{--@if($_user->staff) <li>เราเป็นเจ้าหน้าที่</li> @endif--}}
-                            {{--@if($_user->p_patient) <li>เราเป็นผู้ป่วย</li> @endif--}}
                             <li>
                                 <a href="{{ url('swapRole') }}">
-                                    @if(Session::get('_role')=='Patient')
+                                    @if($_user->role=='Patient')
                                         <i class="fa fa-user" style="margin-right: 0px"></i><i class="fa fa-long-arrow-right" style="margin-right: 0px"></i><i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
-                                    @elseif(Session::get('_role')=='Staff')
+                                    @elseif($_user->role=='Staff')
                                         <i class="fa fa-user-md" style="margin-right: 0px"></i><i class="fa fa-long-arrow-right" style="margin-right: 0px"></i><i class="fa fa-user"></i> เปลี่ยนเป็นผู้ป่วย </a>
                                     @endif
                             </li>

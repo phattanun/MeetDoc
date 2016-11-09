@@ -12,8 +12,10 @@ use App\User;
 class AccountController extends Controller
 {
     public static function login(Request $request){
-        if(Auth::viaRemember() || Auth::attempt(array('ssn' => $request->id, 'password' => $request->password), isset($request->remember)))
+        if(Auth::viaRemember() || Auth::attempt(array('ssn' => $request->id, 'password' => $request->password), isset($request->remember))) {
+            Session::set('_role', (Auth::user()->staff ? 'Staff' : 'Patient'));
             return true;
+        }
         return false;
     }
 
@@ -32,11 +34,6 @@ class AccountController extends Controller
                 case 'Patient':
                     if($user->staff)
                         Session::set('_role', 'Staff');
-                    break;
-
-                case 'Staff':
-                    if($user->p_patient)
-                        Session::set('_role', 'Patient');
                     break;
 
                 default:
@@ -156,7 +153,7 @@ class AccountController extends Controller
             $replace = array();
             foreach ($record as $key => $value) {
                 switch($key) {
-                    case 'p_patient':
+                    case 'p_admin':
                     case 'p_doctor':
                     case 'p_nurse':
                     case 'p_pharm':
@@ -181,7 +178,7 @@ class AccountController extends Controller
                 .$tempDept.
                 '</select>
                 </td>
-            <td><input type="checkbox" id="?0" isa="p_patient" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
+            <td><input type="checkbox" id="?0" isa="p_admin" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
             <td><input type="checkbox" id="?0" isa="p_doctor" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
             <td><input type="checkbox" id="?0" isa="p_nurse" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
             <td><input type="checkbox" id="?0" isa="p_pharm" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
