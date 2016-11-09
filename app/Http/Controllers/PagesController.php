@@ -181,6 +181,11 @@ class PagesController extends Controller
     {
         return view('appointment-new')->with('departments', DepartmentController::getAllDepartment());
     }
+    public function createAppointmentInsteadPage(Request $request)
+    {
+        $user = Auth::user();
+        return AppointmentController::create($request);
+    }
     public function createAppointmentPage(Request $request)
     {
         $user = Auth::user();

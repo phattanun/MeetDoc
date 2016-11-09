@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" class="ie8 no-js">
-<html lang="en" class="ie9 no-js">
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
 <html lang="en">
+<!--<![endif]-->
+
 <head>
     <meta charset="utf-8" />
     <title>@yield('title')</title>
@@ -120,8 +124,10 @@
             <i class="icon-arrow-up"></i>
         </div>
     </div>
+    <!--[if lt IE 9]>
     <script src="{{url('assets/global/plugins/respond.min.js')}}"></script>
     <script src="{{url('assets/global/plugins/excanvas.min.js')}}"></script>
+    <![endif]-->
     <script src="{{url('assets/global/plugins/jquery.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap/js/bootstrap.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/js.cookie.min.js')}}" type="text/javascript"></script>
