@@ -43,10 +43,22 @@ class PagesController extends Controller
     {
         return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());
     }
-    public function viewOfficerFutureAppointmentPage()
+    public function viewOfficerAppointmentSearchUserPage()
     {
-        return view('appointment-instead-future')->with('appList',AppointmentController::getFutureAppointments(Auth::user()['id']));
+        return view('appointment-instead-searchuser')->with('appList',AppointmentController::getFutureAppointments(Auth::user()['id']));
     }
+
+    public function viewOfficerFutureAppointmentPage($id)
+    {
+        return view('appointment-instead-future')->with('appList',AppointmentController::getFutureAppointments($id));
+    }
+    public function viewOfficerEditAppointmentPage(Request $request)
+    {
+        $app=AppointmentController::getBriefAppointmentDetail($request->id);
+        $doctors = AccountController::getDoctorByDepartment2($app->dept_id);
+        return view('appointment-instead-edit')->with(['app'=>$app,'departments'=>DepartmentController::getAllDepartment(),'doctors'=>$doctors]);
+    }
+
 
     public function index() {
          if(Session::get('_role')=='Patient')
@@ -200,6 +212,11 @@ class PagesController extends Controller
     {
         $user = Auth::user();
         $request->patient_id = $user['id'];
+        return AppointmentController::edit($request);
+    }
+    public function editAppointmentOfficer(Request $request,$id)
+    {
+        $request->patient_id = $id;
         return AppointmentController::edit($request);
     }
     public function appointmentHistoryPage()

@@ -92,7 +92,7 @@ class AppointmentController extends Controller
         $apps = DB::table('appointment')
                     ->join('user','user.id','=','appointment.doctor_id')
                     ->join('dept','dept.id','=','appointment.dept_id')
-                    ->select('appointment.id as app_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','>=',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
+                    ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date','>=',$now)->where('appointment.patient_id',$patient_id)->orderBy('date','ASC')->get();
         return $apps;
     }
 
@@ -119,12 +119,13 @@ class AppointmentController extends Controller
             return "fail";
     }
     public static function getBriefAppointmentDetail($id) {
-        $user_id = Auth::user()['id'];
+        $user=Auth::user();
+        $user_id = $user['id'];
         $apps = DB::table('appointment')
                     ->join('user','user.id','=','appointment.doctor_id')
                     ->join('dept','dept.id','=','appointment.dept_id')
                     ->select('appointment.id as app_id','appointment.patient_id','appointment.date', 'appointment.symptom','appointment.time', 'dept.name as dept_name', 'dept.id as dept_id', 'user.id as doctor_id', 'user.name', 'user.surname')->where('appointment.id',$id)->orderBy('date','ASC')->get();
-        if($apps[0]->patient_id==$user_id)
+        if($apps[0]->patient_id==$user_id||$user['p_officer'])
             return $apps[0];
         else
             return "fail";
@@ -212,6 +213,17 @@ class AppointmentController extends Controller
             return 'fail';
         }
 //        self::getAppointmentList();
+    }
+    public static function officerCancel(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d H:i:s');
+        try {
+            Appointment::findOrFail($request->id)->delete();
+         return 'success';
+        }
+        catch (\Exception $e) {
+            return 'fail';
+        }
     }
 
     public static function cancelApprove(Request $request) {

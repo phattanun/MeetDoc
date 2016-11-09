@@ -87,7 +87,7 @@
                 @if(Session::get('_role')=='Patient')
                     @include('sidebar.patient')
                 @elseif(Session::get('_role')=='Staff')
-                    @if($_user['p_nurse']||$_user['p_doctor']||$_user['p_pharmacist'])
+                    @if($_user['p_nurse']||$_user['p_doctor']||$_user['p_pharm'])
                         <li class="nav-item  @yield('queueNav')">
                             <a href="{{url('/queue')}}" class="nav-link nav-toggle">
                                 <i class="icon-users"></i>
@@ -101,7 +101,7 @@
                     @if($_user['p_doctor'])
                         @include('sidebar.doctor')
                     @endif
-                    @if($_user['p_pharmacist'])
+                    @if($_user['p_pharm'])
                         @include('sidebar.pharmacist')
                     @endif
                     @if($_user['p_admin'])
