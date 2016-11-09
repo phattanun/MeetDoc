@@ -89,11 +89,11 @@
                         <th rowspan="2"></th>
                     </tr>
                     <tr class="text-center">
-                        <th>ผู้ป่วย</th>
                         <th>แพทย์</th>
                         <th>พยาบาล</th>
                         <th>เภสัชกร</th>
                         <th>เจ้าหน้าที่</th>
+                        <th>ผู้ดูแลระบบ</th>
                     </tr>
                     </thead>
                     <tbody id="staff-table-body"><?php echo $users_list ?></tbody>
