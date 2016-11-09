@@ -86,6 +86,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/disease/search', 'DiseaseController@search_disease');
     Route::get('/disease/getDiseaseList', 'DiseaseController@get_disease_list');
 
+    // Department
+    Route::post('/department/create', 'DepartmentController@add');
+    Route::post('/department/edit', 'DepartmentController@edit');
+    Route::post('/department/delete', 'DepartmentController@delete');
+    Route::post('/department/detail', 'DepartmentController@get_detail');
+    Route::post('/department/search', 'DepartmentController@search');
+    Route::get('/department/getDiseaseList', 'DiseaseController@get_list');
+
     //everyone
     // Route::get('/profile', 'ProfileController@index');
     //Route::post('/profile', 'ProfileController@testprofile');
@@ -96,6 +104,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/account/manage', 'ProfileController@accountPage');
     // Route::get('/officer/manage', 'ProfileController@officerPage');
     Route::get('/disease/manage', 'PagesController@diseasePage');
+    Route::get('/department/manage', 'PagesController@departmentPage');
     Route::get('/disease/temp', 'ProfileController@diseasePage');
     Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
 

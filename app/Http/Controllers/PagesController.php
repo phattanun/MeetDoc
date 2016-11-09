@@ -233,6 +233,10 @@ class PagesController extends Controller
         $doctors = AccountController::getDoctorByDepartment2($app->dept_id);
         return view('appointment-edit')->with(['app'=>$app,'departments'=>DepartmentController::getAllDepartment(),'doctors'=>$doctors]);
     }
+    // Department
+    public function departmentPage() {
+        return view('department')->with(['departmentList'=> DepartmentController::get_list()]);
+    }
 
     // Pharmacist
     public function drugPage(Request $request) {

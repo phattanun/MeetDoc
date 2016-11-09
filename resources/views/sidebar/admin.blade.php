@@ -16,3 +16,9 @@
         <span class="title">จัดการข้อมูลรหัสโรค</span>
     </a>
 </li>
+<li class="nav-item @yield('departmentNav')">
+    <a href="{{url('/department/manage')}}" class="nav-link nav-toggle">
+        <i class="fa fa-sitemap"></i>
+        <span class="title">จัดการข้อมูลแผนก</span>
+    </a>
+</li>
