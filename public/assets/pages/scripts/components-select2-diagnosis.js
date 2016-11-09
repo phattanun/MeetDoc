@@ -26,7 +26,6 @@ var ComponentsSelect2 = function() {
         // @see https://select2.github.io/examples.html#data-ajax
         function formatRepoDisease(repo) {
             if (repo.loading) return repo.text;
-            console.log(repo);
             var markup = "<div class='select2-result-repository clearfix'>" +
                 "<div class='select2-result-repository__title'>" + repo.name + "</div></div>";
 
@@ -71,7 +70,6 @@ var ComponentsSelect2 = function() {
 
         function formatRepoMedicine(repo) {
             if (repo.loading) return repo.text;
-            console.log(repo);
             var markup = "<div class='select2-result-repository clearfix'>" +
                 "<div class='select2-result-repository__title'>" + repo.name + "</div></div>";
 

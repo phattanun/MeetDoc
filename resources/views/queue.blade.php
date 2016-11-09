@@ -604,11 +604,11 @@
                                                                         </label>
                                                                         <div class="col-md-7 margin-bottom-10">
                                                                             <div class="input-group select2-bootstrap-prepend">
-                                                                                <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" name="medicine_select2" multiple required></select>
+                                                                                <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-1">
-                                                                            <button type="button" class="btn btn-success">เพิ่ม</button>
+                                                                            <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1101,6 +1101,7 @@
 
 ///////////////////////////////////////ModelTab3////////////////////////////////////////////////
 
+        //physical-form
         $(document).on('click','#physical-form-submit-button', function(e) {
             if($('#physical-form').valid()) {
                 e.preventDefault();
@@ -1296,6 +1297,62 @@
             });
 
         }
+
+        //diagnosis-form
+        $(document).on('click','#add_medicine_button', function(){
+            alert('aaa');
+            var medicine = $('#medicine_select2').val();
+            console.log(medicine);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',
+                    {patient_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
+                alert();
+                console.log(input);
+//                diagnosis_history = input;
+//                $('#modal-history-table_wrapper').remove();
+//                modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
+//                        '<thead>'+
+//                        '<tr>'+
+//                        '<th class="first"> ครั้งที่ </th>'+
+//                        '<th> วันที่ </th>'+
+//                        '<th> ช่วง </th>'+
+//                        '<th> แพทย์ </th>'+
+//                        '<th> แผนก </th>'+
+//                        '<th> อาการ </th>'+
+//                        '<th></th>'+
+//                        '</tr>'+
+//                        '</thead>'+
+//                        '<tbody>';
+//                var tmp;
+//                var i = 1;
+//                var time;
+//                for(tmp in diagnosis_history){
+//                    console.log(diagnosis_history[tmp]);
+//                    alert(diagnosis_history[tmp]['id']);
+//                    if(diagnosis_history[tmp]['time'] == 'M')
+//                        time = 'เช้า';
+//                    else if(diagnosis_history[tmp]['time'] == 'A')
+//                        time = 'บ่าย';
+//
+//                    modalHistoryTable+=
+//                            '<tr>'+
+//                            '<td class="first">'+i+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['date']+'</td>'+
+//                            '<td>'+time+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['doctor']['name']+' '+diagnosis_history[tmp]['doctor']['surname']+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['doctor']['dept_id']+'</td>'+
+//                            '<td>'+diagnosis_history[tmp]['symptom']+'</td>'+
+//                            '<td><a type="button" class="btn btn-default view-history" historyId="'+tmp+'"><i class="fa fa-user"></i> ดูประวัติ</a></td>'+
+//                            '</tr>';
+//                }
+//                modalHistoryTable+='</tbody></table>';
+//
+//                $('#modal-history-table-container').append(modalHistoryTable);
+//                $('#modal-history-table').DataTable();
+//                $('#tab_modal_2_button').click();
+            }).fail(function () {
+            });
+        });
 
 
 
