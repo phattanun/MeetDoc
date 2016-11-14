@@ -13,6 +13,11 @@ return [
         'sms_url' => env('SMS_URL', '')
     ],
 
+    'HOSPITAL' => [
+        'hospital_name' => env('HOSPITAL_NAME', ''),
+        'hospital_phone_number' => env('HOSPITAL_PHONE_NUMBER', '')
+    ],
+
     /*
      * Open and close time Environment
      */

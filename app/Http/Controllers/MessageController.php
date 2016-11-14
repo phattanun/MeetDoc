@@ -15,7 +15,53 @@ define('SCOPES', implode(' ', array(\Google_Service_Gmail::GMAIL_SEND)));
 
 class MessageController extends Controller
 {
-    public function send_sms(Request $request){
+//    public function send_sms(Request $request)
+//    {
+//
+//
+//        $SMS = \Config::get('app.SMS');
+//
+//        $fields = array(
+//            'key' => $SMS['sms_api_key'],
+//            'secret' => $SMS['sms_api_secret'],
+//            'phone' => $request->receive_phone_number,
+//            'message' => $request->sms_text
+//        );
+//
+//        $postvars = '';
+//        $sep = '';
+//
+//        foreach ($fields as $key => $value) {
+//            $postvars .= $sep . urlencode($key) . '=' . urlencode($value);
+//            $sep = '&';
+//        }
+//
+//        try {
+//            $ch = curl_init();
+//            curl_setopt($ch, CURLOPT_URL, $SMS['sms_url']);
+//            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+//            curl_setopt($ch, CURLOPT_POST, count($fields));
+//            curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
+//            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//
+//            $result = json_decode(curl_exec($ch), true);
+//
+//            if (array_key_exists('error', $result)) {
+//                return false;
+//            }
+//
+//            return true;
+//
+//        } catch (Exception $e) {
+//            trigger_error(sprintf(
+//                'Curl failed with error #%d: %s',
+//                $e->getCode(), $e->getMessage()),
+//                E_USER_ERROR);
+//        }
+//    }
+
+    public function send_sms($phone_number, $text)
+    {
 
 
         $SMS = \Config::get('app.SMS');
@@ -23,16 +69,16 @@ class MessageController extends Controller
         $fields = array(
             'key' => $SMS['sms_api_key'],
             'secret' => $SMS['sms_api_secret'],
-            'phone' => $request->receive_phone_number,
-            'message' => $request->sms_text
+            'phone' => $phone_number,
+            'message' => $text
         );
 
-        $postvars='';
-        $sep='';
+        $postvars = '';
+        $sep = '';
 
-        foreach($fields as $key => $value) {
-            $postvars.= $sep.urlencode($key).'='.urlencode($value);
-            $sep='&';
+        foreach ($fields as $key => $value) {
+            $postvars .= $sep . urlencode($key) . '=' . urlencode($value);
+            $sep = '&';
         }
 
         try {
@@ -43,29 +89,157 @@ class MessageController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postvars);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-            $result = curl_exec($ch);
+            $result = json_decode(curl_exec($ch), true);
 
-            if ($result == false)
-                throw new Exception(curl_error($ch), curl_errno($ch));
+//            if (array_key_exists('error', $result)) {
+//                return false;
+//            }
+
+            return true;
+
         } catch (Exception $e) {
             trigger_error(sprintf(
                 'Curl failed with error #%d: %s',
                 $e->getCode(), $e->getMessage()),
                 E_USER_ERROR);
         }
-
-        dd($result);
-//        $result = json_decode(curl_exec($ch));
-
-        if(array_key_exists('error', $result)){
-            return false;
-        }
-
-        return true;
-
     }
 
-    public static function sendEmail(Request $request) {
+    public static function send_account_sms($patient_name, $patient_surname, $patient_ssn, $url, $phone_number, $type)
+    {
+        $activity_text = '';
+        $except_text = '';
+        $hospital = \Config::get('app.HOSPITAL');
+        switch ($type)
+        {
+            case 'register':
+                $activity_text = 'ชื่อผู้ใช้งานระบบของท่านคือ';
+                $except_text = 'หากท่านไม่ได้ต้องการลงทะเบียน';
+                break;
+            case 'password':
+                $activity_text = 'ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่ของบัญชีผู้ใช้งาน';
+                $except_text = 'หากท่านไม่ได้ต้องการตั้งค่ารหัสผ่านใหม่';
+                break;
+            case 'edit_profile':
+                $activity_text = 'ท่านได้แก้ไขข้อมูลส่วนตัวของบัญชีผู้ใช้งาน';
+                $except_text = 'หากท่านไม่ต้องการแก้ไขข้อมูลส่วนตัว';
+                break;
+        }
+        $sending_text = 'ส่งมาจาก: ' . $hospital['hospital_phone_number'] . PHP_EOL . PHP_EOL .
+            'เรียนคุณ: ' . $patient_name . ' ' . $patient_surname . PHP_EOL . PHP_EOL .
+            'ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล' . $hospital['hospital_name']. PHP_EOL . PHP_EOL .
+             $activity_text . ' ' . $patient_ssn . PHP_EOL . PHP_EOL .
+            'กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน' . PHP_EOL . PHP_EOL .
+            $url . PHP_EOL . PHP_EOL .
+            $except_text . ' ท่านไม่จำเป็นต้องสนใจข้อความใน SMS นี้' . PHP_EOL . PHP_EOL .
+            'ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ'. PHP_EOL . PHP_EOL .
+            'โรงพยาบาล ' . $hospital['hospital_name'] . ' ' . $hospital['hospital_phone_number'];
+
+//        dd($sending_text);
+        send_sms($phone_number, $sending_text);
+    }
+
+    public static function send_appointment_sms($patient_name, $patient_surname, $appointment_id, $doctor_name, $doctor_surname, $department, $symptom, $time, $url, $phone_number, $type)
+    {
+        $notify = '';
+        $activity_text = '';
+        $except_text = '';
+        $hospital = \Config::get('app.HOSPITAL');
+        switch($type)
+        {
+            case 'create':
+                $activity_text = 'นัดหมาย';
+                $except_text = 'ยืนยันการนัดหมาย';
+                break;
+            case 'patient_edit':
+                $activity_text = 'แก้ไขนัดหมาย';
+                $except_text = 'ยืนยันการแก้ไช';
+                break;
+            case 'cancel':
+                $activity_text = 'ยกเลิกนัดหมาย';
+                $except_text = 'ยกเลิกการนัดหมาย';
+                break;
+            case 'notify':
+                $notify = 'ตามที่';
+                $activity_text = 'นัดหมาย';
+                $except_text = '';
+                break;
+            case 'doctor_edit':
+                $notify = 'ตามที่';
+                $activity_text = 'นัดหมาย';
+                break;
+        }
+
+        $sending_text = 'ส่งมาจาก: ' . $hospital['hospital_phone_number'] . PHP_EOL . PHP_EOL .
+            'เรียนคุณ: ' . $patient_name . ' ' . $patient_surname . PHP_EOL . PHP_EOL;
+
+        if($type == 'notify' || $type == 'doctor_edit')
+        {
+            $sending_text = $sending_text . 'ตามที่ท่านได้ทำการ' . $activity_text . 'กับทางโรงพยาบาล ' . $hospital['hospital_name'] . PHP_EOL . PHP_EOL;
+        }
+        else if($type == 'create' || $type == 'patient_edit' || $type == 'cancel')
+        {
+            $sending_text = $sending_text . 'ท่านได้ทำการ' . $activity_text . 'กับทางโรงพยาบาล ' . $hospital['hospital_name'] . ' ดังนี้ ' . PHP_EOL . PHP_EOL;
+        }
+
+        if($type == 'doctor_edit')
+        {
+            $sending_text = $sending_text .
+                'เนื่องจากแพทย์ยกเลิกการออกตรวจในวัน-เวลาดังกล่าว' . PHP_EOL . PHP_EOL .
+                'การนัดหมายของท่านถูกเลื่อนเวลาออกไปเป็นดังนี้ค่ะ' . PHP_EOL . PHP_EOL;
+        }
+        else if($type == 'notify')
+        {
+            $sending_text = $sending_text .
+                'การนัดหมายของท่านกำลังจะมาถึงในอีก 1 วันค่ะ' . PHP_EOL;
+        }
+
+        $sending_text = $sending_text .
+            'หมายเลขการนัดหมาย: ' . $appointment_id . PHP_EOL . PHP_EOL .
+            'ชื่อผู้ป่วย: ' . $patient_name . ' ' . $patient_surname . PHP_EOL . PHP_EOL .
+            'แพทย์: ' . $doctor_name . ' ' . $doctor_surname . PHP_EOL . PHP_EOL .
+            'แผนก: ' . $department . PHP_EOL . PHP_EOL .
+            'วัน-เวลา: ' . $time . PHP_EOL . PHP_EOL .
+            'อาการ: ' . $symptom . PHP_EOL . PHP_EOL;
+
+        if ($type == 'create' || $type == 'patient_edit' || $type == 'cancel') {
+            $sending_text = $sending_text .
+                'กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน' . PHP_EOL . PHP_EOL .
+            $url . PHP_EOL . PHP_EOL .
+            'หากท่านไม่ต้องการ' . $except_text . ' ท่านไม่จำเป็นต้องสนใจข้อความใน SMS นี้' . PHP_EOL . PHP_EOL;
+        }
+        else if($type == 'doctor_edit')
+        {
+            $sending_text = $sending_text . 'หากท่านไม่สะดวก สามารถแก้ไขข้อมูลการนัดหมายได้ที่' . PHP_EOL . PHP_EOL .
+                $url . PHP_EOL . PHP_EOL;
+        }
+        else if($type == 'notify')
+        {
+            $sending_text = $sending_text . 'ท่านสามารถแก้ไขข้อมูลการนัดหมายได้ที่' . PHP_EOL . PHP_EOL .
+                $url . PHP_EOL . PHP_EOL;
+        }
+
+        $sending_text = $sending_text . 'ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ' . PHP_EOL . PHP_EOL .
+            'โรงพยาบาล ' . $hospital['hospital_name'] . ' ' . $hospital['hospital_phone_number'];
+
+//        dd($sending_text);
+        send_sms($phone_number, $sending_text);
+    }
+
+    public function sms_tester()
+    {
+        self::send_account_sms('ปฏิพล', 'เจียมมั่นจิต', '1103701567376', 'www.google.com','0924587067', 'register');
+        self::send_account_sms('ปฏิพล', 'เจียมมั่นจิต', '1103701567376', 'www.google.com','0924587067', 'password');
+        self::send_account_sms('ปฏิพล', 'เจียมมั่นจิต', '1103701567376', 'www.google.com','0924587067', 'edit_profile');
+        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'create');
+        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'patient_edit');
+        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'cancel');
+        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'notify');
+        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'doctor_edit');
+    }
+
+    public static function sendEmail(Request $request)
+    {
         $client = new \Google_Client();
         $client->setApplicationName(APPLICATION_NAME);
         $client->setScopes(SCOPES);
@@ -96,16 +270,17 @@ class MessageController extends Controller
 
         $mail = new \PHPMailer();
         $mail->CharSet = "UTF-8";
-        $mail->setFrom('meetdocplus@gmail.com','MeetDocPlus');
+        $mail->setFrom('meetdocplus@gmail.com', 'MeetDocPlus');
         $mail->addAddress($request->email, 'Name Surname');
         $mail->Subject = $request->subject;
-        $mail->Body = "<h2>".$request->message."</h2>";
+        $mail->Body = "<h2>" . $request->message . "</h2>";
         $mail->AltBody = $request->message; // Must have to send html mail.
         $mail->preSend();
 
-        function urlsafe_b64encode($string) {
+        function urlsafe_b64encode($string)
+        {
             $data = base64_encode($string);
-            $data = str_replace(array('+','/','=') , array('-','_','') , $data);
+            $data = str_replace(array('+', '/', '='), array('-', '_', ''), $data);
             return $data;
         }
 
