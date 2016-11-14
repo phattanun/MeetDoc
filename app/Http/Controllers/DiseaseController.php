@@ -50,41 +50,25 @@ class DiseaseController extends Controller
         return $disease;
     }
 
-    public function search_disease(Request $request)
-    {
-
-        $keyword= $request->keyword;
-        if ($keyword != ""){
-        $disease_list = Disease::where('icd10', 'like', '%'.($keyword).'%')
-            ->orWhere('snomed', 'like', '%'.($keyword).'%')->orWhere('drg', 'like', '%'.($keyword).'%')
-            ->orWhere('name', 'like', '%'.($keyword).'%')->get();
-        }
-        else {
-            $disease_list = [];
-        }
-        return compact('keyword','disease_list');
-    }
-
     public static function get_disease_list()
     {
         $disease_list = Disease::all();
         return $disease_list;
     }
 
-    public static function search_disease_list(Request $request) {
-        $tmp = [];
-        $tmp['total_count'] = 3;
-        $tmp['incomplete_result'] = true;
-        $tmp['items'] = [];
-        $tmp['items'][0] = [
-            'name' => 'Hello444',
-            "id"=> 4444
-        ];
-        $tmp['items'][1] = [
-            'name' => 'Hello216546',
-            "id"=> 24195339
-        ];
+    public static function search_disease_list($keyword = null)
+    {
+        if (true){
+            $disease_list = Disease::where('icd10', 'like', '%'.($keyword).'%')
+                ->orWhere('snomed', 'like', '%'.($keyword).'%')
+                ->orWhere('drg', 'like', '%'.($keyword).'%')
+                ->orWhere('name', 'like', '%'.($keyword).'%')
+                ->get();
+        }
+        else {
+            $disease_list = [];
+        }
 
-        return $tmp;
+        return $disease_list;
     }
 }

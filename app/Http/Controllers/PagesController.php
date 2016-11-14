@@ -36,6 +36,12 @@ class PagesController extends Controller
         return $res;
     }
 
+    public function apiGetDisease(Request $request) {
+        $res = DiseaseController::search_disease_list($request->q);
+        $res = self::tableToSearch($res, 'id');
+        return $res;
+    }
+
     /**
      * @return mixed
      */

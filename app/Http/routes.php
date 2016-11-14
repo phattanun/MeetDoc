@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     // SearchAPI
     Route::get('/officer/manage/list', 'PagesController@apiGetStaff');
+    Route::get('/disease/manage/list', 'PagesController@apiGetDisease');
 
     //Merged
     Route::get('/swapRole', 'AccountController@swapRole');
