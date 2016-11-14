@@ -58,7 +58,7 @@ class DiseaseController extends Controller
 
     public static function search_disease_list($keyword = null)
     {
-        if (true){
+        if ($keyword != ""){
             $disease_list = Disease::where('icd10', 'like', '%'.($keyword).'%')
                 ->orWhere('snomed', 'like', '%'.($keyword).'%')
                 ->orWhere('drg', 'like', '%'.($keyword).'%')

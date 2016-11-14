@@ -42,9 +42,12 @@ class PagesController extends Controller
         return $res;
     }
 
-    /**
-     * @return mixed
-     */
+    public function apiGetMedicine(Request $request) {
+        $res = MedicineController::search_medicine($request->q);
+        $res = self::tableToSearch($res, 'id');
+        return $res;
+    }
+
     public function viewOfficerNewAppointmentPage()
     {
         return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());

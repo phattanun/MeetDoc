@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function() {
     // SearchAPI
     Route::get('/officer/manage/list', 'PagesController@apiGetStaff');
     Route::get('/disease/manage/list', 'PagesController@apiGetDisease');
+    Route::get('/medicine/manage/list', 'PagesController@apiGetMedicine');
 
     //Merged
     Route::get('/swapRole', 'AccountController@swapRole');
@@ -76,7 +77,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('medicine/delete', 'MedicineController@delete_medicine');
     Route::post('medicine/detail', 'MedicineController@get_medicine_detail');
     Route::post('medicine/edit', 'MedicineController@edit_medicine');
-    Route::post('medicine/search', 'MedicineController@search_medicine');
     Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
     // Disease

@@ -60,17 +60,18 @@ class MedicineController extends Controller
         return $all_medicine;
     }
 
-    public function search_medicine(Request $request)
+    public static function search_medicine($keyword = null)
     {
-        $keyword= $request->keyword;
-        if ($keyword != ""){
-        $medicine_list = Medicine::select('medicine_id', 'medicine_name', 'business_name')->where('medicine_name', 'like', '%'.($keyword).'%')
-            ->orWhere('business_name', 'like', '%'.($keyword).'%')->get();
+        if ($keyword != "") {
+        $medicine_list = Medicine::select('medicine_id', 'medicine_name', 'business_name')
+            ->where('medicine_name', 'like', '%'.($keyword).'%')
+            ->orWhere('business_name', 'like', '%'.($keyword).'%')
+            ->get();
         }
         else {
             $medicine_list = [];
         }
-        return compact('keyword','medicine_list');
+        return $medicine_list;
     }
 
     public function get_medicine_detail(Request $request)
