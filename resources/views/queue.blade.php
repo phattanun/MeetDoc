@@ -1298,15 +1298,46 @@
         }
 
         //diagnosis-form
+        var medicine = 1;
+
         $(document).on('click','#add_medicine_button', function(){
             alert('aaa');
             var medicine = $('#medicine_select2').val();
             console.log(medicine);
             var URL_ROOT = '{{Request::root()}}';
-            $.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',
-                    {patient_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
-                alert();
+            $.post(URL_ROOT+'/backend/Medicine/detail',
+                    {medicine_id:  1, _token: '{{csrf_token()}}'}).done(function (input) {
+                alert('bbb');
                 console.log(input);
+                new_medicine = '<tr id="medicine-table-body-row-'+medicine+'">'+
+                               '    <input type="hidden" value="152" name="medicine[]["id"]">'+
+                               '    <td>1</td>'+
+                               '    <td>MD22531</td>'+
+                               '    <td>Paracetamol</td>'+
+                               '    <td><input class="touchspin" type="text" value="" name="medicine[]["amount"]"></td>'+
+                               '    <td>'+
+                               '        <select class="form-control" name="medicine[]["unit"]">'+
+                               '            <option>Option 1</option>'+
+                               '            <option>Option 2</option>'+
+                               '            <option>Option 3</option>'+
+                               '            <option>Option 4</option>'+
+                               '            <option>Option 5</option>'+
+                               '        </select>'+
+                               '    </td>'+
+                               '    <td>'+
+                               '        <a class="btn red remove-medicine-button" medicineId="'+medicine+'"> ลบ'+
+                               '            <i class="fa fa-trash"></i>'+
+                               '        </a>'+
+                               '    </td>'+
+                               '</tr>';
+                $('#medicine-table-body').append(new_medicine);
+                $(".touchspin").TouchSpin({
+                    min: 0,
+                    step: 0.1,
+                    decimals: 2,
+                    boostat: 5,
+                    maxboostedstep: 10
+                });
 //                diagnosis_history = input;
 //                $('#modal-history-table_wrapper').remove();
 //                modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
@@ -1351,8 +1382,14 @@
 //                $('#tab_modal_2_button').click();
             }).fail(function () {
             });
+            medicine ++;
         });
 
+        $(document).on('click','.remove-medicine-button', function(){
+            var medicineId = $(this).attr('MedicineId');
+            alert(medicineId);
+            $('#medicine-table-body-row-1').remove();
+        });
 
 
     </script>
