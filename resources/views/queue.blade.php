@@ -1286,7 +1286,7 @@
                 }
                 waiting_pharmacist_table += '</tbody></table>';
                 if(i==1)
-                    $('#tab_1_3').append('<div class="row"><div id="tab1_table_wrapper" class="col-md-12" style="text-align:center;"><h3>ไม่มีผู้ป่วยรอรับยา</h3></div></div>');
+                    $('#tab_1_3').append('<div class="row"><div id="tab3_table_wrapper" class="col-md-12" style="text-align:center;"><h3>ไม่มีผู้ป่วยรอรับยา</h3></div></div>');
                 else
                     $('#tab_1_3').append(waiting_pharmacist_table);
 
