@@ -88,6 +88,12 @@ class DiagnosisController extends Controller
         }
     }
 
+    public function add_diagnosis_record(Request $request)
+    {
+        //appointment_id  disease_select2  diagnosis_detail medicine[][id]  medicine[][amount]  medicine[][unit]
+        return $request->medicine;
+    }
+
     public function patient_checkin_by_staff(Request $request)
     {
         $appointment = Appointment::findOrFail($request->appointment_id);

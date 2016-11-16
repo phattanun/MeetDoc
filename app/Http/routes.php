@@ -166,6 +166,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Diagnosis/delete_allergic_medicine', 'DiagnosisController@delete_allergic_medicine');
     Route::post('/backend/Diagnosis/view_diagnosis_record', 'DiagnosisController@diagnosis_record_and_receive_medicine');
     Route::post('/backend/Diagnosis/give_medicine', 'DiagnosisController@give_medicine');
+    Route::post('/backend/Diagnosis/add_diagnosis_record', 'DiagnosisController@add_diagnosis_record');
 
     // System
     Route::post('/backend/Disease/add_disease', 'DiseaseController@add_disease');
