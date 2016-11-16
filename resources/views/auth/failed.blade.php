@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>ทำรายการสำเร็จ</title>
+    <title>ทำรายการไม่สำเร็จ</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="" name="description" />
@@ -34,13 +34,17 @@
 <div class="content">
     <div class="text-center">
         @if(isset($link)) <a href="{{ url($link) }}"> @endif
-        @if(isset($title)) <h3 class="form-title font-green margin-top-40"><div class="fa fa-check-circle margin-bottom-40" style="font-size: 70px"></div><br>{{ $title }}</h3> @endif
+        @if(isset($title)) <h3 class="form-title font-red margin-top-40"><div class="fa fa-times-circle margin-bottom-40" style="font-size: 70px"></div><br>{{ $title }}</h3> @endif
         @if(isset($link)) </a> @endif
-        @if(isset($action))
         <div class="caption text-center">
-            <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายเพื่อ{{ $action }}ไปทางอีเมล<br>และโทรศัพท์มือถือของท่าน<br>กรุณา{{ $action }}ภายใน 1 วัน</span>
+            @if(isset($message))
+                <span class="caption-subject font-red sbold uppercase">{{ $message }}</span>
+            @endif
+            <br>
+            @if(isset($action))
+                <span class="caption-subject font-red sbold uppercase">{{ $action }}</span>
+            @endif
         </div>
-        @endif
         <br>
         <a href="{{ url('') }}" type="button" id="register-back-btn" class="btn green btn-outline" style="text-align:center">กลับสู่หน้าหลัก</a>
     </div>
