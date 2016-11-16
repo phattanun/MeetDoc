@@ -168,34 +168,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">แผนก ICD10</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="" id="view_icd10"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">แผนก SNOMED</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="" id="view_snomed"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">แผนก DRG</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="" id="view_drg"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
+                    <label class="col-md-3 control-label" for="form_control_1">ชื่อแผนก</label>
                     <div class="col-md-9">
                         <input class="form-control" readonly="" value="" id="view_name"  type="text">
                         <div class="form-control-focus"> </div>
@@ -219,34 +192,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">แผนก ICD10</label>
-                        <div class="col-md-9 margin-bottom-15">
-                            <input class="form-control"  value="" id="edit_icd10"  type="text" name="icd10"  required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">แผนก SNOMED</label>
-                        <div class="col-md-9 margin-bottom-15">
-                            <input class="form-control" value="" id="edit_snomed"  type="text" name="snomed"  required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">แผนก DRG</label>
-                        <div class="col-md-9 margin-bottom-15">
-                            <input class="form-control"  value="" id="edit_drg"  type="text" name="drg"  required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
+                        <label class="col-md-3 control-label" for="form_control_1">ชื่อแผนก</label>
                         <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="edit_name"  type="text" name="name"  required aria-required="true">
                             <div class="form-control-focus"> </div>
@@ -275,34 +221,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">แผนก ICD10</label>
-                        <div class="col-md-9 margin-bottom-15">
-                            <input class="form-control"  value="" id="add_icd10"  type="text" name="icd10" required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">แผนก SNOMED</label>
-                        <div class="col-md-9 margin-bottom-15">
-                            <input class="form-control" value="" id="add_snomed"  type="text" name="snomed" required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">แผนก DRG</label>
-                        <div class="col-md-9 margin-bottom-15">
-                            <input class="form-control" value="" id="add_drg"  type="text" name="drg" required aria-required="true">
-                            <div class="form-control-focus"> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label class="col-md-3 control-label" for="form_control_1">ชื่อโรค</label>
+                        <label class="col-md-3 control-label" for="form_control_1">ชื่อแผนก</label>
                         <div class="col-md-9 margin-bottom-15">
                             <input class="form-control" value="" id="add_name"  type="text" name="name" required aria-required="true">
                             <div class="form-control-focus"> </div>
@@ -321,7 +240,7 @@
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="320">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบข้อมูลแผนก โรค<span id="delete-department-title"></span></h4>
+            <h4 class="modal-title">ลบข้อมูลแผนก <span id="delete-department-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
@@ -382,9 +301,6 @@
                 $.post(URL_ROOT+'/department/detail',
                         {id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
                     $('#view-title').text(input['name']);
-                    $('#view_icd10').val(input['icd10']);
-                    $('#view_snomed').val(input['snomed']);
-                    $('#view_drg').val(input['drg']);
                     $('#view_name').val(input['name']);
                 }).fail(function () {
                 });
@@ -399,9 +315,6 @@
                     tempData = input;
                     $('#edit-title').text(input['name']);
                     $('#edit_department_id').val(input['id']);
-                    $('#edit_icd10').val(input['icd10']);
-                    $('#edit_snomed').val(input['snomed']);
-                    $('#edit_drg').val(input['drg']);
                     $('#edit_name').val(input['name']);
                 }).fail(function () {
                 });
@@ -510,11 +423,7 @@
                         $('#all-department-list-table-body').append(
                                 '<tr>'
                                 +'<td class="view-all-order"></td>'
-                                +'<td>'+ data[m]['icd10'] +'</td>'
-                                +'<td>'+ data[m]['snomed'] +'</td>'
-                                +'<td>'+ data[m]['drg'] +'</td>'
                                 +'<td>'+ data[m]['name'] +'</td>'
-                                +'<td> <button  identity="'+ data[m]['id']+'" type="button" class="btn blue view-department-button">ดู</button> </td>'
                                 +'<td> <button  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-department-button">แก้ไข</button> </td>'
                                 +'<td> <button  identity="'+ data[m]['id']+'" type="button" class="btn red delete-department-button">ลบ</button></td>'
                                 +'</tr>'
@@ -536,11 +445,7 @@
                             $('#search-result-table-body').append(
                                     '<tr id="result-row-'+data[m]['id']+'">'
                                     +'<td class="result-order"></td>'
-                                    +'<td>'+ data[m]['icd10'] +'</td>'
-                                    +'<td>'+ data[m]['snomed'] +'</td>'
-                                    +'<td>'+ data[m]['drg'] +'</td>'
                                     +'<td>'+ data[m]['name'] +'</td>'
-                                    +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn blue view-department-button">ดู</button> </td>'
                                     +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-department-button">แก้ไข</button> </td>'
                                     +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn red delete-department-button">ลบ</button></td>'
                                     +'</tr>'
@@ -574,11 +479,7 @@
                                 $('#search-result-table-body').append(
                                         '<tr id="result-row-'+data[m]['id']+'">'
                                         +'<td class="result-order"></td>'
-                                        +'<td>'+ data[m]['icd10'] +'</td>'
-                                        +'<td>'+ data[m]['snomed'] +'</td>'
-                                        +'<td>'+ data[m]['drg'] +'</td>'
                                         +'<td>'+ data[m]['name'] +'</td>'
-                                        +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn blue view-department-button">ดู</button> </td>'
                                         +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-department-button">แก้ไข</button> </td>'
                                         +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn red delete-department-button">ลบ</button></td>'
                                         +'</tr>'
