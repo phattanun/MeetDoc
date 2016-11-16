@@ -37,6 +37,7 @@ var ComponentsSelect2 = function() {
         }
 
         $(".js-data-disease-ajax").select2({
+            placeholder: "กรุณาระบุชื่อโรค",
             width: "off",
             ajax: {
                 url: "/backend/Disease/search",
@@ -81,6 +82,7 @@ var ComponentsSelect2 = function() {
         }
 
         $(".js-data-medicine-ajax").select2({
+            placeholder: "กรุณาระบุชื่อยา",
             width: "off",
             ajax: {
                 url: "/backend/Medicine/search",
