@@ -558,7 +558,7 @@
                                                         <!-- BEGIN FORM -->
                                                         <div class="portlet-body form">
                                                                 <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                    <div class="row">
+                                                                    <div class="row form-group">
                                                                         <div class="col-md-12">
                                                                             <label class="control-label">โรคที่วินิจฉัยได้</label>
                                                                             <div class="input-group input-group select2-bootstrap-append">
@@ -568,9 +568,9 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row form-group">
                                                                         <div class="col-md-12 margin-top-20">
-                                                                            <label>รายละเอียดของโรค</label>
+                                                                            <label class="control-label">รายละเอียดของโรค</label>
                                                                             <textarea id="diagnosis_detail" name="diagnosis_detail" class="form-control diagnosis-form" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค" required></textarea>
                                                                         </div>
                                                                     </div>
@@ -646,7 +646,7 @@
                                                                         </a>
                                                                     </td>
                                                                 </tr-->
-                                                                <tr id="medicine-row-empty">
+                                                                <tr id="medicine-row-empty" class="medicine-table-body-row">
                                                                     <td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td>
                                                                 </tr>
                                                                 </tbody>
@@ -904,6 +904,7 @@
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-diagnosis.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/physical-form-validation.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/diagnosis-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
             $('#tab1_table').DataTable({
@@ -1032,6 +1033,8 @@
             alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
                 clearPhysicalForm();
+                clearDiagnosisForm();
+                clearMedicineForm();
                 $('#physical-form-appointment-id').val(id);
                 alert("step1 : " + $('#physical-form-appointment-id').val());
                 $('#modal_tab3_physical_form').show();
@@ -1043,6 +1046,9 @@
                 $('#physical-form-submit-row').show();
             }
             else if(step == 2){
+                clearPhysicalForm();
+                clearDiagnosisForm();
+                clearMedicineForm();
                 $('#modal_tab3_physical_form').show();
 //                $('#modal_tab3_diagnosis_form').show();
 //                $('#modal_tab3_medicine_form').show();
@@ -1141,6 +1147,7 @@
 
         function clearPhysicalForm(){
             $('.physical-form').val('');
+            $('#physical-form').validate().resetForm();
         }
 
         function resetQueue(){
@@ -1336,12 +1343,12 @@
                             $('#medicine-row-empty').remove();
                         }
                         var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" class="medicine-table-body-row" medicineId="'+input['medicine_id']+'">'+
-                                '    <input id="medicine-table-body-row-id-'+medicineNo+'" type="hidden" value="'+input['medicine_id']+'" name="medicine['+medicineNo+'][id]">'+
+                                '    <input id="medicine-table-body-row-id-'+medicineNo+'" type="hidden" value="'+input['medicine_id']+'" name="medicine['+medicineNo+'][id]" required>'+
                                 '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
                                 '    <td>'+input['medicine_id']+'</td>'+
                                 '    <td>'+input['business_name']+'</td>'+
-                                '    <td><input id="medicine-table-body-row-amount-'+medicineNo+'" class="touchspin" type="text" value="" name="medicine['+medicineNo+'][amount]"></td>'+
-                                '    <td><input id="medicine-table-body-row-unit-'+medicineNo+'" type="text" value="" name="medicine['+medicineNo+'][unit]"></td>'+
+                                '    <td class="form-group"><input id="medicine-table-body-row-amount-'+medicineNo+'" class="touchspin form-control" type="text" value="" name="medicine['+medicineNo+'][amount]" required></td>'+
+                                '    <td class="form-group"><input id="medicine-table-body-row-unit-'+medicineNo+'" class="form-control" type="text" value="" name="medicine['+medicineNo+'][unit]" required></td>'+
                                 '    <td>'+
                                 '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
                                 '            <i class="fa fa-trash"></i>'+
@@ -1386,20 +1393,22 @@
             }
             medicineNo-- ;
             if(medicineNo==1){
-                $("#medicine-table-body").append('<tr id="medicine-row-empty"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+                $("#medicine-table-body").append('<tr id="medicine-row-empty" class="medicine-table-body-row"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
             }
         });
 
         function clearDiagnosisForm(){
             $("#disease_select2").val('').trigger('change');
             $('#diagnosis_detail').val('');
+            $('#diagnosis-form').validate().resetForm();
         }
 
         function clearMedicineForm(){
             $("#medicine_select2").val('').trigger('change');
             $(".medicine-table-body-row").remove();
-            $("#medicine-table-body").append('<tr id="medicine-row-empty"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+            $("#medicine-table-body").append('<tr id="medicine-row-empty" class="medicine-table-body-row"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
             medicineNo = 1;
+            $('#diagnosis-form').validate().resetForm();
         }
 
         $(document).on('click','#diagnosis-form-submit-button', function(e) {
