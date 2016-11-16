@@ -43,13 +43,13 @@ class DepartmentController extends Controller
 
     public function delete(Request $request)
     {
-        $disease = Disease::findOrFail($request->id);
+        $disease = Department::findOrFail($request->id);
         $disease->delete();
     }
 
     public function get_detail(Request $request)
     {
-        $disease = Disease::findOrFail($request->id);
+        $disease = Department::findOrFail($request->id);
         return $disease;
     }
 

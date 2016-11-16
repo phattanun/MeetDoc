@@ -42,10 +42,6 @@
         {{ csrf_field() }}
 
         <h3 class="form-title font-green">ลงชื่อเข้าใช้</h3>
-        <div class="alert alert-danger display-hide">
-            <button class="close" data-close="alert"></button>
-            <span> กรุณากรอกเลขบัตรประจำตัวประชาชนและรหัสผ่าน </span>
-        </div>
         @if($errors->any())
             <div class="alert alert-danger" id="error-alert">
                 <strong>ผิดพลาด!</strong> กรุณาลองใหม่อีกครั้ง
@@ -53,8 +49,8 @@
         @endif
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">เลขบัตรประจำตัวประชาชน</label>
-            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}"/>
+            <label class="control-label visible-ie8 visible-ie9">หมายเลขบัตรประจำตัวประชาชน</label>
+            <input class="form-control{{ $errors->has('email') ? ' has-error' : '' }} form-control-solid placeholder-no-fix" id="id" type="text" autocomplete="off" placeholder="หมายหมายเลขบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}"/>
             @if ($errors->has('email'))
                 <span class="help-block">
                     <strong>{{ $errors->first('email') }}</strong>
