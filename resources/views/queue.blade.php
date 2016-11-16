@@ -1300,6 +1300,14 @@
 
         }
 
+        function checkDuplicateMedicine(medicine_id){
+            console.log('medicine_id = ' + medicine_id);
+            for(var i = 1 ; i<medicineNo ; i++){
+                var tmp_id = $('#medicine-table-body-row-'+i).attr("medicineId");
+                console.log('tmp_id = ' + tmp_id + ' i = ' + i);
+            }
+        }
+
         //diagnosis-form
         var medicineNo = 1;
 
@@ -1310,7 +1318,8 @@
             console.log(medicineList);
             var URL_ROOT = '{{Request::root()}}';
             for(medicine_id in medicineList){
-//                console.log(medicineList[medicine_id]);
+                console.log("medicine_id ==> " + medicineList[medicine_id]);
+                checkDuplicateMedicine(medicineList[medicine_id]);
                 $.post(URL_ROOT+'/backend/Medicine/detail',
                         {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
                     alert('bbb');
@@ -1319,7 +1328,7 @@
                     if(medicineNo==1){
                         $('#medicine-row-empty').remove();
                     }
-                    var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'">'+
+                    var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" medicineId="'+medicineList[medicine_id]+'">'+
                             '    <input type="hidden" value="'+medicineList[medicine_id]+'" name="medicine[]["id"]">'+
                             '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
                             '    <td>'+input['medicine_id']+'</td>'+
