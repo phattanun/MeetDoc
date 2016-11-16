@@ -595,24 +595,20 @@
                                                     </div>
                                                     <div class="portlet-body">
                                                         <!-- BEGIN FORM -->
-                                                        <div class="portlet-body form">
-                                                            <form class="form form-group" role="form">
-                                                                <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                    <div class="row">
-                                                                        <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
-                                                                            <span class="required" aria-required="true"> * </span>
-                                                                        </label>
-                                                                        <div class="col-md-7 margin-bottom-10">
-                                                                            <div class="input-group select2-bootstrap-prepend">
-                                                                                <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-1">
-                                                                            <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
-                                                                        </div>
+                                                        <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                            <div class="row">
+                                                                <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-7 margin-bottom-10">
+                                                                    <div class="input-group select2-bootstrap-prepend">
+                                                                        <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                                <div class="col-md-1">
+                                                                    <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <!-- END FORM -->
                                                         <!-- BEGIN TABLE -->
@@ -1036,8 +1032,9 @@
             alert(id+" "+step);
             if(step == 1){
                 $('#modal_tab3_physical_form').show();
-                $('#modal_tab3_diagnosis_form').hide();
-                $('#modal_tab3_medicine_form').hide();
+//                $('#modal_tab3_diagnosis_form').hide();
+//                $('#modal_tab3_medicine_form').hide();
+                $('#diagnosis-form').hide();
 
                 $('.physical-form').removeAttr('disabled');
                 $('#physical-form-submit-row').show();
@@ -1046,8 +1043,9 @@
             }
             else if(step == 2){
                 $('#modal_tab3_physical_form').show();
-                $('#modal_tab3_diagnosis_form').show();
-                $('#modal_tab3_medicine_form').show();
+//                $('#modal_tab3_diagnosis_form').show();
+//                $('#modal_tab3_medicine_form').show();
+                $('#diagnosis-form').show();
 
                 $('.physical-form').attr('disabled','disabled');
                 $('#physical-form-submit-row').hide();
