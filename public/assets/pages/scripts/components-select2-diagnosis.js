@@ -77,7 +77,7 @@ var ComponentsSelect2 = function() {
         }
 
         function formatRepoSelectionMedicine(repo) {
-            return repo.name || repo.text;
+            return repo.business_name || repo.text;
         }
 
         $(".js-data-medicine-ajax").select2({
