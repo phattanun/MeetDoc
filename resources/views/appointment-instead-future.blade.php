@@ -9,7 +9,7 @@
 @endsection
 
 @section('title-inside')
-    <a href="{{url('officer/appointment/edit')}}">แก้ไขการนัดหมายของผู้ป่วย</a> / {{$_user['name']}} {{$_user['surname']}}
+    <a href="{{url('officer/appointment/edit')}}">แก้ไขการนัดหมายของผู้ป่วย</a> / {{$patient['name']}} {{$patient['surname']}}
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="{{url('officer/appointment/edit')}}/{{$app->patient_id}}"  class="btn green">รับทราบ</a>
+            <a href="{{url('officer/appointment/edit')}}/{{$patient->id}}"  class="btn green">รับทราบ</a>
         </div>
     </div>
 @endsection

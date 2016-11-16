@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,13 +60,15 @@ class PagesController extends Controller
 
     public function viewOfficerFutureAppointmentPage($id)
     {
-        return view('appointment-instead-future')->with('appList',AppointmentController::getFutureAppointments($id));
+        $patient = User::findOrfail($id);
+        return view('appointment-instead-future')->with(['appList'=>AppointmentController::getFutureAppointments($id),'patient'=>$patient]);
     }
     public function viewOfficerEditAppointmentPage(Request $request)
     {
         $app=AppointmentController::getBriefAppointmentDetail($request->id);
         $doctors = AccountController::getDoctorByDepartment2($app->dept_id);
-        return view('appointment-instead-edit')->with(['app'=>$app,'departments'=>DepartmentController::getAllDepartment(),'doctors'=>$doctors]);
+        $patient = User::findOrfail($app->patient_id);
+        return view('appointment-instead-edit')->with(['app'=>$app,'departments'=>DepartmentController::getAllDepartment(),'doctors'=>$doctors,'patient'=>$patient]);
     }
 
 

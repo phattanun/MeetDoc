@@ -9,7 +9,7 @@
 @endsection
 
 @section('title-inside')
-    <a href="{{url('officer/appointment/edit')}}/{{$app->patient_id}}">การนัดหมายในอนาคต</a> / แก้ไขการนัดหมาย รหัส {{$app->app_id}}
+    <a href="{{url('officer/appointment/edit')}}/{{$app->patient_id}}">แก้ไขการนัดหมายของ{{$patient->name}} {{$patient->surname}}</a> / แก้ไขการนัดหมาย รหัส {{$app->app_id}}
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -240,7 +240,7 @@
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการแก้ไขการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 1 วัน</span>
+                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการแก้ไขการนัดหมายไปทางอีเมล<br>และโทรศัพท์เคลื่อนที่ของผู้ป่วย กรุณาให้ผู้ป่วยยืนยันภายใน 1 วัน</span>
             </div>
         </div>
         <div class="modal-footer">
@@ -389,7 +389,7 @@
                         $('#emailConfirmAlertModal').modal();
                     }
                     else if(input=='duplicate') {
-                        toastr['warning']("ท่านมีนัดแล้วในวันและช่วงเวลานี้", "ขออภัย");
+                        toastr['warning']("ผู้ป่วยมีนัดแล้วในวันและช่วงเวลานี้", "ขออภัย");
                     }
 
                 }).fail(function () {
