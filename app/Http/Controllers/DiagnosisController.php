@@ -55,8 +55,8 @@ class DiagnosisController extends Controller
             $appointment['disease'] = $appointment->disease()->get();
             $appointment['doctor'] = $appointment->doctor()->first();
             $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
-
-            array_push($diagnosis_info, json_decode($appointment, true));
+            
+            $diagnosis_info[$appointment['id']] = json_decode($appointment, true);
         }
 
 //        dd($diagnosis_info);
