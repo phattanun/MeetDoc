@@ -1305,7 +1305,10 @@
             for(var i = 1 ; i<medicineNo ; i++){
                 var tmp_id = $('#medicine-table-body-row-'+i).attr("medicineId");
                 console.log('tmp_id = ' + tmp_id + ' i = ' + i);
+                if(medicine_id == tmp_id)
+                    return false;
             }
+            return true;
         }
 
         //diagnosis-form
@@ -1319,39 +1322,42 @@
             var URL_ROOT = '{{Request::root()}}';
             for(medicine_id in medicineList){
                 console.log("medicine_id ==> " + medicineList[medicine_id]);
-                checkDuplicateMedicine(medicineList[medicine_id]);
-                $.post(URL_ROOT+'/backend/Medicine/detail',
-                        {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
-                    alert('bbb');
-                    console.log(input);
-                    console.log('medicineNo = '+ medicineNo);
-                    if(medicineNo==1){
-                        $('#medicine-row-empty').remove();
-                    }
-                    var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" medicineId="'+medicineList[medicine_id]+'">'+
-                            '    <input type="hidden" value="'+medicineList[medicine_id]+'" name="medicine[]["id"]">'+
-                            '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
-                            '    <td>'+input['medicine_id']+'</td>'+
-                            '    <td>'+input['business_name']+'</td>'+
-                            '    <td><input class="touchspin" type="text" value="" name="medicine[]["amount"]"></td>'+
-                            '    <td><input type="text" value="" name="medicine[]["unit"]"></td>'+
-                            '    <td>'+
-                            '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
-                            '            <i class="fa fa-trash"></i>'+
-                            '        </a>'+
-                            '    </td>'+
-                            '</tr>';
-                    $('#medicine-table-body').append(new_medicine);
-                    medicineNo ++;
-                    $(".touchspin").TouchSpin({
-                        min: 0,
-                        step: 0.1,
-                        decimals: 2,
-                        boostat: 5,
-                        maxboostedstep: 10
+                if(checkDuplicateMedicine(medicineList[medicine_id]))
+                {
+                    $.post(URL_ROOT+'/backend/Medicine/detail',
+                            {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
+                        alert('bbb');
+                        console.log(input);
+                        console.log('medicineNo = '+ medicineNo);
+                        if(medicineNo==1){
+                            $('#medicine-row-empty').remove();
+                        }
+                        var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" medicineId="'+input['medicine_id']+'">'+
+                                '    <input type="hidden" value="'+input['medicine_id']+'" name="medicine[]["id"]">'+
+                                '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
+                                '    <td>'+input['medicine_id']+'</td>'+
+                                '    <td>'+input['business_name']+'</td>'+
+                                '    <td><input class="touchspin" type="text" value="" name="medicine[]["amount"]"></td>'+
+                                '    <td><input type="text" value="" name="medicine[]["unit"]"></td>'+
+                                '    <td>'+
+                                '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
+                                '            <i class="fa fa-trash"></i>'+
+                                '        </a>'+
+                                '    </td>'+
+                                '</tr>';
+                        $('#medicine-table-body').append(new_medicine);
+                        medicineNo ++;
+                        $(".touchspin").TouchSpin({
+                            min: 0,
+                            step: 0.1,
+                            decimals: 2,
+                            boostat: 5,
+                            maxboostedstep: 10
+                        });
+                    }).fail(function () {
                     });
-                }).fail(function () {
-                });
+                }
+
             }
 
 
