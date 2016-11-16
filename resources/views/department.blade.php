@@ -67,8 +67,7 @@
             </form>
         </div>
     </div>
-    {{--<div class="portlet light hidden" id="search-result-porlet">--}}
-    <div class="portlet light" id="search-result-porlet">
+    <div class="portlet light hidden" id="search-result-porlet">
         <div class="portlet-title">
             <div class="caption caption-md">
                 <i class="icon-globe theme-font hide"></i>
@@ -159,28 +158,6 @@
         </div>
     </div>
     <!-- END PROFILE CONTENT -->
-
-    <div id="viewModal" class="modal fade" tabindex="-1" data-width="760">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ข้อมูลแผนก <span id="view-title"></span></h4>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="form-group form-md-line-input">
-                    <label class="col-md-3 control-label" for="form_control_1">ชื่อแผนก</label>
-                    <div class="col-md-9">
-                        <input class="form-control" readonly="" value="" id="view_name"  type="text">
-                        <div class="form-control-focus"> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
-        </div>
-    </div>
-
     <div id="editModal" class="modal fade" tabindex="-1" data-width="760">
         <form id="department-edit-form" role="form" action="{{ url('/department/edit') }}" method="post">
             {{ csrf_field() }}
@@ -258,12 +235,6 @@
 @endsection
 
 @section('pageLevelPluginsScript')
-    <script src="{{url('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery.sparkline.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
@@ -272,10 +243,6 @@
 @endsection
 
 @section('pageLevelScripts')
-    <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/department-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
@@ -405,10 +372,15 @@
                 $.post(URL_ROOT+'/department/delete',
                         {id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
                     l.stop();
-                    toastr['success']('ลบข้อมูลแผนกสำเร็จ', "สำเร็จ");
-                    resetdepartmentList();
-                    resetResultList(keyword);
-                    $('#removeModal').modal('hide');
+                    if(input == "success"){
+                        toastr['success']('ลบข้อมูลแผนกสำเร็จ', "สำเร็จ");
+                        resetdepartmentList();
+                        resetResultList(keyword);
+                        $('#removeModal').modal('hide');
+                    }
+                    else if (input == "constraint"){
+                        toastr['warning']("แผนกนี้ถูกใช้อยู่ในระบบ ไม่สามารถลบได้", "ขออภัย");
+                    }
                 }).fail(function () {
                     l.stop();
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
@@ -417,7 +389,7 @@
                 });
             });
             function resetdepartmentList() {
-                $.get( "{{url('/department/getdepartmentList')}}").done(function(data) {
+                $.get( "{{url('/department/getDepartmentList')}}").done(function(data) {
                     $('#all-department-list-table-body').empty();
                     for(var m=0;m<data.length;m++){
                         $('#all-department-list-table-body').append(

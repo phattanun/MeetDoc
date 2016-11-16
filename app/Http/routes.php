@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/department/delete', 'DepartmentController@delete');
     Route::post('/department/detail', 'DepartmentController@get_detail');
     Route::post('/department/search', 'DepartmentController@search');
-    Route::get('/department/getDiseaseList', 'DiseaseController@get_list');
+    Route::get('/department/getDepartmentList', 'DepartmentController@get_list');
 
     //everyone
     // Route::get('/profile', 'ProfileController@index');

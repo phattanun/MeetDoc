@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
+use App\User;
 use Illuminate\Http\Request;
 use App\Department;
 use App\Http\Requests;
@@ -37,8 +39,12 @@ class DepartmentController extends Controller
 
     public function delete(Request $request)
     {
+        if(User::where("dept_id",$request->id)->exists()||Appointment::where("dept_id",$request->id)->exists()){
+            return "constraint";
+        }
         $department = Department::findOrFail($request->id);
         $department->delete();
+        return "success";
     }
 
     public function get_detail(Request $request)
