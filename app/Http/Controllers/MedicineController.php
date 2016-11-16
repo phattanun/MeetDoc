@@ -67,6 +67,10 @@ class MedicineController extends Controller
             ->where('medicine_name', 'like', '%'.($keyword).'%')
             ->orWhere('business_name', 'like', '%'.($keyword).'%')
             ->get();
+            foreach ($medicine_list as $medicine)
+            {
+                $medicine['id'] = $medicine['medicine_id'];
+            }
         }
         else {
             $medicine_list = [];
