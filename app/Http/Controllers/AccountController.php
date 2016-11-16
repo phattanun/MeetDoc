@@ -86,10 +86,13 @@ class AccountController extends Controller
         catch (\Exception $e) {
             return ["status" => false, "msg" => $e->getMessage() ];
         }
-        // self::getUserList();
+
         $re = [
             "status" => true,
-            "link" => "./password/reset?id=".$new_user->id."&cfp=".self::generatePasswordLink($request->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
+            "name" => $request->name,
+            "surname" => $request->surname,
+            "email" => $request->email,
+            "link" => "./public/password/reset?id=".$new_user->id."&cfp=".self::generatePasswordLink($new_user->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";
         // var_dump($re);
@@ -113,6 +116,9 @@ class AccountController extends Controller
 
         $re = [
             "status" => true,
+            "name" => $user->name,
+            "surname" => $user->surname,
+            "email" => $user->email,
             "link" => "./password/reset?id=".$user->id."&cfp=".self::generatePasswordLink($user->ssn, $user->name, $user->surname, $user->password, $user->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";

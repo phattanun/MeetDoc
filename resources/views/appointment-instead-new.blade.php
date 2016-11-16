@@ -52,7 +52,7 @@
                                                 {{--<div class="input-group select2-bootstrap-prepend">--}}
                                                 <div class=" select2-bootstrap-prepend">
                                                     <select id="select-user" class="form-control js-data-example-ajax" name="user_id"  required aria-required="true" >
-                                                        <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
+                                                        <option value="" selected="selected">กรุณากรอกหมายเลขประจำตัวผู้ป่วย หมายเลขบัตรประจำตัวประชาชน ชื่อ หรือนามสกุล</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -255,11 +255,11 @@
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 1 วัน</span>
+                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการนัดหมายไปทางอีเมล<br>และโทรศัพท์เคลื่อนที่ของผู้ป่วย กรุณาให้ผู้ป่วยยืนยันภายใน 1 วัน</span>
             </div>
         </div>
         <div class="modal-footer">
-            <a href="{{url('/')}}" type="button" class="btn green">รับทราบ</a>
+            <a href="{{url('/officer/appointment/new')}}" type="button" class="btn green">รับทราบ</a>
         </div>
     </div>
 @endsection
@@ -289,11 +289,7 @@
             height: 100%;
         }
     </style>
-{{--    <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/components-bootstrap-select.min.js')}}" type="text/javascript"></script>
-{{--    <script src="{{url('assets/pages/scripts/components-date-time-pickers.min.js')}}" type="text/javascript"></script>--}}
-{{--    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>--}}
-{{--    <script src="{{url('assets/pages/scripts/ui-buttons.min.js')}}" type="text/javascript"></script>--}}
     <script src="{{url('assets/pages/scripts/form-validation-appointment.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/search.min.js')}}" type="text/javascript"></script>
     <script>
@@ -310,8 +306,8 @@
                                 "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
 
                         markup += "<div class='select2-result-staff__details'>" +
-                                "<div class='select2-result-staff__id'></span> รหัสโรงพยาบาล : " + user.id + "</div>" +
-                                "<div class='select2-result-staff__ssn'></span> รหัสประจำตัวประชาชน : " + user.ssn + " </div>" +
+                                "<div class='select2-result-staff__id'></span> หมายเลขประจำตัวผู้ป่วย : " + user.id + "</div>" +
+                                "<div class='select2-result-staff__ssn'></span> หมายเลขบัตรประจำตัวประชาชน : " + user.ssn + " </div>" +
                                 "</div>" +
                                 "</div></div>";
 
@@ -515,7 +511,7 @@
                         $('#emailConfirmAlertModal').modal();
                     }
                     else if(input=='duplicate') {
-                        toastr['warning']("ท่านมีนัดแล้วในวันและช่วงเวลานี้", "ขออภัย");
+                        toastr['warning']("ผู้ป่วยมีนัดแล้วในวันและช่วงเวลานี้", "ขออภัย");
                     }
 
                 }).fail(function () {

@@ -85,11 +85,11 @@
                                             @endif
                                             <div class="form-group form-md-line-input">
                                                 <div id="hid" class="form-control form-control-static"> {{ $hid }} </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
+                                                <label for="form_control_1">หมายเลขประจำตัวผู้ป่วย</label>
                                             </div>
                                             <div class="form-group form-md-line-input">
                                                 <div id="id" class="form-control form-control-static"> {{ $ssn }} </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
+                                                <label for="form_control_1">หมายเลขบัตรประจำตัวประชาชน</label>
                                             </div>
                                             <hr>
                                             <div class="form-group">
@@ -123,7 +123,7 @@
                                                 <label class="control-label">ที่อยู่</label>
                                                 <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" >{{ $address }}</textarea> </div>
                                             <div class="form-group">
-                                                <label class="control-label">หมายเลขโทรศัพท์</label>
+                                                <label class="control-label">หมายเลขโทรศัพท์เคลื่อนที่</label>
                                                 <input id="phone_no" name="phone_no" type="text" placeholder="0899999999" class="form-control" value="{{ $phone_no }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ประวัติการแพ้ยา</label>

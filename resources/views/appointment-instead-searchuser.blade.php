@@ -54,7 +54,7 @@
                     <div class="col-md-9 margin-bottom-15">
                         <div class=" select2-bootstrap-prepend">
                             <select id="select-user" class="form-control js-data-example-ajax" name="user_id"  required aria-required="true" >
-                                <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
+                                <option value="" selected="selected">กรุณากรอกหมายเลขประจำตัวผู้ป่วย หมายเลขบัตรประจำตัวประชาชน ชื่อ หรือนามสกุล</option>
                             </select>
                         </div>
                     </div>
@@ -125,8 +125,8 @@
                                 "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
 
                         markup += "<div class='select2-result-staff__details'>" +
-                                "<div class='select2-result-staff__id'></span> รหัสโรงพยาบาล : " + user.id + "</div>" +
-                                "<div class='select2-result-staff__ssn'></span> รหัสประจำตัวประชาชน : " + user.ssn + " </div>" +
+                                "<div class='select2-result-staff__id'></span> หมายเลชประจำตัวผู้ป่วย : " + user.id + "</div>" +
+                                "<div class='select2-result-staff__ssn'></span> หมายเลขบัตรประจำตัวประชาชน : " + user.ssn + " </div>" +
                                 "</div>" +
                                 "</div></div>";
 

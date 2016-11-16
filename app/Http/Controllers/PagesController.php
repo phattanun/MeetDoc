@@ -92,6 +92,7 @@ class PagesController extends Controller
         $res = AccountController::forgetPassword($request);
         if($res['status']) {
             // TODO: send email/sms
+            MessageController::sendForget($res);
         }
         else {
             // Fake Forget Password
@@ -105,19 +106,28 @@ class PagesController extends Controller
         $res = AccountController::forgetPassword($request);
         if($res['status']) {
             // TODO: send email/sms
+            MessageController::sendForget($res);
         }
+        else {
+            // Fake Forget Password
+            return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน']);
+        };
         return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน', 'link' => $res['link']]);
     }
 
     public function resetPassword(Request $request) {
         $res = AccountController::resetPassword($request);
-        return view('auth/confirm')->with(['title' => 'เปลี่ยนรหัสผ่านสำเร็จ']);
+        if($res['status'])
+            return view('auth/confirm')->with(['title' => 'เปลี่ยนรหัสผ่านสำเร็จ']);
+        return view('auth/failed')->with(['title' => 'เปลี่ยนรหัสไม่ผ่านสำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาใช้ระบบลืมรหัสผ่าน']);
     }
 
     public function register(Request $request) {
         $res = AccountController::register($request);
-        if($res['status'])
+        if($res['status']) {
+            MessageController::sendRegister($res);
             return view('auth/confirm')->with(['title' => 'ขอลงทะเบียนสำเร็จ', 'action' => 'ยืนยันการลงทะเบียน', 'link' => $res['link']]);
+        }
         else $request->flashExcept('id');
         return view('auth/register')->with('msg','รหัสบัตรประจำตัวประชาชนซ้ำ');
     }

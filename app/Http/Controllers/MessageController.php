@@ -238,8 +238,7 @@ class MessageController extends Controller
         self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'doctor_edit');
     }
 
-    public static function sendEmail(Request $request)
-    {
+    private static function sendEmail($email, $subject, $message_html, $message_text) {
         $client = new \Google_Client();
         $client->setApplicationName(APPLICATION_NAME);
         $client->setScopes(SCOPES);
@@ -270,11 +269,11 @@ class MessageController extends Controller
 
         $mail = new \PHPMailer();
         $mail->CharSet = "UTF-8";
-        $mail->setFrom('meetdocplus@gmail.com', 'MeetDocPlus');
-        $mail->addAddress($request->email, 'Name Surname');
-        $mail->Subject = $request->subject;
-        $mail->Body = "<h2>" . $request->message . "</h2>";
-        $mail->AltBody = $request->message; // Must have to send html mail.
+        $mail->setFrom('meetdocplus@gmail.com','MeetDocPlus');
+        $mail->addAddress($email, 'Name Surname');
+        $mail->Subject = $subject;
+        $mail->Body = $message_html;
+        $mail->AltBody = $message_text; // Must have to send html mail.
         $mail->preSend();
 
         function urlsafe_b64encode($string)
@@ -286,9 +285,49 @@ class MessageController extends Controller
 
         $message_object->setRaw(urlsafe_b64encode($mail->getSentMIMEMessage()));
         try {
-            var_dump($service->users_messages->send("me", $message_object));
+            $service->users_messages->send("me", $message_object);
         } catch (Exception $e) {
             print 'An error occurred: ' . $e->getMessage();
         }
     }
+
+    private static $hospital="แห่งหนึ่ง";
+    private static $hospital_phone="02-xxx-xxxx";
+
+    public static function sendRegister($res) {
+        $subject = "[MeetDoc⁺] กรุณายืนยันการลงทะเบียน ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
+            <br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ชื่อผู้ใช้งานระบบของท่านคือ หมายเลขบัตรประจำตัวประชาชนของท่าน <br>
+            <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน</b><br>
+            <br>
+            <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการลงทะเบียน</a><br>
+            <br>
+            หากท่านไม่ได้ต้องการลงทะเบียน ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
+            <br>
+            ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
+            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+        self::sendEmail($res['email'], $subject, $message, $message);
+    }
+
+    public static function sendForget($res) {
+        $subject = "[MeetDoc⁺] กรุณายืนยันการตั้งค่ารหัสผ่านใหม่ ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
+            <br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่ของบัญชีผู้ใช้งานจาก หมายเลขบัตรประจำตัวประชาชนของท่าน<br>
+            <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการตั้งค่ารหัสผ่านใหม่</b><br>
+            <br>
+            <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการตั้งค่ารหัสผ่านใหม่</a><br>
+            <br>
+            หากท่านไม่ได้ต้องการตั้งค่ารหัสผ่านใหม่ ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
+            <br>
+            ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
+            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+        self::sendEmail($res['email'], $subject, $message, $message);
+    }
+
 }

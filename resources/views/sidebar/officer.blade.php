@@ -13,7 +13,7 @@
 <li class="nav-item  @yield('insteadEditNav')">
     <a href="{{url('/officer/appointment/edit')}}" class="nav-link nav-toggle">
         <i class="fa fa-pencil-square-o"></i>
-        <span class="title">แก้ไขการนัดหมายของผู้ป่วย</span>
+        <span class="title">แก้ไขการนัดหมายแทนผู้ป่วย</span>
     </a>
 </li>
 <li class="nav-item @yield('doctorTableInsteadNav')">
