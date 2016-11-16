@@ -541,7 +541,7 @@
                                     </div>
                                 </div>
                                 <!-- END PHYSICAL DATA FORM -->
-                                <form id="diagnosis-form" class="form-horizontal" action="../backend/Diagnosis/add_physical_record" method="post" role="form">
+                                <form id="diagnosis-form" class="form-horizontal" action="../backend/Diagnosis/add_diagnosis_record" method="post" role="form">
                                     {{csrf_field()}}
                                     <input id="diagnosis-form-appointment-id" name="appointment_id" class="diagnosis-form" type="hidden" required>
                                     <!-- BEGIN DIAGNOSIS FORM -->
@@ -595,24 +595,20 @@
                                                     </div>
                                                     <div class="portlet-body">
                                                         <!-- BEGIN FORM -->
-                                                        <div class="portlet-body form">
-                                                            <form class="form form-group" role="form">
-                                                                <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                    <div class="row">
-                                                                        <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
-                                                                            <span class="required" aria-required="true"> * </span>
-                                                                        </label>
-                                                                        <div class="col-md-7 margin-bottom-10">
-                                                                            <div class="input-group select2-bootstrap-prepend">
-                                                                                <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-1">
-                                                                            <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
-                                                                        </div>
+                                                        <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                            <div class="row">
+                                                                <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-7 margin-bottom-10">
+                                                                    <div class="input-group select2-bootstrap-prepend">
+                                                                        <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                                <div class="col-md-1">
+                                                                    <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <!-- END FORM -->
                                                         <!-- BEGIN TABLE -->
@@ -1035,9 +1031,11 @@
             var step = $(this).attr('step');
             alert(id+" "+step);
             if(step == 1){
+                $('#physical-form-appointment-id').val(id);
                 $('#modal_tab3_physical_form').show();
-                $('#modal_tab3_diagnosis_form').hide();
-                $('#modal_tab3_medicine_form').hide();
+//                $('#modal_tab3_diagnosis_form').hide();
+//                $('#modal_tab3_medicine_form').hide();
+                $('#diagnosis-form').hide();
 
                 $('.physical-form').removeAttr('disabled');
                 $('#physical-form-submit-row').show();
@@ -1046,13 +1044,14 @@
             }
             else if(step == 2){
                 $('#modal_tab3_physical_form').show();
-                $('#modal_tab3_diagnosis_form').show();
-                $('#modal_tab3_medicine_form').show();
+//                $('#modal_tab3_diagnosis_form').show();
+//                $('#modal_tab3_medicine_form').show();
+                $('#diagnosis-form').show();
 
                 $('.physical-form').attr('disabled','disabled');
                 $('#physical-form-submit-row').hide();
 
-                $('#physical-form-appointment-id').val(id);
+                $('#diagnosis-form-appointment-id').val(id);
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
@@ -1300,15 +1299,19 @@
 
         }
 
+        //diagnosis-form
+
         function checkDuplicateMedicine(medicine_id){
             console.log('medicine_id = ' + medicine_id);
             for(var i = 1 ; i<medicineNo ; i++){
                 var tmp_id = $('#medicine-table-body-row-'+i).attr("medicineId");
                 console.log('tmp_id = ' + tmp_id + ' i = ' + i);
+                if(medicine_id == tmp_id)
+                    return false;
             }
+            return true;
         }
 
-        //diagnosis-form
         var medicineNo = 1;
 
         $(document).on('click','#add_medicine_button', function(){
@@ -1319,39 +1322,42 @@
             var URL_ROOT = '{{Request::root()}}';
             for(medicine_id in medicineList){
                 console.log("medicine_id ==> " + medicineList[medicine_id]);
-                checkDuplicateMedicine(medicineList[medicine_id]);
-                $.post(URL_ROOT+'/backend/Medicine/detail',
-                        {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
-                    alert('bbb');
-                    console.log(input);
-                    console.log('medicineNo = '+ medicineNo);
-                    if(medicineNo==1){
-                        $('#medicine-row-empty').remove();
-                    }
-                    var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" medicineId="'+medicineList[medicine_id]+'">'+
-                            '    <input type="hidden" value="'+medicineList[medicine_id]+'" name="medicine[]["id"]">'+
-                            '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
-                            '    <td>'+input['medicine_id']+'</td>'+
-                            '    <td>'+input['business_name']+'</td>'+
-                            '    <td><input class="touchspin" type="text" value="" name="medicine[]["amount"]"></td>'+
-                            '    <td><input type="text" value="" name="medicine[]["unit"]"></td>'+
-                            '    <td>'+
-                            '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
-                            '            <i class="fa fa-trash"></i>'+
-                            '        </a>'+
-                            '    </td>'+
-                            '</tr>';
-                    $('#medicine-table-body').append(new_medicine);
-                    medicineNo ++;
-                    $(".touchspin").TouchSpin({
-                        min: 0,
-                        step: 0.1,
-                        decimals: 2,
-                        boostat: 5,
-                        maxboostedstep: 10
+                if(checkDuplicateMedicine(medicineList[medicine_id]))
+                {
+                    $.post(URL_ROOT+'/backend/Medicine/detail',
+                            {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
+                        alert('bbb');
+                        console.log(input);
+                        console.log('medicineNo = '+ medicineNo);
+                        if(medicineNo==1){
+                            $('#medicine-row-empty').remove();
+                        }
+                        var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" class="medicine-table-body-row" medicineId="'+input['medicine_id']+'">'+
+                                '    <input id="medicine-table-body-row-id-'+medicineNo+'" type="hidden" value="'+input['medicine_id']+'" name="medicine['+medicineNo+'][id]">'+
+                                '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
+                                '    <td>'+input['medicine_id']+'</td>'+
+                                '    <td>'+input['business_name']+'</td>'+
+                                '    <td><input id="medicine-table-body-row-amount-'+medicineNo+'" class="touchspin" type="text" value="" name="medicine['+medicineNo+'][amount]"></td>'+
+                                '    <td><input id="medicine-table-body-row-unit-'+medicineNo+'" type="text" value="" name="medicine['+medicineNo+'][unit]"></td>'+
+                                '    <td>'+
+                                '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
+                                '            <i class="fa fa-trash"></i>'+
+                                '        </a>'+
+                                '    </td>'+
+                                '</tr>';
+                        $('#medicine-table-body').append(new_medicine);
+                        medicineNo ++;
+                        $(".touchspin").TouchSpin({
+                            min: 0,
+                            step: 0.1,
+                            decimals: 2,
+                            boostat: 5,
+                            maxboostedstep: 10
+                        });
+                    }).fail(function () {
                     });
-                }).fail(function () {
-                });
+                }
+
             }
 
 
@@ -1367,10 +1373,59 @@
                 $("#medicine-table-body-no-" + runNo).attr("id", "medicine-table-body-no-"+(runNo-1));
                 $("#medicine-remove-button-" + runNo).attr("medicineNo", (runNo-1));
                 $("#medicine-remove-button-" + runNo).attr("id", "medicine-remove-button-"+(runNo-1));
+
+                $("#medicine-table-body-row-id-"+runNo).attr("name","medicine["+(runNo-1)+"][id]");
+                $("#medicine-table-body-row-id-"+runNo).attr("id",runNo-1);
+                $("#medicine-table-body-row-amount-"+runNo).attr("name","medicine["+(runNo-1)+"][amount]");
+                $("#medicine-table-body-row-amount-"+runNo).attr("id",runNo-1);
+                $("#medicine-table-body-row-unit-"+runNo).attr("name","medicine["+(runNo-1)+"][unit]");
+                $("#medicine-table-body-row-unit-"+runNo).attr("id",runNo-1);
             }
             medicineNo-- ;
             if(medicineNo==1){
                 $("#medicine-table-body").append('<tr id="medicine-row-empty"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+            }
+        });
+
+        function clearDiagnosisForm(){
+            $("#disease_select2").val('').trigger('change');
+            $('#diagnosis_detail').val('');
+        }
+
+        function clearMedicineForm(){
+            $("#medicine_select2").val('').trigger('change');
+            $(".medicine-table-body-row").remove();
+            $("#medicine-table-body").append('<tr id="medicine-row-empty"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+            medicineNo = 1;
+        }
+
+        $(document).on('click','#diagnosis-form-submit-button', function(e) {
+            if($('#diagnosis-form').valid()) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('บันทึกข้อมูลการวินิจฉัยโรคและการสั่งยาสำเร็จ', "สำเร็จ");
+                    l.stop();
+                    resetQueue();
+                    clearDiagnosisForm();
+                    clearMedicineForm();
+                    $('#full').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#diagnosis-form').ajaxSubmit(options);
+                return false;
             }
         });
 
