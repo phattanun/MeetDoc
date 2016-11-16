@@ -65,7 +65,7 @@
                     <li class="dropdown dropdown-user">
                         <a href="{{ url('logout') }}" class="dropdown-toggle">
                             <i class="icon-logout"></i>
-                            <span> Logout </span>
+                            <span> ออกจากระบบ </span>
                         </a>
                     </li>
                 </ul>

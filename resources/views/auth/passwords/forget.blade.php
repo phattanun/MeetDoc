@@ -51,9 +51,9 @@
                 <strong>ผิดพลาด!</strong> กรุณากรอกข้อมูลให้ถูกต้องและลองใหม่อีกครั้ง</div>
         @else
         @endif
-        <p> กรุณากรอกรหัสบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่</p>
+        <p> กรุณากรอกหมายเลขบัตรประจำตัวชาชนของท่านเพื่อทำการกำหนดรหัสผ่านใหม่</p>
         <div class="form-group">
-            <input class="form-control{{ $errors->has('id') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="รหัสบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}" />
+            <input class="form-control{{ $errors->has('id') ? ' has-error' : '' }} placeholder-no-fix" type="text" autocomplete="off" placeholder="หมายเลขบัตรประจำตัวประชาชน" name="id" value="{{ old('id') }}" />
             @if ($errors->has('id'))
                 <span class="help-block">
                     <strong>{{ $errors->first('id') }}</strong>
