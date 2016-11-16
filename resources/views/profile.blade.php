@@ -85,11 +85,11 @@
                                             @endif
                                             <div class="form-group form-md-line-input">
                                                 <div id="hid" class="form-control form-control-static"> {{ $hid }} </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวโรงพยาบาล</label>
+                                                <label for="form_control_1">หมายเลขประจำตัวผู้ป่วย</label>
                                             </div>
                                             <div class="form-group form-md-line-input">
                                                 <div id="id" class="form-control form-control-static"> {{ $ssn }} </div>
-                                                <label for="form_control_1">เลขบัตรประจำตัวประชาชน</label>
+                                                <label for="form_control_1">หมายเลขบัตรประจำตัวประชาชน</label>
                                             </div>
                                             <hr>
                                             <div class="form-group">

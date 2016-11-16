@@ -240,7 +240,7 @@
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการแก้ไขการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 1 วัน</span>
+                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการแก้ไขการนัดหมายไปทางอีเมล<br>และโทรศัพท์เคลื่อนที่ของท่าน กรุณายืนยันภายใน 1 วัน</span>
             </div>
         </div>
         <div class="modal-footer">

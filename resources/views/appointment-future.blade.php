@@ -64,7 +64,7 @@
     <div id="cancelAppModal" class="modal fade" tabindex="-1" data-width="320">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ยกเลิกการนัดหมายรหัส AP01</h4>
+            <h4 class="modal-title">ยกเลิกการนัดหมายรหัส <span id="delete-title"></span></h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
@@ -87,7 +87,7 @@
         <div class="modal-body">
             <div class="caption text-center">
                 <i class="glyphicon glyphicon-alert font-red"></i>
-                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการยกเลิกการนัดหมายไปทางอีเมลของท่าน <br>กรุณายืนยันภายใน 15 นาที</span>
+                <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายยืนยันการยกเลิกการนัดหมายไปทางอีเมล<br>และโทรศัพท์เคลื่อนที่ของท่าน กรุณายืนยันภายใน 1 วัน</span>
             </div>
         </div>
         <div class="modal-footer">
@@ -114,21 +114,9 @@
                     i++;
                 });
             }
-            {{--$(document).on('click','.postpone-btn', function () {--}}
-                {{--$.post('{{url('/appointment/edit')}}',--}}
-                        {{--{id: this.id, _token: '{{csrf_token()}}'}).done(function (input) {--}}
-                    {{--if(input=='success'){--}}
-
-                    {{--}--}}
-                    {{--else if(input=='fail'){--}}
-                        {{--toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");--}}
-                    {{--}--}}
-                {{--}).fail(function () {--}}
-                    {{--toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");--}}
-                {{--});--}}
-            {{--});--}}
             $(document).on('click','.cancel-app-btn', function () {
                 $('#confirm-cancel-app-btn').attr('identity',this.id);
+                $('#delete-title').text(this.id);
                 $('#cancelAppModal').modal();
             });
             $('#confirm-cancel-app-btn').click(function () {
