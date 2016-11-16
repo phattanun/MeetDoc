@@ -1321,18 +1321,10 @@
                     var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'">'+
                             '    <input type="hidden" value="'+medicineList[medicine_id]+'" name="medicine[]["id"]">'+
                             '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
-                            '    <td>MD22531</td>'+
-                            '    <td>Paracetamol</td>'+
+                            '    <td>'+input['medicine_id']+'</td>'+
+                            '    <td>'+input['business_name']+'</td>'+
                             '    <td><input class="touchspin" type="text" value="" name="medicine[]["amount"]"></td>'+
-                            '    <td>'+
-                            '        <select class="form-control" name="medicine[]["unit"]">'+
-                            '            <option>Option 1</option>'+
-                            '            <option>Option 2</option>'+
-                            '            <option>Option 3</option>'+
-                            '            <option>Option 4</option>'+
-                            '            <option>Option 5</option>'+
-                            '        </select>'+
-                            '    </td>'+
+                            '    <td><input type="text" value="" name="medicine[]["unit"]"></td>'+
                             '    <td>'+
                             '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
                             '            <i class="fa fa-trash"></i>'+
