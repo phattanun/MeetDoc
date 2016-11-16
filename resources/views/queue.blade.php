@@ -907,6 +907,7 @@
     <script src="{{url('assets/pages/scripts/diagnosis-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            resetQueue();
             $('#tab1_table').DataTable({
                 "autoWidth": false,
                 "columnDefs": [
