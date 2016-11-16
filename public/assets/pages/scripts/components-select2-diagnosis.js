@@ -71,7 +71,7 @@ var ComponentsSelect2 = function() {
         function formatRepoMedicine(repo) {
             if (repo.loading) return repo.text;
             var markup = "<div class='select2-result-repository clearfix'>" +
-                "<div class='select2-result-repository__title'>" + repo.name + "</div></div>";
+                "<div class='select2-result-repository__title'>" + repo.business_name + "</div></div>";
 
             return markup;
         }
@@ -83,7 +83,7 @@ var ComponentsSelect2 = function() {
         $(".js-data-medicine-ajax").select2({
             width: "off",
             ajax: {
-                url: "/backend/Disease/search",
+                url: "/backend/Medicine/search",
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {

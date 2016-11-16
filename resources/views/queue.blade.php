@@ -650,6 +650,9 @@
                                                                         </a>
                                                                     </td>
                                                                 </tr-->
+                                                                <tr id="medicine-row-empty">
+                                                                    <td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td>
+                                                                </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -1310,6 +1313,9 @@
                 alert('bbb');
                 console.log(input);
                 console.log('medicineNo = '+ medicineNo);
+                if(medicineNo==1){
+                    $('#medicine-row-empty').remove();
+                }
                 var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'">'+
                                '    <input type="hidden" value="152" name="medicine[]["id"]">'+
                                '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
@@ -1388,16 +1394,20 @@
         });
 
         $(document).on('click','.medicine-remove-button', function(){
-            var nowNo = $(this).attr('MedicineNo');
+            var nowNo = $(this).attr('medicineNo');
             alert(nowNo);
             $("#medicine-table-body-row-"+nowNo).remove();
             for(var runNo = medicineNo;runNo > nowNo ; runNo--) {
                 $("#medicine-table-body-row-" + runNo).attr("id", "medicine-table-body-row-"+(runNo-1));
                 $("#medicine-table-body-no-" + runNo).text(runNo-1);
                 $("#medicine-table-body-no-" + runNo).attr("id", "medicine-table-body-no-"+(runNo-1));
+                $("#medicine-remove-button-" + runNo).attr("medicineNo", (runNo-1));
                 $("#medicine-remove-button-" + runNo).attr("id", "medicine-remove-button-"+(runNo-1));
             }
             medicineNo-- ;
+            if(medicineNo==1){
+                $("#medicine-table-body").append('<tr id="medicine-row-empty"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+            }
         });
 
 
