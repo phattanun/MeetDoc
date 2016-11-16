@@ -56,6 +56,12 @@ class DiseaseController extends Controller
         return $disease_list;
     }
 
+    public static function search_disease(Request $request){
+        $keyword = $request->keyword;
+        $disease_list = self::search_disease_list($keyword);
+        return compact('keyword','disease_list');
+    }
+
     public static function search_disease_list($keyword = null)
     {
         if ($keyword != ""){
