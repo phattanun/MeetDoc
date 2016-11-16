@@ -1029,9 +1029,11 @@
         $(document).on('click','.goToModalTab3', function(){
             var id = $(this).attr('appointmentId');
             var step = $(this).attr('step');
-            alert(id+" "+step);
+            alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
+                clearPhysicalForm();
                 $('#physical-form-appointment-id').val(id);
+                alert("step1 : " + $('#physical-form-appointment-id').val());
                 $('#modal_tab3_physical_form').show();
 //                $('#modal_tab3_diagnosis_form').hide();
 //                $('#modal_tab3_medicine_form').hide();
@@ -1039,8 +1041,6 @@
 
                 $('.physical-form').removeAttr('disabled');
                 $('#physical-form-submit-row').show();
-
-                clearPhysicalForm();
             }
             else if(step == 2){
                 $('#modal_tab3_physical_form').show();
@@ -1104,7 +1104,10 @@
 
         //physical-form
         $(document).on('click','#physical-form-submit-button', function(e) {
+            alert("step1 : " + $('#physical-form-appointment-id').val());
+            alert('physical-form' + $('#physical-form-appointment-id').val());
             if($('#physical-form').valid()) {
+                alert('valid');
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
