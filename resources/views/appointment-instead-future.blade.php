@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="{{url('officer/appointment/edit')}}/{{$app->patient_id}}"  class="btn green">รับทราบ</a>
+            <a href="{{url('officer/appointment/edit')}}/{{$patient_id}}"  class="btn green">รับทราบ</a>
         </div>
     </div>
 @endsection

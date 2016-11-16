@@ -59,7 +59,7 @@ class PagesController extends Controller
 
     public function viewOfficerFutureAppointmentPage($id)
     {
-        return view('appointment-instead-future')->with('appList',AppointmentController::getFutureAppointments($id));
+        return view('appointment-instead-future')->with(['appList'=>AppointmentController::getFutureAppointments($id),'patient_id'=>$id]);
     }
     public function viewOfficerEditAppointmentPage(Request $request)
     {
