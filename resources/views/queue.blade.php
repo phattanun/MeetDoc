@@ -84,13 +84,13 @@
                     <div class="portlet-title tabbable-line">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a id="tab_modal_1_button" href="#tab_modal_1" data-toggle="tab">ข้อมูลส่วนตัว</a>
+                                <a id="tab_modal_1_button" class="goToModalTab1" href="#tab_modal_1" data-toggle="tab">ข้อมูลส่วนตัว</a>
                             </li>
                             <li>
-                                <a id="tab_modal_2_button" href="#tab_modal_2" data-toggle="tab">ประวัติการรักษา</a>
+                                <a id="tab_modal_2_button" class="goToModalTab2" href="#tab_modal_2" data-toggle="tab">ประวัติการรักษา</a>
                             </li>
                             <li>
-                                <a id="tab_modal_3_button" href="#tab_modal_3" data-toggle="tab">บันทึกข้อมูล</a>
+                                <a id="tab_modal_3_button" class="goToModalTab3" href="#tab_modal_3" data-toggle="tab">บันทึกข้อมูล</a>
                             </li>
                         </ul>
                     </div>
@@ -940,8 +940,17 @@
 
         $(document).on('click','.goToModalTab1', function(){
             var id = $(this).attr('patientId');
+            var appId = $(this).attr('appointmentId');
+            var step = $(this).attr('step');
+            $('#tab_modal_1_button').attr('patientId',id);
+            $('#tab_modal_2_button').attr('patientId',id);
+            $('#tab_modal_3_button').attr('appointmentId',appId);
+            $('#tab_modal_1_button').attr('step',step);
+            $('#tab_modal_2_button').attr('step',step);
+            $('#tab_modal_3_button').attr('step',step);
             alert(id);
-            $('#tab_modal_1_button').click();
+//            $('#tab_modal_1_button').click();
+            $('.nav-tabs li:eq(0) a').tab('show')
         });
 
         var diagnosis_history;
@@ -950,6 +959,14 @@
 
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('patientId');
+            var appId = $(this).attr('appointmentId');
+            var step = $(this).attr('step');
+            $('#tab_modal_1_button').attr('patientId',id);
+            $('#tab_modal_2_button').attr('patientId',id);
+            $('#tab_modal_3_button').attr('appointmentId',appId);
+            $('#tab_modal_1_button').attr('step',step);
+            $('#tab_modal_2_button').attr('step',step);
+            $('#tab_modal_3_button').attr('step',step);
             $('#history_detail').hide();
             alert('ss'+id);
             var URL_ROOT = '{{Request::root()}}';
@@ -1022,14 +1039,22 @@
 //                        '</table>';
                 $('#modal-history-table-container').append(modalHistoryTable);
                 $('#modal-history-table').DataTable();
-                $('#tab_modal_2_button').click();
+//                $('#tab_modal_2_button').click();
+                $('.nav-tabs li:eq(1) a').tab('show')
             }).fail(function () {
             });
         });
 
         $(document).on('click','.goToModalTab3', function(){
             var id = $(this).attr('appointmentId');
+            var patientId = $(this).attr('patientId');
             var step = $(this).attr('step');
+            $('#tab_modal_1_button').attr('patientId',patientId);
+            $('#tab_modal_2_button').attr('patientId',patientId);
+            $('#tab_modal_3_button').attr('appointmentId',id);
+            $('#tab_modal_1_button').attr('step',step);
+            $('#tab_modal_2_button').attr('step',step);
+            $('#tab_modal_3_button').attr('step',step);
             alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
                 clearPhysicalForm();
@@ -1070,7 +1095,8 @@
                 $('.diagnosis-form').attr('disabled','disabled');
                 $('.medicine-form').attr('disabled','disabled');
             }
-            $('#tab_modal_3_button').click();
+//            $('#tab_modal_3_button').click();
+            $('.nav-tabs li:eq(2) a').tab('show')
         });
 
 ///////////////////////////////////////ModelTab2////////////////////////////////////////////////
@@ -1193,9 +1219,9 @@
                         '<td>'+waiting_staff[tmp]['department']+'</td>'+
                         '<td>'+waiting_staff[tmp]['symptom']+'</td>'+
                         '<td class="last">'+
-                        '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                        '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                         '</td>'+
                     '</tr>';
                     i++;
@@ -1241,9 +1267,9 @@
                             '<td>'+waiting_doctor[tmp]['department']+'</td>'+
                             '<td>'+waiting_doctor[tmp]['symptom']+'</td>'+
                             '<td class="last">'+
-                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
                     i++;
@@ -1289,9 +1315,9 @@
                             '<td>'+waiting_pharmacist[tmp]['department']+'</td>'+
                             '<td>'+waiting_pharmacist[tmp]['symptom']+'</td>'+
                             '<td class="last">'+
-                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
                     i++;
