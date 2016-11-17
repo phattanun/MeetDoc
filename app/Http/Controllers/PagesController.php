@@ -64,6 +64,10 @@ class PagesController extends Controller
     {
         return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());
     }
+    public function tempAccount()
+    {
+        return view('account-temp');
+    }
 
     public function viewOfficerAppointmentSearchUserPage()
     {
@@ -301,6 +305,12 @@ class PagesController extends Controller
     public function departmentPage()
     {
         return view('department')->with(['departmentList' => DepartmentController::get_list()]);
+    }
+
+    // Account
+    public function accountPage()
+    {
+        return view('account')->with(['accountList' => AccountController::get_list()]);
     }
 
     // Pharmacist

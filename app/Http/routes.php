@@ -98,6 +98,13 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/department/search', 'DepartmentController@search');
     Route::get('/department/getDepartmentList', 'DepartmentController@get_list');
 
+    // Account
+    Route::get('/account/temp', 'PagesController@tempAccount');
+    Route::post('/account/delete', 'AccountController@delete');
+    Route::post('/account/detail', 'AccountController@get_detail');
+    Route::post('/account/search', 'AccountController@search');
+    Route::get('/account/getAccountList', 'AccountController@get_list');
+
     //everyone
     // Route::get('/profile', 'ProfileController@index');
     //Route::post('/profile', 'ProfileController@testprofile');
@@ -105,7 +112,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 
     //Admin
-    Route::get('/account/manage', 'ProfileController@accountPage');
+    Route::get('/account/manage', 'PagesController@accountPage');
     // Route::get('/officer/manage', 'ProfileController@officerPage');
     Route::get('/disease/manage', 'PagesController@diseasePage');
     Route::get('/department/manage', 'PagesController@departmentPage');

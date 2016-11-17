@@ -243,6 +243,7 @@ class AccountController extends Controller
         return $user;
     }
 
+    // Bank's, please ask before editing the lines below
     public static function getDoctorByDepartment(Request $request) {
         return User::select(['id','name','surname'])->where(['dept_id'=>$request->dept_id,'staff'=>1, 'p_doctor'=>1])->get();
     }
@@ -250,4 +251,44 @@ class AccountController extends Controller
         return User::select(['id','name','surname'])->where(['dept_id'=>$id,'staff'=>1, 'p_doctor'=>1])->get();
     }
 
+    public static function getAllUser()
+    {
+        return User::all();
+    }
+
+    public function delete(Request $request)
+    {
+        $account = User::findOrFail($request->id);
+        $account->delete();
+        return "success";
+    }
+
+    public function get_detail(Request $request)
+    {
+        $account = User::findOrFail($request->id);
+        return $account;
+    }
+
+    public function search(Request $request)
+    {
+        $keyword= $request->keyword;
+        if ($keyword != ""){
+            $account_list = User::
+            where('id', 'like', '%'.($keyword).'%')
+            ->orWhere('ssn', 'like', '%'.($keyword).'%')
+            ->orWhere('name', 'like', '%'.($keyword).'%')
+            ->orWhere('surname', 'like', '%'.($keyword).'%')
+                ->get();
+        }
+        else {
+            $account_list = [];
+        }
+        return compact('keyword','account_list');
+    }
+
+    public static function get_list()
+    {
+        $account_list = User::all();
+        return $account_list;
+    }
 }
