@@ -34,10 +34,13 @@ var ComponentsSelect2 = function() {
                 markup += "<div class='select2-result-repository__description'>" + repo.name + " " + repo.surname + "</div>";
             }
 
+            var t;
+            if(repo.time == 'M') t = "Morning";
+            else t = "Afternoon";
+
             markup += "<div class='select2-result-repository__statistics'>" +
-                "<div class='select2-result-repository__forks'><span class='glyphicon glyphicon-plus'></span> " + repo.department + " Forks</div>" +
-                "<div class='select2-result-repository__stargazers'><span class='glyphicon glyphicon-time'></span> " + repo.time + " Stars</div>" +
-                "<div class='select2-result-repository__watchers'><span class='glyphicon glyphicon-eye-open'></span> " + repo.watchers_count + " Watchers</div>" +
+                "<div class='select2-result-repository__forks'><span class='glyphicon glyphicon-plus'></span> " + repo.department + "</div>" +
+                "<div class='select2-result-repository__stargazers'><span class='glyphicon glyphicon-time'></span> " + t + "</div>" +
                 "</div>" +
                 "</div></div>";
 
