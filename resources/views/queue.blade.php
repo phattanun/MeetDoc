@@ -493,7 +493,7 @@
                                                                         <div class="col-md-12">
                                                                             <label class="control-label">โรคที่วินิจฉัยได้</label>
                                                                             <div class="input-group input-group select2-bootstrap-append">
-                                                                                <select id="disease_select2" class="form-control js-data-disease-ajax diagnosis-form" name="disease_select2" multiple required>
+                                                                                <select id="disease_select2" class="form-control js-data-disease-ajax diagnosis-form" name="disease_select2[]" multiple required>
                                                                                     <!--option value="0" selected="selected">กรุณาระบุโรค</option-->
                                                                                 </select>
                                                                             </div>
