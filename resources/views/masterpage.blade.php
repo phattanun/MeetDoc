@@ -48,24 +48,31 @@
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <img alt="" class="img-circle" src="{{url('assets/layouts/layout/img/avatar3_small.jpg')}}" />
-                            <span class="username username-hide-on-mobile"> {{ $_user->name }} @if($_user->role=='Patient')(ผู้ป่วย)@elseif($_user->role=='Staff')(บุคลากร)@endif </span>
-                            <i class="fa fa-angle-down"></i>
+                                <span class="username username-hide-on-mobile"> {{ $_user->name }} @if($_user->staff) @if($_user->role=='Patient')(ผู้ป่วย)@elseif($_user->role=='Staff')(บุคลากร)@endif @endif</span>
+                            @if($_user->staff)
+                                <i class="fa fa-angle-down"></i>
+                            @else
+                                <i></i>
+                            @endif
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-default">
-                            <li>
-                                <a href="{{ url('swapRole') }}">
-                                    @if($_user->role=='Patient')
-                                        <i class="fa fa-user" style="margin-right: 0px"></i><i class="fa fa-long-arrow-right" style="margin-right: 0px"></i><i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
-                                    @elseif($_user->role=='Staff')
-                                        <i class="fa fa-user-md" style="margin-right: 0px"></i><i class="fa fa-long-arrow-right" style="margin-right: 0px"></i><i class="fa fa-user"></i> เปลี่ยนเป็นผู้ป่วย </a>
-                                    @endif
-                            </li>
-                        </ul>
+                        @if($_user->staff)
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="{{ url('swapRole') }}">
+                                        @if($_user->role=='Patient')
+                                            <i class="fa fa-user" style="margin-right: 0px"></i><i class="fa fa-long-arrow-right" style="margin-right: 0px"></i><i class="fa fa-user-md"></i> เปลี่ยนเป็นบุคลากร </a>
+                                        @elseif($_user->role=='Staff')
+                                            <i class="fa fa-user-md" style="margin-right: 0px"></i><i class="fa fa-long-arrow-right" style="margin-right: 0px"></i><i class="fa fa-user"></i> เปลี่ยนเป็นผู้ป่วย </a>
+                                        @endif
+                                </li>
+                            </ul>
+                        @endif
                     </li>
                     <li class="dropdown dropdown-user">
                         <a href="{{ url('logout') }}" class="dropdown-toggle">
                             <i class="icon-logout"></i>
                             <span> ออกจากระบบ </span>
+                            <i></i>
                         </a>
                     </li>
                 </ul>

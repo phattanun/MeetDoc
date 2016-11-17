@@ -60,6 +60,13 @@ class MedicineController extends Controller
         return $all_medicine;
     }
 
+    public static function search_medicine_bank(Request $request)
+    {
+        $keyword = $request->keyword;
+        $medicine_list = self::search_medicine($request->keyword);
+        return compact('keyword','medicine_list');
+    }
+
     public static function search_medicine($keyword = null)
     {
         if ($keyword != "") {

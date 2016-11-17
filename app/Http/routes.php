@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('medicine/create', 'MedicineController@create_medicine');
     Route::post('medicine/delete', 'MedicineController@delete_medicine');
     Route::post('medicine/detail', 'MedicineController@get_medicine_detail');
+    Route::post('medicine/search', 'MedicineController@search_medicine_bank');
     Route::post('medicine/edit', 'MedicineController@edit_medicine');
     Route::get('medicine/getMedicineList', 'MedicineController@get_medicine_list');
 
@@ -95,7 +96,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/department/delete', 'DepartmentController@delete');
     Route::post('/department/detail', 'DepartmentController@get_detail');
     Route::post('/department/search', 'DepartmentController@search');
-    Route::get('/department/getDiseaseList', 'DiseaseController@get_list');
+    Route::get('/department/getDepartmentList', 'DepartmentController@get_list');
 
     //everyone
     // Route::get('/profile', 'ProfileController@index');
@@ -168,6 +169,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Diagnosis/delete_allergic_medicine', 'DiagnosisController@delete_allergic_medicine');
     Route::post('/backend/Diagnosis/view_diagnosis_record', 'DiagnosisController@diagnosis_record_and_receive_medicine');
     Route::post('/backend/Diagnosis/give_medicine', 'DiagnosisController@give_medicine');
+    Route::post('/backend/Diagnosis/add_diagnosis_record', 'DiagnosisController@add_diagnosis_record');
 
     // System
     Route::post('/backend/Disease/add_disease', 'DiseaseController@add_disease');

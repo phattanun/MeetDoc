@@ -125,7 +125,7 @@
                                 "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
 
                         markup += "<div class='select2-result-staff__details'>" +
-                                "<div class='select2-result-staff__id'></span> หมายเลชประจำตัวผู้ป่วย : " + user.id + "</div>" +
+                                "<div class='select2-result-staff__id'></span> หมายเลขประจำตัวผู้ป่วย : " + user.id + "</div>" +
                                 "<div class='select2-result-staff__ssn'></span> หมายเลขบัตรประจำตัวประชาชน : " + user.ssn + " </div>" +
                                 "</div>" +
                                 "</div></div>";

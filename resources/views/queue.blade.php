@@ -84,13 +84,13 @@
                     <div class="portlet-title tabbable-line">
                         <ul class="nav nav-tabs">
                             <li class="active">
-                                <a id="tab_modal_1_button" href="#tab_modal_1" data-toggle="tab">ข้อมูลส่วนตัว</a>
+                                <a id="tab_modal_1_button" class="goToModalTab1" href="#tab_modal_1" data-toggle="tab">ข้อมูลส่วนตัว</a>
                             </li>
                             <li>
-                                <a id="tab_modal_2_button" href="#tab_modal_2" data-toggle="tab">ประวัติการรักษา</a>
+                                <a id="tab_modal_2_button" class="goToModalTab2" href="#tab_modal_2" data-toggle="tab">ประวัติการรักษา</a>
                             </li>
                             <li>
-                                <a id="tab_modal_3_button" href="#tab_modal_3" data-toggle="tab">บันทึกข้อมูล</a>
+                                <a id="tab_modal_3_button" class="goToModalTab3" href="#tab_modal_3" data-toggle="tab">บันทึกข้อมูล</a>
                             </li>
                         </ul>
                     </div>
@@ -541,7 +541,7 @@
                                     </div>
                                 </div>
                                 <!-- END PHYSICAL DATA FORM -->
-                                <form id="diagnosis-form" class="form-horizontal" action="../backend/Diagnosis/add_physical_record" method="post" role="form">
+                                <form id="diagnosis-form" class="form-horizontal" action="../backend/Diagnosis/add_diagnosis_record" method="post" role="form">
                                     {{csrf_field()}}
                                     <input id="diagnosis-form-appointment-id" name="appointment_id" class="diagnosis-form" type="hidden" required>
                                     <!-- BEGIN DIAGNOSIS FORM -->
@@ -558,19 +558,19 @@
                                                         <!-- BEGIN FORM -->
                                                         <div class="portlet-body form">
                                                                 <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                    <div class="row">
+                                                                    <div class="row form-group">
                                                                         <div class="col-md-12">
                                                                             <label class="control-label">โรคที่วินิจฉัยได้</label>
                                                                             <div class="input-group input-group select2-bootstrap-append">
                                                                                 <select id="disease_select2" class="form-control js-data-disease-ajax diagnosis-form" name="disease_select2" multiple required>
-                                                                                    <option value="0" selected="selected">กรุณาระบุโรค</option>
+                                                                                    <!--option value="0" selected="selected">กรุณาระบุโรค</option-->
                                                                                 </select>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="row">
+                                                                    <div class="row form-group">
                                                                         <div class="col-md-12 margin-top-20">
-                                                                            <label>รายละเอียดของโรค</label>
+                                                                            <label class="control-label">รายละเอียดของโรค</label>
                                                                             <textarea id="diagnosis_detail" name="diagnosis_detail" class="form-control diagnosis-form" rows="3" placeholder="กรุณาระบุรายละเอียดของโรค" required></textarea>
                                                                         </div>
                                                                     </div>
@@ -595,24 +595,20 @@
                                                     </div>
                                                     <div class="portlet-body">
                                                         <!-- BEGIN FORM -->
-                                                        <div class="portlet-body form">
-                                                            <form class="form form-group" role="form">
-                                                                <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
-                                                                    <div class="row">
-                                                                        <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
-                                                                            <span class="required" aria-required="true"> * </span>
-                                                                        </label>
-                                                                        <div class="col-md-7 margin-bottom-10">
-                                                                            <div class="input-group select2-bootstrap-prepend">
-                                                                                <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-1">
-                                                                            <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
-                                                                        </div>
+                                                        <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                            <div class="row">
+                                                                <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-7 margin-bottom-10">
+                                                                    <div class="input-group select2-bootstrap-prepend">
+                                                                        <select id="medicine_select2" class="form-control js-data-medicine-ajax diagnosis-form" multiple></select>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                                <div class="col-md-1">
+                                                                    <button id="add_medicine_button" type="button" class="btn btn-success">เพิ่ม</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <!-- END FORM -->
                                                         <!-- BEGIN TABLE -->
@@ -650,7 +646,7 @@
                                                                         </a>
                                                                     </td>
                                                                 </tr-->
-                                                                <tr id="medicine-row-empty">
+                                                                <tr id="medicine-row-empty" class="medicine-table-body-row">
                                                                     <td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td>
                                                                 </tr>
                                                                 </tbody>
@@ -908,8 +904,10 @@
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-diagnosis.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/physical-form-validation.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/diagnosis-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            resetQueue();
             $('#tab1_table').DataTable({
                 "autoWidth": false,
                 "columnDefs": [
@@ -943,8 +941,17 @@
 
         $(document).on('click','.goToModalTab1', function(){
             var id = $(this).attr('patientId');
+            var appId = $(this).attr('appointmentId');
+            var step = $(this).attr('step');
+            $('#tab_modal_1_button').attr('patientId',id);
+            $('#tab_modal_2_button').attr('patientId',id);
+            $('#tab_modal_3_button').attr('appointmentId',appId);
+            $('#tab_modal_1_button').attr('step',step);
+            $('#tab_modal_2_button').attr('step',step);
+            $('#tab_modal_3_button').attr('step',step);
             alert(id);
-            $('#tab_modal_1_button').click();
+//            $('#tab_modal_1_button').click();
+            $('.nav-tabs li:eq(0) a').tab('show')
         });
 
         var diagnosis_history;
@@ -953,6 +960,14 @@
 
         $(document).on('click','.goToModalTab2', function(){
             var id = $(this).attr('patientId');
+            var appId = $(this).attr('appointmentId');
+            var step = $(this).attr('step');
+            $('#tab_modal_1_button').attr('patientId',id);
+            $('#tab_modal_2_button').attr('patientId',id);
+            $('#tab_modal_3_button').attr('appointmentId',appId);
+            $('#tab_modal_1_button').attr('step',step);
+            $('#tab_modal_2_button').attr('step',step);
+            $('#tab_modal_3_button').attr('step',step);
             $('#history_detail').hide();
             alert('ss'+id);
             var URL_ROOT = '{{Request::root()}}';
@@ -1025,34 +1040,50 @@
 //                        '</table>';
                 $('#modal-history-table-container').append(modalHistoryTable);
                 $('#modal-history-table').DataTable();
-                $('#tab_modal_2_button').click();
+//                $('#tab_modal_2_button').click();
+                $('.nav-tabs li:eq(1) a').tab('show')
             }).fail(function () {
             });
         });
 
         $(document).on('click','.goToModalTab3', function(){
             var id = $(this).attr('appointmentId');
+            var patientId = $(this).attr('patientId');
             var step = $(this).attr('step');
-            alert(id+" "+step);
+            $('#tab_modal_1_button').attr('patientId',patientId);
+            $('#tab_modal_2_button').attr('patientId',patientId);
+            $('#tab_modal_3_button').attr('appointmentId',id);
+            $('#tab_modal_1_button').attr('step',step);
+            $('#tab_modal_2_button').attr('step',step);
+            $('#tab_modal_3_button').attr('step',step);
+            alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
+                clearPhysicalForm();
+                clearDiagnosisForm();
+                clearMedicineForm();
+                $('#physical-form-appointment-id').val(id);
+                alert("step1 : " + $('#physical-form-appointment-id').val());
                 $('#modal_tab3_physical_form').show();
-                $('#modal_tab3_diagnosis_form').hide();
-                $('#modal_tab3_medicine_form').hide();
+//                $('#modal_tab3_diagnosis_form').hide();
+//                $('#modal_tab3_medicine_form').hide();
+                $('#diagnosis-form').hide();
 
                 $('.physical-form').removeAttr('disabled');
                 $('#physical-form-submit-row').show();
-
-                clearPhysicalForm();
             }
             else if(step == 2){
+                clearPhysicalForm();
+                clearDiagnosisForm();
+                clearMedicineForm();
                 $('#modal_tab3_physical_form').show();
-                $('#modal_tab3_diagnosis_form').show();
-                $('#modal_tab3_medicine_form').show();
+//                $('#modal_tab3_diagnosis_form').show();
+//                $('#modal_tab3_medicine_form').show();
+                $('#diagnosis-form').show();
 
                 $('.physical-form').attr('disabled','disabled');
                 $('#physical-form-submit-row').hide();
 
-                $('#physical-form-appointment-id').val(id);
+                $('#diagnosis-form-appointment-id').val(id);
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
@@ -1065,7 +1096,8 @@
                 $('.diagnosis-form').attr('disabled','disabled');
                 $('.medicine-form').attr('disabled','disabled');
             }
-            $('#tab_modal_3_button').click();
+//            $('#tab_modal_3_button').click();
+            $('.nav-tabs li:eq(2) a').tab('show')
         });
 
 ///////////////////////////////////////ModelTab2////////////////////////////////////////////////
@@ -1105,7 +1137,10 @@
 
         //physical-form
         $(document).on('click','#physical-form-submit-button', function(e) {
+            alert("step1 : " + $('#physical-form-appointment-id').val());
+            alert('physical-form' + $('#physical-form-appointment-id').val());
             if($('#physical-form').valid()) {
+                alert('valid');
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
@@ -1139,6 +1174,7 @@
 
         function clearPhysicalForm(){
             $('.physical-form').val('');
+            $('#physical-form').validate().resetForm();
         }
 
         function resetQueue(){
@@ -1184,9 +1220,9 @@
                         '<td>'+waiting_staff[tmp]['department']+'</td>'+
                         '<td>'+waiting_staff[tmp]['symptom']+'</td>'+
                         '<td class="last">'+
-                        '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                        '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                        '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                         '</td>'+
                     '</tr>';
                     i++;
@@ -1232,9 +1268,9 @@
                             '<td>'+waiting_doctor[tmp]['department']+'</td>'+
                             '<td>'+waiting_doctor[tmp]['symptom']+'</td>'+
                             '<td class="last">'+
-                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_doctor[tmp]['patient_info']['id']+'" appointmentId="'+waiting_doctor[tmp]['id']+'" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
                     i++;
@@ -1280,9 +1316,9 @@
                             '<td>'+waiting_pharmacist[tmp]['department']+'</td>'+
                             '<td>'+waiting_pharmacist[tmp]['symptom']+'</td>'+
                             '<td class="last">'+
-                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+                            '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
                     i++;
@@ -1301,55 +1337,64 @@
         }
 
         //diagnosis-form
+
+        function checkDuplicateMedicine(medicine_id){
+            console.log('medicine_id = ' + medicine_id);
+            for(var i = 1 ; i<medicineNo ; i++){
+                var tmp_id = $('#medicine-table-body-row-'+i).attr("medicineId");
+                console.log('tmp_id = ' + tmp_id + ' i = ' + i);
+                if(medicine_id == tmp_id)
+                    return false;
+            }
+            return true;
+        }
+
         var medicineNo = 1;
 
         $(document).on('click','#add_medicine_button', function(){
             alert('aaa');
             var medicineList = $('#medicine_select2').val();
+            $("#medicine_select2").val('').trigger('change');
             console.log(medicineList);
             var URL_ROOT = '{{Request::root()}}';
             for(medicine_id in medicineList){
-//                console.log(medicineList[medicine_id]);
-                $.post(URL_ROOT+'/backend/Medicine/detail',
-                        {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
-                    alert('bbb');
-                    console.log(input);
-                    console.log('medicineNo = '+ medicineNo);
-                    if(medicineNo==1){
-                        $('#medicine-row-empty').remove();
-                    }
-                    var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'">'+
-                            '    <input type="hidden" value="'+medicineList[medicine_id]+'" name="medicine[]["id"]">'+
-                            '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
-                            '    <td>MD22531</td>'+
-                            '    <td>Paracetamol</td>'+
-                            '    <td><input class="touchspin" type="text" value="" name="medicine[]["amount"]"></td>'+
-                            '    <td>'+
-                            '        <select class="form-control" name="medicine[]["unit"]">'+
-                            '            <option>Option 1</option>'+
-                            '            <option>Option 2</option>'+
-                            '            <option>Option 3</option>'+
-                            '            <option>Option 4</option>'+
-                            '            <option>Option 5</option>'+
-                            '        </select>'+
-                            '    </td>'+
-                            '    <td>'+
-                            '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
-                            '            <i class="fa fa-trash"></i>'+
-                            '        </a>'+
-                            '    </td>'+
-                            '</tr>';
-                    $('#medicine-table-body').append(new_medicine);
-                    medicineNo ++;
-                    $(".touchspin").TouchSpin({
-                        min: 0,
-                        step: 0.1,
-                        decimals: 2,
-                        boostat: 5,
-                        maxboostedstep: 10
+                console.log("medicine_id ==> " + medicineList[medicine_id]);
+                if(checkDuplicateMedicine(medicineList[medicine_id]))
+                {
+                    $.post(URL_ROOT+'/backend/Medicine/detail',
+                            {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
+                        alert('bbb');
+                        console.log(input);
+                        console.log('medicineNo = '+ medicineNo);
+                        if(medicineNo==1){
+                            $('#medicine-row-empty').remove();
+                        }
+                        var new_medicine = '<tr id="medicine-table-body-row-'+medicineNo+'" class="medicine-table-body-row" medicineId="'+input['medicine_id']+'">'+
+                                '    <input id="medicine-table-body-row-id-'+medicineNo+'" type="hidden" value="'+input['medicine_id']+'" name="medicine['+medicineNo+'][id]" required>'+
+                                '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
+                                '    <td>'+input['medicine_id']+'</td>'+
+                                '    <td>'+input['business_name']+'</td>'+
+                                '    <td class="form-group"><input id="medicine-table-body-row-amount-'+medicineNo+'" class="touchspin form-control" type="text" value="" name="medicine['+medicineNo+'][amount]" required></td>'+
+                                '    <td class="form-group"><input id="medicine-table-body-row-unit-'+medicineNo+'" class="form-control" type="text" value="" name="medicine['+medicineNo+'][unit]" required></td>'+
+                                '    <td>'+
+                                '        <a id="medicine-remove-button-'+medicineNo+'" class="btn red medicine-remove-button" medicineNo="'+medicineNo+'"> ลบ'+
+                                '            <i class="fa fa-trash"></i>'+
+                                '        </a>'+
+                                '    </td>'+
+                                '</tr>';
+                        $('#medicine-table-body').append(new_medicine);
+                        medicineNo ++;
+                        $(".touchspin").TouchSpin({
+                            min: 0,
+                            step: 0.1,
+                            decimals: 2,
+                            boostat: 5,
+                            maxboostedstep: 10
+                        });
+                    }).fail(function () {
                     });
-                }).fail(function () {
-                });
+                }
+
             }
 
 
@@ -1365,10 +1410,61 @@
                 $("#medicine-table-body-no-" + runNo).attr("id", "medicine-table-body-no-"+(runNo-1));
                 $("#medicine-remove-button-" + runNo).attr("medicineNo", (runNo-1));
                 $("#medicine-remove-button-" + runNo).attr("id", "medicine-remove-button-"+(runNo-1));
+
+                $("#medicine-table-body-row-id-"+runNo).attr("name","medicine["+(runNo-1)+"][id]");
+                $("#medicine-table-body-row-id-"+runNo).attr("id",runNo-1);
+                $("#medicine-table-body-row-amount-"+runNo).attr("name","medicine["+(runNo-1)+"][amount]");
+                $("#medicine-table-body-row-amount-"+runNo).attr("id",runNo-1);
+                $("#medicine-table-body-row-unit-"+runNo).attr("name","medicine["+(runNo-1)+"][unit]");
+                $("#medicine-table-body-row-unit-"+runNo).attr("id",runNo-1);
             }
             medicineNo-- ;
             if(medicineNo==1){
-                $("#medicine-table-body").append('<tr id="medicine-row-empty"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+                $("#medicine-table-body").append('<tr id="medicine-row-empty" class="medicine-table-body-row"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+            }
+        });
+
+        function clearDiagnosisForm(){
+            $("#disease_select2").val('').trigger('change');
+            $('#diagnosis_detail').val('');
+            $('#diagnosis-form').validate().resetForm();
+        }
+
+        function clearMedicineForm(){
+            $("#medicine_select2").val('').trigger('change');
+            $(".medicine-table-body-row").remove();
+            $("#medicine-table-body").append('<tr id="medicine-row-empty" class="medicine-table-body-row"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+            medicineNo = 1;
+            $('#diagnosis-form').validate().resetForm();
+        }
+
+        $(document).on('click','#diagnosis-form-submit-button', function(e) {
+            if($('#diagnosis-form').valid()) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('บันทึกข้อมูลการวินิจฉัยโรคและการสั่งยาสำเร็จ', "สำเร็จ");
+                    l.stop();
+                    resetQueue();
+                    clearDiagnosisForm();
+                    clearMedicineForm();
+                    $('#full').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#diagnosis-form').ajaxSubmit(options);
+                return false;
             }
         });
 
