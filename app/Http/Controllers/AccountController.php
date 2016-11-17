@@ -207,6 +207,7 @@ class AccountController extends Controller
     public static function getProfile(Request $request) {
         try {
             $profile = User::findOrFail($request->id);
+            $profile['allergic_medicine'] = $profile->allergic_medicine()->get();
             return $profile;
         }
         catch (\Exception $e) {
