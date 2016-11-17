@@ -207,7 +207,7 @@ class AccountController extends Controller
     public static function getProfile(Request $request) {
         try {
             $profile = User::findOrFail($request->id);
-            var_dump($profile['attributes']);
+            return $profile;
         }
         catch (\Exception $e) {
             echo "<h2>Error: ".$e->getMessage()."</h2>";

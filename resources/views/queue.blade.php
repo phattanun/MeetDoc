@@ -881,8 +881,34 @@
             $('#tab_modal_2_button').attr('step',step);
             $('#tab_modal_3_button').attr('step',step);
             alert(id);
+
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/backend/Account/getProfile',
+                    {id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
+                console.log("profile");
+                console.log(input);
+                $("#hid").text(input['id']);
+                $("#id").text(input['ssn']);
+                $("#name").text(input['name']);
+                $("#surname").text(input['surname']);
+                if(input['gender']=="m"){
+                    $("#gender").html('<i id="gender_icon" class="fa fa-male" aria-hidden="true"></i> ชาย');
+                }
+                else{
+                    $("#gender").html('<i id="gender_icon" class="fa fa-female" aria-hidden="true"></i> หญิง');
+                }
+                $("#birthday").text(input['birthday']);
+                $("#email").text(input['email']);
+                $("#address").text(input['address']);
+                $("#phone_no").text(input['phone_no']);
+
+
 //            $('#tab_modal_1_button').click();
-            $('.nav-tabs li:eq(0) a').tab('show')
+                $('.nav-tabs li:eq(0) a').tab('show');
+            }).fail(function () {
+            });
+
+
         });
 
         var diagnosis_history;
@@ -972,7 +998,7 @@
                 $('#modal-history-table-container').append(modalHistoryTable);
                 $('#modal-history-table').DataTable();
 //                $('#tab_modal_2_button').click();
-                $('.nav-tabs li:eq(1) a').tab('show')
+                $('.nav-tabs li:eq(1) a').tab('show');
             }).fail(function () {
             });
         });
@@ -1028,7 +1054,7 @@
                 $('.medicine-form').attr('disabled','disabled');
             }
 //            $('#tab_modal_3_button').click();
-            $('.nav-tabs li:eq(2) a').tab('show')
+            $('.nav-tabs li:eq(2) a').tab('show');
         });
 
 ///////////////////////////////////////ModelTab2////////////////////////////////////////////////
