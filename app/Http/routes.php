@@ -137,7 +137,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Appointment/create', 'AppointmentController@create');
     Route::post('/backend/Appointment/cancel', 'AppointmentController@cancel');
     Route::get('/backend/Appointment/cancelApprove', 'AppointmentController@cancelApprove');
-    Route::get('/backend/Appointment/search', 'AppointmentController@search');
 
 
     // Weekly Schedule
