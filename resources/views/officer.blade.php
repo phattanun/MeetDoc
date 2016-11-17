@@ -49,7 +49,7 @@
                             <div class="col-md-9 margin-bottom-10">
                                 <div class="input-group input-group select2-bootstrap-prepend">
                                     <select id="select2-button-addons-single-input-group" class="form-control js-data-example-ajax" name="id"  >
-                                        <option value="" selected="selected">กรุณากรอกหมายเลขบัตรประจำตัวผู้ป่วย, รหัสบัตรประจำตัวประชาชน ชื่อ, หรือนามสกุล</option>
+                                        <option value="" selected="selected">กรุณากรอกหมายเลขประจำตัวผู้ป่วย หมายเลขบัตรประจำตัวประชาชน ชื่อ หรือนามสกุล</option>
                                     </select>
                                 </div>
                             </div>
@@ -80,8 +80,8 @@
                 <table class="table table-hover">
                     <thead>
                     <tr >
-                        <th style="vertical-align:middle" rowspan="2">รหัสโรงพยาบาล</th>
-                        <th style="vertical-align:middle" rowspan="2">รหัสบัตรประจำตัวประชาชน</th>
+                        <th style="vertical-align:middle" rowspan="2">หมายเลขประจำตัวผู้ป่วย</th>
+                        <th style="vertical-align:middle" rowspan="2">หมายเลขบัตรประจำตัวประชาชน</th>
                         <th style="vertical-align:middle" rowspan="2">ชื่อ</th>
                         <th style="vertical-align:middle" rowspan="2">นามสกุล</th>
                         <th style="vertical-align:middle;" rowspan="2">แผนก</th>
@@ -167,8 +167,8 @@
                         "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
 
                     markup += "<div class='select2-result-staff__details'>" +
-                        "<div class='select2-result-staff__id'></span> รหัสโรงพยาบาล : " + user.id + "</div>" +
-                        "<div class='select2-result-staff__ssn'></span> รหัสประจำตัวประชาชน : " + user.ssn + " </div>" +
+                        "<div class='select2-result-staff__id'></span> หมายเลขประจำตัวผู้ป่วย : " + user.id + "</div>" +
+                        "<div class='select2-result-staff__ssn'></span> หมายเลขบัตรประจำตัวประชาชน : " + user.ssn + " </div>" +
                         "</div>" +
                         "</div></div>";
 
