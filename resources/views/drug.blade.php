@@ -448,7 +448,7 @@
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/medicine/detail',
                         {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
-                            $('#view-title').text(input['medicine_name']);
+                            $('#view-title').text(input['business_name']);
                             $('#view_business_name').val(input['business_name']);
                             $('#view_medicine_name').val(input['medicine_name']);
                             $('#view_type').val(input['type']);
@@ -466,7 +466,7 @@
                 $.post(URL_ROOT+'/medicine/detail',
                         {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
                             tempData = input;
-                            $('#edit-title').text(input['medicine_name']);
+                            $('#edit-title').text(input['business_name']);
                             $('#edit_medicine_id').val(input['medicine_id']);
                             $('#edit_business_name').val(input['business_name']);
                             $('#edit_medicine_name').val(input['medicine_name']);
@@ -553,7 +553,7 @@
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/medicine/detail',
                         {medicine_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
-                    $('#delete-drug-title').text(input['medicine_name']);
+                    $('#delete-drug-title').text(input['business_name']);
                     $('#confirm-delete-drug-btn').attr('identity',id);
                 }).fail(function () {
                 });
