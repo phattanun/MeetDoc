@@ -110,7 +110,7 @@
                                                 <!-- END SIDEBAR USERPIC -->
                                                 <!-- SIDEBAR USER TITLE -->
                                                 <div class="profile-usertitle">
-                                                    <div class="profile-usertitle-name"> ชื่อสมมุต นามสกุลปลอม </div>
+                                                    <div id="name_surname_big" class="profile-usertitle-name"> ชื่อสมมุต นามสกุลปลอม </div>
                                                     <div class="profile-usertitle-job"> ผู้ป่วย </div>
                                                 </div>
                                                 <!-- END SIDEBAR USER TITLE -->
@@ -891,6 +891,7 @@
                 $("#id").text(input['ssn']);
                 $("#name").text(input['name']);
                 $("#surname").text(input['surname']);
+                $("#name_surname_big").text(input['name']+" "+input['surname']);
                 if(input['gender']=="m"){
                     $("#gender").html('<i id="gender_icon" class="fa fa-male" aria-hidden="true"></i> ชาย');
                 }
