@@ -388,7 +388,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <!-- BEGIN FORM -->
-                                            <form id="physical-form" class="form-horizontal" action="../backend/Diagnosis/add_physical_record" method="post" role="form">
+                                            <form id="physical-form" class="form-horizontal" action="{{url('backend/Diagnosis/add_physical_record')}}" method="post" role="form">
                                                 {{csrf_field()}}
                                                 <input id="physical-form-appointment-id" name="appointment_id" class="physical-form" type="hidden" required>
                                                 <div class="portlet light ">
@@ -472,7 +472,7 @@
                                     </div>
                                 </div>
                                 <!-- END PHYSICAL DATA FORM -->
-                                <form id="diagnosis-form" class="form-horizontal" action="../backend/Diagnosis/add_diagnosis_record" method="post" role="form">
+                                <form id="diagnosis-form" class="form-horizontal" action="{{url('backend/Diagnosis/add_diagnosis_record')}}" method="post" role="form">
                                     {{csrf_field()}}
                                     <input id="diagnosis-form-appointment-id" name="appointment_id" class="diagnosis-form" type="hidden" required>
                                     <!-- BEGIN DIAGNOSIS FORM -->
