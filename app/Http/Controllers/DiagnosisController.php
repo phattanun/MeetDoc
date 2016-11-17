@@ -9,6 +9,7 @@ use App\Drug;
 use App\GivenMedicine;
 use App\Medicine;
 use App\Prescription;
+use App\Disease;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,26 +19,27 @@ use Mockery\CountValidator\Exception;
 
 class DiagnosisController extends Controller
 {
-    public function add_diagnosis_disease_drug(Request $request)
+    public function add_diagnosis_record(Request $request)
     {
         $appointment = Appointment::findOrFail($request->appointment_id);
-        $disease_list = $request->disease_list;
-        $medicine_list = $request->medicine_list;
+        $disease_list = $request->disease_select2;
+        $medicine_list = $request->medicine;
+
 
         $appointment_disease_list = [];
         foreach ($disease_list as $disease) {
-            $disease_id = Disease::where('name', $disease)->first()['id'];
-            array_push($appointment_disease_list, ['appointment_id' => $appointment['id'], 'disease_id' => $disease_id]);
+            array_push($appointment_disease_list, ['appointment_id' => $appointment['id'], 'disease_id' => $disease]);
         }
         DB::table('appointment_disease')->insert($appointment_disease_list);
 
         $prescription_list = [];
         foreach ($medicine_list as $medicine) {
-            array_push($prescription_list, ['appointment_id' => $appointment['id'], 'medicine_id' => $medicine['id'], 'amount' => $medicine['amount'], 'unit' => $medicine['unit'], 'note' => $medicine['note']]);
+            array_push($prescription_list, ['appointment_id' => $appointment['id'], 'medicine_id' => $medicine['id'], 'amount' => $medicine['amount'], 'unit' => $medicine['unit']]);
         }
         DB::table('prescription')->insert($prescription_list);
 
-        $appointment->description = $request->diagnosis_description;
+        $appointment->diagnosis = $request->diagnosis_detail;
+        $appointment->queue_status = 'waiting_pharmacist';
         $appointment->save();
 
     }
@@ -88,11 +90,11 @@ class DiagnosisController extends Controller
         }
     }
 
-    public function add_diagnosis_record(Request $request)
-    {
-        //appointment_id  disease_select2  diagnosis_detail medicine[][id]  medicine[][amount]  medicine[][unit]
-        return $request->medicine;
-    }
+//    public function add_diagnosis_record(Request $request)
+//    {
+//        //appointment_id  disease_select2  diagnosis_detail medicine[][id]  medicine[][amount]  medicine[][unit]
+//        return $request->medicine;
+//    }
 
     public function patient_checkin_by_staff(Request $request)
     {
