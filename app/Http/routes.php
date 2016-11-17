@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/officer/manage/list', 'PagesController@apiGetStaff');
     Route::get('/backend/Disease/search', 'PagesController@apiGetDisease');
     Route::get('/backend/Medicine/search', 'PagesController@apiGetMedicine');
+    Route::get('/backend/Appointment/search', 'PagesController@apiGetAppointment');
+
 
     //Merged
     Route::get('/swapRole', 'AccountController@swapRole');
