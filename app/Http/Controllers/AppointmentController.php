@@ -97,6 +97,7 @@ class AppointmentController extends Controller
         date_default_timezone_set('Asia/Bangkok');
         $today = date('Y-m-d');
         $time = date('Hi');
+        $apps = [];
         if($time <= '1130') {
             $apps = DB::table('appointment')
                 ->join('user', 'user.id', '=', 'appointment.doctor_id')
@@ -105,11 +106,11 @@ class AppointmentController extends Controller
                 ->where('appointment.approve', 1)
                 ->where('appointment.patient_id', $patient_id)
                 ->where('appointment.queue_status', "uncheckedin")
-                ->where('date', '>=', $today)
+                ->where('date', $today)
                 ->orderBy('date', 'ASC')
                 ->get();
         }
-        if('1130' < $time && $time <= '1530') {
+        elseif('1130' < $time && $time <= '1530') {
             $apps = DB::table('appointment')
                 ->join('user', 'user.id', '=', 'appointment.doctor_id')
                 ->join('dept', 'dept.id', '=', 'appointment.dept_id')
@@ -117,12 +118,23 @@ class AppointmentController extends Controller
                 ->where('appointment.approve', 1)
                 ->where('appointment.patient_id', $patient_id)
                 ->where('appointment.queue_status', "uncheckedin")
-                ->where('date', '>=', $today)
+                ->where('date', $today)
                 ->where('time', 'A')
                 ->orderBy('date', 'ASC')
                 ->get();
         }
-        return $apps;
+        $tomorrow = DB::table('appointment')
+            ->join('user', 'user.id', '=', 'appointment.doctor_id')
+            ->join('dept', 'dept.id', '=', 'appointment.dept_id')
+            ->select('appointment.id as app_id', 'appointment.patient_id', 'appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')
+            ->where('appointment.approve', 1)
+            ->where('appointment.patient_id', $patient_id)
+            ->where('appointment.queue_status', "uncheckedin")
+            ->where('date', '>' ,$today)
+            ->where('time', 'A')
+            ->orderBy('date', 'ASC')
+            ->get();
+        return array_merge($apps,$tomorrow);
     }
 
     public static function getPastAppointments($patient_id)
