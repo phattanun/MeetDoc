@@ -69,7 +69,8 @@ class MessageController extends Controller
             'key' => $SMS['sms_api_key'],
             'secret' => $SMS['sms_api_secret'],
             'phone' => $phone_number,
-            'message' => $text
+            'message' => $text,
+            'sender' => 'SMS'
         );
 
         $postvars = '';
