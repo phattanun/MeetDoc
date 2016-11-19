@@ -306,7 +306,14 @@
 
 @section('pageLevelScripts')
     <script>
-        $('.date-picker').datepicker();
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        $('.date-picker').datepicker({
+            todayHighlight: true,
+            autoclose:!0
+        }).datepicker('setDate', tomorrow);
+
         $(document).ready(function(){
             $('#weekly-table-body .remove-button ').addClass("weekly-remove-button");
             $('#daily-table-body .remove-button ').addClass("daily-remove-button");

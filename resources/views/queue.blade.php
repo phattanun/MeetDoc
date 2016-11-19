@@ -205,12 +205,10 @@
                                                                             <select id="drugAllergy_select2" class="form-control js-data-drugAllergy-ajax profile-form" name="drugAllergy[]" multiple>
                                                                             </select>
                                                                         </div>
-                                                                        @if($_user['p_doctor']==1 || $_user['p_pharm']==1)
-                                                                        <div class="margiv-top-10">
-                                                                            <button id="profile-form-submit-button" type="submit" class="btn green"> บันทึกการแก้ไข </button>
-                                                                            <a class="btn default close-modal"> ยกเลิก </a>
+                                                                        <div id="profile-form-submit-button-row" class="margiv-top-10">
+                                                                            <button id="profile-form-submit-button" type="submit" class="btn green profile-form"> บันทึกการแก้ไข </button>
+                                                                            <a class="btn default close-modal profile-form"> ยกเลิก </a>
                                                                         </div>
-                                                                        @endif
                                                                     </form>
                                                                 </div>
                                                                 <!-- END PERSONAL INFO TAB -->
@@ -825,6 +823,16 @@
             var step = $(this).attr('step');
             $('#profile-form-patient-id').val(id);
 
+            if(step == 1){
+                $('#profile-form-submit-button-row').hide();
+                $('.profile-form').attr('disabled','disabled');
+            }
+            else{
+                $('#profile-form-submit-button-row').show();
+                $('.profile-form').removeAttr('disabled');
+            }
+
+
             $('#tab_modal_1_button').attr('patientId',id);
             $('#tab_modal_2_button').attr('patientId',id);
             $('#tab_modal_3_button').attr('appointmentId',appId);
@@ -869,13 +877,6 @@
                 $('.nav-tabs li:eq(0) a').tab('show');
             }).fail(function () {
             });
-
-            @if($_user['p_doctor']==1 || $_user['p_pharm']==1)
-                $('#drugAllergy_select2').removeAttr('disabled');
-            @else
-                $('#drugAllergy_select2').attr('disabled','disabled');
-            @endif
-
         });
 
         var diagnosis_history;
