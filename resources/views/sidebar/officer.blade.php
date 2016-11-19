@@ -23,3 +23,10 @@
         <span class="title">ตารางออกตรวจของแพทย์</span>
     </a>
 </li>
+<li class="nav-item  @yield('insteadDoctorEditNav')">
+    <a href="{{url('/officer/appointment/edit')}}" class="nav-link nav-toggle">
+        <i class="fa fa-pencil-square-o"></i>
+        <i class="fa fa-user-md"></i>
+        <span class="title">แก้ไขตารางออกตรวจแพทย์</span>
+    </a>
+</li>

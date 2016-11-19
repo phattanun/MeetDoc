@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     // SearchAPI
     Route::get('/officer/manage/list', 'PagesController@apiGetStaff');
+    Route::get('/officer/manage/doctor/list', 'PagesController@apiGetDoctor');
     Route::get('/backend/Disease/search', 'PagesController@apiGetDisease');
     Route::get('/backend/Medicine/search', 'PagesController@apiGetMedicine');
     Route::get('/backend/Appointment/search', 'PagesController@apiGetAppointment');
@@ -42,7 +43,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/profile', 'PagesController@viewProfile');
     Route::post('/profile', 'PagesController@editProfile');
     Route::post('/profile/picupload', 'PagesController@editProfilePic');
+    Route::get('/officer/appointment/doctor/edit', 'PagesController@viewOfficerAppointmentSearchDoctorPage');
     Route::get('/doctor/schedule', 'PagesController@viewSchedule');
+    Route::get('/doctor/schedule/{id}', 'PagesController@insteadViewSchedule');
     Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
     Route::post('/doctor/weekly/delete', 'ScheduleController@deleteWeeklySchedule');
