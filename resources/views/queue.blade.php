@@ -110,7 +110,6 @@
                                                 <!-- SIDEBAR USER TITLE -->
                                                 <div class="profile-usertitle">
                                                     <div id="name_surname_big" class="profile-usertitle-name"> ชื่อสมมุต นามสกุลปลอม </div>
-                                                    <div class="profile-usertitle-job"> ผู้ป่วย </div>
                                                 </div>
                                                 <!-- END SIDEBAR USER TITLE -->
                                                 <!-- SIDEBAR MENU -->
@@ -455,7 +454,7 @@
                                                 <div class="row" style="text-align: right;" id="physical-form-submit-row">
                                                     <div class="col-md-12">
                                                         <button type="submit" id="physical-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button physical-form" data-style="expand-right">
-                                                            <span class="ladda-label">ลงทะเบียน</span>
+                                                            <span class="ladda-label">บันทึกข้อมูล</span>
                                                             <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
                                                         </button>
                                                     </div>
