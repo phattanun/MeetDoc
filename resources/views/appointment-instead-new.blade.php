@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form id="search-form" role="form" action="{{ url('/schedule/search') }}" method="post" novalidate="novalidate">
+                                <form id="search-form" role="form" action="{{ url('/officer/schedule/search') }}" method="post" novalidate="novalidate">
                                     {{ csrf_field() }}
                                     @if(isset($patient_id))
                                     <input id="select-user" type="hidden" name="user_id" value="{{$patient_id}}">

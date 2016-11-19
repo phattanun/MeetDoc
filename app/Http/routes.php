@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/appointment/history', 'PagesController@appointmentHistoryPage');
     Route::get('/appointment/future', 'PagesController@appointmentFuturePage');
     Route::post('/schedule/search', 'ScheduleController@searchSchedule');
+    Route::post('officer/schedule/search', 'ScheduleController@searchScheduleOfficer');
     Route::post('/appointment/cancel', 'AppointmentController@cancel');
     Route::post('/appointment/detail', 'AppointmentController@getAppointmentDetail');
     Route::post('/appointment/edit', 'PagesController@appointmentEditPage');

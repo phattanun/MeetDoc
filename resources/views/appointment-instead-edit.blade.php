@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form id="search-form" role="form" action="{{ url('/schedule/search') }}" method="post" novalidate="novalidate">
+                                <form id="search-form" role="form" action="{{ url('/officer/schedule/search') }}" method="post" novalidate="novalidate">
                                     {{ csrf_field() }}
                                 <div class="row">
                                     <div class="col-md-6">
