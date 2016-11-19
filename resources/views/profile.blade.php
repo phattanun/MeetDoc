@@ -112,7 +112,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
-                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ $birthday }}"/>
+                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ join('/',array_reverse(explode("-",$birthday))) }}"/>
                                                 <span class="help-block"> * ใช้ปีคริสต์ศักราช </span>
                                             </div>
                                             <div class="form-group">

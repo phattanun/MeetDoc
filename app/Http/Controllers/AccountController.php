@@ -225,6 +225,7 @@ class AccountController extends Controller
             // echo "Editing request.";
             // var_dump($request->all());
             $user = User::findOrFail($request->id);
+            $request->birthday =  join('-',array_reverse(explode("/",$request->birthday)));
             $edited = array_filter($request->all());
             $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
             $filtered = array_intersect_key($edited, array_flip($editable_field));
