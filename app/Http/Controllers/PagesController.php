@@ -297,6 +297,15 @@ class PagesController extends Controller
         return view('appointment-edit')->with(['app' => $app, 'departments' => DepartmentController::getAllDepartment(), 'doctors' => $doctors]);
     }
 
+    public function approveCreateAppointment(Request $request) {
+        $res = AppointmentController::confirmCreateAppointment($request);
+        if ($res['status']) {
+            return view('auth/confirm')->with(['title' => 'ยืนยันการนัดหมายสำเร็จ']);
+        } else {
+            return view('auth/failed')->with(['title' => 'ยืนยันการนัดหมายไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือทำการนัดหมายใหม่']);
+        };
+    }
+
     // Department
     public function departmentPage()
     {

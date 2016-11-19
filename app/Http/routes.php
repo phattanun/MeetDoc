@@ -8,6 +8,7 @@ Route::get('/logout', 'AccountController@logout');
 Route::post('/register', 'PagesController@register');
 Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Password in Login Page
 Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
+Route::get('/appointment/approve/create', 'PagesController@approveCreateAppointment');
 
 // Backend
 Route::get('/backend', function() { return View::make('backend'); });

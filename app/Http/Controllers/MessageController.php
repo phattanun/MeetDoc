@@ -330,4 +330,26 @@ class MessageController extends Controller
         self::sendEmail($res['email'], $subject, $message, $message);
     }
 
+    public static function sendCreateAppoinment($res) {
+        $subject = "[MeetDoc⁺] กรุณายืนยันการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
+            <br>
+            ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".self::$hospital."<br>
+            หมายเลขการนัดหมาย: ".$res['app_id']."<br>
+            ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
+            แพทย์: ".$res['d_name']." ".$res['d_surname']."<br>
+            <b>แผนก: ".$res['dept']."</b><br>
+            <b>วัน-เวลา: ".$res['date']." ".$res['time']."</b><br>
+            อาการ: ".$res['symptom']."<br>
+            <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการนัดหมาย</b><br>
+            <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการนัดหมาย</a><br>
+            <br>
+            หากท่านไม่ได้ต้องการยืนยันการนัดหมาย ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
+            <br>
+            ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
+            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+        self::sendEmail($res['email'], $subject, $message, $message);
+    }
+
 }
