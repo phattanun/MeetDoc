@@ -10,6 +10,8 @@ Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Pas
 Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
 Route::get('/appointment/approve/create', 'PagesController@approveCreateAppointment');
 Route::get('/appointment/approve/cancel', 'PagesController@approveCancelAppointment');
+Route::get('/appointment/approve/edit', 'PagesController@approveEditAppointment');
+
 Route::get('/account/approve/edit', 'PagesController@approveEditProfile');
 
 // Backend
