@@ -28,11 +28,12 @@ var ComponentsSelect2 = function() {
             var markup = "<div class='select2-result-repository clearfix'>" +
                 "<div class='select2-result-repository__avatar'><img src='" + repo.avatar_url + "' /></div>" +
                 "<div class='select2-result-repository__meta'>" +
-                "<div class='select2-result-repository__title'>" + repo.id + "</div>";
+                "<div class='select2-result-repository__title'>" + repo.id + "</div>"+
+                "<div class='select2-result-repository__description'>" + repo.name + " " + repo.surname + "</div>";
 
-            if (repo.description) {
-                markup += "<div class='select2-result-repository__description'>" + repo.name + " " + repo.surname + "</div>";
-            }
+            //if (repo.description) {
+            //    markup += "<div class='select2-result-repository__description'>" + repo.name + " " + repo.surname + "</div>";
+            //}
 
             var t;
             if(repo.time == 'M') t = "Morning";
@@ -48,10 +49,11 @@ var ComponentsSelect2 = function() {
         }
 
         function formatRepoSelection(repo) {
-            return repo.name || repo.text;
+            return repo.fullname || repo.text;
         }
 
         $(".js-data-example-ajax").select2({
+            placeholder: "คลิกเพื่อกรอกรหัสนัดหมาย",
             width: "off",
             ajax: {
                 url: "/backend/Appointment/search",

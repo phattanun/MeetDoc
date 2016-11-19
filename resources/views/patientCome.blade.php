@@ -19,6 +19,11 @@
 @endsection
 
 @section('pageLevelCSS')
+    <style>
+        .select2-container--bootstrap .select2-selection {
+            font-family: 'Sukhumvit Set';
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -36,15 +41,15 @@
                     <div class="portlet-body">
                         <!-- BEGIN FORM -->
                         <div class="portlet-body form">
-                            <form id="appointment-search-form" class="form-horizontal" role="form" action="../../backend/Appointment/get" method="get">
+                            <form id="appointment-search-form" class="form-horizontal" role="form" action="{{url('backend/Diagnosis/checkin')}}" method="post">
                                 {{csrf_field()}}
                                 <div class="form-body" style="padding-bottom: 0px; padding-top: 0px;">
                                     <div class="row">
                                         <div class="col-md-offset-1 col-md-10">
                                             <div class="form-group">
                                                 <div class="input-group input-group select2-bootstrap-append">
-                                                    <select id="appointment_select2" class="form-control js-data-example-ajax" name="appointment_select2">
-                                                        <option id="first-label" value="0">คลิกเพื่อกรอกรหัสนัดหมาย</option>
+                                                    <select id="appointment_select2" class="form-control js-data-example-ajax" name="appointment_id">
+                                                        <!--option id="first-label" value="0">คลิกเพื่อกรอกรหัสนัดหมาย</option-->
                                                     </select>
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default" type="button" data-select2-open="appointment_select2" style="margin-left: 5px;">
@@ -95,7 +100,8 @@
                     toastr['success']("ลงทะเบียนสำเร็จ", "สำเร็จ");
                     l.stop();
                     $("#appointment_select2").select2('destroy');
-                    $("#appointment_select2 option").not( document.getElementById( "first-label" ) ).remove();
+//                    $("#appointment_select2 option").not( document.getElementById( "first-label" ) ).remove();
+                    $("#appointment_select2 option").remove();
                     ComponentsSelect2.init();
                     return true;
                 }
