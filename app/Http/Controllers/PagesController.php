@@ -36,7 +36,7 @@ class PagesController extends Controller
 
     public function apiGetStaff(Request $request)
     {
-        $res = AccountController::getUserList(['id', 'name', 'surname', 'ssn', 'image'], ['name'=>$request->q, 'surname'=>$request->q, 'ssn'=>$request->q, 'image'=>$request->q]);
+        $res = AccountController::getUserList(['id', 'name', 'surname', 'ssn', 'image'], ['name'=>$request->q, 'surname'=>$request->q, 'ssn'=>$request->q]);
         $res = self::tableToSearch($res, 'id');
         return $res;
     }
