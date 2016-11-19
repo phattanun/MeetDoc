@@ -77,6 +77,7 @@ class MedicineController extends Controller
             foreach ($medicine_list as $medicine)
             {
                 $medicine['id'] = $medicine['medicine_id'];
+                $medicine['fullname'] = $medicine['business_name'] . " (" . $medicine['medicine_name'].")";
             }
         }
         else {
