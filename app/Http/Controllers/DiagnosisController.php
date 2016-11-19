@@ -26,18 +26,22 @@ class DiagnosisController extends Controller
         $disease_list = $request->disease_select2;
         $medicine_list = $request->medicine;
 
-
         $appointment_disease_list = [];
-        foreach ($disease_list as $disease) {
-            array_push($appointment_disease_list, ['appointment_id' => $appointment['id'], 'disease_id' => $disease]);
+        if(!is_null($disease_list)) {
+            foreach ($disease_list as $disease) {
+                array_push($appointment_disease_list, ['appointment_id' => $appointment['id'], 'disease_id' => $disease]);
+            }
+            DB::table('appointment_disease')->insert($appointment_disease_list);
         }
-        DB::table('appointment_disease')->insert($appointment_disease_list);
 
         $prescription_list = [];
-        foreach ($medicine_list as $medicine) {
-            array_push($prescription_list, ['appointment_id' => $appointment['id'], 'medicine_id' => $medicine['id'], 'amount' => $medicine['amount'], 'unit' => $medicine['unit']]);
+
+        if(!is_null($medicine_list)) {
+            foreach ($medicine_list as $medicine) {
+                array_push($prescription_list, ['appointment_id' => $appointment['id'], 'medicine_id' => $medicine['id'], 'amount' => $medicine['amount'], 'unit' => $medicine['unit']]);
+            }
+            DB::table('prescription')->insert($prescription_list);
         }
-        DB::table('prescription')->insert($prescription_list);
 
         $appointment->diagnosis = $request->diagnosis_detail;
         $appointment->queue_status = 'waiting_pharmacist';
