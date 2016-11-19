@@ -347,6 +347,7 @@ class AppointmentController extends Controller
                 $patient = $appointment->patient()->first();
                 $appointment['name'] = $patient['name'];
                 $appointment['surname'] = $patient['surname'];
+                $appointment['fullname'] = $patient['name'] . " " . $patient['surname'];
                 $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
             }
         } else {
