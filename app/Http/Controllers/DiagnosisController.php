@@ -159,9 +159,13 @@ class DiagnosisController extends Controller
             else if ($app['queue_status'] == 'waiting_doctor')
                 //array_push($appointment['waiting_doctor'], $array_app);
                 $appointment['waiting_doctor'][$array_app['id']] = $array_app;
-            else if ($app['queue_status'] == 'waiting_pharmacist')
+            else if ($app['queue_status'] == 'waiting_pharmacist') {
                 //array_push($appointment['waiting_pharmacist'], $array_app);
+                $array_app['medicine'] = $app->prescription()->get();
+                $array_app['disease'] = $app->disease()->get();
                 $appointment['waiting_pharmacist'][$array_app['id']] = $array_app;
+
+            }
         }
 
 //        dd($appointment);
