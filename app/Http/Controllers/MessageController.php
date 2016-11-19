@@ -325,7 +325,7 @@ class MessageController extends Controller
             <br>
             หากท่านไม่ได้ต้องการตั้งค่ารหัสผ่านใหม่ ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
-            ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
+            ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
     }
@@ -347,7 +347,7 @@ class MessageController extends Controller
             <br>
             หากท่านไม่ได้ต้องการยืนยันการนัดหมาย ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
-            ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
+            ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
     }
