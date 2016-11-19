@@ -46,23 +46,25 @@
             </div>
         </div>
         <div class="portlet-body">
+            <form id="searchuser-form"  novalidate="novalidate"  role="form">
             <div class="row">
                 <div class="form-group">
                     <label class="col-md-1 control-label text-right">ผู้ป่วย
                         <span class="required" aria-required="true"> * </span>
                     </label>
                     <div class="col-md-9 margin-bottom-15">
-                        <div class=" select2-bootstrap-prepend">
-                            <select id="select-user" class="form-control js-data-example-ajax" name="user_id"  required aria-required="true" >
-                                <option value="" selected="selected">กรุณากรอกหมายเลขประจำตัวผู้ป่วย หมายเลขบัตรประจำตัวประชาชน ชื่อ หรือนามสกุล</option>
-                            </select>
-                        </div>
+                            <div class=" select2-bootstrap-prepend">
+                                <select id="select-user" class="form-control js-data-example-ajax" name="user_id"  required aria-required="true" >
+                                    <option value="" selected="selected">กรุณากรอกหมายเลขประจำตัวผู้ป่วย หมายเลขบัตรประจำตัวประชาชน ชื่อ หรือนามสกุล</option>
+                                </select>
+                            </div>
                     </div>
                     <div class="col-md-2">
-                        <button id="ok-btn" type="submit" class="btn btn-success">ตกลง</button>
+                        <a id="ok-btn" type="submit" class="btn btn-success">ตกลง</a>
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 
@@ -202,9 +204,18 @@
                     ComponentsSelect2.init();
                 });
             }
-
+            $('#select-user').on('change', function () {
+                if($('#select-user').val()!=""){
+                    $(this).closest('.form-group').removeClass('has-error');
+                }
+            });
             $('#ok-btn').click(function () {
-                window.location.replace('{{url('/officer/appointment/edit')}}/'+$("#select-user").val());
+                if($('#select-user').val()==""){
+                    $(this).closest('.form-group').addClass('has-error');
+                }
+                else {
+                    window.location.replace('{{url('/officer/appointment/edit')}}/'+$("#select-user").val());
+                }
             });
 
         })
