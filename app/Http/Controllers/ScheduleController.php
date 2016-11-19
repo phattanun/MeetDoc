@@ -23,7 +23,7 @@ class ScheduleController extends Controller
             'Friday' => 'วันศุกร์',
             'Saturday' => 'วันเสาร์',
         ];
-        $timeDict = [ 'M' => 'เช้า', 'A' => 'บ่าย' ];
+        $timeDict = [ 'M' => 'เช้า (9.00 - 11.30 น.)', 'A' => 'บ่าย (13.00 - 15.30 น.)' ];
 
         $re = '';
         if(sizeof($array) == 0)
