@@ -155,7 +155,6 @@ class AccountController extends Controller
         $re = "";
         $search = array();
         $alldept = Department::all();
-        $tempDept = "<option value='0'>ไม่มีแผนก</option>";
         for ($i=0; $i < 10; $i++)
             array_push($search, "?".$i);
         foreach ($array as $record) {
@@ -172,6 +171,7 @@ class AccountController extends Controller
                 }
                 array_push($replace, $value);
             }
+            $tempDept = "<option value='0'>ไม่มีแผนก</option>";
             for($i = 0; $i<sizeof($alldept); $i++){
                 if($record['dept_id']==$alldept[$i]['id'])
                     $tempDept .= '<option selected value='.$alldept[$i]['id'].'>'.$alldept[$i]['name'].'</option>';
