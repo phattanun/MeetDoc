@@ -95,7 +95,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">วันเกิด</label>
-            <input class="form-control{{ $errors->has('birthday') ? ' has-error' : '' }} placeholder-no-fix" id="mask_date2" type="text" placeholder="วันเกิด (ใช้ปีคริสตศักราช)" name="birthday" value="{{ old('birthday') }}" />
+            <input class="form-control{{ $errors->has('birthday') ? ' has-error' : '' }} placeholder-no-fix" id="mask_date2" type="text" placeholder="วันเกิด (ใช้ปีคริสต์ศักราช)" name="birthday" value="{{ old('birthday') }}" />
             @if ($errors->has('birthday'))
                 <span class="help-block">
                     <strong>{{ $errors->first('birthday') }}</strong>

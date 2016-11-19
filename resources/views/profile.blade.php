@@ -113,7 +113,7 @@
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
                                                 <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ $birthday }}"/>
-                                                <span class="help-block"> * ใช้ปีคริสตศักราช </span>
+                                                <span class="help-block"> * ใช้ปีคริสต์ศักราช </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">อีเมล</label>
