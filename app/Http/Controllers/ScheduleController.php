@@ -34,16 +34,16 @@ class ScheduleController extends Controller
             foreach($instance as $key => $value) {
                 switch($key) {
                     case 'doctor_id':
-                        $value = $i;
                         $doctorId = $value;
+                        $value = $i;
                         break;
                     case 'day':
-                        $value = $dayDict[$value];
                         $doctorDate = $value;
+                        $value = $dayDict[$value];
                         break;
                     case 'time':
-                        $value = $timeDict[$value];
                         $doctorTime = $value;
+                        $value = $timeDict[$value];
                         break;
                     case 'date':
                         $value = date('d-m-Y', strtotime($value));
@@ -198,18 +198,13 @@ class ScheduleController extends Controller
     }
 
     public static function deleteWeeklySchedule(Request $request) {
-        echo "<h2>Request Deleting Normal-Schedule</h2>";
-        var_dump($request->all());
         try {
-            $status = WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->delete();
-            if($status)
-                echo "<h2>Delete Normal-Schedule</h2>";
-            else echo "<h2>Nothing to Delete</h2>";
+            $status = WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->date)->where('time', $request->time)->delete();
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return $e->getMessage();
         }
-        $this->getWeeklySchedule();
+        return "success";
     }
 
 
@@ -274,19 +269,13 @@ class ScheduleController extends Controller
     }
 
     public static function deleteDailySchedule(Request $request) {
-        echo "<h2>Request Deleting Special-Schedule</h2>";
-        var_dump($request->all());
         try {
-            $status = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->delete();
-            if($status)
-                echo "<h2>Delete Special-Schedule</h2>";
-            else
-                throw new \Exception("Nothing to Delete", 1);
+            $status = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', date("Y-m-d", strtotime($request->date)))->where('time', $request->time)->delete();
         }
         catch (\Exception $e) {
-            echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return $e->getMessage();
         }
-        $this->getDailySchedule();
+        return "success";
     }
 
 

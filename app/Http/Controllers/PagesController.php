@@ -251,11 +251,6 @@ class PagesController extends Controller
         return redirect('/doctor/schedule');
     }
 
-    public function deleteWeeklySchedule(Request $request)
-    {
-
-    }
-
     public function viewRecentAppointment()
     {
         $res = AppointmentController::getRecentAppointments(['doctor_id' => Auth::user()->id]);
