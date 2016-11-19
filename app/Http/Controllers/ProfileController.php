@@ -44,10 +44,6 @@ class ProfileController extends Controller
     {
         return view('account');
     }
-    public function editAccountPage()
-    {
-        return view('profile-edit');
-    }
     public function passwordResetPage()
     {
         return view('auth.passwords.reset');

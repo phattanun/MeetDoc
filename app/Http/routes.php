@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/doctor/schedule', 'PagesController@viewSchedule');
     Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
+    Route::post('/officer/profile', 'PagesController@officerEditProfile');
     Route::get('/officer/manage', 'PagesController@viewOfficerManage');
     Route::get('/officer/appointment/new', 'PagesController@viewOfficerNewAppointmentPage');
     Route::get('/officer/appointment/edit', 'PagesController@viewOfficerAppointmentSearchUserPage');
@@ -99,6 +100,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/department/getDepartmentList', 'DepartmentController@get_list');
 
     // Account
+    Route::get('/account/manage/{id}', 'PagesController@editAccountPage');
     Route::get('/account/temp', 'PagesController@tempAccount');
     Route::post('/account/delete', 'AccountController@delete');
     Route::post('/account/detail', 'AccountController@get_detail');
@@ -117,8 +119,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/disease/manage', 'PagesController@diseasePage');
     Route::get('/department/manage', 'PagesController@departmentPage');
     Route::get('/disease/temp', 'ProfileController@diseasePage');
-    Route::get('/account/manage/{id}', 'ProfileController@editAccountPage');
-
 
     //Krit
     // Route::get('/doctor/appointment', 'ProfileController@test3');

@@ -1,15 +1,14 @@
 @extends('masterpage')
 
-@section('accountNav')
+@section('profileNav')
     active
 @endsection
 
 @section('title')
-    จัดการบัญชีผู้ใช้/แก้ไขข้อมูลส่วนตัวของ นายพัทธนันท์ อัครพันธุ์ธัช
+    ข้อมูลส่วนตัว
 @endsection
-
 @section('title-inside')
-    <a href="{{url('account/manage')}}">จัดการบัญชีผู้ใช้</a> / แก้ไขข้อมูลส่วนตัวของ นายพัทธนันท์ อัครพันธุ์ธัช
+    <a href="{{url('account/manage')}}">จัดการบัญชีผู้ใช้</a> / แก้ไขข้อมูลส่วนตัวของ {{ $name }} {{ $surname }}
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -17,6 +16,7 @@
     <link href="{{url('assets/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -39,8 +39,7 @@
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
-                        <div class="profile-usertitle-name"> นายกิตติภพ พละการ </div>
-                        <div class="profile-usertitle-job"> ผู้ป่วย </div>
+                        <div class="profile-usertitle-name"> {{ $name }} {{ $surname }} </div>
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR MENU -->
@@ -76,123 +75,77 @@
                                 <div class="tab-content">
                                     <!-- PERSONAL INFO TAB -->
                                     <div class="tab-pane active" id="tab_1_1">
-                                        <form role="form" action="#">
+                                        <form id="profile-form" role="form" action="{{ url('/officer/profile') }}" method="post">
+                                            {{ csrf_field() }}
+                                            @if(isset($success)&&$success)
+                                                <div class="alert alert-success" id="success-alert">
+                                                    <strong>สำเร็จ!</strong> ระบบบันทึกการแก้ไขเรียบร้อย </div>
+                                            @elseif(isset($success)&&!$success)
+                                                <div class="alert alert-danger" id="fail-alert">
+                                                    <strong>ผิดพลาด!</strong> {{$error}} </div>
+                                            @else
+                                            @endif
                                             <div class="form-group form-md-line-input">
-                                                <div class="form-control form-control-static"> 5631011021 </div>
+                                                <div class="form-control form-control-static"> {{ $hid }} </div>
                                                 <label for="form_control_1">หมายเลขประจำตัวผู้ป่วย</label>
+                                                <input type="hidden" name="id" value="{{ $hid }}" />
                                             </div>
                                             <hr>
                                             <div class="form-group">
                                                 <label class="control-label">หมายเลขบัตรประจำตัวประชาชน</label>
-                                                <input type="text" placeholder="กรุณากรอกเลชบัตรประจำตัวประชาชนของท่าน" class="form-control" value="1959800098399" /> </div>
+                                                <input type="text" name="ssn" placeholder="กรุณากรอกเลชบัตรประจำตัวประชาชนของท่าน" class="form-control" value="{{ $ssn }}" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
-                                                <input type="text" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" /> </div>
+                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" value="{{ $name }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">นามสกุล</label>
-                                                <input type="text" placeholder="กรุณากรอกนามสกุล" class="form-control" /> </div>
+                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" value="{{ $surname }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">เพศ</label>
                                                 <div class="mt-radio-inline">
                                                     <label class="mt-radio">
-                                                        <input name="optionsRadios" id="optionsRadios25" value="male" checked="" type="radio"> ชาย
+                                                        <input name="gender" id="male" @if(isset($gender) && $gender=='m') checked @endif value = "m" type="radio"> ชาย
                                                         <span></span>
                                                     </label>
                                                     <label class="mt-radio">
-                                                        <input name="optionsRadios" id="optionsRadios26" value="female" checked="" type="radio"> หญิง
+                                                        <input name="gender" id="female" @if(isset($gender) && $gender=='f') checked @endif value="f"  type="radio"> หญิง
                                                         <span></span>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
-                                                <input class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" />
-                                                <span class="help-block"> * ใช้ปีพุทธศักราช </span>
+                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ $birthday }}"/>
+                                                <span class="help-block"> * ใช้ปีคริสตศักราช </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">อีเมล</label>
-                                                <input type="email" placeholder="john.doe@meetdoc.com" class="form-control" /> </div>
+                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" value="{{ $email }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ที่อยู่</label>
-                                                <textarea type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" ></textarea> </div>
+                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" >{{ $address }}</textarea> </div>
                                             <div class="form-group">
                                                 <label class="control-label">หมายเลขโทรศัพท์เคลื่อนที่</label>
-                                                <input type="text" placeholder="0899999999" class="form-control" /> </div>
+                                                <input id="phone_no" name="phone_no" type="text" placeholder="0899999999" class="form-control" value="{{ $phone_no }}"/> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
-                                                <select id="multiple" class="form-control select2-multiple" multiple>
-                                                    <optgroup label="Alaskan">
-                                                        <option value="AK">Alaska</option>
-                                                        <option value="HI" disabled="disabled">Hawaii</option>
-                                                    </optgroup>
-                                                    <optgroup label="Pacific Time Zone">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                    </optgroup>
-                                                    <optgroup label="Mountain Time Zone">
-                                                        <option value="AZ">Arizona</option>
-                                                        <option value="CO">Colorado</option>
-                                                        <option value="ID">Idaho</option>
-                                                        <option value="MT">Montana</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NM">New Mexico</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                    </optgroup>
-                                                    <optgroup label="Central Time Zone">
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
-                                                    </optgroup>
-                                                    <optgroup label="Eastern Time Zone">
-                                                        <option value="CT">Connecticut</option>
-                                                        <option value="DE">Delaware</option>
-                                                        <option value="FL">Florida</option>
-                                                        <option value="GA">Georgia</option>
-                                                        <option value="IN">Indiana</option>
-                                                        <option value="ME">Maine</option>
-                                                        <option value="MD">Maryland</option>
-                                                        <option value="MA">Massachusetts</option>
-                                                        <option value="MI">Michigan</option>
-                                                        <option value="NH">New Hampshire</option>
-                                                        <option value="NJ">New Jersey</option>
-                                                        <option value="NY">New York</option>
-                                                        <option value="NC">North Carolina</option>
-                                                        <option value="OH">Ohio</option>
-                                                        <option value="PA">Pennsylvania</option>
-                                                        <option value="RI">Rhode Island</option>
-                                                        <option value="SC">South Carolina</option>
-                                                        <option value="VT">Vermont</option>
-                                                        <option value="VA">Virginia</option>
-                                                        <option value="WV">West Virginia</option>
-                                                    </optgroup>
+                                                <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
+                                                    @foreach($medicine_list as $medicine)
+                                                        <option value="{{$medicine['medicine_id']}}" @if(in_array($medicine['medicine_name'], $allergic_medicine)) selected @endif>{{$medicine['medicine_name']}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="margiv-top-10">
-                                                <a href="javascript:;" class="btn green"> บันทึกการแก้ไข </a>
-                                                <a href="{{url('/profile')}}" class="btn default"> ยกเลิก </a>
+                                                <button type="submit" class="btn green"> บันทึกการแก้ไข </button>
+                                                <a href="{{ url('/profile') }}" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
                                     </div>
                                     <!-- END PERSONAL INFO TAB -->
                                     <!-- CHANGE AVATAR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
-                                        <form action="#" role="form">
+                                        <form action="#" role="form" action="{{ url('/profile/picupload') }}" method="post" enctype="multipart/form-data">
+                                            {{ csrf_field() }}
                                             <div class="form-group">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
@@ -202,7 +155,7 @@
                                                                         <span class="btn default btn-file">
                                                                             <span class="fileinput-new"> เลือกรูปภาพ </span>
                                                                             <span class="fileinput-exists"> เปลี่ยน </span>
-                                                                            <input type="file" name="..."> </span>
+                                                                            <input type="file" name="picture"> </span>
                                                         <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> ลบ </a>
                                                     </div>
                                                 </div>
@@ -212,7 +165,7 @@
                                                 </div>
                                             </div>
                                             <div class="margin-top-10">
-                                                <a href="javascript:;" class="btn green"> อัพโหลด </a>
+                                                <button type="submit" class="btn green"> อัพโหลด </button>
                                                 <a href="javascript:;" class="btn default"> ยกเลิก </a>
                                             </div>
                                         </form>
@@ -229,11 +182,10 @@
         </div>
     </div>
 
-
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="480">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบบัญชีผู้ใช้ของนายพัทธนันท์ อัครพันธุ์ธัช</h4>
+            <h4 class="modal-title">ลบบัญชีผู้ใช้ของ {{ $name }} {{ $surname }} </h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
@@ -242,7 +194,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+            <button type="button" id="confirm-delete-account-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
                 <span class="ladda-label">ยืนยัน</span>
                 <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
@@ -258,12 +210,30 @@
     <script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
-    <script src="{{url('assets/pages/scripts/ui-extended-modals.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
+    <script>
+        $(document).on('click','#confirm-delete-account-btn', function (e) {
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/account/delete',
+                    {id:  {{ $hid }}, _token: '{{csrf_token()}}'}).done(function (input) {
+                l.stop();
+                toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
+                $('#removeModal').modal('hide');
+                window.location.replace("{{url('/account/manage')}}");
+            }).fail(function () {
+                l.stop();
+                toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+            });
+        });
+    </script>
 @endsection
-

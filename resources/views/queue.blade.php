@@ -96,7 +96,7 @@
                     </div>
                     <div class="portlet-body">
                         <div class="tab-content">
-                            <!-- BEGIN CHECK PHYSICAL DATA TAB -->
+                            <!-- BEGIN profile DATA TAB -->
                             <div class="tab-pane active" id="tab_modal_1">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -200,8 +200,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- END CHECK PHYSICAL DATA TAB -->
-                            <!-- BEGIN WAIT DOCTOR TAB -->
+                            <!-- END profile DATA TAB -->
+                            <!-- BEGIN diagnosis history TAB -->
                             <div class="tab-pane" id="tab_modal_2">
                                 <!-- BEGIN HISTORY TABLE -->
                                 <div class="normal-content">
@@ -379,9 +379,9 @@
 
 
                             </div>
-                            <!-- END WAIT DOCTOR TAB -->
+                            <!-- END diagnosis history TAB -->
 
-                            <!-- BEGIN WAIT MEDICINE TAB -->
+                            <!-- BEGIN diagnosis TAB -->
                             <div class="tab-pane" id="tab_modal_3">
                                 <!-- BEGIN PHYSICAL DATA FORM -->
                                 <div id="modal_tab3_physical_form" class="normal-content">
@@ -599,8 +599,20 @@
                                         </div>
                                     </div>
                                 </form>
+                                <form id="pharmacist-form" class="form-horizontal" action="{{url('backend/Diagnosis/give_medicine')}}" method="post" role="form">
+                                    {{csrf_field()}}
+                                    <input id="pharmacist-form-appointment-id" name="appointment_id" class="pharmacist-form" type="hidden" required>
+                                    <div class="row" style="text-align: right;" id="pharmacist-form-submit-row">
+                                        <div class="col-md-12">
+                                            <button type="submit" id="pharmacist-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button pharmacist-form" data-style="expand-right">
+                                                <span class="ladda-label">จ่ายยา</span>
+                                                <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <!-- END WAIT MEDICINE TAB -->
+                            <!-- END diagnosis TAB -->
                         </div>
                     </div>
                 </div>
@@ -1016,32 +1028,46 @@
             $('#tab_modal_3_button').attr('step',step);
             alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
-                clearPhysicalForm();
-                clearDiagnosisForm();
-                clearMedicineForm();
                 $('#physical-form-appointment-id').val(id);
                 alert("step1 : " + $('#physical-form-appointment-id').val());
-                $('#modal_tab3_physical_form').show();
-//                $('#modal_tab3_diagnosis_form').hide();
-//                $('#modal_tab3_medicine_form').hide();
-                $('#diagnosis-form').hide();
 
-                $('.physical-form').removeAttr('disabled');
-                $('#physical-form-submit-row').show();
-            }
-            else if(step == 2){
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
-                $('#modal_tab3_physical_form').show();
-//                $('#modal_tab3_diagnosis_form').show();
-//                $('#modal_tab3_medicine_form').show();
-                $('#diagnosis-form').show();
+
+                $('.physical-form').removeAttr('disabled');
+                $('.diagnosis-form').attr('disabled','disabled');
+                $('.medicine-form').attr('disabled','disabled');
+                $('.pharmacist-form').attr('disabled','disabled');
+
+                $('#physical-form-submit-row').show();
+                $('#diagnosis-form-submit-row').hide();
+                $('#pharmacist-form-submit-row').hide();
+
+                $('#physical-form').show();
+                $('#diagnosis-form').hide();
+                $('#pharmacist-form').hide();
+            }
+            else if(step == 2){
+                $('#diagnosis-form-appointment-id').val(id);
+
+                clearPhysicalForm();
+                clearDiagnosisForm();
+                clearMedicineForm();
 
                 $('.physical-form').attr('disabled','disabled');
-                $('#physical-form-submit-row').hide();
+                $('.diagnosis-form').removeAttr('disabled');
+                $('.medicine-form').removeAttr('disabled');
+                $('.pharmacist-form').attr('disabled','disabled');
 
-                $('#diagnosis-form-appointment-id').val(id);
+                $('#physical-form-submit-row').hide();
+                $('#diagnosis-form-submit-row').show();
+                $('#pharmacist-form-submit-row').hide();
+
+                $('#physical-form').show();
+                $('#diagnosis-form').show();
+                $('#pharmacist-form').hide();
+
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
@@ -1050,9 +1076,32 @@
                 $("input[name~='diastolic'].physical-form").val(allTableData['waiting_doctor'][id]['diastolic']);
             }
             else{
+                $('#pharmacist-form-appointment-id').val(id);
+
+                clearPhysicalForm();
+                clearDiagnosisForm();
+                clearMedicineForm();
+
                 $('.physical-form').attr('disabled','disabled');
                 $('.diagnosis-form').attr('disabled','disabled');
                 $('.medicine-form').attr('disabled','disabled');
+                $('.pharmacist-form').removeAttr('disabled');
+
+                $('#physical-form-submit-row').hide();
+                $('#diagnosis-form-submit-row').hide();
+                $('#pharmacist-form-submit-row').show();
+
+                $('#physical-form').show();
+                $('#diagnosis-form').show();
+                $('#pharmacist-form').show();
+
+                $("input[name~='weight'].physical-form").val(allTableData['waiting_pharmacist'][id]['weight']);
+                $("input[name~='height'].physical-form").val(allTableData['waiting_pharmacist'][id]['height']);
+                $("input[name~='temperature'].physical-form").val(allTableData['waiting_pharmacist'][id]['temperature']);
+                $("input[name~='heart_rate'].physical-form").val(allTableData['waiting_pharmacist'][id]['heart_rate']);
+                $("input[name~='systolic'].physical-form").val(allTableData['waiting_pharmacist'][id]['systolic']);
+                $("input[name~='diastolic'].physical-form").val(allTableData['waiting_pharmacist'][id]['diastolic']);
+
             }
 //            $('#tab_modal_3_button').click();
             $('.nav-tabs li:eq(2) a').tab('show');
@@ -1141,6 +1190,7 @@
             $.get(URL_ROOT+'/backend/Diagnosis/queue',
                     {}).done(function (input) {
                 alert();
+                console.log("allTableData");
                 console.log(input);
                 allTableData= input;
                 /////////tab1_table/////////////////////////////////////
@@ -1405,6 +1455,7 @@
                     toastr['success']('บันทึกข้อมูลการวินิจฉัยโรคและการสั่งยาสำเร็จ', "สำเร็จ");
                     l.stop();
                     resetQueue();
+                    clearPhysicalForm();
                     clearDiagnosisForm();
                     clearMedicineForm();
                     $('#full').modal('hide');
@@ -1422,6 +1473,38 @@
                     error: showError
                 };
                 $('#diagnosis-form').ajaxSubmit(options);
+                return false;
+            }
+        });
+
+        //pharmacist-form
+        $(document).on('click','#pharmacist-form-submit-button', function(e) {
+            if($('#pharmacist-form').valid()) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('บันทึกข้อมูลการจ่ายยาสำเร็จ', "สำเร็จ");
+                    l.stop();
+                    resetQueue();
+                    clearPhysicalForm();
+                    clearDiagnosisForm();
+                    clearMedicineForm();
+                    $('#full').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#pharmacist-form').ajaxSubmit(options);
                 return false;
             }
         });
