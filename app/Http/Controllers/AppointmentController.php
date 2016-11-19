@@ -129,9 +129,7 @@ class AppointmentController extends Controller
             ->select('appointment.id as app_id', 'appointment.patient_id', 'appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')
             ->where('appointment.approve', 1)
             ->where('appointment.patient_id', $patient_id)
-            ->where('appointment.queue_status', "uncheckedin")
             ->where('date', '>' ,$today)
-            ->where('time', 'A')
             ->orderBy('date', 'ASC')
             ->get();
         return array_merge($apps,$tomorrow);
