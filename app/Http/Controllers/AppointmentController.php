@@ -211,6 +211,7 @@ class AppointmentController extends Controller
                 "date" => "วันที่ ".$day." เดือน ".$month[$im]." ปีค.ศ. ".$year,
                 "time" => "ช่วงเวลา ".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
                 "email" => $patient->email,
+                "phone_number" => $patient->phone_no,
                 "link" => "./appointment/approve/create?id=".$ap->id."&cca=".self::generateApproveCreateLink($ap->date, $ap->time, $ap->symptom, $ap->created_at,0)
         ]);
         return 'success';
@@ -314,6 +315,7 @@ class AppointmentController extends Controller
                 "date" => "วันที่ ".$day." เดือน ".$month[$im]." ปีค.ศ. ".$year,
                 "time" => "ช่วงเวลา ".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
                 "email" => $patient->email,
+                "phone_number" => $patient->phone_no,
                 "link" => "./appointment/approve/cancel?id=".$ap->id."&cac=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)
         ]);
         return 'success';

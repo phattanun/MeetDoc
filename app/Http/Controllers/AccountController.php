@@ -93,6 +93,7 @@ class AccountController extends Controller
             "name" => $request->name,
             "surname" => $request->surname,
             "email" => $request->email,
+            "phone_number" => $request->phone_no,
             "link" => "./password/reset?id=".$new_user->id."&cfp=".self::generatePasswordLink($new_user->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";
@@ -120,6 +121,7 @@ class AccountController extends Controller
             "name" => $user->name,
             "surname" => $user->surname,
             "email" => $user->email,
+            "phone_number" => $user->phone_no,
             "link" => "./password/reset?id=".$user->id."&cfp=".self::generatePasswordLink($user->ssn, $user->name, $user->surname, $user->password, $user->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";
