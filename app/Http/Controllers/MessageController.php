@@ -402,6 +402,9 @@ class MessageController extends Controller
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'edit_profile');
+        }
     }
 
 }
