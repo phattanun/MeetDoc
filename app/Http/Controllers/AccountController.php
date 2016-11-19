@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Allergic;
 use App\Appointment;
 use App\Department;
+use App\Medicine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -271,6 +273,8 @@ class AccountController extends Controller
     public function get_detail(Request $request)
     {
         $account = User::findOrFail($request->id);
+        $allergy = DiagnosisController::get_allergic_medicine($account);
+        $account->medicine = $allergy;
         return $account;
     }
 
