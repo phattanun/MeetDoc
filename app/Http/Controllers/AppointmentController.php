@@ -446,11 +446,19 @@ class AppointmentController extends Controller
 
     }
 
-    public static function availableDate()
-    {
-        $now = date('Y-m-d');
+//    public static function shiftDayAppointment($day)
+//    {
+//
+//    }
+//
+//    public static function shiftDateAppointment($date)
+//    {
+//        $shift_appointment =
+//    }
 
-        $dates = Appointment::where('date', '>', $now)->where('type', 'R')->groupBy('date')->get();
+    public static function availableDate($old_date)
+    {
+        $dates = Appointment::where('date', '>', $old_date)->where('type', 'R')->groupBy('date')->get();
 
         $busy_dates = [];
 
@@ -460,14 +468,14 @@ class AppointmentController extends Controller
                 array_push($busy_dates, $date['date']);
         }
 
-        $available_dates = Schedule::where('date', '>', $now);
+        $available_dates = Schedule::where('date', '>', $old_date);
 
         foreach($busy_dates as $busy_date)
         {
             $available_dates = $available_dates->where('date', '<>', $busy_date);
         }
 
-        $available_dates = $available_dates->orderBy('date', 'asc')->get();
+        $available_dates = $available_dates->orderBy('date', 'asc')->get()[0];
         
         return $available_dates;
 

@@ -63,7 +63,6 @@ class MessageController extends Controller
     private static function send_sms($phone_number, $text)
     {
 
-
         $SMS = \Config::get('app.SMS');
 
         $fields = array(
@@ -110,6 +109,7 @@ class MessageController extends Controller
         $activity_text = '';
         $except_text = '';
         $hospital = \Config::get('app.HOSPITAL');
+        $link = url($url);
         switch ($type)
         {
             case 'register':
@@ -130,7 +130,7 @@ class MessageController extends Controller
             'ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล' . $hospital['hospital_name']. PHP_EOL . PHP_EOL .
              $activity_text . PHP_EOL . PHP_EOL .
             'กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน' . PHP_EOL . PHP_EOL .
-            $url . PHP_EOL . PHP_EOL .
+            $link . PHP_EOL . PHP_EOL .
             $except_text . ' ท่านไม่จำเป็นต้องสนใจข้อความใน SMS นี้' . PHP_EOL . PHP_EOL .
             'ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ'. PHP_EOL . PHP_EOL .
             'โรงพยาบาล ' . $hospital['hospital_name'] . ' ' . $hospital['hospital_phone_number'];
@@ -145,6 +145,7 @@ class MessageController extends Controller
         $activity_text = '';
         $except_text = '';
         $hospital = \Config::get('app.HOSPITAL');
+        $link = url($url);
         switch($type)
         {
             case 'create':
@@ -205,7 +206,7 @@ class MessageController extends Controller
         if ($type == 'create' || $type == 'patient_edit' || $type == 'cancel') {
             $sending_text = $sending_text .
                 'กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน' . PHP_EOL . PHP_EOL .
-            $url . PHP_EOL . PHP_EOL .
+            $link . PHP_EOL . PHP_EOL .
             'หากท่านไม่ต้องการ' . $except_text . ' ท่านไม่จำเป็นต้องสนใจข้อความใน SMS นี้' . PHP_EOL . PHP_EOL;
         }
         else if($type == 'doctor_edit')

@@ -126,7 +126,7 @@ class AccountController extends Controller
             "name" => $request->name,
             "surname" => $request->surname,
             "email" => $request->email,
-            "phone_number" => $request->phone_no,
+            "phone_number" => $request->phone,
             "link" => "./password/reset?id=".$new_user->id."&cfp=".self::generatePasswordLink($new_user->ssn, $request->name, $request->surname, $new_user->password, $request->email, $now)
         ];
         // echo "<a href='".$re['link']."'>Reset Password Link</a>";
