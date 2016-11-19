@@ -202,7 +202,10 @@ class AccountController extends Controller
     public static function getUserList($select = null, $filter = null) {
         $users = isset($select) ? User::select($select) : User::select();
         if(isset($filter))
-            $users = $users->where($filter);
+            foreach ($filter as $key => $value) {
+                $users = $users->orWhere($key , 'like', '%'.$value.'%');
+            }
+//            $users = $users->orWhere($filter);
         $users = $users->get()->toArray();
         return $users;
     }
@@ -283,8 +286,7 @@ class AccountController extends Controller
     {
         $keyword= $request->keyword;
         if ($keyword != ""){
-            $account_list = User::
-            where('id', 'like', '%'.($keyword).'%')
+            $account_list = User::where('id', 'like', '%'.($keyword).'%')
             ->orWhere('ssn', 'like', '%'.($keyword).'%')
             ->orWhere('name', 'like', '%'.($keyword).'%')
             ->orWhere('surname', 'like', '%'.($keyword).'%')

@@ -32,9 +32,9 @@ class PagesController extends Controller
         return $res;
     }
 
-    public function apiGetStaff()
+    public function apiGetStaff(Request $request)
     {
-        $res = AccountController::getUserList(['id', 'name', 'surname', 'ssn']);
+        $res = AccountController::getUserList(['id', 'name', 'surname', 'ssn'], ['name'=>$request->q, 'surname'=>$request->q, 'ssn'=>$request->q]);
         $res = self::tableToSearch($res, 'id');
         return $res;
     }
