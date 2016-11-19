@@ -123,8 +123,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3"><b>วันที่</b></label>
-                                                    <div class="col-md-3">
-                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <div class="col-md-9">
+                                                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                                             <input type="text" name="date" class="form-control" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
@@ -203,8 +203,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3"><b>วันที่</b></label>
-                                                    <div class="col-md-3">
-                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <div class="col-md-9">
+                                                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                                             <input type="text" name="date" class="form-control" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
