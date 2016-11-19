@@ -13,6 +13,7 @@ use App\Disease;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use Mockery\CountValidator\Exception;
@@ -156,9 +157,11 @@ class DiagnosisController extends Controller
             if ($app['queue_status'] == 'waiting_staff')
                 //array_push($appointment['waiting_staff'], $array_app);
                 $appointment['waiting_staff'][$array_app['id']] = $array_app;
-            else if ($app['queue_status'] == 'waiting_doctor')
+            else if ($app['queue_status'] == 'waiting_doctor') {
                 //array_push($appointment['waiting_doctor'], $array_app);
-                $appointment['waiting_doctor'][$array_app['id']] = $array_app;
+                if ($app['doctor_id'] == Auth::user()['id'])
+                    $appointment['waiting_doctor'][$array_app['id']] = $array_app;
+            }
             else if ($app['queue_status'] == 'waiting_pharmacist') {
                 //array_push($appointment['waiting_pharmacist'], $array_app);
                 $array_app['medicine'] = $app->prescription()->get();
