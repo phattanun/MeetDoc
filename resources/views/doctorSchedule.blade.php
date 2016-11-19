@@ -354,8 +354,7 @@
             console.log("weekly-remove " + doctorId + " " + date + " " + time);
             $.post(URL_ROOT+'/doctor/weekly/delete',
                     {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
-                toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
-//                console.log(input);
+                location.reload();
             }).fail(function () {
                 l.stop();
                 toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
@@ -369,7 +368,7 @@
             console.log("daily-remove " + doctorId + " " + date + " " + time);
             $.post(URL_ROOT+'/doctor/daily/delete',
                     {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
-//                console.log(input);
+                location.reload();
             }).fail(function () {
                 l.stop();
                 toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
@@ -383,7 +382,7 @@
             console.log("daily-sub-remove " + doctorId + " " + date + " " + time);
             $.post(URL_ROOT+'/doctor/daily/delete',
                     {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
-//                console.log(input);
+                location.reload();
             }).fail(function () {
                 l.stop();
                 toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
