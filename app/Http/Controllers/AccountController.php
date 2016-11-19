@@ -315,8 +315,8 @@ class AccountController extends Controller
             $user = User::findOrFail($request->id);
             $data = json_decode(base64_decode($request->edt));
 
-            if(!is_null($data) && $request->cep == self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $data->_now)) {
-                $edit_time = new \DateTime($user->last_active);
+            if(!is_null($data) && isset($data->_now) && $request->cep == self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $data->_now)) {
+                $edit_time = new \DateTime($data->_now);
                 if(($now->getTimeStamp() - $edit_time->getTimeStamp())/3600 < 24) {
                     $edited = array_filter((array)$data);
                     $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];

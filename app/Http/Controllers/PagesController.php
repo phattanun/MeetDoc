@@ -322,13 +322,13 @@ class PagesController extends Controller
     {
         $user = Auth::user();
         $request->patient_id = $user['id'];
-        return AppointmentController::edit($request);
+        return AppointmentController::createEditAppointmentLink($request);
     }
 
     public function editAppointmentOfficer(Request $request, $id)
     {
         $request->patient_id = $id;
-        return AppointmentController::edit($request);
+        return AppointmentController::createEditAppointmentLink($request);
     }
 
     public function appointmentHistoryPage()
@@ -363,6 +363,15 @@ class PagesController extends Controller
             return view('auth/confirm')->with(['title' => 'ยกเลิกการนัดหมายสำเร็จ']);
         } else {
             return view('auth/failed')->with(['title' => 'ยกเลิกการนัดหมายไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือทำการยกเลิกนัดหมายใหม่']);
+        };
+    }
+
+    public function approveEditAppointment(Request $request) {
+        $res = AppointmentController::confirmEditAppointment($request);
+        if ($res['status']) {
+            return view('auth/confirm')->with(['title' => 'แก้ไขการนัดหมายสำเร็จ']);
+        } else {
+            return view('auth/failed')->with(['title' => 'แก้ไขการนัดหมายไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือทำการแก้ไขนัดหมายใหม่']);
         };
     }
 

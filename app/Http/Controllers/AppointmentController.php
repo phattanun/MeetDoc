@@ -239,32 +239,104 @@ class AppointmentController extends Controller
         return ["status" => true];
     }
 
-    public static function edit(Request $request)
-    {
-        try {
-            $validate = Appointment::where('patient_id', $request->patient_id)->where('id', '!=', $request->old_app_id)
-                ->where('date', $request->date)
-                ->where('time', $request->time)
-                ->get()->toArray();
-            if (sizeof($validate) > 0)
-                return 'duplicate';
+    private static function generateEditAppointmentHash($patient_id, $app_id, $time) {
+        return hash('ripemd256', "UsER".$patient_id."WaNttoeDITappoiNtMeNTIn".$app_id."At".$time."ANajA");
+    }
 
-            $ap = new Appointment();
-            $ap->date = $request->date;
-            $ap->time = $request->time;
-            $ap->symptom = $request->symptom;
-            $ap->queue_status = 'uncheckedin';
-            $ap->checkin_time = null;
-            $ap->type = (strtotime($request->date) == strtotime('today') ? 'W' : 'R'); // R refers to reserve and W refers to walk-in.
-            $ap->patient_id = $request->patient_id;
-            $ap->doctor_id = $request->doctor_id;
-            $ap->dept_id = $request->dept_id;
-            $ap->save();
-            Appointment::find($request->old_app_id)->delete();
-        } catch (\Exception $e) {
-            echo "<h2>Error: " . $e->getMessage() . "</h2>";
+    public static function createEditAppointmentLink(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d H:i:s');
+
+        $ap = Appointment::findOrfail($request->old_app_id);
+        $patient = User::findOrfail($ap->patient_id);
+        $doctor = User::findOrfail($request->doctor_id);
+
+        $edited = array_filter($request->all());
+        $edited['patient_id'] =  $patient->id;
+        $editable_field = ['date','time', 'symptom', 'doctor_id', 'patient_id', 'dept_id'];
+        $filtered = array_intersect_key($edited, array_flip($editable_field));
+        $filtered['_id'] = $ap->id;
+        $filtered['_now'] = $now;
+
+        $validate = Appointment::where('patient_id', $patient->id)->where('id', '!=', $ap->id)
+            ->where('date', $request->date)
+            ->where('time', $request->time)
+            ->get()->toArray();
+        if (sizeof($validate) > 0)
+            return "duplicate";
+
+        $encoded = base64_encode(json_encode($filtered));
+
+        $day = explode('-', $request->date)[2];
+        $im = explode('-', $request->date)[1];
+        $year = explode('-', $request->date)[0];
+        $month = [
+            "1" => "มกราคม",
+            "2" => "กุมภาพันธ์",
+            "3" => "มีนาคม",
+            "4" => "เมษายน",
+            "5" => "พฤษภาคม",
+            "6" => "มิถุนายน",
+            "7" => "กรกฎาคม",
+            "8" => "สิงหาคม",
+            "9" => "กันยายน",
+            "10" => "ตุลาคม",
+            "11" => "พฤษจิกายน",
+            "12" => "ธันวาคม",
+        ];
+        $dept = Department::findOrFail($request->dept_id)->name;
+        $res = [
+            "status" => true,
+
+            "app_id" => $ap->id,
+            "p_name" => $patient->name,
+            "p_surname" => $patient->surname,
+            "d_name" => $doctor->name,
+            "d_surname" => $doctor->surname,
+            "symptom" => $request->symptom,
+            "dept" => $dept,
+            "date" => "วันที่ ".$day." เดือน".$month[$im]." ค.ศ.".$year,
+            "time" => "ช่วงเวลา".($request->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+            "email" => $patient->email,
+            "phone_number" => $patient->phone_no,
+            "link" => "./appointment/approve/edit?id=".$ap->id."&cep=".self::generateEditAppointmentHash($patient->id, $ap->id, $now)."&edt=".$encoded
+        ];
+        MessageController::sendEditAppointment($res);
+        return "success";
+    }
+
+    public static function confirmEditAppointment(Request $request)
+    {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = new \DateTime('NOW');
+        try {
+            $ap = Appointment::findOrFail($request->id);
+            $patient = User::findOrfail($ap->patient_id);
+            $data = json_decode(base64_decode($request->edt));
+
+
+            if(!is_null($data) && isset($data->_id) && isset($data->_now) && $data->_id == $request->id && $data->patient_id == $patient->id && $request->cep == self::generateEditAppointmentHash($patient->id, $ap->id, $data->_now)) {
+                $edit_time = new \DateTime($data->_now);
+                if(($now->getTimeStamp() - $edit_time->getTimeStamp())/3600 < 24) {
+                    $ap->date = $data->date;
+                    $ap->time = $data->time;
+                    $ap->symptom = $data->symptom;
+                    $ap->queue_status = 'uncheckedin';
+                    $ap->checkin_time = null;
+                    $ap->type = (strtotime($data->date) == strtotime('today') ? 'W' : 'R'); // R refers to reserve and W refers to walk-in.
+                    $ap->patient_id = $data->patient_id;
+                    $ap->doctor_id = $data->doctor_id;
+                    $ap->dept_id = $data->dept_id;
+                    $ap->save();
+                }
+                else throw new \Exception("Too late", 1);
+            }
+            else throw new \Exception("Wrong key", 1);
         }
-        return 'success';
+        catch (\Exception $e) {
+            return ["status" => false, "msg" => $e->getMessage()];
+        }
+        return ["status" => true];
     }
 
     private static function generateCancelLink($doctor_id, $patient_id, $time)
@@ -312,8 +384,8 @@ class AppointmentController extends Controller
                 "d_surname" => $doctor->surname,
                 "symptom" => $ap->symptom,
                 "dept" => $dept,
-                "date" => "วันที่ ".$day." เดือน ".$month[$im]." ปีค.ศ. ".$year,
-                "time" => "ช่วงเวลา ".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+                "date" => "วันที่ ".$day." เดือน".$month[$im]." ค.ศ.".$year,
+                "time" => "ช่วงเวลา".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
                 "email" => $patient->email,
                 "phone_number" => $patient->phone_no,
                 "link" => "./appointment/approve/cancel?id=".$ap->id."&cac=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)
