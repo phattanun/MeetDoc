@@ -78,7 +78,7 @@ class AccountController extends Controller
             $new_user->name = $request->name;
             $new_user->surname = $request->surname;
             $new_user->gender = $request->gender;
-            $new_user->birthday = $request->birthday;
+            $new_user->birthday = join('-', array_reverse(explode('/',$request->birthday)));
             $new_user->email = $request->email;
             $new_user->address = $request->address;
             $new_user->phone_no = $request->phone;
