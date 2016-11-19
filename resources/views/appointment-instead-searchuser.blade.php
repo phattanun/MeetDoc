@@ -118,9 +118,8 @@
                     $.fn.select2.defaults.set("theme", "bootstrap");
                     function formatUser(user) {
                         if (user.loading) return user.text;
-
                         var markup = "<div class='select2-result-staff clearfix'>" +
-                                "<div class='select2-result-staff__avatar'><img src='{{ url('assets/pages/media/profile/profile_user.jpg') }}' /></div>" +
+                                "<div class='select2-result-staff__avatar'><img src='"+user.image+"' /></div>" +
                                 "<div class='select2-result-staff__meta'>" +
                                 "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
 
@@ -129,7 +128,6 @@
                                 "<div class='select2-result-staff__ssn'></span> หมายเลขบัตรประจำตัวประชาชน : " + user.ssn + " </div>" +
                                 "</div>" +
                                 "</div></div>";
-
                         return markup;
                     }
 
