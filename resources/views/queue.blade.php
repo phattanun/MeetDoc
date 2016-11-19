@@ -1408,7 +1408,7 @@
                                 '    <input id="medicine-table-body-row-id-'+medicineNo+'" type="hidden" value="'+input['medicine_id']+'" name="medicine['+medicineNo+'][id]" required>'+
                                 '    <td id="medicine-table-body-no-'+medicineNo+'">'+medicineNo+'</td>'+
                                 '    <td>'+input['medicine_id']+'</td>'+
-                                '    <td>'+input['business_name']+'</td>'+
+                                '    <td>'+input['business_name']+ ' ('+input['medicine_name']+')'+'</td>'+
                                 '    <td class="form-group"><input id="medicine-table-body-row-amount-'+medicineNo+'" class="touchspin form-control" type="text" value="" name="medicine['+medicineNo+'][amount]" required></td>'+
                                 '    <td class="form-group"><input id="medicine-table-body-row-unit-'+medicineNo+'" class="form-control" type="text" value="" name="medicine['+medicineNo+'][unit]" required></td>'+
                                 '    <td>'+

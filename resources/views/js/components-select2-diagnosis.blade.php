@@ -79,7 +79,7 @@
             }
 
             function formatRepoSelectionMedicine(repo) {
-                return repo.business_name || repo.text;
+                return repo.fullname || repo.text;
             }
 
             $(".js-data-medicine-ajax").select2({
