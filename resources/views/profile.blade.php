@@ -37,7 +37,6 @@
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name"> {{ $name }} {{ $surname }} </div>
-                        <div class="profile-usertitle-job"> ผู้ป่วย </div>
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR MENU -->

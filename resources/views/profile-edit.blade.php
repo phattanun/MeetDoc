@@ -227,9 +227,14 @@
             $.post(URL_ROOT+'/account/delete',
                     {id:  {{ $hid }}, _token: '{{csrf_token()}}'}).done(function (input) {
                 l.stop();
-                toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
-                $('#removeModal').modal('hide');
-                window.location.replace("{{url('/account/manage')}}");
+                if(input =="success"){
+                    toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
+                    $('#removeModal').modal('hide');
+                    window.location.replace("{{url('/account/manage')}}");
+                }
+                else if (input =="constraint"){
+                    toastr['warning']("บัญชีผู้ใช้นี้ถูกใช้อยู่ในระบบ ไม่สามารถลบได้", "ขออภัย");
+                }
             }).fail(function () {
                 l.stop();
                 toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");

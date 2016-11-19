@@ -259,6 +259,9 @@ class AccountController extends Controller
 
     public function delete(Request $request)
     {
+        if(Appointment::where("doctor_id",$request->id)->exists()){
+            return "constraint";
+        }
         $account = User::findOrFail($request->id);
         $account->delete();
         return "success";
