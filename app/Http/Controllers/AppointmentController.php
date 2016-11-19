@@ -97,7 +97,7 @@ class AppointmentController extends Controller
         $apps = DB::table('appointment')
             ->join('user', 'user.id', '=', 'appointment.doctor_id')
             ->join('dept', 'dept.id', '=', 'appointment.dept_id')
-            ->select('appointment.id as app_id', 'appointment.patient_id', 'appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date', '>=', $now)->where('appointment.patient_id', $patient_id)->orderBy('date', 'ASC')->get();
+            ->select('appointment.id as app_id', 'appointment.patient_id', 'appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date', '>=', $now)->where('appointment.patient_id', $patient_id)->where('appointment.queue_status', "uncheckedin")->orderBy('date', 'ASC')->get();
         return $apps;
     }
 
