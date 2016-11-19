@@ -21,6 +21,36 @@ var FormValidation = function () {
                 }
             },
             rules: {
+                weight:{
+                    number: true,
+                    min: 0,
+                    max: 1000
+                },
+                height:{
+                    number: true,
+                    min: 0,
+                    max: 500
+                },
+                temperature:{
+                    number: true,
+                    min: 30,
+                    max: 50
+                },
+                heart_rate:{
+                    number: true,
+                    min: 0,
+                    max: 200
+                },
+                systolic:{
+                    number: true,
+                    min: 0,
+                    max: 500
+                },
+                diastolic:{
+                    number: true,
+                    min: 0,
+                    max: 500
+                },
                 name: {
                     minlength: 2,
                     required: true
