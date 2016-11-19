@@ -39,12 +39,14 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/password/change', 'PagesController@changePassword'); // Change password in Profile Page
     Route::get('/profile', 'PagesController@viewProfile');
     Route::post('/profile', 'PagesController@editProfile');
+    Route::post('/profile/picupload', 'PagesController@editProfilePic');
     Route::get('/doctor/schedule', 'PagesController@viewSchedule');
     Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
     Route::post('/doctor/weekly/delete', 'ScheduleController@deleteWeeklySchedule');
     Route::post('/doctor/daily/delete', 'ScheduleController@deleteDailySchedule');
     Route::post('/officer/profile', 'PagesController@officerEditProfile');
+    Route::post('/officer/profile/picupload', 'PagesController@officerEditProfilePic');
     Route::get('/officer/manage', 'PagesController@viewOfficerManage');
     Route::get('/officer/appointment/new', 'PagesController@viewOfficerNewAppointmentPage');
     Route::get('/officer/appointment/edit', 'PagesController@viewOfficerAppointmentSearchUserPage');
