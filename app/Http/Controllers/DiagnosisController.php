@@ -148,7 +148,7 @@ class DiagnosisController extends Controller
         foreach ($appointment_list as $app) {
             $array_app = json_decode($app, true);
             $patient_info = $app->patient()->first();
-            $birthday = date_create_from_format('d/m/Y', $patient_info['birthday']);
+            $birthday = date_create_from_format('Y-m-d', $patient_info['birthday']);
             $age = $now->diff($birthday);
             $patient_info['age'] = $age->y;
             $array_app['patient_info'] = json_decode($patient_info, true);
