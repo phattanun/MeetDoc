@@ -171,8 +171,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/backend/Diagnosis/get_patient_profile', 'DiagnosisController@get_patient_profile');
     Route::get('/backend/Diagnosis/queue', 'DiagnosisController@get_queue');
     Route::post('/backend/Diagnosis/appointment_list', 'DiagnosisController@get_appointment_list');
-    Route::post('/backend/Diagnosis/add_allergic_medicine', 'DiagnosisController@add_allergic_medicine');
-    Route::post('/backend/Diagnosis/delete_allergic_medicine', 'DiagnosisController@delete_allergic_medicine');
+    Route::post('/backend/Diagnosis/edit_allergic_medicine', 'DiagnosisController@edit_allergic_medicine');
     Route::post('/backend/Diagnosis/view_diagnosis_record', 'DiagnosisController@diagnosis_record_and_receive_medicine');
     Route::post('/backend/Diagnosis/give_medicine', 'DiagnosisController@give_medicine');
     Route::post('/backend/Diagnosis/add_diagnosis_record', 'DiagnosisController@add_diagnosis_record');
