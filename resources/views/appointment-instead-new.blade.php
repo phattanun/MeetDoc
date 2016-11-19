@@ -9,7 +9,7 @@
 @endsection
 
 @section('title-inside')
-    นัดหมายแทนผู้ป่วย
+    นัดหมายแทนผู้ป่วย {{$name}} {{$surname}}
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -43,6 +43,9 @@
                             <div class="portlet-body">
                                 <form id="search-form" role="form" action="{{ url('/schedule/search') }}" method="post" novalidate="novalidate">
                                     {{ csrf_field() }}
+                                    @if(isset($patient_id))
+                                    <input id="select-user" type="hidden" name="user_id" value="{{$patient_id}}">
+                                    @else
                                     <div class="row">
                                         <div class="form-group">
                                             <label class="col-md-1 control-label text-right">ผู้ป่วย
@@ -58,6 +61,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -492,8 +496,12 @@
                 }
             });
             $(document).on('click','.make-appointment-btn', function () {
-                var data = $("#select-user").select2('data')[0];
-                $('#confirm_patient').val(data.name+" "+data.surname);
+                @if(isset($patient_id))
+                    $('#confirm_patient').val('{{$name." ".$surname}}');
+                @else
+                    var data = $("#select-user").select2('data')[0];
+                    $('#confirm_patient').val(data.name+" "+data.surname);
+                @endif
                 $('#confirm_doctor').val($(this).attr('dname'));
                 $('#confirm_doctor_id').val($(this).attr('did'));
                 $('#confirm_department').val($(this).attr('deptname'));
