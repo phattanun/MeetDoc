@@ -159,7 +159,7 @@ class PagesController extends Controller
         $res = AccountController::resetPassword($request);
         if ($res['status'])
             return view('auth/confirm')->with(['title' => 'เปลี่ยนรหัสผ่านสำเร็จ']);
-        return view('auth/failed')->with(['title' => 'เปลี่ยนรหัสไม่ผ่านสำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาใช้ระบบลืมรหัสผ่าน']);
+        return view('auth/failed')->with(['title' => 'เปลี่ยนรหัสไม่ผ่านสำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือใช้ระบบลืมรหัสผ่าน']);
     }
 
     public function register(Request $request)
@@ -320,6 +320,24 @@ class PagesController extends Controller
         $app = AppointmentController::getBriefAppointmentDetail($request->id);
         $doctors = AccountController::getDoctorByDepartment2($app->dept_id);
         return view('appointment-edit')->with(['app' => $app, 'departments' => DepartmentController::getAllDepartment(), 'doctors' => $doctors]);
+    }
+
+    public function approveCreateAppointment(Request $request) {
+        $res = AppointmentController::confirmCreateAppointment($request);
+        if ($res['status']) {
+            return view('auth/confirm')->with(['title' => 'ยืนยันการนัดหมายสำเร็จ']);
+        } else {
+            return view('auth/failed')->with(['title' => 'ยืนยันการนัดหมายไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือทำการนัดหมายใหม่']);
+        };
+    }
+
+    public function approveCancelAppointment(Request $request) {
+        $res = AppointmentController::confirmCancelAppointment($request);
+        if ($res['status']) {
+            return view('auth/confirm')->with(['title' => 'ยกเลิกการนัดหมายสำเร็จ']);
+        } else {
+            return view('auth/failed')->with(['title' => 'ยกเลิกการนัดหมายไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือทำการยกเลิกนัดหมายใหม่']);
+        };
     }
 
     // Department

@@ -8,6 +8,8 @@ Route::get('/logout', 'AccountController@logout');
 Route::post('/register', 'PagesController@register');
 Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Password in Login Page
 Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
+Route::get('/appointment/approve/create', 'PagesController@approveCreateAppointment');
+Route::get('/appointment/approve/cancel', 'PagesController@approveCancelAppointment');
 
 // Backend
 Route::get('/backend', function() { return View::make('backend'); });
@@ -45,7 +47,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/officer/appointment/edit/{id}', 'PagesController@viewOfficerEditAppointmentPage');
     Route::post('/officer/appointment/edit/{id}/submit', 'PagesController@editAppointmentOfficer');
     Route::post('/officer/appointment/new', 'PagesController@createAppointmentInsteadPage');
-    Route::post('/officer/appointment/cancel', 'AppointmentController@officerCancel');
+    Route::post('/officer/appointment/cancel', 'AppointmentController@cancel');
 //    Route::post('/officer/appointment/get/future', 'AppointmentController@getFutureAppointments');
     Route::post('/officer/getStaffList', 'PagesController@getStaffList');
     Route::post('/officer/manage/addStaff', 'PagesController@addStaff');
@@ -143,7 +145,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/backend/Appointment/getAppointmentList', 'AppointmentController@getAppointmentList');
     Route::post('/backend/Appointment/create', 'AppointmentController@create');
     Route::post('/backend/Appointment/cancel', 'AppointmentController@cancel');
-    Route::get('/backend/Appointment/cancelApprove', 'AppointmentController@cancelApprove');
 
 
     // Weekly Schedule
