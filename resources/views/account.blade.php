@@ -354,7 +354,7 @@
                 var URL_ROOT = '{{Request::root()}}';
                 $.post(URL_ROOT+'/account/detail',
                         {id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
-                    $('#delete-account-title').text(input['name']);
+                    $('#delete-account-title').text(input['name'] +" "+ input['surname']);
                     $('#confirm-delete-account-btn').attr('identity',id);
                 }).fail(function () {
                 });
@@ -392,7 +392,7 @@
                                 +'<td>'+ data[m]['name'] +'</td>'
                                 +'<td>'+ data[m]['surname'] +'</td>'
                                 +'<td> <button  identity="'+ data[m]['id']+'" type="button" class="btn blue view-account-button">ดู</button> </td>'
-                                +'<td> <button  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-account-button">แก้ไข</button> </td>'
+                                +'<td> <a href="{{url('account/manage/')}}/'+data[m]['id']+'"  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-account-button">แก้ไข</a> </td>'
                                 +'<td> <button  identity="'+ data[m]['id']+'" type="button" class="btn red delete-account-button">ลบ</button></td>'
                                 +'</tr>'
                         );
@@ -417,7 +417,7 @@
                                     +'<td>'+ data[m]['name'] +'</td>'
                                     +'<td>'+ data[m]['surname'] +'</td>'
                                     +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn blue view-account-button">ดู</button> </td>'
-                                    +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-account-button">แก้ไข</button> </td>'
+                                    +'<td><a href="{{url('account/manage/')}}/'+data[m]['id']+'"  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-account-button">แก้ไข</a> </td>'
                                     +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn red delete-account-button">ลบ</button></td>'
                                     +'</tr>'
                             );
@@ -455,7 +455,7 @@
                                         +'<td>'+ data[m]['name'] +'</td>'
                                         +'<td>'+ data[m]['surname'] +'</td>'
                                         +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn blue view-account-button">ดู</button> </td>'
-                                        +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-account-button">แก้ไข</button> </td>'
+                                        +'<td><a href="{{url('account/manage/')}}/'+data[m]['id']+'"  identity="'+ data[m]['id']+'" type="button" class="btn yellow-crusta edit-account-button">แก้ไข</a> </td>'
                                         +'<td><button  identity="'+ data[m]['id']+'" type="button" class="btn red delete-account-button">ลบ</button></td>'
                                         +'</tr>'
                                 );

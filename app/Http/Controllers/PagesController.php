@@ -185,6 +185,12 @@ class PagesController extends Controller
         return $this->viewProfile();
     }
 
+    public function officerEditProfile(Request $request)
+    {
+        AccountController::edit($request);
+        return $this->editAccountPage($request->id);
+    }
+
     public function viewSchedule()
     {
         $doctor_id = Auth::User()->id;
