@@ -362,4 +362,84 @@ class ScheduleController extends Controller
                 }
         }
     }
+
+    public static function searchScheduleOfficer(Request $request) {
+        $date = explode("/", $request->date);
+        $date = join('-',array_reverse($date));
+        $today = date('Y-m-d');
+        $now = date('Hi');
+        if($date > $today){
+            $schedule = Schedule::where('date','>=',$date)
+                ->where(function ($query) use ($request) {
+                    if($request->doctor_id!="0")
+                        $query->where('doctor_id', $request->doctor_id);
+            })->where(function ($query) use ($request) {
+                $query->where('time',$request->isMorning)
+                    ->orWhere('time',$request->isAfternoon);
+            })->where('dept_id',$request->dept_id)
+                ->with(array(
+                    'user'=>function($query){
+                        $query->select('id','name','surname');
+                    },
+                    'department'
+                ))
+                ->take(10)->get()->toArray();
+            return self::sortArrayByDateTimeAttr($schedule);
+        }
+        elseif($date==$today){
+                if($now <= '1130'){
+                    $schedule = Schedule::where('date','>=',$date)
+                        ->where(function ($query) use ($request) {
+                            if($request->doctor_id!="0")
+                                $query->where('doctor_id', $request->doctor_id);
+                        })->where(function ($query) use ($request) {
+                            $query->where('time',$request->isMorning)
+                                ->orWhere('time',$request->isAfternoon);
+                        })->where('dept_id',$request->dept_id)
+                        ->with(array(
+                            'user'=>function($query){
+                                $query->select('id','name','surname');
+                            },
+                            'department'
+                        ))
+                        ->take(10)->get()->toArray();
+                    return self::sortArrayByDateTimeAttr($schedule);
+                }
+                if('1130' < $now && $now <= '1530'){
+                    $schedule = Schedule::where('date','>=',$date)
+                        ->where(function ($query) use ($request) {
+                            if($request->doctor_id!="0")
+                                $query->where('doctor_id', $request->doctor_id);
+                        })->where(function ($query) use ($request) {
+                            $query->where('time',$request->isAfternoon);
+                        })->where('dept_id',$request->dept_id)
+                        ->with(array(
+                            'user'=>function($query){
+                                $query->select('id','name','surname');
+                            },
+                            'department'
+                        ))
+                        ->take(10)->get()->toArray();
+                    return self::sortArrayByDateTimeAttr($schedule);
+                }
+                if($now > '1530'){
+                    $schedule = Schedule::where('date','>',$date)
+                        ->where(function ($query) use ($request) {
+                            if($request->doctor_id!="0")
+                                $query->where('doctor_id', $request->doctor_id);
+                        })->where(function ($query) use ($request) {
+                            $query->where('time',$request->isMorning)
+                            ->orWhere('time',$request->isAfternoon);
+                        })->where('dept_id',$request->dept_id)
+                        ->with(array(
+                            'user'=>function($query){
+                                $query->select('id','name','surname');
+                            },
+                            'department'
+                        ))
+                        ->take(10)->get()->toArray();
+                    return self::sortArrayByDateTimeAttr($schedule);
+                }
+        }
+    }
 }
