@@ -176,7 +176,7 @@
                 }
 
                 function formatUserSelection(user) {
-                    return (user.key==undefined ? user.key : user.key + "," + user.name+ " " + user.surname) || user.text;
+                    return (user.key==undefined ? user.key : user.name+ " " + user.surname) || user.text;
                 }
 
                 $(".js-data-example-ajax").select2({
