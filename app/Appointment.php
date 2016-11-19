@@ -16,7 +16,7 @@ class Appointment extends Model
 
     public function prescription()
     {
-        return $this->belongsToMany('App\Medicine', 'prescription', 'appointment_id', 'medicine_id');
+        return $this->belongsToMany('App\Medicine', 'prescription', 'appointment_id', 'medicine_id')->withPivot('amount', 'unit', 'note');
     }
 
     public function given_medicine()
