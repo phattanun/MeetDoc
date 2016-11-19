@@ -530,7 +530,7 @@
                                                     </div>
                                                     <div class="portlet-body">
                                                         <!-- BEGIN FORM -->
-                                                        <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                        <div id="medicine-search-row" class="form-body" style="padding-bottom: 0px; padding-top:10px;">
                                                             <div class="row">
                                                                 <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
                                                                     <span class="required" aria-required="true"> * </span>
@@ -1067,6 +1067,8 @@
                 $('#physical-form').show();
                 $('#diagnosis-form').hide();
                 $('#pharmacist-form').hide();
+
+                $('#medicine-search-row').show();
             }
             else if(step == 2){
                 $('#diagnosis-form-appointment-id').val(id);
@@ -1087,6 +1089,8 @@
                 $('#physical-form').show();
                 $('#diagnosis-form').show();
                 $('#pharmacist-form').hide();
+
+                $('#medicine-search-row').show();
 
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
@@ -1115,12 +1119,49 @@
                 $('#diagnosis-form').show();
                 $('#pharmacist-form').show();
 
+                $('#medicine-search-row').hide();
+
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_pharmacist'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_pharmacist'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_pharmacist'][id]['temperature']);
                 $("input[name~='heart_rate'].physical-form").val(allTableData['waiting_pharmacist'][id]['heart_rate']);
                 $("input[name~='systolic'].physical-form").val(allTableData['waiting_pharmacist'][id]['systolic']);
                 $("input[name~='diastolic'].physical-form").val(allTableData['waiting_pharmacist'][id]['diastolic']);
+
+                var $select = $('#disease_select2');
+                $select.empty();
+                $select.val('').trigger('change');
+                var $option;
+                for(var tmp in allTableData['waiting_pharmacist'][id]['disease']){
+                    console.log("disease => " + tmp);
+                    $option = $('<option selected>'+allTableData['waiting_pharmacist'][id]['disease'][tmp]['name']+'</option>').val(allTableData['waiting_pharmacist'][id]['disease'][tmp]['id']);
+                    $select.append($option);
+                }
+                $select.trigger('change');
+
+                $("textarea[name~='diagnosis_detail'].diagnosis-form").val(allTableData['waiting_pharmacist'][id]['diagnosis']);
+
+                var medicine_order = allTableData['waiting_pharmacist'][id]['medicine'];
+                var text_medicine, i=1;
+                for(var tmp in medicine_order){
+                    text_medicine +='<tr id="medicine-table-body-row-'+i+'" class="medicine-table-body-row" medicineId="'+medicine_order[tmp]['medicine_id']+'">'+
+                            '    <td id="medicine-table-body-no-'+i+'">'+i+'</td>'+
+                            '    <td>'+medicine_order[tmp]['medicine_id']+'</td>'+
+                            '    <td>'+medicine_order[tmp]['business_name']+'</td>'+
+                            '    <td class="form-group">'+medicine_order[tmp]['pivot']['amount']+'</td>'+
+                            '    <td class="form-group">'+medicine_order[tmp]['pivot']['unit']+'</td>'+
+                            '    <td></td>'+
+                            '</tr>';
+                    i++;
+                }
+                $('#medicine-row-empty').remove();
+                if(medicineNo==1){
+                    $('#medicine-table-body').append(text_medicine);
+                }
+                else{
+                    $("#medicine-table-body").append('<tr id="medicine-row-empty" class="medicine-table-body-row"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+                }
+
 
             }
 //            $('#tab_modal_3_button').click();
