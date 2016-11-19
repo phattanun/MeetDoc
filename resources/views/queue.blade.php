@@ -74,6 +74,27 @@
 @endsection
 
 @section('content')
+    <a class="btn blue btn-outline sbold" data-toggle="modal" href="#small"> View Demo </a>
+    <!-- /.modal -->
+    <div class="modal fade bs-modal-sm" id="small" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">นัดหมายเพิ่ม</h4>
+                </div>
+                <div class="modal-body"> ท่านต้องการทำการนัดหมายเพิ่มเติมหรือไม่ </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn dark btn-outline" data-dismiss="modal">ไม่</a>
+                    <a type="button" class="btn green" id="new-appointment" patientId="">ใช่</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
     <!-- /.modal -->
     <div class="modal fade bs-modal-lg" id="full" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -785,6 +806,15 @@
             maxboostedstep: 10
         });
 
+        $(document).on('click','#new-appointment', function(){
+            var patient_id = $(this).attr("patientId");
+            window.open(
+                '{{url('officer/appointment/new?patient_id=')}}'+patient_id,
+                '_blank'
+            );
+            $('#small').modal('hide');
+        });
+
         $(document).on('click','.close-modal', function(){
             $('#full').modal('hide');
         });
@@ -995,6 +1025,7 @@
                 $('#medicine-search-row').show();
 
                 $('#diagnosis-form-appointment-id').val(id);
+                $('#new-appointment').attr('patientId',patientId);
 
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
@@ -1455,6 +1486,7 @@
                     clearDiagnosisForm();
                     clearMedicineForm();
                     $('#full').modal('hide');
+                    $('#small').modal('show');
                     return true;
                 }
 
