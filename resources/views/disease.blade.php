@@ -93,22 +93,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="search-pagination text-right">
-                <ul class="pagination">
-                    <li class="page-active">
-                        <a href="javascriptt:;"> 1 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 2 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 3 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 4 </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
     <!-- END PROFILE CONTENT -->
@@ -150,22 +134,6 @@
                     @endforeach
                     </tbody>
                 </table>
-            </div>
-            <div class="search-pagination text-right">
-                <ul class="pagination">
-                    <li class="page-active">
-                        <a href="javascriptt:;"> 1 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 2 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 3 </a>
-                    </li>
-                    <li>
-                        <a href="javascriptt:;"> 4 </a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
