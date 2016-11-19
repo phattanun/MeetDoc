@@ -446,17 +446,26 @@ class AppointmentController extends Controller
 
     }
 
-//    public static function shiftDayAppointment($day)
-//    {
-//
-//    }
-//
-//    public static function shiftDateAppointment($date)
-//    {
-//        $shift_appointment =
-//    }
+    public static function shiftDayAppointment($day)
+    {
 
-    public static function availableDate($old_date)
+    }
+
+    public static function shiftDateAppointment($old_date)
+    {
+        $shift_appointments = Appointment::where('date', $old_date)->get();
+        foreach($shift_appointments as $shift_appointment)
+        {
+            $new_date = self::availableDate($old_date, $shift_appointment['doctor_id']);
+
+            $shift_appointment['date'] = $new_date['date'];
+            $shift_appointment['time'] = $new_date['time'];
+            $shift_appointment->save();
+        }
+
+    }
+
+    public static function availableDate($old_date, $doctor_id)
     {
         $dates = Appointment::where('date', '>', $old_date)->where('type', 'R')->groupBy('date')->get();
 
@@ -464,11 +473,11 @@ class AppointmentController extends Controller
 
         foreach($dates as $date)
         {
-            if(Appointment::where('date', $date['date'])->where('type', 'R')->groupBy('date')->count()>=1)
+            if(Appointment::where('date', $date['date'])->where('type', 'R')->groupBy('date')->count()>=15)
                 array_push($busy_dates, $date['date']);
         }
 
-        $available_dates = Schedule::where('date', '>', $old_date);
+        $available_dates = Schedule::where('date', '>', $old_date)->where('doctor_id', $doctor_id);
 
         foreach($busy_dates as $busy_date)
         {
