@@ -341,10 +341,12 @@ class AppointmentController extends Controller
 
     public static function search($keyword = null)
     {
-        if (true) {
+        if ($keyword != '') {
             $appointment_list = Appointment::where('id', 'like', ($keyword) . '%')->where('queue_status','uncheckedin')->get();
             foreach ($appointment_list as $appointment) {
-                $appointment['patient'] = $appointment->patient()->first();
+                $patient = $appointment->patient()->first();
+                $appointment['name'] = $patient['name'];
+                $appointment['surname'] = $patient['surname'];
                 $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
             }
         } else {
