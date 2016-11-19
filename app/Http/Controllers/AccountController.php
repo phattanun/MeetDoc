@@ -241,6 +241,17 @@ class AccountController extends Controller
         return $users;
     }
 
+    public static function getDoctorList($select = null, $filter = null) {
+        $users = isset($select) ? User::select($select) : User::select();
+        if(isset($filter))
+            foreach ($filter as $key => $value) {
+                $users = $users->orWhere($key , 'like', '%'.$value.'%');
+            }
+//            $users = $users->orWhere($filter);
+        $users = $users->where('p_doctor', 1)->get()->toArray();
+        return $users;
+    }
+
     public static function getProfile(Request $request) {
         try {
             $profile = User::findOrFail($request->id);

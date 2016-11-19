@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
@@ -74,6 +75,18 @@ class PagesController extends Controller
     public function tempAccount()
     {
         return view('account-temp');
+    }
+
+    public function viewOfficerAppointmentSearchDoctorPage()
+    {
+        return view('appointment-instead-searchDoctor')->with('appList', AppointmentController::getFutureAppointments(Auth::user()['id']));
+    }
+
+    public function apiGetDoctor(Request $request)
+    {
+        $res = AccountController::getDoctorList(['id', 'name', 'surname', 'ssn', 'image'], ['name'=>$request->q, 'surname'=>$request->q, 'ssn'=>$request->q]);
+        $res = self::tableToSearch($res, 'id');
+        return $res;
     }
 
     public function viewOfficerAppointmentSearchUserPage()
@@ -236,19 +249,32 @@ class PagesController extends Controller
         return view('doctorSchedule')->with(['weekly_schedule' => $weekly, 'daily_add_schedule' => $dailyAdd, 'daily_sub_schedule' => $dailySub]);
     }
 
+    public function insteadViewSchedule($id)
+    {
+        $doctor_id = $id;
+        $doctor = User::findOrFail($id);
+        $doctor_fullname = $doctor->name." ".$doctor->surname;
+        $weekly = ScheduleController::getWeeklySchedule($doctor_id);
+        $dailyAdd = ScheduleController::getDailySchedule($doctor_id, 'add');
+        $dailySub = ScheduleController::getDailySchedule($doctor_id, 'sub');
+        return view('doctorSchedule')->with(['weekly_schedule' => $weekly, 'daily_add_schedule' => $dailyAdd, 'daily_sub_schedule' => $dailySub, 'id' => $doctor_id, 'fullname' => $doctor_fullname]);
+    }
+
     public function addWeeklySchedule(Request $request)
     {
-        $request->doctor_id = Auth::User()->id;
+        if(!isset($request->doctor_id))
+            $request->doctor_id = Auth::User()->id;
         $res = ScheduleController::addWeeklySchedule($request);
-        return redirect('/doctor/schedule');
+        return Redirect::back();
     }
 
     public function addDailySchedule(Request $request)
     {
         $request->date = date('Y-m-d', strtotime($request->date));
-        $request->doctor_id = Auth::User()->id;
+        if(!isset($request->doctor_id))
+            $request->doctor_id = Auth::User()->id;
         $res = ScheduleController::addDailySchedule($request);
-        return redirect('/doctor/schedule');
+        return Redirect::back();
     }
 
     public function viewRecentAppointment()

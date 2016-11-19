@@ -1,15 +1,20 @@
 @extends('masterpage')
 
-@section('doctorScheduleNav')
-    active
-@endsection
+@if(isset($fullname))
+    @section('insteadDoctorEditNav') active @endsection
+@else
+    @section('doctorScheduleNav')    active @endsection
+@endif
+
 
 @section('title')
     แก้ไขตารางออกตรวจ
 @endsection
 
 @section('title-inside')
-    แก้ไขตารางออกตรวจ
+    @if(isset($fullname))<a href="{{url('officer/appointment/doctor/edit')}}">แก้ไขตารางออกตรวจ</a> / {{$fullname}}
+    @else แก้ไขตารางออกตรวจ
+    @endif
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -38,8 +43,9 @@
                     <div class="portlet-body">
                         <!-- BEGIN ADD FORM -->
                         <div class="portlet-body form">
-                            <form class="form-horizontal" role="form" action="./weekly" method="post">
+                            <form class="form-horizontal" role="form" action="{{url('doctor/weekly')}}" method="post">
                                 {{ csrf_field() }}
+                                @if(isset($id))<input name="doctor_id" type="hidden" value="{{$id}}">@endif
                                 <div class="form-body" style="padding-bottom: 0px;">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -119,8 +125,9 @@
                     <div class="portlet-body">
                         <!-- BEGIN ADD FORM -->
                         <div class="portlet-body form">
-                            <form class="form-horizontal" role="form" action="./daily?type=add" method="post">
+                            <form class="form-horizontal" role="form" action="{{url('doctor/daily?type=add')}}" method="post">
                                 {{ csrf_field() }}
+                                @if(isset($id))<input name="doctor_id" type="hidden" value="{{$id}}">@endif
                                 <div class="form-body" style="padding-bottom: 0px;">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -199,8 +206,9 @@
                     <div class="portlet-body">
                         <!-- BEGIN ADD FORM -->
                         <div class="portlet-body form">
-                            <form class="form-horizontal" role="form" action="./daily?type=sub" method="post">
+                            <form class="form-horizontal" role="form" action="{{url('doctor/daily?type=sub')}}" method="post">
                                 {{ csrf_field() }}
+                                @if(isset($id))<input name="doctor_id" type="hidden" value="{{$id}}">@endif
                                 <div class="form-body" style="padding-bottom: 0px;">
                                     <div class="row">
                                         <div class="col-md-3">
