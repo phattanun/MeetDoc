@@ -60,7 +60,7 @@ class MessageController extends Controller
 //        }
 //    }
 
-    public function send_sms($phone_number, $text)
+    private static function send_sms($phone_number, $text)
     {
 
 
@@ -224,18 +224,6 @@ class MessageController extends Controller
 
 //        dd($sending_text);
         self::send_sms($phone_number, $sending_text);
-    }
-
-    public function sms_tester()
-    {
-        self::send_account_sms('ปฏิพล', 'เจียมมั่นจิต', '1103701567376', 'www.google.com','0924587067', 'register');
-        self::send_account_sms('ปฏิพล', 'เจียมมั่นจิต', '1103701567376', 'www.google.com','0924587067', 'password');
-        self::send_account_sms('ปฏิพล', 'เจียมมั่นจิต', '1103701567376', 'www.google.com','0924587067', 'edit_profile');
-        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'create');
-        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'patient_edit');
-        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'cancel');
-        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'notify');
-        self::send_appointment_sms('ปฏิพล', 'เจียมมั่นจิต', '1', 'ดวงดาว', 'วิชาดากุล', 'หัวใจ', 'หัวใจกำเริบเลิฟ', '', 'www.google.com', '0924587067', 'doctor_edit');
     }
 
     private static function sendEmail($email, $subject, $message_html, $message_text) {
