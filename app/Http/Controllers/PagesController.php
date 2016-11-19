@@ -14,6 +14,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\ScheduleController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class PagesController extends Controller
@@ -154,7 +155,6 @@ class PagesController extends Controller
         };
         return view('auth/confirm')->with(['title' => 'ขอเปลี่ยนรหัสผ่านสำเร็จ', 'action' => 'ทำการเปลี่ยนรหัสผ่าน', 'link' => $res['link']]);
     }
-
     public function resetPassword(Request $request)
     {
         $res = AccountController::resetPassword($request);
@@ -162,7 +162,6 @@ class PagesController extends Controller
             return view('auth/confirm')->with(['title' => 'เปลี่ยนรหัสผ่านสำเร็จ']);
         return view('auth/failed')->with(['title' => 'เปลี่ยนรหัสไม่ผ่านสำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือใช้ระบบลืมรหัสผ่าน']);
     }
-
     public function register(Request $request)
     {
         $res = AccountController::register($request);
@@ -172,7 +171,6 @@ class PagesController extends Controller
         } else $request->flashExcept('id');
         return view('auth/register')->with('msg', 'หมายเลขบัตรประจำตัวประชาชนซ้ำ');
     }
-
     public function viewProfile()
     {
         $user = Auth::user();
@@ -183,6 +181,7 @@ class PagesController extends Controller
             'ssn' => $user->ssn,
             'name' => $user->name,
             'surname' => $user->surname,
+            'image' => $user->image,
             'gender' => $user->gender,
             'birthday' => $user->birthday,
             'address' => $user->address,
@@ -192,7 +191,6 @@ class PagesController extends Controller
             'medicine_list' => $medicine_list
         ]);
     }
-
     public function editProfile(Request $request)
     {
         $request->id = Auth::User()->id;
@@ -200,11 +198,20 @@ class PagesController extends Controller
         Auth::setUser($user);
         return $this->viewProfile();
     }
-
     public function officerEditProfile(Request $request)
     {
         AccountController::edit($request);
         return $this->editAccountPage($request->id);
+    }
+    public function editProfilePic(Request $request)
+    {
+        AccountController::editProfilePic($request);
+        return redirect('/profile');
+    }
+    public function officerEditProfilePic(Request $request)
+    {
+        AccountController::editProfilePic($request);
+        return redirect('/account/manage/'.$request->id);
     }
 
     public function viewSchedule()
@@ -386,6 +393,7 @@ class PagesController extends Controller
             'ssn' => $user->ssn,
             'name' => $user->name,
             'surname' => $user->surname,
+            'image' => $user->image,
             'gender' => $user->gender,
             'birthday' => $user->birthday,
             'address' => $user->address,

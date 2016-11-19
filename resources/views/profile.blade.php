@@ -32,7 +32,7 @@
                 <div class="portlet light profile-sidebar-portlet ">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
-                        <img src="{{url('/assets/pages/media/profile/profile_user.jpg')}}" class="img-responsive" alt=""> </div>
+                        <img src="{{$image}}" class="img-responsive" alt=""> </div>
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
@@ -143,23 +143,24 @@
                                     <!-- END PERSONAL INFO TAB -->
                                     <!-- CHANGE AVATAR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
-                                        <form action="#" role="form" action="{{ url('/profile/picupload') }}" method="post" enctype="multipart/form-data">
+                                        <form role="form" action="{{ url('/profile/picupload') }}" method="post" enctype="multipart/form-data">
                                             {{ csrf_field() }}
+                                            <input type="hidden" name="id" value="{{$_user['id']}}">
                                             <div class="form-group">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                        <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="" /> </div>
+                                                        <img src="{{$image}}" alt="" /> </div>
                                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                     <div>
                                                                         <span class="btn default btn-file">
                                                                             <span class="fileinput-new"> เลือกรูปภาพ </span>
                                                                             <span class="fileinput-exists"> เปลี่ยน </span>
-                                                                            <input type="file" name="picture"> </span>
+                                                                            <input type="file" name="image"> </span>
                                                         <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> ลบ </a>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix margin-top-10">
-                                                    <span class="label label-danger">หมายเหตุ </span>
+                                                    <span class="label label-danger">หมายเหตุ</span>
                                                     <span> การอัพโหลดรูปภาพสามารถใช้งานได้บน Firefox, Chrome, Opera, Safari รุ่นล่าสุด และ Internet Explorer 10 เท่านั้น </span>
                                                 </div>
                                             </div>

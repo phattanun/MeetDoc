@@ -247,6 +247,21 @@ class AccountController extends Controller
         }
         return $user;
     }
+    public static function editProfilePic(Request $request) {
+        $user = User::findOrFail($request->id);
+        try {
+            $imageData ="";
+            if($request->hasFile('image')) {
+                $imageData = 'data:'.$request->file('image')->getClientMimeType().';base64,'.base64_encode(file_get_contents($request->image));
+            }
+            $user['image']= $imageData;
+            $user->save();
+            return $imageData;
+        }
+        catch (\Exception $e) {
+            return false;
+        }
+    }
 
     // Bank's, please ask before editing the lines below
     public static function getDoctorByDepartment(Request $request) {
