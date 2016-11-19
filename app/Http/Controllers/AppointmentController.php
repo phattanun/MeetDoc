@@ -6,7 +6,6 @@ use App\Appointment;
 use App\AppointmentDisease;
 use App\Department;
 use App\Disease;
-use App\Department;
 use App\Prescription;
 use App\User;
 use Illuminate\Http\Request;
