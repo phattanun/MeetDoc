@@ -92,10 +92,25 @@ class PagesController extends Controller
 
     public function index()
     {
-        if (Session::get('_role') == 'Patient')
+        $user = Auth::user();
+        if (Session::get('_role') == 'Patient'){
             return self::appointmentFuturePage();
-        elseif (Session::get('_role') == 'Staff')
-            return self::viewRecentAppointment();
+        }
+        elseif (Session::get('_role') == 'Staff'){
+            if($user->p_doctor)
+                return self::viewRecentAppointment();
+            if($user->p_nurse)
+                return self::viewQueue();
+            if($user->p_pharm)
+                return self::viewQueue();
+            if($user->p_officer)
+                return self::patientCome();
+            if($user->p_admin)
+                return self::viewOfficerManage();
+        }
+        else {
+            return self::viewProfile();
+        }
     }
 
     public function viewLogin()
