@@ -217,7 +217,6 @@
                     window.location.replace('{{url('/officer/appointment/edit')}}/'+$("#select-user").val());
                 }
             });
-
         })
     </script>
 @endsection
