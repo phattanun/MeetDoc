@@ -169,7 +169,7 @@ class PagesController extends Controller
             MessageController::sendRegister($res);
             return view('auth/confirm')->with(['title' => 'ขอลงทะเบียนสำเร็จ', 'action' => 'ยืนยันการลงทะเบียน', 'link' => $res['link']]);
         } else $request->flashExcept('id');
-        return view('auth/register')->with('msg', 'รหัสบัตรประจำตัวประชาชนซ้ำ');
+        return view('auth/register')->with('msg', 'หมายเลขบัตรประจำตัวประชาชนซ้ำ');
     }
 
     public function viewProfile()
