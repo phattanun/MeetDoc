@@ -24,7 +24,6 @@
 @endsection
 
 @section('content')
-    <a class="btn blue btn-outline sbold" data-toggle="modal" href="#removeModal"> View Demo </a>
     <!-- BEGIN NORMAL SCHEDULE -->
     <div class="normal-content">
         <div class="row">
