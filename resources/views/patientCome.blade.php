@@ -88,6 +88,7 @@
 @endsection
 
 @section('pageLevelScripts')
+    @include('js.components-select2-appointment')
     <script>
         var ComponentsSelect2 = function() {
 

@@ -103,12 +103,7 @@ class AppointmentController extends Controller
             ->where('date', '>=', $now)
             ->where('appointment.patient_id', $patient_id)
             ->where('appointment.queue_status', "uncheckedin")
-            ->where('appointment.queue_status', '!=' ,"complete")
             ->where('appointment.approve', 1)
-//            ->where(function ($query) {
-//                $query->where('time','M')
-//
-//            })
             ->orderBy('date', 'ASC')
             ->get();
         return $apps;
@@ -121,7 +116,15 @@ class AppointmentController extends Controller
         $apps = DB::table('appointment')
             ->join('user', 'user.id', '=', 'appointment.doctor_id')
             ->join('dept', 'dept.id', '=', 'appointment.dept_id')
-            ->select('appointment.id as app_id', 'appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')->where('date', '<', $now)->where('appointment.patient_id', $patient_id)->orderBy('date', 'ASC')->get();
+            ->select('appointment.id as app_id', 'appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'appointment.symptom')
+            ->where('appointment.approve', 1)
+            ->where(function ($query) use ($now) {
+                $query->where('date', '<', $now)
+                ->orWhere('appointment.queue_status',"!=","uncheckedin");
+            })
+            ->where('appointment.patient_id', $patient_id)
+            ->orderBy('date', 'ASC')
+            ->get();
         return $apps;
     }
 

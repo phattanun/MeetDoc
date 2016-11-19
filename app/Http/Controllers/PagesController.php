@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,9 +63,13 @@ class PagesController extends Controller
         return $res;
     }
 
-    public function viewOfficerNewAppointmentPage()
+    public function viewOfficerNewAppointmentPage(Request $request)
     {
-        return view('appointment-instead-new')->with('departments', DepartmentController::getAllDepartment());
+        $patient_id = $request->patient_id;
+        $patient = User::where('id', $patient_id)->first();
+        $name = $patient['name'];
+        $surname = $patient['surname'];
+        return view('appointment-instead-new',compact(['patient_id','name','surname']))->with('departments', DepartmentController::getAllDepartment());
     }
     public function tempAccount()
     {

@@ -75,6 +75,26 @@
 
 @section('content')
     <!-- /.modal -->
+    <div class="modal fade bs-modal-sm" id="small" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">นัดหมายเพิ่ม</h4>
+                </div>
+                <div class="modal-body"> ท่านต้องการทำการนัดหมายเพิ่มเติมหรือไม่ </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn dark btn-outline" data-dismiss="modal">ไม่</a>
+                    <a type="button" class="btn green" id="new-appointment" patientId="">ใช่</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- /.modal -->
     <div class="modal fade bs-modal-lg" id="full" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -185,10 +205,12 @@
                                                                             <select id="drugAllergy_select2" class="form-control js-data-drugAllergy-ajax profile-form" name="drugAllergy[]" multiple>
                                                                             </select>
                                                                         </div>
+                                                                        @if($_user['p_doctor']==1 || $_user['p_pharm']==1)
                                                                         <div class="margiv-top-10">
                                                                             <button id="profile-form-submit-button" type="submit" class="btn green"> บันทึกการแก้ไข </button>
                                                                             <a class="btn default close-modal"> ยกเลิก </a>
                                                                         </div>
+                                                                        @endif
                                                                     </form>
                                                                 </div>
                                                                 <!-- END PERSONAL INFO TAB -->
@@ -486,7 +508,7 @@
                                                                         <div class="col-md-12">
                                                                             <label class="control-label">โรคที่วินิจฉัยได้</label>
                                                                             <div class="input-group input-group select2-bootstrap-append">
-                                                                                <select id="disease_select2" class="form-control js-data-disease-ajax diagnosis-form" name="disease_select2[]" multiple required>
+                                                                                <select id="disease_select2" class="form-control js-data-disease-ajax diagnosis-form" name="disease_select2[]" multiple>
                                                                                     <!--option value="0" selected="selected">กรุณาระบุโรค</option-->
                                                                                 </select>
                                                                             </div>
@@ -522,7 +544,6 @@
                                                         <div id="medicine-search-row" class="form-body" style="padding-bottom: 0px; padding-top:10px;">
                                                             <div class="row">
                                                                 <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
-                                                                    <span class="required" aria-required="true"> * </span>
                                                                 </label>
                                                                 <div class="col-md-7 margin-bottom-10">
                                                                     <div class="input-group select2-bootstrap-prepend">
@@ -740,6 +761,7 @@
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/physical-form-validation.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/diagnosis-form-validation.js')}}" type="text/javascript"></script>
+    @include('js.components-select2-diagnosis')
     <script>
         var ComponentsSelect2 = function() {
 
@@ -994,6 +1016,15 @@
             maxboostedstep: 10
         });
 
+        $(document).on('click','#new-appointment', function(){
+            var patient_id = $(this).attr("patientId");
+            window.open(
+                '{{url('officer/appointment/new?patient_id=')}}'+patient_id,
+                '_blank'
+            );
+            $('#small').modal('hide');
+        });
+
         $(document).on('click','.close-modal', function(){
             $('#full').modal('hide');
         });
@@ -1204,6 +1235,7 @@
                 $('#medicine-search-row').show();
 
                 $('#diagnosis-form-appointment-id').val(id);
+                $('#new-appointment').attr('patientId',patientId);
 
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
@@ -1664,6 +1696,7 @@
                     clearDiagnosisForm();
                     clearMedicineForm();
                     $('#full').modal('hide');
+                    $('#small').modal('show');
                     return true;
                 }
 

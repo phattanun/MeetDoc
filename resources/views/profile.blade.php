@@ -32,7 +32,7 @@
                 <div class="portlet light profile-sidebar-portlet ">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
-                        <img src="{{$image}}" class="img-responsive" alt=""> </div>
+                        <img src="@if($image==""){{url('\assets\pages\img\avatars\placeholder.jpg')}}@else{{$image}}@endif" class="img-responsive" alt=""> </div>
                     <!-- END SIDEBAR USERPIC -->
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
@@ -149,7 +149,7 @@
                                             <div class="form-group">
                                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                                     <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                        <img src="{{$image}}" alt="" /> </div>
+                                                        <img src="@if($image==""){{url('\assets\pages\img\avatars\placeholder.jpg')}}@else{{$image}}@endif" alt="" /> </div>
                                                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                     <div>
                                                                         <span class="btn default btn-file">

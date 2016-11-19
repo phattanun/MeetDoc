@@ -1,6 +1,6 @@
 @extends('masterpage')
 
-@section('futureAppNav')
+@section('insteadEditNav')
     active
 @endsection
 
