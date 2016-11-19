@@ -9,7 +9,7 @@
 @endsection
 
 @section('title-inside')
-    นัดหมายแทนผู้ป่วย
+    นัดหมายแทนผู้ป่วย {{$name}} {{$surname}}
 @endsection
 
 @section('pageLevelPluginsCSS')
@@ -32,7 +32,7 @@
 @endsection
 
 @section('content')
-    <!-- END PAGE HEADER-->{{$patient_id}}{{$name}}{{$surname}}
+    <!-- END PAGE HEADER-->
                         <div class="portlet light ">
                             <div class="portlet-title">
                                 <div class="caption caption-md">
