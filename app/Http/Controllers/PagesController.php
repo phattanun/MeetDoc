@@ -57,6 +57,7 @@ class PagesController extends Controller
     {
         $res = AppointmentController::search($request->q);
         $res = self::tableToSearch($res, 'id');
+//        dd($res);
         return $res;
     }
 

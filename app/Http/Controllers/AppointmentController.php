@@ -353,5 +353,33 @@ class AppointmentController extends Controller
             $appointment_list = [];
         }
         return $appointment_list;
+
+        //        $tmp = [];
+//        $tmp['total_count'] = 3;
+//        $tmp['incomplete_result'] = true;
+//        $tmp['items'] = [];
+//        $tmp['items'][0] = [
+//            'avatar_url' => 'www.ssfsdm',
+//            'name' => 'Hello444',
+//            'surname' => 'World',
+//            'department' => 'eye',
+//            'time' => 'morning',
+//            "created_at"=> "2014-09-18T16:12:01Z",
+//            "private"=> false,
+//            "id"=> 4444,
+//            "html_url"=> "",
+//        ];
+//        $tmp['items'][1] = [
+//            'avatar_url' => 'www.ssfsdm',
+//            'name' => 'Hello216546',
+//            'surname' => 'World',
+//            'department' => 'eye',
+//            'time' => 'morning',
+//            "created_at"=> "2014-09-18T16:12:01Z",
+//            "private"=> false,
+//            "id"=> 24195339,
+//            "html_url"=> "",
+//        ];
+
     }
 }
