@@ -336,4 +336,23 @@ class PagesController extends Controller
     {
         return view('disease')->with(['diseaseList' => DiseaseController::get_disease_list()]);
     }
+    public function editAccountPage($id)
+    {
+        $user = User::findOrFail($id);
+        $allergic_medicine = DiagnosisController::get_allergic_medicine($user);
+        $medicine_list = MedicineController::get_medicine_list();
+        return view('profile-edit')->with([
+            'hid' => $user->id,
+            'ssn' => $user->ssn,
+            'name' => $user->name,
+            'surname' => $user->surname,
+            'gender' => $user->gender,
+            'birthday' => $user->birthday,
+            'address' => $user->address,
+            'email' => $user->email,
+            'phone_no' => $user->phone_no,
+            'allergic_medicine' => $allergic_medicine,
+            'medicine_list' => $medicine_list
+        ]);
+    }
 }
