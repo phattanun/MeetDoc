@@ -245,6 +245,9 @@ class AccountController extends Controller
         try {
             $profile = User::findOrFail($request->id);
             $profile['allergic_medicine'] = $profile->allergic_medicine()->get();
+            foreach($profile['allergic_medicine'] as $tmp){
+                $tmp['fullname'] = $tmp['business_name'] . " (" . $tmp['medicine_name'] . ")";
+            }
             return $profile;
         }
         catch (\Exception $e) {

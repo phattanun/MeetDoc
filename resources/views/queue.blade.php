@@ -1039,7 +1039,7 @@
                 var $option;
                 for(var tmp in input['allergic_medicine']){
                     console.log("allergic_medicine_array => " + tmp);
-                    $option = $('<option selected>'+input['allergic_medicine'][tmp]['medicine_name']+'</option>').val(input['allergic_medicine'][tmp]['medicine_id']);
+                    $option = $('<option selected>'+input['allergic_medicine'][tmp]['fullname']+'</option>').val(input['allergic_medicine'][tmp]['medicine_id']);
                     $select.append($option);
                 }
                 $select.trigger('change');
