@@ -8,6 +8,7 @@ use App\DateDim;
 use App\Schedule;
 use App\WeeklySchedule;
 use App\DailySchedule;
+use App\User;
 
 class ScheduleController extends Controller
 {
@@ -161,7 +162,7 @@ class ScheduleController extends Controller
 
     public static function getWeeklySchedule($doctor_id) {
         try {
-            $weekly_schedule = WeeklySchedule::where('doctor_id', $doctor_id)->get()->toArray();
+            $weekly_schedule = WeeklySchedule::select(['doctor_id','day','time'])->where('doctor_id', $doctor_id)->get()->toArray();
             $weekly_schedule = self::sortArrayByDayTimeAttr($weekly_schedule);
         }
         catch (\Exception $e) {
@@ -172,29 +173,25 @@ class ScheduleController extends Controller
     }
 
     public static function addWeeklySchedule(Request $request) {
-        // echo "<h2>Request Updating Normal-Schedule</h2>";
-        // var_dump($request->all());
         try {
             $record = WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->first();
+
+            $doctor = User::findOrfail($request->doctor_id);
             if($record != null) {
-                // echo "<h2>Update Normal-Schedule</h2>";
-                WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->update(['dept_id' => $request->dept_id]);
+                WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->day)->where('time', $request->time)->update(['dept_id' => $doctor->dept_id]);
             }
             else {
-                // echo "<h2>Add New Normal-Schedule</h2>";
                 $new_ws = new WeeklySchedule;
                 $new_ws->doctor_id = $request->doctor_id;
                 $new_ws->day = $request->day;
                 $new_ws->time = $request->time;
-                $new_ws->dept_id = $request->dept_id;
+                $new_ws->dept_id = $doctor->dept_id;
                 $new_ws->save();
             }
         }
         catch (\Exception $e) {
-            // echo "<h2>Error: ".$e->getMessage()."</h2>";
             return $e->getMessage();
         }
-        // $this->getWeeklySchedule();
         return true;
     }
 
@@ -236,7 +233,7 @@ class ScheduleController extends Controller
 
     public static function getDailySchedule($doctor_id, $type) {
         try {
-            $schedule_daily = DailySchedule::where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
+            $schedule_daily = DailySchedule::select(['doctor_id','day','time'])->where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
             $schedule_daily = self::sortArrayByDateTimeAttr($schedule_daily);
             return self::printTable($schedule_daily, $type);
         }
@@ -253,19 +250,19 @@ class ScheduleController extends Controller
             if($request->type == "add" && $request->dept_id == "")
                 throw new \Exception("No Attend Department", 1);
 
+            $doctor = User::findOrfail($request->doctor_id);
             $record = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->first();
             if($record != null) {
                 // echo "<h2>Update Special-Schedule</h2>";
-                DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->update(['type' => $request->type, 'dept_id' => $request->dept_id]);
+                DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->update(['type' => $request->type, 'dept_id' => $doctor->dept_id]);
             }
             else {
-                // echo "<h2>Add New Special-Schedule</h2>";
                 $new_ds = new DailySchedule;
                 $new_ds->doctor_id = $request->doctor_id;
                 $new_ds->date = $request->date;
                 $new_ds->time = $request->time;
                 $new_ds->type = $request->type;
-                $new_ds->dept_id = $request->dept_id;
+                $new_ds->dept_id = $doctor->dept_id;
                 $new_ds->save();
             }
         }
