@@ -242,7 +242,9 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn green" id="confirm-app-btn">ยืนยัน</button>
+            <button type="submit" id="confirm-app-btn" class="btn green mt-ladda-btn ladda-button" data-style="expand-right">
+                <span class="ladda-label">ยืนยัน</span>
+                <span class="ladda-spinner"></span><div class="ladda-progress" style="width: 0px;"></div></button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
     </div>
@@ -503,7 +505,10 @@
                 $('#confirm_time_original').val($(this).attr('time'));
                 $('#confirmAppModal').modal();
             });
-            $('#confirm-app-btn').click(function () {
+            $('#confirm-app-btn').click(function (e) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
                 $.post('{{url('/officer/appointment/new')}}',
                         {patient_id: $("#select-user").val(),date:   $('#confirm_date_original').val(), time:  $('#confirm_time_original').val(), symptom:   $('#confirm_symptom').val(), doctor_id:  $('#confirm_doctor_id').val(),dept_id: $('#confirm_department_id').val(), _token: '{{csrf_token()}}'}).done(function (input) {
                     if(input=='success'){
@@ -513,11 +518,11 @@
                     else if(input=='duplicate') {
                         toastr['warning']("ผู้ป่วยมีนัดแล้วในวันและช่วงเวลานี้", "ขออภัย");
                     }
-
+                    l.stop();
                 }).fail(function () {
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
                 });
-
             });
         });
     </script>
