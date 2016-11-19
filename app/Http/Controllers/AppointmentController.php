@@ -6,7 +6,9 @@ use App\Appointment;
 use App\AppointmentDisease;
 use App\Department;
 use App\Disease;
+use App\Department;
 use App\Prescription;
+use App\User;
 use Illuminate\Http\Request;
 
 use DB;
@@ -147,10 +149,14 @@ class AppointmentController extends Controller
         self::printTable($apps);
     }
 
+    private static function generateApproveCreateLink($date, $time, $symptom, $created_at, $approve) {
+        return hash('ripemd256', 'APpROveAppoINTmeNt'.$date.'WhEn'.$time.'why'.$symptom.'CrEATeAT'.$created_at.'AppWITHnot'.$approve.'isCoNFiRmed');
+    }
 
     public static function create(Request $request)
     {
-//        var_dump($request->all());
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d H:i:s');
         try {
             $validate = Appointment::where('patient_id', $request->patient_id)
                 ->where('date', $request->date)
@@ -169,13 +175,68 @@ class AppointmentController extends Controller
             $ap->patient_id = $request->patient_id;
             $ap->doctor_id = $request->doctor_id;
             $ap->dept_id = $request->dept_id;
+            $ap->created_at = $now;
             $ap->save();
 
         } catch (\Exception $e) {
             echo "<h2>Error: " . $e->getMessage() . "</h2>";
         }
+        $patient = User::findOrFail($ap->patient_id);
+        $doctor = User::findOrFail($ap->doctor_id);
+        $day = explode('-', $ap->date)[2];
+        $im = explode('-', $ap->date)[1];
+        $year = explode('-', $ap->date)[0];
+        $month = [
+            "1" => "มกราคม",
+            "2" => "กุมภาพันธ์",
+            "3" => "มีนาคม",
+            "4" => "เมษายน",
+            "5" => "พฤษภาคม",
+            "6" => "มิถุนายน",
+            "7" => "กรกฎาคม",
+            "8" => "สิงหาคม",
+            "9" => "กันยายน",
+            "10" => "ตุลาคม",
+            "11" => "พฤษจิกายน",
+            "12" => "ธันวาคม",
+        ];
+        $dept = Department::findOrFail($ap->dept_id)->name;
+        MessageController::sendCreateAppoinment([
+                "app_id" => $ap->id,
+                "p_name" => $patient->name,
+                "p_surname" => $patient->surname,
+                "d_name" => $doctor->name,
+                "d_surname" => $doctor->surname,
+                "symptom" => $ap->symptom,
+                "dept" => $dept,
+                "date" => "วันที่ ".$day." เดือน ".$month[$im]." ปีค.ศ. ".$year,
+                "time" => "ช่วงเวลา ".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+                "email" => $patient->email,
+                "link" => "./appointment/approve/create?id=".$ap->id."&cca=".self::generateApproveCreateLink($ap->date, $ap->time, $ap->symptom, $ap->created_at,0)
+        ]);
         return 'success';
-//        self::getAppointmentList();
+    }
+
+    public static function confirmCreateAppointment(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = new \DateTime('NOW');
+        try {
+            $ap = Appointment::findOrFail($request->id);
+            if($request->cca == self::generateApproveCreateLink($ap->date, $ap->time, $ap->symptom, $ap->created_at, $ap->approve)) {
+                $confirm_time = new \DateTime($ap->created_at);
+                if(($now->getTimeStamp() - $confirm_time->getTimeStamp())/3600 < 24) {
+                    $ap->approve = true;
+                    $ap->save();
+                }
+                else throw new \Exception("Too late", 1);
+            }
+            else throw new \Exception("Wrong key", 1);
+        }
+        catch (\Exception $e) {
+            // echo "<h2>Error: ".$e->getMessage()."</h2>";
+            return ["status" => false, "msg" => $e->getMessage()];
+        }
+        return ["status" => true];
     }
 
     public static function edit(Request $request)
@@ -219,45 +280,64 @@ class AppointmentController extends Controller
             $ap = Appointment::findOrFail($request->id);
             $ap->cancel_time = $now;
             $ap->save();
-//            echo "Approve Link: <a href='./cancelApprove?aid=".$ap->id."&apv=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)."'>here</a>";
-            return 'success';
-        } catch (\Exception $e) {
-//            echo "<h2>Error: ".$e->getMessage()."</h2>";
-            return 'fail';
-        }
-//        self::getAppointmentList();
-    }
 
-    public static function officerCancel(Request $request)
-    {
-        date_default_timezone_set('Asia/Bangkok');
-        $now = date('Y-m-d H:i:s');
-        try {
-            Appointment::findOrFail($request->id)->delete();
-            return 'success';
         } catch (\Exception $e) {
             return 'fail';
         }
+        $patient = User::findOrFail($ap->patient_id);
+        $doctor = User::findOrFail($ap->doctor_id);
+        $day = explode('-', $ap->date)[2];
+        $im = explode('-', $ap->date)[1];
+        $year = explode('-', $ap->date)[0];
+        $month = [
+            "1" => "มกราคม",
+            "2" => "กุมภาพันธ์",
+            "3" => "มีนาคม",
+            "4" => "เมษายน",
+            "5" => "พฤษภาคม",
+            "6" => "มิถุนายน",
+            "7" => "กรกฎาคม",
+            "8" => "สิงหาคม",
+            "9" => "กันยายน",
+            "10" => "ตุลาคม",
+            "11" => "พฤษจิกายน",
+            "12" => "ธันวาคม",
+        ];
+        $dept = Department::findOrFail($ap->dept_id)->name;
+        MessageController::sendCancelAppoinment([
+                "app_id" => $ap->id,
+                "p_name" => $patient->name,
+                "p_surname" => $patient->surname,
+                "d_name" => $doctor->name,
+                "d_surname" => $doctor->surname,
+                "symptom" => $ap->symptom,
+                "dept" => $dept,
+                "date" => "วันที่ ".$day." เดือน ".$month[$im]." ปีค.ศ. ".$year,
+                "time" => "ช่วงเวลา ".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+                "email" => $patient->email,
+                "link" => "./appointment/approve/cancel?id=".$ap->id."&cac=".self::generateCancelLink($ap->doctor_id, $ap->patient_id, $now)
+        ]);
+        return 'success';
     }
 
-    public static function cancelApprove(Request $request)
+    public static function confirmCancelAppointment(Request $request)
     {
         date_default_timezone_set('Asia/Bangkok');
         $now = new \DateTime('NOW');
-        var_dump($request->all());
         try {
-            $ap = Appointment::findOrFail($request->aid);
-            if ($request->apv == self::generateCancelLink($ap->doctor_id, $ap->patient_id, $ap->cancel_time)) {
+            $ap = Appointment::findOrFail($request->id);
+            if ($request->cac == self::generateCancelLink($ap->doctor_id, $ap->patient_id, $ap->cancel_time)) {
                 $cancel_time = new \DateTime($ap->cancel_time);
-                if (($now->getTimeStamp() - $cancel_time->getTimeStamp()) / 3600 < 24)
+                if (($now->getTimeStamp() - $cancel_time->getTimeStamp()) / 3600 < 24) {
                     $ap->delete();
-                else throw new \Exception("Too late for cancelling", 1);
-                echo "<h2>Canceling Approved</h2>";
+                }
+                else throw new \Exception("Too late", 1);
             }
+            else throw new \Exception("Wrong key", 1);
         } catch (\Exception $e) {
-            echo "<h2>Error: " . $e->getMessage() . "</h2>";
+            return ["status" => false, "msg" => $e->getMessage()];
         }
-        self::getAppointmentList();
+        return ["status" => true];
     }
 
     public static function search($keyword = null)
