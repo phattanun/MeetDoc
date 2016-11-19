@@ -47,7 +47,7 @@
                 <ul class="nav navbar-nav pull-right">
                     <li class="dropdown dropdown-user">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <img alt="" class="img-circle" src="{{$_user['image']}}" />
+                            <img alt="" class="img-circle" src="@if($_user['image']==""){{url('\assets\pages\img\avatars\placeholder.jpg')}}@else{{$_user['image']}}@endif" />
                                 <span class="username username-hide-on-mobile"> {{ $_user->name }} @if($_user->staff) @if($_user->role=='Patient')(ผู้ป่วย)@elseif($_user->role=='Staff')(บุคลากร)@endif @endif</span>
                             @if($_user->staff)
                                 <i class="fa fa-angle-down"></i>
