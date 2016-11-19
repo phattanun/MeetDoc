@@ -544,7 +544,6 @@
                                                         <div id="medicine-search-row" class="form-body" style="padding-bottom: 0px; padding-top:10px;">
                                                             <div class="row">
                                                                 <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
-                                                                    <span class="required" aria-required="true"> * </span>
                                                                 </label>
                                                                 <div class="col-md-7 margin-bottom-10">
                                                                     <div class="input-group select2-bootstrap-prepend">
