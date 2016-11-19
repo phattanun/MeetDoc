@@ -114,7 +114,7 @@ var ComponentsSelect2 = function() {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        function formatRepoMedicine(repo) {
+        function formatRepoDrugAllergy(repo) {
             if (repo.loading) return repo.text;
             var markup = "<div class='select2-result-repository clearfix'>" +
                 "<div class='select2-result-repository__title'>" + repo.medicine_name + "</div></div>";
@@ -122,7 +122,7 @@ var ComponentsSelect2 = function() {
             return markup;
         }
 
-        function formatRepoSelectionMedicine(repo) {
+        function formatRepoSelectionDrugAllergy(repo) {
             return repo.medicine_name || repo.text;
         }
 
@@ -153,8 +153,8 @@ var ComponentsSelect2 = function() {
                 return markup;
             }, // let our custom formatter work
             minimumInputLength: 1,
-            templateResult: formatRepoMedicine,
-            templateSelection: formatRepoSelectionMedicine
+            templateResult: formatRepoDrugAllergy,
+            templateSelection: formatRepoSelectionDrugAllergy
         });
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
