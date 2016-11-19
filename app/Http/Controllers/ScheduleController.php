@@ -35,12 +35,15 @@ class ScheduleController extends Controller
                 switch($key) {
                     case 'doctor_id':
                         $value = $i;
+                        $doctorId = $value;
                         break;
                     case 'day':
                         $value = $dayDict[$value];
+                        $doctorDate = $value;
                         break;
                     case 'time':
                         $value = $timeDict[$value];
+                        $doctorTime = $value;
                         break;
                     case 'date':
                         $value = date('d-m-Y', strtotime($value));
@@ -50,7 +53,7 @@ class ScheduleController extends Controller
                 $re .= "<td>".$value."</td>";
             }
             $i++;
-            $re .= '<td><a href="javascript:;" class="btn red"> ลบ <i class="fa fa-trash"></i></a></td></tr>';
+            $re .= '<td><a class="btn red remove-button" doctorId="'.$doctorId.'" date="'.$doctorDate.'" time="'.$doctorTime.'"> ลบ <i class="fa fa-trash"></i></a></td></tr>';
         }
         $re .= "</table><br>";
         return $re;

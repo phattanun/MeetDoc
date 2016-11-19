@@ -91,7 +91,7 @@
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php echo $weekly_schedule ?> </tbody>
+                                    <tbody id="weekly-table-body"> <?php echo $weekly_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -171,7 +171,7 @@
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php echo $daily_add_schedule ?> </tbody>
+                                    <tbody id="daily-table-body"> <?php echo $daily_add_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -251,7 +251,7 @@
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php echo $daily_sub_schedule ?> </tbody>
+                                    <tbody id="daily-sub-table-body"> <?php echo $daily_sub_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -272,5 +272,49 @@
 @section('pageLevelScripts')
     <script>
         $('.date-picker').datepicker();
+        $(document).ready(function(){
+            $('#weekly-table-body .remove-button ').addClass("weekly-remove-button");
+            $('#daily-table-body .remove-button ').addClass("daily-remove-button");
+            $('#daily-sub-table-body .remove-button ').addClass("daily-sub-remove-button");
+        });
+
+        $(document).on('click','.weekly-remove-button', function(){
+            var doctorId = $(this).attr("doctorID");
+            var date = $(this).attr("date");
+            var time = $(this).attr("time");
+            console.log("weekly-remove " + doctorId + " " + date + " " + time);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/doctor/weekly/delete',
+                    {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+//                console.log(input);
+            }).fail(function () {
+            });
+        });
+
+        $(document).on('click','.daily-remove-button', function(){
+            var doctorId = $(this).attr("doctorID");
+            var date = $(this).attr("date");
+            var time = $(this).attr("time");
+            console.log("daily-remove " + doctorId + " " + date + " " + time);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/doctor/daily/delete',
+                    {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+//                console.log(input);
+            }).fail(function () {
+            });
+        });
+
+        $(document).on('click','.daily-sub-remove-button', function(){
+            var doctorId = $(this).attr("doctorID");
+            var date = $(this).attr("date");
+            var time = $(this).attr("time");
+            console.log("daily-sub-remove " + doctorId + " " + date + " " + time);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/doctor/daily/delete',
+                    {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+//                console.log(input);
+            }).fail(function () {
+            });
+        });
     </script>
 @endsection

@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/doctor/schedule', 'PagesController@viewSchedule');
     Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
+    Route::post('/doctor/weekly/delete', 'ScheduleController@deleteWeeklySchedule');
+    Route::post('/doctor/daily/delete', 'ScheduleController@deleteDailySchedule');
     Route::post('/officer/profile', 'PagesController@officerEditProfile');
     Route::get('/officer/manage', 'PagesController@viewOfficerManage');
     Route::get('/officer/appointment/new', 'PagesController@viewOfficerNewAppointmentPage');
