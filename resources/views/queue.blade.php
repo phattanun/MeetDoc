@@ -178,6 +178,8 @@
                                                                             <div id="phone_no" class="form-control form-control-static"> 0855555555 </div>
                                                                             <label class="control-label">หมายเลขโทรศัพท์เคลื่อนที่</label>
                                                                         </div>
+                                                                        {{csrf_field()}}
+                                                                        <input id="profile-form-patient-id" name="id" class="profile-form" type="hidden" required>
                                                                         <div class="form-group">
                                                                             <label class="control-label">ประวัติการแพ้ยา</label>
                                                                             <!--select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
@@ -892,6 +894,8 @@
             var id = $(this).attr('patientId');
             var appId = $(this).attr('appointmentId');
             var step = $(this).attr('step');
+            $('#profile-form-patient-id').val(id);
+
             $('#tab_modal_1_button').attr('patientId',id);
             $('#tab_modal_2_button').attr('patientId',id);
             $('#tab_modal_3_button').attr('appointmentId',appId);
@@ -922,12 +926,15 @@
                 $("#phone_no").text(input['phone_no']);
 
                 var $select = $('#drugAllergy_select2');
+                $select.empty();
                 $select.val('').trigger('change');
                 var $option;
                 for(var tmp in input['allergic_medicine']){
+                    console.log("allergic_medicine_array => " + tmp);
                     $option = $('<option selected>'+input['allergic_medicine'][tmp]['medicine_name']+'</option>').val(input['allergic_medicine'][tmp]['medicine_id']);
+                    $select.append($option);
                 }
-                $select.append($option).trigger('change');
+                $select.trigger('change');
 
 //            $('#tab_modal_1_button').click();
                 $('.nav-tabs li:eq(0) a').tab('show');
