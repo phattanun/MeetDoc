@@ -55,17 +55,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า (9.00 - 11.30 น.)
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย (13.00 - 15.30 น.)
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -135,17 +135,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า (9.00 - 11.30 น.)
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย (13.00 - 15.30 น.)
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -215,17 +215,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า (9.00 - 11.30 น.)
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย (13.00 - 15.30 น.)
                                                                 <span></span>
                                                             </label>
                                                         </div>
