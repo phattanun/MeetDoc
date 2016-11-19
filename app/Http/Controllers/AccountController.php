@@ -312,6 +312,7 @@ class AccountController extends Controller
     }
 
     public static function edit(Request $request) {
+        $request->birthday = join('-', array_reverse(explode('/',$request->birthday)));
         date_default_timezone_set('Asia/Bangkok');
         $now = new \DateTime('NOW');
         try {
