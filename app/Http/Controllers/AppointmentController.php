@@ -87,7 +87,7 @@ class AppointmentController extends Controller
             ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom');
         if (isset($filter))
             $apps = $apps->where($filter);
-        $apps = $apps->where('date', '>=', $now)->orderBy('date', 'ASC')->get();
+        $apps = $apps->where('date', '>=', $now)->where('queue_status', '<>', 'waiting_pharmacist')->where('queue_status', '<>', 'complete')->orderBy('date', 'ASC')->get();
         return self::recentAppointmentTable($apps);
     }
 
