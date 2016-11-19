@@ -208,8 +208,8 @@ class AppointmentController extends Controller
                 "d_surname" => $doctor->surname,
                 "symptom" => $ap->symptom,
                 "dept" => $dept,
-                "date" => "วันที่ ".$day." เดือน ".$month[$im]." ปีค.ศ. ".$year,
-                "time" => "ช่วงเวลา ".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+                "date" => "วันที่ ".$day." ".$month[$im]." ค.ศ.".$year,
+                "time" => "ช่วงเวลา".($ap->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
                 "email" => $patient->email,
                 "phone_number" => $patient->phone_no,
                 "link" => "./appointment/approve/create?id=".$ap->id."&cca=".self::generateApproveCreateLink($ap->date, $ap->time, $ap->symptom, $ap->created_at,0)

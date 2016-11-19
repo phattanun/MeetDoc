@@ -159,7 +159,7 @@ class PagesController extends Controller
         $res = AccountController::resetPassword($request);
         if ($res['status'])
             return view('auth/confirm')->with(['title' => 'เปลี่ยนรหัสผ่านสำเร็จ']);
-        return view('auth/failed')->with(['title' => 'เปลี่ยนรหัสไม่ผ่านสำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือใช้ระบบลืมรหัสผ่าน']);
+        return view('auth/failed')->with(['title' => 'เปลี่ยนรหัสผ่านไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือใช้ระบบลืมรหัสผ่าน']);
     }
 
     public function register(Request $request)
@@ -195,15 +195,23 @@ class PagesController extends Controller
     public function editProfile(Request $request)
     {
         $request->id = Auth::User()->id;
-        $user = AccountController::edit($request);
-        Auth::setUser($user);
-        return $this->viewProfile();
+        $res = AccountController::createEditProfileLink($request);
+        if ($res['status']) {
+            MessageController::sendEditProfile($res);
+            return view('auth/confirm')->with(['title' => 'ขอแก้ไขข้อมูลส่วนตัวสำเร็จ', 'action' => 'ยืนยันการแก้ไขข้อมูลส่วนตัว', 'link' => $res['link']]);
+        }
+        return view('auth/failed')->with(['title' => 'ขอแก้ไขข้อมูลส่วนตัวไม่สำเร็จ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือเข้าสู่ระบบใหม่']);
+        // return $this->viewProfile();
     }
 
     public function officerEditProfile(Request $request)
     {
-        AccountController::edit($request);
-        return $this->editAccountPage($request->id);
+        $res = AccountController::createEditProfileLink($request);
+        if ($res['status']) {
+            MessageController::sendEditProfile($res);
+            return view('auth/confirm')->with(['title' => 'ขอแก้ไขข้อมูลส่วนตัวสำเร็จ', 'action' => 'ยืนยันการแก้ไขข้อมูลส่วนตัว', 'link' => $res['link']]);
+        }
+        return view('auth/failed')->with(['title' => 'ขอแก้ไขข้อมูลส่วนตัวไม่สำเร็จ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือเข้าสู่ระบบใหม่']);
     }
 
     public function viewSchedule()
@@ -271,6 +279,16 @@ class PagesController extends Controller
     {
         $res = SystemController::changePermission($request);
         return $res;
+    }
+
+    public function approveEditProfile(Request $request)
+    {
+        $res = AccountController::edit($request);
+        if ($res['status']) {
+            return view('auth/confirm')->with(['title' => 'แก้ไขข้อมูลส่วนตัวสำเร็จ']);
+        } else {
+            return view('auth/failed')->with(['title' => 'แก้ไขข้อมูลส่วนตัวไม่สำเร็จ', 'message' => 'ลิงก์ไม่ถูกต้องหรือหมดอายุ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือทำการแก้ไขข้อมูลส่วนตัวใหม่']);
+        };
     }
 
     //Appointment

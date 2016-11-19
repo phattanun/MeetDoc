@@ -12,6 +12,37 @@ use App\User;
 
 class AccountController extends Controller
 {
+    private static function base62_encode ($data) {
+        $outstring = '';
+        $len = strlen($data);
+        for ($i = 0; $i < $len; $i += 8) {
+            $chunk = substr($data, $i, 8);
+            $outlen = ceil((strlen($chunk) * 8) / 6);
+            $x = bin2hex($chunk);
+            $number = ltrim($x, '0');
+            if ($number === '') $number = '0';
+            $w = gmp_strval(gmp_init($number, 16), 62);
+            $pad = str_pad($w, $outlen, '0', STR_PAD_LEFT);
+            $outstring .= $pad;
+        }
+        return $outstring;
+    }
+
+    private static function base62_decode ($data) {
+        $outstring = '';
+        $len = strlen($data);
+        for ($i = 0; $i < $len; $i += 11) {
+            $chunk = substr($data, $i, 11);
+            $outlen = floor((strlen($chunk) * 6) / 8);
+            $number = ltrim($chunk, '0');
+            if ($number === '') $number = '0';
+            $y = gmp_strval(gmp_init($number, 62), 16);
+            $pad = str_pad($y, $outlen * 2, '0', STR_PAD_LEFT);
+            $outstring .= pack('H*', $pad);
+        }
+        return $outstring;
+    }
+
     public static function login(Request $request){
         if(Auth::viaRemember() || Auth::attempt(array('ssn' => $request->id, 'password' => $request->password), isset($request->remember))) {
             Session::set('_role', (Auth::user()->staff ? 'Staff' : 'Patient'));
@@ -116,7 +147,7 @@ class AccountController extends Controller
             return ["status" => false, "msg" => $e->getMessage()];
         }
 
-        $re = [
+        $res = [
             "status" => true,
             "name" => $user->name,
             "surname" => $user->surname,
@@ -124,9 +155,7 @@ class AccountController extends Controller
             "phone_number" => $user->phone_no,
             "link" => "./password/reset?id=".$user->id."&cfp=".self::generatePasswordLink($user->ssn, $user->name, $user->surname, $user->password, $user->email, $now)
         ];
-        // echo "<a href='".$re['link']."'>Reset Password Link</a>";
-        // var_dump($re);
-        return $re;
+        return $res;
     }
 
     public static function resetPassword(Request $request) {
@@ -219,32 +248,85 @@ class AccountController extends Controller
         // return $profile['attributes'];
     }
 
+    private static function generateEditProfileHash($ssn, $name, $surname, $gender, $birthday, $email, $address, $phone_no, $time) {
+        return hash('ripemd256', "UsER".$ssn."WaNttoeDITprOfilEIn".$name.$surname.$gender.$birthday.$email.$address.$phone_no."aT".$time."NaJA");
+    }
+
+    public static function createEditProfileLink(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = date('Y-m-d H:i:s');
+
+        if(isset($request->id)) {
+            $user = User::findOrfail($request->id);
+        }
+        else $user = Auth::user();
+
+        $edited = array_filter($request->all());
+        $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
+        $filtered = array_intersect_key($edited, array_flip($editable_field));
+        $filtered['_now'] = $now;
+
+        $encoded = base64_encode(json_encode($filtered));
+        $date = explode(' ', $now)[0];
+        $time = explode(' ', $now)[1];
+        $hour = explode(':', $time)[0];
+        $min = explode(':', $time)[1];
+        $day = explode('-', $date)[2];
+        $im = explode('-', $date)[1];
+        $year = explode('-', $date)[0];
+
+        $month = [
+            "1" => "มกราคม",
+            "2" => "กุมภาพันธ์",
+            "3" => "มีนาคม",
+            "4" => "เมษายน",
+            "5" => "พฤษภาคม",
+            "6" => "มิถุนายน",
+            "7" => "กรกฎาคม",
+            "8" => "สิงหาคม",
+            "9" => "กันยายน",
+            "10" => "ตุลาคม",
+            "11" => "พฤษจิกายน",
+            "12" => "ธันวาคม",
+        ];
+
+        $res = [
+            "status" => true,
+            "name" => $user->name,
+            "surname" => $user->surname,
+            "time" => $hour.".".$min." น. วันที่ ".$day." ".$month[$im]." ค.ศ.".$year,
+            "email" => $request->email,
+            "phone_number" => $request->phone_no,
+            "link" => "./account/approve/edit?id=".$user->id."&cep=".self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $now)."&edt=".$encoded
+        ];
+        return $res;
+    }
+
     public static function edit(Request $request) {
+        date_default_timezone_set('Asia/Bangkok');
+        $now = new \DateTime('NOW');
         try {
-            // Debug
-            // echo "Editing request.";
-            // var_dump($request->all());
             $user = User::findOrFail($request->id);
-            $edited = array_filter($request->all());
-            $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
-            $filtered = array_intersect_key($edited, array_flip($editable_field));
+            $data = json_decode(base64_decode($request->edt));
+            if(!is_null($data) && $request->cep == self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $data->_now)) {
+                $edit_time = new \DateTime($user->last_active);
+                if(($now->getTimeStamp() - $edit_time->getTimeStamp())/3600 < 24) {
+                    $edited = array_filter((array)$data);
+                    $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
+                    $filtered = array_intersect_key($edited, array_flip($editable_field));
 
-            // Debug
-            // echo "Editing...";
-            // var_dump($filtered);
-
-            foreach ($filtered as $key => $value)
-                $user[$key] = $value;
-            $user->save();
-
-            if(!DiagnosisController::edit_allergic_medicine($request))
-                return false;
+                    foreach ($filtered as $key => $value)
+                        $user[$key] = $value;
+                    $user->save();
+                }
+                else throw new \Exception("Too late", 1);
+            }
+            else throw new \Exception("Wrong key", 1);
         }
         catch (\Exception $e) {
-            // echo "<h2>Error: ".$e->getMessage()."</h2>";
-            return false;
+            return ["status" => false, "msg" => $e->getMessage()];
         }
-        return $user;
+        return ["status" => true];
     }
 
     // Bank's, please ask before editing the lines below

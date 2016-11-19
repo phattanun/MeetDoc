@@ -374,4 +374,22 @@ class MessageController extends Controller
         self::sendEmail($res['email'], $subject, $message, $message);
     }
 
+    public static function sendEditProfile($res) {
+        $subject = "[MeetDoc⁺] กรุณายืนยันการแก้ไขข้อมูลส่วนตัว ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
+            <br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ท่านได้แก้ไขข้อมูลส่วนตัวจากบัญชีผู้ใช้งานของท่าน<br>
+            <b>เมื่อเวลา: ".$res['time']."</b><br>
+            <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการแก้ไขข้อมูลส่วนตัว</b><br>
+            <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการแก้ไขข้อมูลส่วนตัว</a><br>
+            <br>
+            หากท่านไม่ต้องการแก้ไขข้อมูลส่วนตัว ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
+            <br>
+            ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
+            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+        self::sendEmail($res['email'], $subject, $message, $message);
+    }
+
 }
