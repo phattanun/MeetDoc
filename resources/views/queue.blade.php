@@ -840,6 +840,11 @@
             }).fail(function () {
             });
 
+            @if($_user['p_doctor']==1 || $_user['p_pharm']==1)
+                $('#drugAllergy_select2').removeAttr('disabled');
+            @else
+                $('#drugAllergy_select2').attr('disabled','disabled');
+            @endif
 
         });
 
