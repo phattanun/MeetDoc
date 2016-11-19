@@ -926,9 +926,6 @@
             $('#tab_modal_3_button').attr('step',step);
 //            alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
-                $('#physical-form-appointment-id').val(id);
-//                alert("step1 : " + $('#physical-form-appointment-id').val());
-
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
@@ -947,10 +944,11 @@
                 $('#pharmacist-form').hide();
 
                 $('#medicine-search-row').show();
+
+                $('#physical-form-appointment-id').val(id);
+//                alert("step1 : " + $('#physical-form-appointment-id').val());
             }
             else if(step == 2){
-                $('#diagnosis-form-appointment-id').val(id);
-
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
@@ -970,6 +968,8 @@
 
                 $('#medicine-search-row').show();
 
+                $('#diagnosis-form-appointment-id').val(id);
+
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
@@ -978,8 +978,6 @@
                 $("input[name~='diastolic'].physical-form").val(allTableData['waiting_doctor'][id]['diastolic']);
             }
             else{
-                $('#pharmacist-form-appointment-id').val(id);
-
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
@@ -998,6 +996,9 @@
                 $('#pharmacist-form').show();
 
                 $('#medicine-search-row').hide();
+
+
+                $('#pharmacist-form-appointment-id').val(id);
 
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_pharmacist'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_pharmacist'][id]['height']);
