@@ -605,21 +605,28 @@
                         <div class="portlet light ">
                             <div class="portlet-title tabbable-line">
                                 <ul class="nav nav-tabs">
-                                    <li class="active">
+                                    @if($_user['p_nurse']==1)
+                                    <li id="tab_button_1_1">
                                         <a href="#tab_1_1" data-toggle="tab">รอตรวจข้อมูลทางกายภาพ</a>
                                     </li>
-                                    <li>
+                                    @endif
+                                    @if($_user['p_doctor']==1)
+                                    <li  id="tab_button_1_2">
                                         <a href="#tab_1_2" data-toggle="tab">รอตรวจรักษา</a>
                                     </li>
-                                    <li>
+                                    @endif
+                                    @if($_user['p_pharm']==1)
+                                    <li  id="tab_button_1_3">
                                         <a href="#tab_1_3" data-toggle="tab">รอรับยา</a>
                                     </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="portlet-body">
                                 <div class="tab-content">
+                                    @if($_user['p_nurse']==1)
                                     <!-- BEGIN CHECK PHYSICAL DATA TAB -->
-                                    <div class="tab-pane active" id="tab_1_1">
+                                    <div class="tab-pane" id="tab_1_1">
                                         <div class="portlet-title margin-bottom-20">
                                             <div class="caption caption-md">
                                                 <span class="caption-subject font-blue-madison bold uppercase">ตารางผู้ป่วยรอตรวจข้อมูลทางกายภาพ</span>
@@ -645,6 +652,8 @@
                                         <!-- END TABLE -->
                                     </div>
                                     <!-- END CHECK PHYSICAL DATA TAB -->
+                                    @endif
+                                    @if($_user['p_doctor']==1)
                                     <!-- BEGIN WAIT DOCTOR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
                                         <div class="portlet-title margin-bottom-20">
@@ -672,7 +681,8 @@
                                         <!-- END TABLE -->
                                     </div>
                                     <!-- END WAIT DOCTOR TAB -->
-
+                                    @endif
+                                    @if($_user['p_pharm']==1)
                                     <!-- BEGIN WAIT MEDICINE TAB -->
                                     <div class="tab-pane" id="tab_1_3">
                                         <div class="portlet-title margin-bottom-20">
@@ -700,6 +710,7 @@
                                         <!-- END TABLE -->
                                     </div>
                                     <!-- END WAIT MEDICINE TAB -->
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -732,6 +743,16 @@
     <script src="{{url('assets/pages/scripts/diagnosis-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            @if($_user['p_nurse']==1)
+                $('#tab_1_1').addClass("active");
+                $('#tab_button_1_1').addClass("active");
+            @elseif($_user['p_doctor']==1)
+                $('#tab_1_2').addClass("active");
+                $('#tab_button_1_2').addClass("active");
+            @elseif($_user['p_pharm']==1)
+                $('#tab_1_3').addClass("active");
+                $('#tab_button_1_3').addClass("active");
+            @endif
             resetQueue();
             $('#tab1_table').DataTable({
                 "autoWidth": false,
