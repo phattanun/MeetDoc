@@ -102,6 +102,7 @@ class AppointmentController extends Controller
             ->where('date', '>=', $now)
             ->where('appointment.patient_id', $patient_id)
             ->where('appointment.queue_status', "uncheckedin")
+            ->where('appointment.queue_status', '!=' ,"complete")
             ->where('appointment.approve', 1)
 //            ->where(function ($query) {
 //                $query->where('time','M')
