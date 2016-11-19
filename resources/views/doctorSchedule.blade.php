@@ -16,6 +16,7 @@
     <link href="{{url('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{url('assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{url('assets/global/plugins/ladda/ladda-themeless.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('pageLevelCSS')
@@ -277,8 +278,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" id="confirm-delete-account-btn" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
-                <span id="confirm-remove" class="ladda-label">ยืนยัน</span>
+            <button type="button" id="confirm-remove" class="btn btn-success mt-ladda-btn ladda-button" data-style="expand-right">
+                <span class="ladda-label">ยืนยัน</span>
                 <span class="ladda-spinner"></span><span class="ladda-spinner"></span></button>
             <button type="button" data-dismiss="modal" class="btn btn-outline dark">ย้อนกลับ</button>
         </div>
@@ -292,6 +293,8 @@
     <script src="{{url('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/spin.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/global/plugins/ladda/ladda.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
@@ -344,30 +347,46 @@
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        $(document).on('click','.weekly-confirm-remove-button', function(){
+        $(document).on('click','.weekly-confirm-remove-button', function(e){
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
             console.log("weekly-remove " + doctorId + " " + date + " " + time);
             $.post(URL_ROOT+'/doctor/weekly/delete',
                     {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+                toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
 //                console.log(input);
             }).fail(function () {
+                l.stop();
+                toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
             });
         });
 
-        $(document).on('click','.daily-confirm-remove-button', function(){
+        $(document).on('click','.daily-confirm-remove-button', function(e){
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
             console.log("daily-remove " + doctorId + " " + date + " " + time);
             $.post(URL_ROOT+'/doctor/daily/delete',
                     {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
 //                console.log(input);
             }).fail(function () {
+                l.stop();
+                toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
             });
         });
 
-        $(document).on('click','.daily-sub-confirm-remove-button', function(){
+        $(document).on('click','.daily-sub-confirm-remove-button', function(e){
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
             console.log("daily-sub-remove " + doctorId + " " + date + " " + time);
             $.post(URL_ROOT+'/doctor/daily/delete',
                     {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
 //                console.log(input);
             }).fail(function () {
+                l.stop();
+                toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
             });
         });
     </script>
