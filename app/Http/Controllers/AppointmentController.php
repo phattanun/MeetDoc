@@ -61,7 +61,7 @@ class AppointmentController extends Controller
             foreach ($record as $key => $value) {
                 switch ($key) {
                     case 'time':
-                        $value = ($value == 'M') ? 'เช้า' : 'บ่าย';
+                        $value = ($value == 'M') ? 'เช้า (9.00 - 11.30 น.)' : 'บ่าย (13.00 - 15.30 น.)';
                         break;
                     case 'gender':
                         array_push($replace, ($value == 'm') ? 'male' : 'female');
