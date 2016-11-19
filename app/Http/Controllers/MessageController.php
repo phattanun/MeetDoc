@@ -321,7 +321,7 @@ class MessageController extends Controller
             "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
             <br>
             ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
-            ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่ของบัญชีผู้ใช้งานจาก หมายเลขบัตรประจำตัวประชาชนของท่าน<br>
+            ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่จากบัญชีผู้ใช้งานของท่าน<br>
             <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการตั้งค่ารหัสผ่านใหม่</b><br>
             <br>
             <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการตั้งค่ารหัสผ่านใหม่</a><br>
@@ -383,6 +383,27 @@ class MessageController extends Controller
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'cancel');
+        }
+    }
+
+    public static function sendEditProfile($res) {
+        $subject = "[MeetDoc⁺] กรุณายืนยันการแก้ไขข้อมูลส่วนตัว ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
+            <br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ท่านได้แก้ไขข้อมูลส่วนตัวจากบัญชีผู้ใช้งานของท่าน<br>
+            <b>เมื่อเวลา: ".$res['time']."</b><br>
+            <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการแก้ไขข้อมูลส่วนตัว</b><br>
+            <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการแก้ไขข้อมูลส่วนตัว</a><br>
+            <br>
+            หากท่านไม่ต้องการแก้ไขข้อมูลส่วนตัว ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
+            <br>
+            ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
+            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+        self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'edit_profile');
         }
     }
 

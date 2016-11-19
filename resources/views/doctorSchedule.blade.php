@@ -55,34 +55,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า (9.00 - 11.30 น.)
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย (13.00 - 15.30 น.)
                                                                 <span></span>
                                                             </label>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>แผนก</b></label>
-                                                    <div class="col-md-9">
-                                                        <select name="dept_id" class="form-control">
-                                                            <option value="1">แผนกอายุรกรรม</option>
-                                                            <option value="2">แผนกหู คอ จมูก</option>
-                                                            <option value="3">แผนกตา</option>
-                                                            <option value="4">แผนกกระดูก</option>
-                                                            <option value="5">แผนกฉุกเฉิน</option>
-                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,11 +88,10 @@
                                         <th> ลำดับที่ </th>
                                         <th> วัน </th>
                                         <th> ช่วง </th>
-                                        <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php echo $weekly_schedule ?> </tbody>
+                                    <tbody id="weekly-table-body"> <?php echo $weekly_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -138,8 +123,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3"><b>วันที่</b></label>
-                                                    <div class="col-md-3">
-                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <div class="col-md-9">
+                                                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                                             <input type="text" name="date" class="form-control" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
@@ -150,34 +135,20 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า (9.00 - 11.30 น.)
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย (13.00 - 15.30 น.)
                                                                 <span></span>
                                                             </label>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>แผนก</b></label>
-                                                    <div class="col-md-9">
-                                                        <select name="dept_id" class="form-control">
-                                                            <option value="1">แผนกอายุรกรรม</option>
-                                                            <option value="2">แผนกหู คอ จมูก</option>
-                                                            <option value="3">แผนกตา</option>
-                                                            <option value="4">แผนกกระดูก</option>
-                                                            <option value="5">แผนกฉุกเฉิน</option>
-                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -197,11 +168,10 @@
                                         <th> ลำดับที่ </th>
                                         <th> วันที่ </th>
                                         <th> ช่วง </th>
-                                        <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php echo $daily_add_schedule ?> </tbody>
+                                    <tbody id="daily-table-body"> <?php echo $daily_add_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -233,8 +203,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3"><b>วันที่</b></label>
-                                                    <div class="col-md-3">
-                                                        <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
+                                                    <div class="col-md-9">
+                                                        <div class="input-group date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
                                                             <input type="text" name="date" class="form-control" readonly>
                                                         <span class="input-group-btn">
                                                             <button class="btn default" type="button">
@@ -245,17 +215,17 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label"><b>ช่วง</b></label>
                                                     <div class="col-md-9">
                                                         <div class="mt-radio-inline">
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า
+                                                                <input type="radio" name="time" id="optionsRadios25" value="M" checked> เช้า (9.00 - 11.30 น.)
                                                                 <span></span>
                                                             </label>
                                                             <label class="mt-radio">
-                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย
+                                                                <input type="radio" name="time" id="optionsRadios26" value="A"> บ่าย (13.00 - 15.30 น.)
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -281,7 +251,7 @@
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
-                                    <tbody> <?php echo $daily_sub_schedule ?> </tbody>
+                                    <tbody id="daily-sub-table-body"> <?php echo $daily_sub_schedule ?> </tbody>
                                 </table>
                             </div>
                             <!-- END TABLE -->
@@ -302,5 +272,49 @@
 @section('pageLevelScripts')
     <script>
         $('.date-picker').datepicker();
+        $(document).ready(function(){
+            $('#weekly-table-body .remove-button ').addClass("weekly-remove-button");
+            $('#daily-table-body .remove-button ').addClass("daily-remove-button");
+            $('#daily-sub-table-body .remove-button ').addClass("daily-sub-remove-button");
+        });
+
+        $(document).on('click','.weekly-remove-button', function(){
+            var doctorId = $(this).attr("doctorID");
+            var date = $(this).attr("date");
+            var time = $(this).attr("time");
+            console.log("weekly-remove " + doctorId + " " + date + " " + time);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/doctor/weekly/delete',
+                    {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+//                console.log(input);
+            }).fail(function () {
+            });
+        });
+
+        $(document).on('click','.daily-remove-button', function(){
+            var doctorId = $(this).attr("doctorID");
+            var date = $(this).attr("date");
+            var time = $(this).attr("time");
+            console.log("daily-remove " + doctorId + " " + date + " " + time);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/doctor/daily/delete',
+                    {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+//                console.log(input);
+            }).fail(function () {
+            });
+        });
+
+        $(document).on('click','.daily-sub-remove-button', function(){
+            var doctorId = $(this).attr("doctorID");
+            var date = $(this).attr("date");
+            var time = $(this).attr("time");
+            console.log("daily-sub-remove " + doctorId + " " + date + " " + time);
+            var URL_ROOT = '{{Request::root()}}';
+            $.post(URL_ROOT+'/doctor/daily/delete',
+                    {doctor_id:  doctorId, date: date, time: time, _token: '{{csrf_token()}}'}).done(function (input) {
+//                console.log(input);
+            }).fail(function () {
+            });
+        });
     </script>
 @endsection

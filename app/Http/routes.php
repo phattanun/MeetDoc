@@ -10,6 +10,7 @@ Route::post('/password/forget', 'PagesController@forgetPassword'); // Forget Pas
 Route::post('/password/reset', 'PagesController@resetPassword'); // Reset password from link
 Route::get('/appointment/approve/create', 'PagesController@approveCreateAppointment');
 Route::get('/appointment/approve/cancel', 'PagesController@approveCancelAppointment');
+Route::get('/account/approve/edit', 'PagesController@approveEditProfile');
 
 // Backend
 Route::get('/backend', function() { return View::make('backend'); });
@@ -40,6 +41,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/doctor/schedule', 'PagesController@viewSchedule');
     Route::post('/doctor/weekly', 'PagesController@addWeeklySchedule');
     Route::post('/doctor/daily', 'PagesController@addDailySchedule');
+    Route::post('/doctor/weekly/delete', 'ScheduleController@deleteWeeklySchedule');
+    Route::post('/doctor/daily/delete', 'ScheduleController@deleteDailySchedule');
     Route::post('/officer/profile', 'PagesController@officerEditProfile');
     Route::post('/officer/profile/picupload', 'PagesController@officerEditProfilePic');
     Route::get('/officer/manage', 'PagesController@viewOfficerManage');

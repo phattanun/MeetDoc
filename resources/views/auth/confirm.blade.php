@@ -38,7 +38,7 @@
         @if(isset($link)) </a> @endif
         @if(isset($action))
         <div class="caption text-center">
-            <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายเพื่อ{{ $action }}ไปทางอีเมล<br>และโทรศัพท์มือถือของท่าน<br>กรุณา{{ $action }}ภายใน 1 วัน</span>
+            <span class="caption-subject font-red sbold uppercase">ระบบจะส่งจดหมายเพื่อ{{ $action }}<br>ไปทางอีเมลและโทรศัพท์มือถือของท่าน<br>กรุณา{{ $action }}ภายใน 1 วัน</span>
         </div>
         @endif
         <br>
