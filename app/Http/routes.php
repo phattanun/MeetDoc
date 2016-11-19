@@ -24,6 +24,8 @@ Route::get('/register/confirmation', 'ProfileController@confirmRegisterPage');
 Route::get('/password/reset', 'ProfileController@passwordResetPage');
 Route::get('/password/forget', 'ProfileController@passwordForgetPage');
 
+Route::get('/testA', 'AppointmentController@availableDate');
+
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'PagesController@index');
 

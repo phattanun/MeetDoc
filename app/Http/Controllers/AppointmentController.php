@@ -7,13 +7,14 @@ use App\AppointmentDisease;
 use App\Department;
 use App\Disease;
 use App\Prescription;
+use App\Schedule;
 use App\User;
 use Illuminate\Http\Request;
 
-use DB;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
@@ -440,32 +441,32 @@ class AppointmentController extends Controller
         }
         return $appointment_list;
 
-        //        $tmp = [];
-//        $tmp['total_count'] = 3;
-//        $tmp['incomplete_result'] = true;
-//        $tmp['items'] = [];
-//        $tmp['items'][0] = [
-//            'avatar_url' => 'www.ssfsdm',
-//            'name' => 'Hello444',
-//            'surname' => 'World',
-//            'department' => 'eye',
-//            'time' => 'morning',
-//            "created_at"=> "2014-09-18T16:12:01Z",
-//            "private"=> false,
-//            "id"=> 4444,
-//            "html_url"=> "",
-//        ];
-//        $tmp['items'][1] = [
-//            'avatar_url' => 'www.ssfsdm',
-//            'name' => 'Hello216546',
-//            'surname' => 'World',
-//            'department' => 'eye',
-//            'time' => 'morning',
-//            "created_at"=> "2014-09-18T16:12:01Z",
-//            "private"=> false,
-//            "id"=> 24195339,
-//            "html_url"=> "",
-//        ];
+    }
+
+    public static function availableDate()
+    {
+        $now = date('Y-m-d');
+
+        $dates = Appointment::where('date', '>', $now)->where('type', 'R')->groupBy('date')->get();
+
+        $busy_dates = [];
+
+        foreach($dates as $date)
+        {
+            if(Appointment::where('date', $date['date'])->where('type', 'R')->groupBy('date')->count()>=1)
+                array_push($busy_dates, $date['date']);
+        }
+
+        $available_dates = Schedule::where('date', '>', $now);
+
+        foreach($busy_dates as $busy_date)
+        {
+            $available_dates = $available_dates->where('date', '<>', $busy_date);
+        }
+
+        $available_dates = $available_dates->orderBy('date', 'asc')->get();
+        
+        return $available_dates;
 
     }
 }
