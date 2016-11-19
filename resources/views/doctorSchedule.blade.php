@@ -72,20 +72,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>แผนก</b></label>
-                                                    <div class="col-md-9">
-                                                        <select name="dept_id" class="form-control">
-                                                            <option value="1">แผนกอายุรกรรม</option>
-                                                            <option value="2">แผนกหู คอ จมูก</option>
-                                                            <option value="3">แผนกตา</option>
-                                                            <option value="4">แผนกกระดูก</option>
-                                                            <option value="5">แผนกฉุกเฉิน</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md-2">
                                                 <button type="submit" class="btn green">เพิ่ม/แก้ไข</button>
                                             </div>
@@ -102,7 +88,6 @@
                                         <th> ลำดับที่ </th>
                                         <th> วัน </th>
                                         <th> ช่วง </th>
-                                        <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>
@@ -167,20 +152,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label class="col-md-3 control-label"><b>แผนก</b></label>
-                                                    <div class="col-md-9">
-                                                        <select name="dept_id" class="form-control">
-                                                            <option value="1">แผนกอายุรกรรม</option>
-                                                            <option value="2">แผนกหู คอ จมูก</option>
-                                                            <option value="3">แผนกตา</option>
-                                                            <option value="4">แผนกกระดูก</option>
-                                                            <option value="5">แผนกฉุกเฉิน</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-md-2">
                                                 <button type="submit" class="btn green">เพิ่ม/แก้ไข</button>
                                             </div>
@@ -197,7 +168,6 @@
                                         <th> ลำดับที่ </th>
                                         <th> วันที่ </th>
                                         <th> ช่วง </th>
-                                        <th> แผนก </th>
                                         <th> ลบ </th>
                                     </tr>
                                     </thead>

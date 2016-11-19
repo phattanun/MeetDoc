@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Allergic;
 use App\Appointment;
 use App\Department;
+use App\Medicine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -107,7 +109,7 @@ class AccountController extends Controller
             $new_user->name = $request->name;
             $new_user->surname = $request->surname;
             $new_user->gender = $request->gender;
-            $new_user->birthday = $request->birthday;
+            $new_user->birthday = join('-', array_reverse(explode('/',$request->birthday)));
             $new_user->email = $request->email;
             $new_user->address = $request->address;
             $new_user->phone_no = $request->phone;
@@ -184,7 +186,6 @@ class AccountController extends Controller
         $re = "";
         $search = array();
         $alldept = Department::all();
-        $tempDept = "";
         for ($i=0; $i < 10; $i++)
             array_push($search, "?".$i);
         foreach ($array as $record) {
@@ -201,6 +202,7 @@ class AccountController extends Controller
                 }
                 array_push($replace, $value);
             }
+            $tempDept = "<option value='0'>ไม่มีแผนก</option>";
             for($i = 0; $i<sizeof($alldept); $i++){
                 if($record['dept_id']==$alldept[$i]['id'])
                     $tempDept .= '<option selected value='.$alldept[$i]['id'].'>'.$alldept[$i]['name'].'</option>';
@@ -231,7 +233,10 @@ class AccountController extends Controller
     public static function getUserList($select = null, $filter = null) {
         $users = isset($select) ? User::select($select) : User::select();
         if(isset($filter))
-            $users = $users->where($filter);
+            foreach ($filter as $key => $value) {
+                $users = $users->orWhere($key , 'like', '%'.$value.'%');
+            }
+//            $users = $users->orWhere($filter);
         $users = $users->get()->toArray();
         return $users;
     }
@@ -262,6 +267,7 @@ class AccountController extends Controller
         else $user = Auth::user();
 
         $edited = array_filter($request->all());
+        $edited['birthday'] =  join('-',array_reverse(explode("/",$edited['birthday'])));
         $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
         $filtered = array_intersect_key($edited, array_flip($editable_field));
         $filtered['_now'] = $now;
@@ -308,6 +314,7 @@ class AccountController extends Controller
         try {
             $user = User::findOrFail($request->id);
             $data = json_decode(base64_decode($request->edt));
+
             if(!is_null($data) && $request->cep == self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $data->_now)) {
                 $edit_time = new \DateTime($user->last_active);
                 if(($now->getTimeStamp() - $edit_time->getTimeStamp())/3600 < 24) {
@@ -355,6 +362,8 @@ class AccountController extends Controller
     public function get_detail(Request $request)
     {
         $account = User::findOrFail($request->id);
+        $allergy = DiagnosisController::get_allergic_medicine($account);
+        $account->medicine = $allergy;
         return $account;
     }
 
@@ -362,8 +371,7 @@ class AccountController extends Controller
     {
         $keyword= $request->keyword;
         if ($keyword != ""){
-            $account_list = User::
-            where('id', 'like', '%'.($keyword).'%')
+            $account_list = User::where('id', 'like', '%'.($keyword).'%')
             ->orWhere('ssn', 'like', '%'.($keyword).'%')
             ->orWhere('name', 'like', '%'.($keyword).'%')
             ->orWhere('surname', 'like', '%'.($keyword).'%')

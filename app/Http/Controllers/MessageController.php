@@ -105,7 +105,7 @@ class MessageController extends Controller
         }
     }
 
-    public static function send_account_sms($patient_name, $patient_surname, $patient_ssn, $url, $phone_number, $type)
+    public static function send_account_sms($patient_name, $patient_surname, $url, $phone_number, $type)
     {
         $activity_text = '';
         $except_text = '';
@@ -113,22 +113,22 @@ class MessageController extends Controller
         switch ($type)
         {
             case 'register':
-                $activity_text = 'ชื่อผู้ใช้งานระบบของท่านคือ';
+                $activity_text = 'ชื่อผู้ใช้งานระบบของท่านคือหมายเลขบัตรประจำตัวประชาชนของท่าน';
                 $except_text = 'หากท่านไม่ได้ต้องการลงทะเบียน';
                 break;
             case 'password':
-                $activity_text = 'ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่ของบัญชีผู้ใช้งาน';
+                $activity_text = 'ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่จากบัญชีผู้ใช้งานของท่าน';
                 $except_text = 'หากท่านไม่ได้ต้องการตั้งค่ารหัสผ่านใหม่';
                 break;
             case 'edit_profile':
-                $activity_text = 'ท่านได้แก้ไขข้อมูลส่วนตัวของบัญชีผู้ใช้งาน';
+                $activity_text = 'ท่านได้แก้ไขข้อมูลส่วนตัวจากบัญชีผู้ใช้งานของท่าน';
                 $except_text = 'หากท่านไม่ต้องการแก้ไขข้อมูลส่วนตัว';
                 break;
         }
         $sending_text = 'ส่งมาจาก: ' . $hospital['hospital_phone_number'] . PHP_EOL . PHP_EOL .
             'เรียนคุณ: ' . $patient_name . ' ' . $patient_surname . PHP_EOL . PHP_EOL .
             'ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล' . $hospital['hospital_name']. PHP_EOL . PHP_EOL .
-             $activity_text . ' ' . $patient_ssn . PHP_EOL . PHP_EOL .
+             $activity_text . PHP_EOL . PHP_EOL .
             'กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน' . PHP_EOL . PHP_EOL .
             $url . PHP_EOL . PHP_EOL .
             $except_text . ' ท่านไม่จำเป็นต้องสนใจข้อความใน SMS นี้' . PHP_EOL . PHP_EOL .
@@ -136,7 +136,7 @@ class MessageController extends Controller
             'โรงพยาบาล ' . $hospital['hospital_name'] . ' ' . $hospital['hospital_phone_number'];
 
 //        dd($sending_text);
-        send_sms($phone_number, $sending_text);
+        self::send_sms($phone_number, $sending_text);
     }
 
     public static function send_appointment_sms($patient_name, $patient_surname, $appointment_id, $doctor_name, $doctor_surname, $department, $symptom, $time, $url, $phone_number, $type)
@@ -223,7 +223,7 @@ class MessageController extends Controller
             'โรงพยาบาล ' . $hospital['hospital_name'] . ' ' . $hospital['hospital_phone_number'];
 
 //        dd($sending_text);
-        send_sms($phone_number, $sending_text);
+        self::send_sms($phone_number, $sending_text);
     }
 
     public function sms_tester()
@@ -310,6 +310,9 @@ class MessageController extends Controller
             ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'register');
+        }
     }
 
     public static function sendForget($res) {
@@ -328,6 +331,9 @@ class MessageController extends Controller
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'password');
+        }
     }
 
     public static function sendCreateAppoinment($res) {
@@ -350,6 +356,9 @@ class MessageController extends Controller
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'create');
+        }
     }
 
     public static function sendCancelAppoinment($res) {
@@ -372,6 +381,9 @@ class MessageController extends Controller
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
             โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
         self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'cancel');
+        }
     }
 
     public static function sendEditProfile($res) {

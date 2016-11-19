@@ -32,6 +32,12 @@ return [
     'close_minute_afternoon' => env('CLOSE_MINUTE_AFTERNOON', 30),
 
     /*
+     * SMS enable
+     */
+
+    'sms_enable' => env('SMS_ENABLE', false),
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------

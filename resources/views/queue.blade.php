@@ -74,7 +74,6 @@
 @endsection
 
 @section('content')
-        <button onclick="resetQueue()"></button>
     <!-- /.modal -->
     <div class="modal fade bs-modal-lg" id="full" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -111,7 +110,6 @@
                                                 <!-- SIDEBAR USER TITLE -->
                                                 <div class="profile-usertitle">
                                                     <div id="name_surname_big" class="profile-usertitle-name"> ชื่อสมมุต นามสกุลปลอม </div>
-                                                    <div class="profile-usertitle-job"> ผู้ป่วย </div>
                                                 </div>
                                                 <!-- END SIDEBAR USER TITLE -->
                                                 <!-- SIDEBAR MENU -->
@@ -178,6 +176,8 @@
                                                                             <div id="phone_no" class="form-control form-control-static"> 0855555555 </div>
                                                                             <label class="control-label">หมายเลขโทรศัพท์เคลื่อนที่</label>
                                                                         </div>
+                                                                        {{csrf_field()}}
+                                                                        <input id="profile-form-patient-id" name="id" class="profile-form" type="hidden" required>
                                                                         <div class="form-group">
                                                                             <label class="control-label">ประวัติการแพ้ยา</label>
                                                                             <!--select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
@@ -230,15 +230,6 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td class="first">1</td>
-                                                            <td>12/10/2559</td>
-                                                            <td>เช้า</td>
-                                                            <td>นายแพทย์สวัสดี หายไวไวนะ</td>
-                                                            <td>แผนกหู คอ จมูก</td>
-                                                            <td>ใกล้หายแล้ว ไม่รู้จะมาทำไม</td>
-                                                            <td><a type="button" class="btn btn-default"><i class="fa fa-user"></i> ดูประวัติ</a></td>
-                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                     <!-- END TABLE -->
@@ -463,7 +454,7 @@
                                                 <div class="row" style="text-align: right;" id="physical-form-submit-row">
                                                     <div class="col-md-12">
                                                         <button type="submit" id="physical-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button physical-form" data-style="expand-right">
-                                                            <span class="ladda-label">ลงทะเบียน</span>
+                                                            <span class="ladda-label">บันทึกข้อมูล</span>
                                                             <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
                                                         </button>
                                                     </div>
@@ -528,7 +519,7 @@
                                                     </div>
                                                     <div class="portlet-body">
                                                         <!-- BEGIN FORM -->
-                                                        <div class="form-body" style="padding-bottom: 0px; padding-top:10px;">
+                                                        <div id="medicine-search-row" class="form-body" style="padding-bottom: 0px; padding-top:10px;">
                                                             <div class="row">
                                                                 <label class="col-md-3 control-label text-right">ค้นหารหัสยา หรือชื่อยา
                                                                     <span class="required" aria-required="true"> * </span>
@@ -558,27 +549,6 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody id="medicine-table-body">
-                                                                <!--tr id="medicine-table-body-row-1">
-                                                                    <input type="hidden" value="152" name="medicine[]['id']">
-                                                                    <td>1</td>
-                                                                    <td>MD22531</td>
-                                                                    <td>Paracetamol</td>
-                                                                    <td><input class="touchspin" type="text" value="" name="medicine[]['amount']"></td>
-                                                                    <td>
-                                                                        <select class="form-control" name="medicine[]['unit']">
-                                                                            <option>Option 1</option>
-                                                                            <option>Option 2</option>
-                                                                            <option>Option 3</option>
-                                                                            <option>Option 4</option>
-                                                                            <option>Option 5</option>
-                                                                        </select>
-                                                                    </td>
-                                                                    <td>
-                                                                        <a href="javascript:;" class="btn red"> ลบ
-                                                                            <i class="fa fa-trash"></i>
-                                                                        </a>
-                                                                    </td>
-                                                                </tr-->
                                                                 <tr id="medicine-row-empty" class="medicine-table-body-row">
                                                                     <td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td>
                                                                 </tr>
@@ -635,21 +605,28 @@
                         <div class="portlet light ">
                             <div class="portlet-title tabbable-line">
                                 <ul class="nav nav-tabs">
-                                    <li class="active">
+                                    @if($_user['p_nurse']==1)
+                                    <li id="tab_button_1_1">
                                         <a href="#tab_1_1" data-toggle="tab">รอตรวจข้อมูลทางกายภาพ</a>
                                     </li>
-                                    <li>
+                                    @endif
+                                    @if($_user['p_doctor']==1)
+                                    <li  id="tab_button_1_2">
                                         <a href="#tab_1_2" data-toggle="tab">รอตรวจรักษา</a>
                                     </li>
-                                    <li>
+                                    @endif
+                                    @if($_user['p_pharm']==1)
+                                    <li  id="tab_button_1_3">
                                         <a href="#tab_1_3" data-toggle="tab">รอรับยา</a>
                                     </li>
+                                    @endif
                                 </ul>
                             </div>
                             <div class="portlet-body">
                                 <div class="tab-content">
+                                    @if($_user['p_nurse']==1)
                                     <!-- BEGIN CHECK PHYSICAL DATA TAB -->
-                                    <div class="tab-pane active" id="tab_1_1">
+                                    <div class="tab-pane" id="tab_1_1">
                                         <div class="portlet-title margin-bottom-20">
                                             <div class="caption caption-md">
                                                 <span class="caption-subject font-blue-madison bold uppercase">ตารางผู้ป่วยรอตรวจข้อมูลทางกายภาพ</span>
@@ -670,41 +647,13 @@
                                             </tr>
                                             </thead>
                                             <tbody class="middle">
-                                            @foreach($queue_list['waiting_staff'] as $queue)
-                                                <tr>
-                                                    <td>{{$queue['patient_info']['id']}}</td>
-                                                    <td>{{$queue['patient_info']['name']}}</td>
-                                                    <td>{{$queue['patient_info']['surname']}}</td>
-                                                    <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
-                                                    <td>{{$queue['patient_info']['age']}}</td>
-                                                    <td>{{$queue['department']}}</td>
-                                                    <td>{{$queue['symptom']}}</td>
-                                                    <td class="last">
-                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="{{$queue['id']}}" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="111" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                </td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                         <!-- END TABLE -->
                                     </div>
                                     <!-- END CHECK PHYSICAL DATA TAB -->
+                                    @endif
+                                    @if($_user['p_doctor']==1)
                                     <!-- BEGIN WAIT DOCTOR TAB -->
                                     <div class="tab-pane" id="tab_1_2">
                                         <div class="portlet-title margin-bottom-20">
@@ -727,42 +676,13 @@
                                             </tr>
                                             </thead>
                                             <tbody class="middle">
-                                            @foreach($queue_list['waiting_doctor'] as $queue)
-                                                <tr>
-                                                    <td>{{$queue['patient_info']['id']}}</td>
-                                                    <td>{{$queue['patient_info']['name']}}</td>
-                                                    <td>{{$queue['patient_info']['surname']}}</td>
-                                                    <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
-                                                    <td>{{$queue['patient_info']['age']}}</td>
-                                                    <td>{{$queue['department']}}</td>
-                                                    <td>{{$queue['symptom']}}</td>
-                                                    <td class="last">
-                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="{{$queue['id']}}" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="1111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="1111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="1111" step="2"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                </td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                         <!-- END TABLE -->
                                     </div>
                                     <!-- END WAIT DOCTOR TAB -->
-
+                                    @endif
+                                    @if($_user['p_pharm']==1)
                                     <!-- BEGIN WAIT MEDICINE TAB -->
                                     <div class="tab-pane" id="tab_1_3">
                                         <div class="portlet-title margin-bottom-20">
@@ -785,41 +705,12 @@
                                             </tr>
                                             </thead>
                                             <tbody class="middle">
-                                            @foreach($queue_list['waiting_pharmacist'] as $queue)
-                                                <tr>
-                                                    <td>{{$queue['patient_info']['id']}}</td>
-                                                    <td>{{$queue['patient_info']['name']}}</td>
-                                                    <td>{{$queue['patient_info']['surname']}}</td>
-                                                    <td>@if($queue['patient_info']['gender'] == 'm')<i class="fa fa-male" aria-hidden="true"></i> ชาย @else<i class="fa fa-female" aria-hidden="true"></i> หญิง @endif</td>
-                                                    <td>{{$queue['patient_info']['age']}}</td>
-                                                    <td>{{$queue['department']}}</td>
-                                                    <td>{{$queue['symptom']}}</td>
-                                                    <td class="last">
-                                                        <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="{{$queue['patient_info']['id']}}"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                        <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="{{$queue['patient_info']['id']}}"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                        <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="{{$queue['id']}}" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            <tr>
-                                                <td>1</td>
-                                                <td>นายกิตติภณ</td>
-                                                <td>พละการ</td>
-                                                <td><i class="fa fa-male" aria-hidden="true"></i> ชาย</td>
-                                                <td>21</td>
-                                                <td>แผนกหู คอ จมูก</td>
-                                                <td>สบายดี</td>
-                                                <td class="last">
-                                                    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="11111"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>
-                                                    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="11111"><i class="fa fa-history"></i> ประวัติการรักษา</a>
-                                                    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" appointmentId="11111" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>
-                                                </td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                         <!-- END TABLE -->
                                     </div>
                                     <!-- END WAIT MEDICINE TAB -->
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -852,6 +743,16 @@
     <script src="{{url('assets/pages/scripts/diagnosis-form-validation.js')}}" type="text/javascript"></script>
     <script>
         $(document).ready(function(){
+            @if($_user['p_nurse']==1)
+                $('#tab_1_1').addClass("active");
+                $('#tab_button_1_1').addClass("active");
+            @elseif($_user['p_doctor']==1)
+                $('#tab_1_2').addClass("active");
+                $('#tab_button_1_2').addClass("active");
+            @elseif($_user['p_pharm']==1)
+                $('#tab_1_3').addClass("active");
+                $('#tab_button_1_3').addClass("active");
+            @endif
             resetQueue();
             $('#tab1_table').DataTable({
                 "autoWidth": false,
@@ -892,13 +793,15 @@
             var id = $(this).attr('patientId');
             var appId = $(this).attr('appointmentId');
             var step = $(this).attr('step');
+            $('#profile-form-patient-id').val(id);
+
             $('#tab_modal_1_button').attr('patientId',id);
             $('#tab_modal_2_button').attr('patientId',id);
             $('#tab_modal_3_button').attr('appointmentId',appId);
             $('#tab_modal_1_button').attr('step',step);
             $('#tab_modal_2_button').attr('step',step);
             $('#tab_modal_3_button').attr('step',step);
-            alert(id);
+//            alert(id);
 
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/backend/Account/getProfile',
@@ -922,12 +825,15 @@
                 $("#phone_no").text(input['phone_no']);
 
                 var $select = $('#drugAllergy_select2');
+                $select.empty();
                 $select.val('').trigger('change');
                 var $option;
                 for(var tmp in input['allergic_medicine']){
+                    console.log("allergic_medicine_array => " + tmp);
                     $option = $('<option selected>'+input['allergic_medicine'][tmp]['medicine_name']+'</option>').val(input['allergic_medicine'][tmp]['medicine_id']);
+                    $select.append($option);
                 }
-                $select.append($option).trigger('change');
+                $select.trigger('change');
 
 //            $('#tab_modal_1_button').click();
                 $('.nav-tabs li:eq(0) a').tab('show');
@@ -952,11 +858,11 @@
             $('#tab_modal_2_button').attr('step',step);
             $('#tab_modal_3_button').attr('step',step);
             $('#history_detail').hide();
-            alert('ss'+id);
+//            alert('ss'+id);
             var URL_ROOT = '{{Request::root()}}';
             $.post(URL_ROOT+'/backend/Diagnosis/view_diagnosis_record',
                     {patient_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
-                alert();
+//                alert();
                 console.log(input);
                 diagnosis_history = input;
                 $('#modal-history-table_wrapper').remove();
@@ -978,7 +884,7 @@
                 var time;
                 for(tmp in diagnosis_history){
                     console.log(diagnosis_history[tmp]);
-                    alert(diagnosis_history[tmp]['id']);
+//                    alert(diagnosis_history[tmp]['id']);
                     if(diagnosis_history[tmp]['time'] == 'M')
                         time = 'เช้า';
                     else if(diagnosis_history[tmp]['time'] == 'A')
@@ -1039,11 +945,8 @@
             $('#tab_modal_1_button').attr('step',step);
             $('#tab_modal_2_button').attr('step',step);
             $('#tab_modal_3_button').attr('step',step);
-            alert("goToModalTab3 "+id+" "+step);
+//            alert("goToModalTab3 "+id+" "+step);
             if(step == 1){
-                $('#physical-form-appointment-id').val(id);
-                alert("step1 : " + $('#physical-form-appointment-id').val());
-
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
@@ -1060,10 +963,13 @@
                 $('#physical-form').show();
                 $('#diagnosis-form').hide();
                 $('#pharmacist-form').hide();
+
+                $('#medicine-search-row').show();
+
+                $('#physical-form-appointment-id').val(id);
+//                alert("step1 : " + $('#physical-form-appointment-id').val());
             }
             else if(step == 2){
-                $('#diagnosis-form-appointment-id').val(id);
-
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
@@ -1081,6 +987,10 @@
                 $('#diagnosis-form').show();
                 $('#pharmacist-form').hide();
 
+                $('#medicine-search-row').show();
+
+                $('#diagnosis-form-appointment-id').val(id);
+
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_doctor'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_doctor'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_doctor'][id]['temperature']);
@@ -1089,8 +999,6 @@
                 $("input[name~='diastolic'].physical-form").val(allTableData['waiting_doctor'][id]['diastolic']);
             }
             else{
-                $('#pharmacist-form-appointment-id').val(id);
-
                 clearPhysicalForm();
                 clearDiagnosisForm();
                 clearMedicineForm();
@@ -1108,12 +1016,52 @@
                 $('#diagnosis-form').show();
                 $('#pharmacist-form').show();
 
+                $('#medicine-search-row').hide();
+
+
+                $('#pharmacist-form-appointment-id').val(id);
+
                 $("input[name~='weight'].physical-form").val(allTableData['waiting_pharmacist'][id]['weight']);
                 $("input[name~='height'].physical-form").val(allTableData['waiting_pharmacist'][id]['height']);
                 $("input[name~='temperature'].physical-form").val(allTableData['waiting_pharmacist'][id]['temperature']);
                 $("input[name~='heart_rate'].physical-form").val(allTableData['waiting_pharmacist'][id]['heart_rate']);
                 $("input[name~='systolic'].physical-form").val(allTableData['waiting_pharmacist'][id]['systolic']);
                 $("input[name~='diastolic'].physical-form").val(allTableData['waiting_pharmacist'][id]['diastolic']);
+
+                var $select = $('#disease_select2');
+                $select.empty();
+                $select.val('').trigger('change');
+                var $option;
+                for(var tmp in allTableData['waiting_pharmacist'][id]['disease']){
+                    console.log("disease => " + tmp);
+                    $option = $('<option selected>'+allTableData['waiting_pharmacist'][id]['disease'][tmp]['name']+'</option>').val(allTableData['waiting_pharmacist'][id]['disease'][tmp]['id']);
+                    $select.append($option);
+                }
+                $select.trigger('change');
+
+                $("textarea[name~='diagnosis_detail'].diagnosis-form").val(allTableData['waiting_pharmacist'][id]['diagnosis']);
+
+                var medicine_order = allTableData['waiting_pharmacist'][id]['medicine'];
+                var text_medicine, i=1;
+                for(var tmp in medicine_order){
+                    text_medicine +='<tr id="medicine-table-body-row-'+i+'" class="medicine-table-body-row" medicineId="'+medicine_order[tmp]['medicine_id']+'">'+
+                            '    <td id="medicine-table-body-no-'+i+'">'+i+'</td>'+
+                            '    <td>'+medicine_order[tmp]['medicine_id']+'</td>'+
+                            '    <td>'+medicine_order[tmp]['business_name']+'</td>'+
+                            '    <td class="form-group">'+medicine_order[tmp]['pivot']['amount']+'</td>'+
+                            '    <td class="form-group">'+medicine_order[tmp]['pivot']['unit']+'</td>'+
+                            '    <td></td>'+
+                            '</tr>';
+                    i++;
+                }
+                $('#medicine-row-empty').remove();
+                if(medicineNo==1){
+                    $('#medicine-table-body').append(text_medicine);
+                }
+                else{
+                    $("#medicine-table-body").append('<tr id="medicine-row-empty" class="medicine-table-body-row"><td colspan="6" style="text-align: center;">ไม่มียาที่สั่ง</td></tr>');
+                }
+
 
             }
 //            $('#tab_modal_3_button').click();
@@ -1186,10 +1134,10 @@
 
         //physical-form
         $(document).on('click','#physical-form-submit-button', function(e) {
-            alert("step1 : " + $('#physical-form-appointment-id').val());
-            alert('physical-form' + $('#physical-form-appointment-id').val());
+//            alert("step1 : " + $('#physical-form-appointment-id').val());
+//            alert('physical-form' + $('#physical-form-appointment-id').val());
             if($('#physical-form').valid()) {
-                alert('valid');
+//                alert('valid');
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
@@ -1231,7 +1179,7 @@
 
             $.get(URL_ROOT+'/backend/Diagnosis/queue',
                     {}).done(function (input) {
-                alert();
+//                alert();
                 console.log("allTableData");
                 console.log(input);
                 allTableData= input;
@@ -1402,7 +1350,7 @@
         var medicineNo = 1;
 
         $(document).on('click','#add_medicine_button', function(){
-            alert('aaa');
+//            alert('aaa');
             var medicineList = $('#medicine_select2').val();
             $("#medicine_select2").val('').trigger('change');
             console.log("medicineList");
@@ -1414,7 +1362,7 @@
                 {
                     $.post(URL_ROOT+'/backend/Medicine/detail',
                             {medicine_id:  medicineList[medicine_id], _token: '{{csrf_token()}}'}).done(function (input) {
-                        alert('bbb');
+//                        alert('bbb');
                         console.log(input);
                         console.log('medicineNo = '+ medicineNo);
                         if(medicineNo==1){
@@ -1453,7 +1401,7 @@
 
         $(document).on('click','.medicine-remove-button', function(){
             var nowNo = $(this).attr('medicineNo');
-            alert(nowNo);
+//            alert(nowNo);
             $("#medicine-table-body-row-"+nowNo).remove();
             for(var runNo = medicineNo;runNo > nowNo ; runNo--) {
                 $("#medicine-table-body-row-" + runNo).attr("id", "medicine-table-body-row-"+(runNo-1));
