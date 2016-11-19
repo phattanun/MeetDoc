@@ -73,7 +73,7 @@
             function formatRepoMedicine(repo) {
                 if (repo.loading) return repo.text;
                 var markup = "<div class='select2-result-repository clearfix'>" +
-                        "<div class='select2-result-repository__title'>" + repo.business_name + "</div></div>";
+                        "<div class='select2-result-repository__title'>" + repo.fullname + "</div></div>";
 
                 return markup;
             }
@@ -118,13 +118,13 @@
             function formatRepoDrugAllergy(repo) {
                 if (repo.loading) return repo.text;
                 var markup = "<div class='select2-result-repository clearfix'>" +
-                        "<div class='select2-result-repository__title'>" + repo.medicine_name + "</div></div>";
+                        "<div class='select2-result-repository__title'>" + repo.fullname + "</div></div>";
 
                 return markup;
             }
 
             function formatRepoSelectionDrugAllergy(repo) {
-                return repo.medicine_name || repo.text;
+                return repo.fullname || repo.text;
             }
 
             $(".js-data-drugAllergy-ajax").select2({
