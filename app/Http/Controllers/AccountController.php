@@ -155,7 +155,7 @@ class AccountController extends Controller
         $re = "";
         $search = array();
         $alldept = Department::all();
-        $tempDept = "";
+        $tempDept = "<option value='0'>ไม่มีแผนก</option>";
         for ($i=0; $i < 10; $i++)
             array_push($search, "?".$i);
         foreach ($array as $record) {
