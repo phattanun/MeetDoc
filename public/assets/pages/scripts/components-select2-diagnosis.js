@@ -114,6 +114,51 @@ var ComponentsSelect2 = function() {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+        function formatRepoMedicine(repo) {
+            if (repo.loading) return repo.text;
+            var markup = "<div class='select2-result-repository clearfix'>" +
+                "<div class='select2-result-repository__title'>" + repo.medicine_name + "</div></div>";
+
+            return markup;
+        }
+
+        function formatRepoSelectionMedicine(repo) {
+            return repo.medicine_name || repo.text;
+        }
+
+        $(".js-data-drugAllergy-ajax").select2({
+            placeholder: "กรุณาระบุชื่อยาที่แพ้",
+            width: "off",
+            ajax: {
+                url: "/backend/Medicine/search",
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term, // search term
+                        page: params.page
+                    };
+                },
+                processResults: function(data, page) {
+                    // parse the results into the format expected by Select2.
+                    // since we are using custom formatting functions we do not need to
+                    // alter the remote JSON data
+                    return {
+                        results: data.items
+                    };
+                },
+                cache: true
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            }, // let our custom formatter work
+            minimumInputLength: 1,
+            templateResult: formatRepoMedicine,
+            templateSelection: formatRepoSelectionMedicine
+        });
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         $("button[data-select2-open]").click(function() {
             $("#" + $(this).data("select2-open")).select2("open");
