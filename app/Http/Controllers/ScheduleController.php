@@ -47,9 +47,8 @@ class ScheduleController extends Controller
                         break;
                     case 'date':
                         $value = date('d-m-Y', strtotime($value));
+                        $doctorDate = $value;
                 }
-                if($key == 'type' || ($schedule_type == 'sub' && $key == 'dept_id'))
-                    continue;
                 $re .= "<td>".$value."</td>";
             }
             $i++;
@@ -167,12 +166,12 @@ class ScheduleController extends Controller
         try {
             $weekly_schedule = WeeklySchedule::select(['doctor_id','day','time'])->where('doctor_id', $doctor_id)->get()->toArray();
             $weekly_schedule = self::sortArrayByDayTimeAttr($weekly_schedule);
+            return self::printTable($weekly_schedule);
         }
         catch (\Exception $e) {
             // echo "<h2>Error: ".$e->getMessage()."</h2>";
             return '';
         }
-        return self::printTable($weekly_schedule);
     }
 
     public static function addWeeklySchedule(Request $request) {
@@ -236,7 +235,7 @@ class ScheduleController extends Controller
 
     public static function getDailySchedule($doctor_id, $type) {
         try {
-            $schedule_daily = DailySchedule::select(['doctor_id','day','time'])->where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
+            $schedule_daily = DailySchedule::select(['doctor_id','date','time'])->where(['doctor_id' => $doctor_id, 'type' => $type])->get()->toArray();
             $schedule_daily = self::sortArrayByDateTimeAttr($schedule_daily);
             return self::printTable($schedule_daily, $type);
         }
@@ -250,9 +249,6 @@ class ScheduleController extends Controller
         // echo "<h2>Request Updating Special-Schedule</h2>";
         // var_dump($request->all());
         try {
-            if($request->type == "add" && $request->dept_id == "")
-                throw new \Exception("No Attend Department", 1);
-
             $doctor = User::findOrfail($request->doctor_id);
             $record = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', $request->date)->where('time', $request->time)->first();
             if($record != null) {
