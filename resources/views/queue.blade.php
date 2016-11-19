@@ -205,10 +205,12 @@
                                                                             <select id="drugAllergy_select2" class="form-control js-data-drugAllergy-ajax profile-form" name="drugAllergy[]" multiple>
                                                                             </select>
                                                                         </div>
+                                                                        @if($_user['p_doctor']==1 || $_user['p_pharm']==1)
                                                                         <div class="margiv-top-10">
                                                                             <button id="profile-form-submit-button" type="submit" class="btn green"> บันทึกการแก้ไข </button>
                                                                             <a class="btn default close-modal"> ยกเลิก </a>
                                                                         </div>
+                                                                        @endif
                                                                     </form>
                                                                 </div>
                                                                 <!-- END PERSONAL INFO TAB -->
