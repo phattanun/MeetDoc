@@ -139,7 +139,7 @@
                                                             <div class="tab-content">
                                                                 <!-- PERSONAL INFO TAB -->
                                                                 <div class="tab-pane active">
-                                                                    <form id="profile-form" role="form" action="" method="post">
+                                                                    <form id="profile-form" role="form" action="{{url('backend/Diagnosis/edit_allergic_medicine')}}" method="post">
                                                                         <div class="form-group form-md-line-input">
                                                                             <div id="hid" class="form-control form-control-static"> 555 </div>
                                                                             <label>หมายเลขประจำตัวผู้ป่วย</label>
@@ -180,12 +180,14 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="control-label">ประวัติการแพ้ยา</label>
-                                                                            <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
+                                                                            <!--select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
+                                                                            </select-->
+                                                                            <select id="drugAllergy_select2" class="form-control js-data-drugAllergy-ajax profile-form" name="drugAllergy[]" multiple>
                                                                             </select>
                                                                         </div>
                                                                         <div class="margiv-top-10">
-                                                                            <button type="submit" class="btn green"> บันทึกการแก้ไข </button>
-                                                                            <a href="" class="btn default"> ยกเลิก </a>
+                                                                            <button id="profile-form-submit-button" type="submit" class="btn green"> บันทึกการแก้ไข </button>
+                                                                            <a class="btn default close-modal"> ยกเลิก </a>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -882,6 +884,10 @@
             maxboostedstep: 10
         });
 
+        $(document).on('click','.close-modal', function(){
+            $('#full').modal('hide');
+        });
+
         $(document).on('click','.goToModalTab1', function(){
             var id = $(this).attr('patientId');
             var appId = $(this).attr('appointmentId');
@@ -915,6 +921,13 @@
                 $("#address").text(input['address']);
                 $("#phone_no").text(input['phone_no']);
 
+                var $select = $('#drugAllergy_select2');
+                $select.val('').trigger('change');
+                var $option;
+                for(var tmp in input['allergic_medicine']){
+                    $option = $('<option selected>'+input['allergic_medicine'][tmp]['medicine_name']+'</option>').val(input['allergic_medicine'][tmp]['medicine_id']);
+                }
+                $select.append($option).trigger('change');
 
 //            $('#tab_modal_1_button').click();
                 $('.nav-tabs li:eq(0) a').tab('show');
@@ -1105,6 +1118,35 @@
             }
 //            $('#tab_modal_3_button').click();
             $('.nav-tabs li:eq(2) a').tab('show');
+        });
+
+///////////////////////////////////////ModelTab1////////////////////////////////////////////////
+
+        $(document).on('click','#profile-form-submit-button', function(e) {
+            if($('#profile-form').valid()) {
+                e.preventDefault();
+                var l = Ladda.create(this);
+                l.start();
+                function showSuccess(formData, jqForm, options) {
+                    toastr['success']('แก้ไขข้อมูลการแพ้ยาสำเร็จ', "สำเร็จ");
+                    l.stop();
+                    $('#full').modal('hide');
+                    return true;
+                }
+
+                function showError(responseText, statusText, xhr, $form) {
+                    toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    l.stop();
+                    return true;
+                }
+
+                var options = {
+                    success: showSuccess,
+                    error: showError
+                };
+                $('#profile-form').ajaxSubmit(options);
+                return false;
+            }
         });
 
 ///////////////////////////////////////ModelTab2////////////////////////////////////////////////
@@ -1363,6 +1405,7 @@
             alert('aaa');
             var medicineList = $('#medicine_select2').val();
             $("#medicine_select2").val('').trigger('change');
+            console.log("medicineList");
             console.log(medicineList);
             var URL_ROOT = '{{Request::root()}}';
             for(medicine_id in medicineList){
