@@ -858,7 +858,7 @@
                 $("#id").text(input['ssn']);
                 $("#name").text(input['name']);
                 $("#surname").text(input['surname']);
-                $("#profile-userpic").attr('src',input['image']);
+                $("#profile-userpic").attr('src',(input['image']=="")?"{{url('\assets\pages\img\avatars\placeholder.jpg')}}":input['image']);
                 $("#name_surname_big").text(input['name']+" "+input['surname']);
                 if(input['gender']=="m"){
                     $("#gender").html('<i id="gender_icon" class="fa fa-male" aria-hidden="true"></i> ชาย');
