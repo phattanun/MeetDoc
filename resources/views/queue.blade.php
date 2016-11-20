@@ -105,7 +105,7 @@
                             <li class="active">
                                 <a id="tab_modal_1_button" class="goToModalTab1" href="#tab_modal_1" data-toggle="tab">ข้อมูลส่วนตัว</a>
                             </li>
-                            <li>
+                            <li class="tab2_view_history">
                                 <a id="tab_modal_2_button" class="goToModalTab2" href="#tab_modal_2" data-toggle="tab">ประวัติการรักษา</a>
                             </li>
                             <li>
@@ -224,7 +224,7 @@
                             </div>
                             <!-- END profile DATA TAB -->
                             <!-- BEGIN diagnosis history TAB -->
-                            <div class="tab-pane" id="tab_modal_2">
+                            <div class="tab-pane tab2_view_history" id="tab_modal_2">
                                 <!-- BEGIN HISTORY TABLE -->
                                 <div class="normal-content">
                                     <div class="row">
@@ -816,11 +816,19 @@
         $(document).on('click','.close-modal', function(){
             $('#full').modal('hide');
         });
+        
+        function checkPermisssionViewHistory(step){
+            if(step == 2)
+                $('.tab2_view_history').show();
+            else
+                $('.tab2_view_history').hide();
+        }
 
         $(document).on('click','.goToModalTab1', function(){
             var id = $(this).attr('patientId');
             var appId = $(this).attr('appointmentId');
             var step = $(this).attr('step');
+            checkPermisssionViewHistory(step);
             $('#profile-form-patient-id').val(id);
 
             if(step == 1){
@@ -887,6 +895,7 @@
             var id = $(this).attr('patientId');
             var appId = $(this).attr('appointmentId');
             var step = $(this).attr('step');
+            checkPermisssionViewHistory(step);
             $('#tab_modal_1_button').attr('patientId',id);
             $('#tab_modal_2_button').attr('patientId',id);
             $('#tab_modal_3_button').attr('appointmentId',appId);
@@ -975,6 +984,7 @@
             var id = $(this).attr('appointmentId');
             var patientId = $(this).attr('patientId');
             var step = $(this).attr('step');
+            checkPermisssionViewHistory(step);
             $('#tab_modal_1_button').attr('patientId',patientId);
             $('#tab_modal_2_button').attr('patientId',patientId);
             $('#tab_modal_3_button').attr('appointmentId',id);
@@ -1256,7 +1266,7 @@
                         '<td>'+waiting_staff[tmp]['symptom']+'</td>'+
                         '<td class="last">'+
                         '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+//                        '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
                         '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_staff[tmp]['patient_info']['id']+'" appointmentId="'+waiting_staff[tmp]['id']+'" step="1"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                         '</td>'+
                     '</tr>';
@@ -1352,7 +1362,7 @@
                             '<td>'+waiting_pharmacist[tmp]['symptom']+'</td>'+
                             '<td class="last">'+
                             '    <a type="button" class="btn btn-default goToModalTab1" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-user"></i> ข้อมูลส่วนตัว</a>'+
-                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
+//                            '    <a type="button" class="btn btn-default goToModalTab2" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-history"></i> ประวัติการรักษา</a>'+
                             '    <a type="button" class="btn btn-default goToModalTab3" data-toggle="modal" href="#full" patientId="'+waiting_pharmacist[tmp]['patient_info']['id']+'" appointmentId="'+waiting_pharmacist[tmp]['id']+'" step="3"><i class="fa fa-save"></i> บันทึกข้อมูล</a>'+
                             '</td>'+
                             '</tr>';
