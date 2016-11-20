@@ -731,27 +731,6 @@
                 $('#tab_button_1_3').addClass("active");
             @endif
             resetQueue();
-            $('#tab1_table').DataTable({
-                "autoWidth": false,
-                "columnDefs": [
-                    { "width": "400px", "targets": 7 }
-                ],
-                fixedColumns: true
-            });
-            $('#tab2_table').DataTable({
-                "autoWidth": false,
-                "columnDefs": [
-                    { "width": "400px", "targets": 7 }
-                ],
-                fixedColumns: true
-            });
-            $('#tab3_table').DataTable({
-                "autoWidth": false,
-                "columnDefs": [
-                    { "width": "400px", "targets": 7 }
-                ],
-                fixedColumns: true
-            });
             $('#modal-history-table').DataTable();
         });
         $(".touchspin").TouchSpin({
