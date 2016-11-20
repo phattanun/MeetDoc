@@ -97,7 +97,6 @@ class MessageController extends Controller
 
     public static function send_appointment_sms($patient_name, $patient_surname, $appointment_id, $doctor_name, $doctor_surname, $department, $symptom, $time, $url, $phone_number, $type)
     {
-        $notify = '';
         $activity_text = '';
         $except_text = '';
         $hospital = \Config::get('app.HOSPITAL');
@@ -117,12 +116,10 @@ class MessageController extends Controller
                 $except_text = 'ยกเลิกการนัดหมาย';
                 break;
             case 'notify':
-                $notify = 'ตามที่';
                 $activity_text = 'นัดหมาย';
                 $except_text = '';
                 break;
             case 'doctor_edit':
-                $notify = 'ตามที่';
                 $activity_text = 'นัดหมาย';
                 break;
         }
@@ -168,12 +165,12 @@ class MessageController extends Controller
         else if($type == 'doctor_edit')
         {
             $sending_text = $sending_text . 'หากท่านไม่สะดวก สามารถแก้ไขข้อมูลการนัดหมายได้ที่' . PHP_EOL . PHP_EOL .
-                $url . PHP_EOL . PHP_EOL;
+                $link . PHP_EOL . PHP_EOL;
         }
         else if($type == 'notify')
         {
             $sending_text = $sending_text . 'ท่านสามารถแก้ไขข้อมูลการนัดหมายได้ที่' . PHP_EOL . PHP_EOL .
-                $url . PHP_EOL . PHP_EOL;
+                $link . PHP_EOL . PHP_EOL;
         }
 
         $sending_text = $sending_text . 'ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ' . PHP_EOL . PHP_EOL .
@@ -231,6 +228,7 @@ class MessageController extends Controller
         $message_object->setRaw(urlsafe_b64encode($mail->getSentMIMEMessage()));
         try {
             $service->users_messages->send("me", $message_object);
+            var_dump("Sent");
         } catch (Exception $e) {
             print 'An error occurred: ' . $e->getMessage();
         }
@@ -374,6 +372,30 @@ class MessageController extends Controller
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'patient_edit');
+        }
+    }
+
+    public static function sendNotificationAppointment($res) {
+        $subject = "[MeetDoc⁺] แจ้งเตือนการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
+            <br>
+            ตามที่ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".self::$hospital."<br>
+            การนัดหมายของท่านกำลังจะมาถึงในอีก 1 วันค่ะ<br>
+            หมายเลขการนัดหมาย: ".$res['app_id']."<br>
+            ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
+            แพทย์: ".$res['d_name']." ".$res['d_surname']."<br>
+            <b>แผนก: ".$res['dept']."</b><br>
+            <b>วัน-เวลา: ".$res['date']." ".$res['time']."</b><br>
+            อาการ: ".$res['symptom']."<br>
+            <b>ท่านสามารถแก้ไขข้อมูลการนัดหมายได้ที่</b><br>
+            <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการนัดหมาย</a><br>
+            <br>
+            ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
+            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+        self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'notify');
         }
     }
 }
