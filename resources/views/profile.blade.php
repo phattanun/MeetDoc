@@ -93,10 +93,10 @@
                                             <hr>
                                             <div class="form-group">
                                                 <label class="control-label">ชื่อ</label>
-                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" value="{{ $name }}"/> </div>
+                                                <input id="name" type="text" name="name" placeholder="กรุณากรอกชื่อพร้อมคำนำหน้าชื่อ เช่น นายสุขภาพดี" class="form-control" value="{{ $name }}" required aria-required="true" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">นามสกุล</label>
-                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" value="{{ $surname }}"/> </div>
+                                                <input id="surname" type="text" name="surname" placeholder="กรุณากรอกนามสกุล" class="form-control" value="{{ $surname }}" required aria-required="true" /> </div>
                                             <div class="form-group">
                                                     <label class="control-label">เพศ</label>
                                                         <div class="mt-radio-inline">
@@ -112,18 +112,18 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">วันเกิด</label>
-                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ join('/',array_reverse(explode("-",$birthday))) }}"/>
+                                                <input name="birthday" class="form-control" id="mask_date2" type="text"  placeholder="วว/ดด/ปปปป" value="{{ join('/',array_reverse(explode("-",$birthday))) }}"  required aria-required="true" />
                                                 <span class="help-block"> * ใช้ปีคริสต์ศักราช </span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">อีเมล</label>
-                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" value="{{ $email }}"/> </div>
+                                                <input id="email" name="email" type="email" placeholder="john.doe@meetdoc.com" class="form-control" value="{{ $email }}"  required aria-required="true" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ที่อยู่</label>
-                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3" >{{ $address }}</textarea> </div>
+                                                <textarea id="address" name="address" type="text" placeholder="กรุณากรอกที่อยู่" class="form-control" rows="3"  required aria-required="true" >{{ $address }}</textarea> </div>
                                             <div class="form-group">
                                                 <label class="control-label">หมายเลขโทรศัพท์เคลื่อนที่</label>
-                                                <input id="phone_no" name="phone_no" type="text" placeholder="0899999999" class="form-control" value="{{ $phone_no }}"/> </div>
+                                                <input id="phone_no" name="phone_no" type="text" placeholder="0899999999" class="form-control" value="{{ $phone_no }}" required aria-required="true" /> </div>
                                             <div class="form-group">
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
                                                 <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
@@ -188,10 +188,12 @@
     <script src="{{url('assets/global/plugins/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('/assets/global/plugins/jquery-validation/js/jquery.validate.min.js')}}" type="text/javascript"></script>
 @endsection
 
 @section('pageLevelScripts')
     <script src="{{url('assets/pages/scripts/components-select2-profile.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
     <script src="{{url('assets/pages/scripts/profile.min.js')}}" type="text/javascript"></script>
+    <script src="{{url('assets/pages/scripts/profile-form-validation.js')}}" type="text/javascript"></script>
 @endsection
