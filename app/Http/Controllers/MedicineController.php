@@ -53,7 +53,7 @@ class MedicineController extends Controller
 
     public function delete_medicine(Request $request)
     {
-        if(Allergic::where("medicine_id",$request->id)->exists()||Prescription::where("medicine_id",$request->id)->exists()){
+        if(Allergic::where("medicine_id",$request->medicine_id)->exists()||Prescription::where("medicine_id",$request->medicine_id)->exists()){
             return "constraint";
         }
         $medicine = Medicine::findOrFail($request->medicine_id);
