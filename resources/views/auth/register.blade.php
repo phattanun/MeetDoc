@@ -156,7 +156,7 @@
 <script src="{{url('/assets/global/scripts/app.min.js')}}" type="text/javascript"></script>
 <script src="{{url('assets/global/plugins/jquery-inputmask/jquery.inputmask.bundle.min.js')}}" type="text/javascript"></script>
 <script src="{{url('assets/global/plugins/jquery.input-ip-address-control-1.0.min.js')}}" type="text/javascript"></script>
-<script src="{{url('assets/pages/scripts/form-input-mask.min.js')}}" type="text/javascript"></script>
+<script src="{{url('assets/pages/scripts/form-input-mask.js')}}" type="text/javascript"></script>
 <script src="{{url('/assets/pages/scripts/login.min.js')}}" type="text/javascript"></script>
 </body>
 

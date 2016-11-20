@@ -19,6 +19,11 @@ var FormInputMask = function () {
             "mask": "99-9999999",
             placeholder: "" // remove underscores from the input mask
         }); //specifying options only
+        $("#id").inputmask({
+            "mask": "9",
+            "repeat": 13,
+            "greedy": false
+        });
         $("#mask_number").inputmask({
             "mask": "9",
             "repeat": 10,

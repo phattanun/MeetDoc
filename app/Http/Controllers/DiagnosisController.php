@@ -213,12 +213,18 @@ class DiagnosisController extends Controller
     public static function edit_allergic_medicine(Request $request)
     {
         $allergic_medicine = [];
+        if(Allergic::where('patient_id', $request->id)->exists()){
+            try {
+                Allergic::where('patient_id', $request->id)->delete();
+            } catch (\Exception $e) {
+                return "fail";
+            }
+        }
         if (!is_null($request->drugAllergy)) {
             foreach ($request->drugAllergy as $drug) {
                 array_push($allergic_medicine, ['patient_id' => $request->id, 'medicine_id' => $drug]);
             }
             try {
-                Allergic::where('patient_id', $request->id)->delete();
                 DB::table('allergic')->insert($allergic_medicine);
             } catch (\Exception $e) {
                 return "fail";

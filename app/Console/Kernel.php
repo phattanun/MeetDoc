@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\DailySchedule;
 use App\Medicine;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -29,7 +30,10 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
 
         $schedule->call(function() {
-            // code here
+            
+            // Delete daily schedule in the past.
+            $date = date("Y-m-d");
+            DailySchedule::where('date', '<', $date)->delete();
         })->daily();
     }
 }
