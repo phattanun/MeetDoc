@@ -268,6 +268,9 @@ class PagesController extends Controller
 
     public function insteadViewSchedule($id)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         $doctor_id = $id;
         $doctor = User::findOrFail($id);
         $doctor_fullname = $doctor->name." ".$doctor->surname;
