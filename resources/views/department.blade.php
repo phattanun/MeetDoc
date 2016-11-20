@@ -34,7 +34,7 @@
         <div class="portlet-title">
             <div class="caption caption-md">
                 <i class="icon-globe theme-font hide"></i>
-                <span class="caption-subject font-blue-madison bold uppercase">ค้นหาแผนกที่ต้องแก้ไข/ลบข้อมูล</span>
+                <span class="caption-subject font-blue-madison bold uppercase">ค้นหาแผนกที่ต้องการแก้ไข/ลบข้อมูล</span>
             </div>
         </div>
         <div class="portlet-body">
