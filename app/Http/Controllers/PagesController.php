@@ -66,6 +66,9 @@ class PagesController extends Controller
 
     public function viewOfficerNewAppointmentPage(Request $request)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         $patient_id = $request->patient_id;
         $patient = User::where('id', $patient_id)->first();
         $name = $patient['name'];
@@ -79,6 +82,9 @@ class PagesController extends Controller
 
     public function viewOfficerAppointmentSearchDoctorPage()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         return view('appointment-instead-searchDoctor')->with('appList', AppointmentController::getFutureAppointments(Auth::user()['id']));
     }
 
@@ -91,17 +97,26 @@ class PagesController extends Controller
 
     public function viewOfficerAppointmentSearchUserPage()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         return view('appointment-instead-searchuser')->with('appList', AppointmentController::getFutureAppointments(Auth::user()['id']));
     }
 
     public function viewOfficerFutureAppointmentPage($id)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         $patient = User::findOrfail($id);
         return view('appointment-instead-future')->with(['appList'=>AppointmentController::getFutureAppointments($id),'patient'=>$patient]);
     }
 
     public function viewOfficerEditAppointmentPage(Request $request)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         $app = AppointmentController::getBriefAppointmentDetail($request->id);
         $doctors = AccountController::getDoctorByDepartment2($app->dept_id);
 
@@ -361,6 +376,9 @@ class PagesController extends Controller
 
     public function editAppointmentOfficer(Request $request, $id)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         $request->patient_id = $id;
         return AppointmentController::createEditAppointmentLink($request);
     }
@@ -429,18 +447,27 @@ class PagesController extends Controller
     // Pharmacist
     public function drugPage(Request $request)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_pharm']))
+            return self::index();
         return view('drug')->with(['drugList' => MedicineController::get_medicine_list()]);
     }
 
     // Staff
     public function patientCome()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_officer']))
+            return self::index();
         return view('patientCome');
     }
 
     //everyone
     public function viewQueue()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&($_permission['p_nurse']||$_permission['p_pharm']||$_permission['p_doctor'])))
+            return self::index();
         return view('queue')->with(['queue_list' => DiagnosisController::get_queue()]);
     }
 
