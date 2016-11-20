@@ -531,9 +531,9 @@ class AppointmentController extends Controller
 
     }
 
-    public static function shiftDateAppointment($old_date)
+    public static function shiftDateAppointment($old_date, $old_time)
     {
-        $shift_appointments = Appointment::where('date', $old_date)->get();
+        $shift_appointments = Appointment::where('date', $old_date)->where('time', $old_time)->get();
         foreach($shift_appointments as $shift_appointment)
         {
             $new_date = self::availableDate($old_date, $shift_appointment['doctor_id']);
