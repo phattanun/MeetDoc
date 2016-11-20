@@ -241,6 +241,9 @@ class PagesController extends Controller
 
     public function viewSchedule()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_doctor']))
+            return self::index();
         $doctor_id = Auth::User()->id;
         $weekly = ScheduleController::getWeeklySchedule($doctor_id);
         $dailyAdd = ScheduleController::getDailySchedule($doctor_id, 'add');
@@ -278,6 +281,9 @@ class PagesController extends Controller
 
     public function viewRecentAppointment()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_doctor']))
+            return self::index();
         $res = AppointmentController::getRecentAppointments(['doctor_id' => Auth::user()->id]);
         return view('doctorNearAppointment')->with('recent_appointment', $res);
     }
