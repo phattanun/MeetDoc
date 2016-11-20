@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-    protected $table = 'schedule_view';
+    protected $table = 'schedule_filtered_view';
     protected $fillable = [];
     public function user()
     {

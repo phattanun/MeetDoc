@@ -218,7 +218,6 @@ class PagesController extends Controller
             return view('auth/confirm')->with(['title' => 'ขอแก้ไขข้อมูลส่วนตัวสำเร็จ', 'action' => 'ยืนยันการแก้ไขข้อมูลส่วนตัว', 'link' => $res['link']]);
         }
         return view('auth/failed')->with(['title' => 'ขอแก้ไขข้อมูลส่วนตัวไม่สำเร็จ', 'action' => 'กรุณาติดต่อเจ้าหน้าที่หรือเข้าสู่ระบบใหม่']);
-        // return $this->viewProfile();
     }
     public function officerEditProfile(Request $request)
     {

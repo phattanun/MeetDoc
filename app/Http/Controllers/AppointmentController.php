@@ -576,6 +576,7 @@ class AppointmentController extends Controller
 
     public static function shiftDateAppointment($old_date, $old_time, $doctor_id)
     {
+        $old_date = date('Y-m-d', strtotime($old_date));
         $shift_appointments = Appointment::where('date', $old_date)->where('time', $old_time)->where('doctod_id', $doctor_id)->get();
         foreach($shift_appointments as $shift_appointment)
         {
@@ -608,7 +609,7 @@ class AppointmentController extends Controller
         }
 
         $available_dates = $available_dates->orderBy('date', 'asc')->get()[0];
-        
+
         return $available_dates;
 
     }
