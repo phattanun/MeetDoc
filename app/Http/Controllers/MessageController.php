@@ -228,7 +228,6 @@ class MessageController extends Controller
         $message_object->setRaw(urlsafe_b64encode($mail->getSentMIMEMessage()));
         try {
             $service->users_messages->send("me", $message_object);
-            var_dump("Sent");
         } catch (Exception $e) {
             print 'An error occurred: ' . $e->getMessage();
         }

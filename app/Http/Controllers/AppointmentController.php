@@ -9,6 +9,7 @@ use App\DailySchedule;
 use App\Prescription;
 use App\Schedule;
 use App\User;
+use App\Invalid_Appointment;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -569,62 +570,63 @@ class AppointmentController extends Controller
 
     }
 
-    public static function shiftDayAppointment($day)
+    public static function shiftDateAppointment()
     {
+        $invalid_appointments = Invalid_Appointment::where('approve',0)->get();
 
-    }
+        foreach($invalid_appointments as $invalid_appointment) {
+            Appointment::where('id',$invalid_appointment->id)->delete();
+        }
 
-    public static function shiftDateAppointment($shifted_date, $shifted_time, $shifted_doctor_id)
-    {
-        $shifted_date = date('Y-m-d', strtotime($shifted_date));
-        Appointment::where('date', $shifted_date)->where('time', $shifted_time)->where('doctor_id', $shifted_doctor_id)->where('approve',0)->delete();
+        $invalid_appointments = Invalid_Appointment::get();
 
-        $shift_appointments = Appointment::where('date', $shifted_date)->where('time', $shifted_time)->where('doctor_id', $shifted_doctor_id)->get();
-
-        foreach($shift_appointments as $shift_appointment)
+        foreach($invalid_appointments as $invalid_appointment)
         {
-            $new_date = self::availableDate($shift_appointment);
+            $new_date = self::availableDate($invalid_appointment);
+            $shift_appointment = Appointment::findOrfail($invalid_appointment->id);
+            if(count($new_date) > 0) {
+                $shift_appointment['type'] = 'R';
+                $shift_appointment['date'] = $new_date[0]['date'];
+                $shift_appointment['time'] = $new_date[0]['time'];
+                $shift_appointment->save();
 
-            $shift_appointment['type'] = 'R';
-            $shift_appointment['date'] = $new_date[0]['date'];
-            $shift_appointment['time'] = $new_date[0]['time'];
-            $shift_appointment->save();
+                $patient = User::findOrfail($shift_appointment->patient_id);
+                $doctor = User::findOrfail($shift_appointment->doctor_id);
+                $dept = Department::findOrfail($shift_appointment->dept_id)->name;
+                $day = explode('-', $shift_appointment->date)[2];
+                $im = explode('-', $shift_appointment->date)[1];
+                $year = explode('-', $shift_appointment->date)[0];
+                $month = [
+                    "1" => "มกราคม",
+                    "2" => "กุมภาพันธ์",
+                    "3" => "มีนาคม",
+                    "4" => "เมษายน",
+                    "5" => "พฤษภาคม",
+                    "6" => "มิถุนายน",
+                    "7" => "กรกฎาคม",
+                    "8" => "สิงหาคม",
+                    "9" => "กันยายน",
+                    "10" => "ตุลาคม",
+                    "11" => "พฤษจิกายน",
+                    "12" => "ธันวาคม",
+                ];
 
-            $patient = User::findOrfail($shift_appointment->patient_id);
-            $doctor = User::findOrfail($shift_appointment->doctor_id);
-            $dept = Department::findOrfail($shift_appointment->dept_id)->name;
-            $day = explode('-', $shift_appointment->date)[2];
-            $im = explode('-', $shift_appointment->date)[1];
-            $year = explode('-', $shift_appointment->date)[0];
-            $month = [
-                "1" => "มกราคม",
-                "2" => "กุมภาพันธ์",
-                "3" => "มีนาคม",
-                "4" => "เมษายน",
-                "5" => "พฤษภาคม",
-                "6" => "มิถุนายน",
-                "7" => "กรกฎาคม",
-                "8" => "สิงหาคม",
-                "9" => "กันยายน",
-                "10" => "ตุลาคม",
-                "11" => "พฤษจิกายน",
-                "12" => "ธันวาคม",
-            ];
-
-            MessageController::sendShiftAppointment([
-                "app_id" => $shift_appointment->id,
-                "p_name" => $patient->name,
-                "p_surname" => $patient->surname,
-                "d_name" => $doctor->name,
-                "d_surname" => $doctor->surname,
-                "symptom" => $shift_appointment->symptom,
-                "dept" => $dept,
-                "date" => "วันที่ ".$day." เดือน".$month[$im]." ค.ศ.".$year,
-                "time" => "ช่วงเวลา".($shift_appointment->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
-                "email" => $patient->email,
-                "phone_number" => $patient->phone_no,
-                "link" => "./appointment/future"
-            ]);
+                MessageController::sendShiftAppointment([
+                    "app_id" => $shift_appointment->id,
+                    "p_name" => $patient->name,
+                    "p_surname" => $patient->surname,
+                    "d_name" => $doctor->name,
+                    "d_surname" => $doctor->surname,
+                    "symptom" => $shift_appointment->symptom,
+                    "dept" => $dept,
+                    "date" => "วันที่ ".$day." เดือน".$month[$im]." ค.ศ.".$year,
+                    "time" => "ช่วงเวลา".($shift_appointment->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+                    "email" => $patient->email,
+                    "phone_number" => $patient->phone_no,
+                    "link" => "./appointment/future"
+                ]);
+            }
+            else $shift_appointment->delete();
         }
     }
 

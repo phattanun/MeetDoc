@@ -204,6 +204,7 @@ class ScheduleController extends Controller
     public static function deleteWeeklySchedule(Request $request) {
         try {
             $status = WeeklySchedule::where('doctor_id', $request->doctor_id)->where('day', $request->date)->where('time', $request->time)->delete();
+            AppointmentController::shiftDateAppointment();
         }
         catch (\Exception $e) {
             return $e->getMessage();
@@ -268,14 +269,14 @@ class ScheduleController extends Controller
             // echo "<h2>Error: ".$e->getMessage()."</h2>";
             return false;
         }
-        // $this->getDailySchedule();
+        AppointmentController::shiftDateAppointment();
         return true;
     }
 
     public static function deleteDailySchedule(Request $request) {
         try {
             $status = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', date("Y-m-d", strtotime($request->date)))->where('time', $request->time)->delete();
-            AppointmentController::shiftDateAppointment($request->date, $request->time, $request->doctor_id);
+            AppointmentController::shiftDateAppointment();
         }
         catch (\Exception $e) {
             return $e->getMessage();
