@@ -419,5 +419,8 @@ class MessageController extends Controller
             <br>
             ขออภัยในความไม่สะดวกและขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>";
         self::sendEmail($res['email'], $subject, $message, $message);
+        if(\Config::get('app.sms_enable')) {
+            self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'doctor_edit');
+        }
     }
 }
