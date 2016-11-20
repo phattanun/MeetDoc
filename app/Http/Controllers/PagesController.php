@@ -406,15 +406,20 @@ class PagesController extends Controller
     // Department
     public function departmentPage()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_admin']))
+            return self::index();
         return view('department')->with(['departmentList' => DepartmentController::get_list()]);
     }
 
     // Account
     public function accountPage()
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_admin']))
+            return self::index();
         return view('account')->with(['accountList' => AccountController::get_list()]);
     }
-
     // Pharmacist
     public function drugPage(Request $request)
     {
@@ -436,12 +441,15 @@ class PagesController extends Controller
     //Admin
     public function diseasePage(Request $request)
     {
+        $_permission = Auth::user();
+        if(!($_permission['staff']&&$_permission['p_admin']))
+            return self::index();
         return view('disease')->with(['diseaseList' => DiseaseController::get_disease_list()]);
     }
     public function editAccountPage($id)
     {
         $_permission = Auth::user();
-        if(!$_permission['staff']&&$_permission['p_admin'])
+        if(!($_permission['staff']&&$_permission['p_admin']))
             return self::index();
         $user = User::findOrFail($id);
         $allergic_medicine = DiagnosisController::get_allergic_medicine($user);
