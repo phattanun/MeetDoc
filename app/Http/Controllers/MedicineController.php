@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use App\Medicine;
+use App\Prescription;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -50,8 +52,12 @@ class MedicineController extends Controller
 
     public function delete_medicine(Request $request)
     {
+        if(Prescription::where("medicine_id",$request->id)->exists()){
+            return "constraint";
+        }
         $medicine = Medicine::find($request->medicine_id);
         $medicine->delete();
+        return "success";
     }
 
     public static function get_medicine_list()
