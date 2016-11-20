@@ -12,7 +12,7 @@
 </li>
 <li class="nav-item @yield('diseaseNav')">
     <a href="{{url('/disease/manage')}}" class="nav-link nav-toggle">
-        <i class="icon-calendar"></i>
+        <i class="fa fa-stethoscope"></i>
         <span class="title">จัดการข้อมูลรหัสโรค</span>
     </a>
 </li>
