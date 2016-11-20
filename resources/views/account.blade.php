@@ -307,7 +307,7 @@
                     $('#view_ssn').val(input['ssn']);
                     $('#view_name').val(input['name']);
                     $('#view_surname').val(input['surname']);
-                    $('#view_gender').val((input["time"]=="m") ? "ชาย":"หญิง");
+                    $('#view_gender').val((input["gender"]=="m") ? "ชาย":"หญิง");
                     $('#view_birthday').val(input['birthday']);
                     $('#view_address').val(input['address']);
                     $('#view_phone').val(input['phone_no']);
