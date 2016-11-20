@@ -106,7 +106,7 @@
     <div id="removeModal" class="modal fade" tabindex="-1" data-width="480">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-            <h4 class="modal-title">ลบสถานะบุคลากรของนายแพทย์พัทธนันท์ อัครพันธุ์ธัช</h4>
+            <h4 class="modal-title">ลบสถานะบุคลากรของ <span id="removeModalTitle"></span></h4>
         </div>
         <div class="modal-body">
             <div class="caption text-center">
@@ -287,6 +287,7 @@
 
         $(document).on('click','.delete-staff-btn', function () {
             $('#remove-staff-btn').attr('identity',this.id);
+            $('#removeModalTitle').text($(this).attr('name')+' '+$(this).attr('surname'));
             $('#removeModal').modal();
         });
         $(document).on('click','#remove-staff-btn', function () {
