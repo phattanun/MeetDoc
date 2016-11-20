@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use Illuminate\Http\Request;
 
 use App\DateDim;
@@ -11,6 +12,7 @@ use App\DailySchedule;
 use App\User;
 
 use App\Http\Controllers\AppointmentController;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -287,6 +289,7 @@ class ScheduleController extends Controller
     // ############################
 
     public static function searchSchedule(Request $request) {
+        $id = Auth::user()['id'];
         $date = explode("/", $request->date);
         $date = join('-',array_reverse($date));
         $today = date('Y-m-d');
@@ -299,18 +302,21 @@ class ScheduleController extends Controller
             })->where(function ($query) use ($request) {
                 $query->where('time',$request->isMorning)
                     ->orWhere('time',$request->isAfternoon);
-            })->where('dept_id',$request->dept_id)
-                ->with(array(
-                    'user'=>function($query){
-                        $query->select('id','name','surname');
-                    },
-                    'department'
-                ))
-                ->take(10)->get()->toArray();
-            return self::sortArrayByDateTimeAttr($schedule);
+            })->where('dept_id',$request->dept_id);
+            $busy_dates = Appointment::where('patient_id', $id)->get();
+            $busy_times = [];
+            foreach($busy_dates as $busy_date) {
+                array_push($busy_times, [$busy_date['date'], $busy_date['time']]);
+            }
+            foreach($busy_times as $busy_time) {
+                $schedule = $schedule->where(function ($query)  use ($busy_time) {
+                    $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+                });
+            }
+            return self::sortArrayByDateTimeAttr($schedule->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->take(20)->get()->toArray());
         }
         elseif($date==$today){
-            $today = [];
+            $today = null;
             if($now < '0900'){
                 $today = Schedule::where('date',$date)
                     ->where(function ($query) use ($request) {
@@ -319,14 +325,7 @@ class ScheduleController extends Controller
                     })->where(function ($query) use ($request) {
                         $query->where('time',$request->isMorning)
                             ->orWhere('time',$request->isAfternoon);
-                    })->where('dept_id',$request->dept_id)
-                    ->with(array(
-                        'user'=>function($query){
-                            $query->select('id','name','surname');
-                        },
-                        'department'
-                    ))
-                    ->take(10)->get()->toArray();
+                    })->where('dept_id',$request->dept_id);
             }
             elseif($now < '1300' && $now >= '0900'){
                 $today = Schedule::where('date',$date)
@@ -335,14 +334,7 @@ class ScheduleController extends Controller
                             $query->where('doctor_id', $request->doctor_id);
                     })->where(function ($query) use ($request) {
                         $query->where('time',$request->isAfternoon);
-                    })->where('dept_id',$request->dept_id)
-                    ->with(array(
-                        'user'=>function($query){
-                            $query->select('id','name','surname');
-                        },
-                        'department'
-                    ))
-                    ->take(10)->get()->toArray();
+                    })->where('dept_id',$request->dept_id);
             }
             $tomorrow = Schedule::where('date','>',$date)
                 ->where(function ($query) use ($request) {
@@ -351,19 +343,33 @@ class ScheduleController extends Controller
                 })->where(function ($query) use ($request) {
                     $query->where('time',$request->isMorning)
                         ->orWhere('time',$request->isAfternoon);
-                })->where('dept_id',$request->dept_id)
-                ->with(array(
-                    'user'=>function($query){
-                        $query->select('id','name','surname');
-                    },
-                    'department'
-                ))
-                ->take(10)->get()->toArray();
-            return self::sortArrayByDateTimeAttr(array_merge($today,$tomorrow));
+                })->where('dept_id',$request->dept_id);
+
+
+            $busy_dates = Appointment::where('patient_id', $id)->get();
+            $busy_times = [];
+            foreach($busy_dates as $busy_date) {
+                array_push($busy_times, [$busy_date['date'], $busy_date['time']]);
+            }
+            if(!is_null($today)){
+                foreach($busy_times as $busy_time) {
+                    $today = $today->where(function ($query)  use ($busy_time) {
+                        $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+                    });
+                }
+            }
+            foreach($busy_times as $busy_time) {
+                $tomorrow = $tomorrow->where(function ($query)  use ($busy_time) {
+                    $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+                });
+            }
+
+            return self::sortArrayByDateTimeAttr((is_null($today))?$tomorrow->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->take(20)->get()->toArray():array_merge($today->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->get()->toArray(),$tomorrow->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->take(20)->get()->toArray()));
         }
     }
 
     public static function searchScheduleOfficer(Request $request) {
+        $id = $request->user_id;
         $date = explode("/", $request->date);
         $date = join('-',array_reverse($date));
         $today = date('Y-m-d');
@@ -376,18 +382,21 @@ class ScheduleController extends Controller
             })->where(function ($query) use ($request) {
                 $query->where('time',$request->isMorning)
                     ->orWhere('time',$request->isAfternoon);
-            })->where('dept_id',$request->dept_id)
-                ->with(array(
-                    'user'=>function($query){
-                        $query->select('id','name','surname');
-                    },
-                    'department'
-                ))
-                ->take(10)->get()->toArray();
-            return self::sortArrayByDateTimeAttr($schedule);
+            })->where('dept_id',$request->dept_id);
+            $busy_dates = Appointment::where('patient_id', $id)->get();
+            $busy_times = [];
+            foreach($busy_dates as $busy_date) {
+                array_push($busy_times, [$busy_date['date'], $busy_date['time']]);
+            }
+            foreach($busy_times as $busy_time) {
+                $schedule = $schedule->where(function ($query)  use ($busy_time) {
+                    $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+                });
+            }
+            return self::sortArrayByDateTimeAttr($schedule->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->take(20)->get()->toArray());
         }
         elseif($date==$today){
-            $today = [];
+            $today = null;
             if($now <= '1130'){
                 $today = Schedule::where('date',$date)
                     ->where(function ($query) use ($request) {
@@ -396,14 +405,7 @@ class ScheduleController extends Controller
                     })->where(function ($query) use ($request) {
                         $query->where('time',$request->isMorning)
                             ->orWhere('time',$request->isAfternoon);
-                    })->where('dept_id',$request->dept_id)
-                    ->with(array(
-                        'user'=>function($query){
-                            $query->select('id','name','surname');
-                        },
-                        'department'
-                    ))
-                    ->take(10)->get()->toArray();
+                    })->where('dept_id',$request->dept_id);
             }
             if('1130' < $now && $now <= '1530'){
                 $today = Schedule::where('date',$date)
@@ -412,14 +414,7 @@ class ScheduleController extends Controller
                             $query->where('doctor_id', $request->doctor_id);
                     })->where(function ($query) use ($request) {
                         $query->where('time',$request->isAfternoon);
-                    })->where('dept_id',$request->dept_id)
-                    ->with(array(
-                        'user'=>function($query){
-                            $query->select('id','name','surname');
-                        },
-                        'department'
-                    ))
-                    ->take(10)->get()->toArray();
+                    })->where('dept_id',$request->dept_id);
             }
             $tomorrow = Schedule::where('date','>',$date)
                 ->where(function ($query) use ($request) {
@@ -428,15 +423,26 @@ class ScheduleController extends Controller
                 })->where(function ($query) use ($request) {
                     $query->where('time',$request->isMorning)
                         ->orWhere('time',$request->isAfternoon);
-                })->where('dept_id',$request->dept_id)
-                ->with(array(
-                    'user'=>function($query){
-                        $query->select('id','name','surname');
-                    },
-                    'department'
-                ))
-                ->take(10)->get()->toArray();
-            return self::sortArrayByDateTimeAttr(array_merge($today,$tomorrow));
+                })->where('dept_id',$request->dept_id);
+
+            $busy_dates = Appointment::where('patient_id', $id)->get();
+            $busy_times = [];
+            foreach($busy_dates as $busy_date) {
+                array_push($busy_times, [$busy_date['date'], $busy_date['time']]);
+            }
+            if(!is_null($today)){
+                foreach($busy_times as $busy_time) {
+                    $today = $today->where(function ($query)  use ($busy_time) {
+                        $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+                    });
+                }
+            }
+            foreach($busy_times as $busy_time) {
+                $tomorrow = $tomorrow->where(function ($query)  use ($busy_time) {
+                    $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+                });
+            }
+            return self::sortArrayByDateTimeAttr((is_null($today))?$tomorrow->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->take(20)->get()->toArray():array_merge($today->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->get()->toArray(),$tomorrow->with(array('user'=>function($query){$query->select('id','name','surname');},'department'))->take(20)->get()->toArray()));
         }
     }
 }
