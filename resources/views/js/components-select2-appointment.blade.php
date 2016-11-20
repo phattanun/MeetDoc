@@ -26,9 +26,9 @@
             // @see https://select2.github.io/examples.html#data-ajax
             function formatRepo(repo) {
                 if (repo.loading) return repo.text;
-
+                var imgURL = (repo.image=="")? "{{url('/assets/pages/img/avatars/placeholder.jpg')}}":repo.image;
                 var markup = "<div class='select2-result-repository clearfix'>" +
-                        "<div class='select2-result-repository__avatar'><img src='" + repo.avatar_url + "' /></div>" +
+                        "<div class='select2-result-repository__avatar'><img src='" +imgURL+ "' /></div>" +
                         "<div class='select2-result-repository__meta'>" +
                         "<div class='select2-result-repository__title'>" + repo.id + "</div>"+
                         "<div class='select2-result-repository__description'>" + repo.name + " " + repo.surname + "</div>";

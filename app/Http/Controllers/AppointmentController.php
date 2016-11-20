@@ -556,6 +556,7 @@ class AppointmentController extends Controller
             $appointment_list = Appointment::where('id', 'like', ($keyword) . '%')->where('queue_status','uncheckedin')->get();
             foreach ($appointment_list as $appointment) {
                 $patient = $appointment->patient()->first();
+                $appointment['image'] = $patient['image'];
                 $appointment['name'] = $patient['name'];
                 $appointment['surname'] = $patient['surname'];
                 $appointment['fullname'] = $patient['name'] . " " . $patient['surname'];

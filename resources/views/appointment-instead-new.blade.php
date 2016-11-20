@@ -305,9 +305,9 @@
                     $.fn.select2.defaults.set("theme", "bootstrap");
                     function formatUser(user) {
                         if (user.loading) return user.text;
-
+                        var imgURL = (user.image=="")? "{{url('/assets/pages/img/avatars/placeholder.jpg')}}":user.image;
                         var markup = "<div class='select2-result-staff clearfix'>" +
-                                "<div class='select2-result-staff__avatar'><img src='{{ url('assets/pages/media/profile/profile_user.jpg') }}' /></div>" +
+                                "<div class='select2-result-staff__avatar'><img src='"+imgURL+"' /></div>" +
                                 "<div class='select2-result-staff__meta'>" +
                                 "<div class='select2-result-staff__title'>" + user.name + " " + user.surname + "</div>";
 
