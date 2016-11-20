@@ -82,13 +82,55 @@ class AppointmentController extends Controller
     {
         date_default_timezone_set('Asia/Bangkok');
         $now = date('Y-m-d');
+        $time = date('Hi');
         $apps = DB::table('appointment')
             ->join('user', 'user.id', '=', 'appointment.patient_id')
             ->join('dept', 'dept.id', '=', 'appointment.dept_id')
             ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom');
         if (isset($filter))
             $apps = $apps->where($filter);
-        $apps = $apps->where('date', '>=', $now)->where('queue_status', '<>', 'waiting_pharmacist')->where('queue_status', '<>', 'complete')->orderBy('date', 'ASC')->get();
+        if ($time <= '1130')
+            $apps = DB::table('appointment')
+                ->join('user', 'user.id', '=', 'appointment.patient_id')
+                ->join('dept', 'dept.id', '=', 'appointment.dept_id')
+                ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom')
+                ->where('date', '>=', $now)
+                ->where('approve','1')
+                ->where('queue_status', '<>', 'waiting_pharmacist')
+                ->where('queue_status', '<>', 'complete')
+                ->orderBy('date', 'ASC')
+                ->get();
+        else if ($time > '1530')
+            $apps = DB::table('appointment')
+                ->join('user', 'user.id', '=', 'appointment.patient_id')
+                ->join('dept', 'dept.id', '=', 'appointment.dept_id')
+                ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom')
+                ->where('date', '>', $now)
+                ->where('approve','1')
+                ->orderBy('date', 'ASC')
+                ->get();
+        else {
+            $apps1 = DB::table('appointment')
+                ->join('user', 'user.id', '=', 'appointment.patient_id')
+                ->join('dept', 'dept.id', '=', 'appointment.dept_id')
+                ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom')
+                ->where('date', '>', $now)
+                ->where('approve', '1')
+                ->orderBy('date', 'ASC')
+                ->get();
+            $apps2 = DB::table('appointment')
+                ->join('user', 'user.id', '=', 'appointment.patient_id')
+                ->join('dept', 'dept.id', '=', 'appointment.dept_id')
+                ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom')
+                ->where('date', $now)
+                ->where('approve', '1')
+                ->where('time', 'A')
+                ->where('queue_status', '<>', 'waiting_pharmacist')
+                ->where('queue_status', '<>', 'complete')
+                ->orderBy('date', 'ASC')
+                ->get();
+            $apps = array_merge($apps1,$apps2);
+        }
         return self::recentAppointmentTable($apps);
     }
 
