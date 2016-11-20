@@ -10,7 +10,7 @@ var FormInputMask = function () {
             "placeholder": "*"
         }); //change the placeholder
         $("#mask_date2").inputmask("d/m/y", {
-            "placeholder": "dd/mm/yyyy"
+            "placeholder": "วว/ดด/ปปปป"
         }); //multi-char placeholder
         $("#mask_phone").inputmask("mask", {
             "mask": "(999) 999-9999"

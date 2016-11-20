@@ -339,7 +339,8 @@
             rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
             range: $.validator.format( "Please enter a value between {0} and {1}." ),
             max: $.validator.format( "Please enter a value less than or equal to {0}." ),
-            min: $.validator.format( "Please enter a value greater than or equal to {0}." )
+            min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
+            maxDate: $.validator.format( "วันเกิดไม่ถูกต้อง" )
         },
 
         autoCreateRanges: false,
@@ -1198,7 +1199,23 @@
 
             // http://jqueryvalidation.org/date-method/
             date: function( value, element ) {
-                return this.optional( element ) || !/Invalid|NaN/.test( new Date( value ).toString() );
+                var dateArr = value.split('/');
+                //console.log(dateArr);
+                //console.log( new Date(dateArr[1]+ '/' + dateArr[0] + '/' + dateArr[2]).toString() );
+                if (dateArr.indexOf("ว") != -1 || dateArr.indexOf("ด") != -1 || dateArr.indexOf("ป") != -1)
+                    return false;
+                dateArr[0] = parseInt(dateArr[0]);
+                dateArr[1] = parseInt(dateArr[1]);
+                dateArr[2] = parseInt(dateArr[2]);
+                var dayinmonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                if (dateArr[2]%4==0 && dateArr[2]%100!=0)
+                    dayinmonth[2] = 29;
+                if (dateArr[2]%4==0 && dateArr[2]%100==0 && dateArr[2]%400==0)
+                    dayinmonth[2] = 29;
+                //console.log(dateArr[0] + " " + dayinmonth[dateArr[1]]);
+                return '00' < dateArr[0] && dateArr[0] <= dayinmonth[dateArr[1]];
+                //return this.optional( element ) || !/Invalid|NaN/.test( new Date(dateArr[1]+ '/' + dateArr[0] + '/' + dateArr[2]).toString() );
+                //return this.optional( element ) || !/Invalid|NaN/.test( new Date( value ).toString() );
             },
 
             // http://jqueryvalidation.org/dateISO-method/
@@ -1270,6 +1287,18 @@
             rangelength: function( value, element, param ) {
                 var length = $.isArray( value ) ? value.length : this.getLength( value, element );
                 return this.optional( element ) || ( length >= param[ 0 ] && length <= param[ 1 ] );
+            },
+
+            maxDate: function( value, element, param ) {
+                var dateArr = value.split('/');
+                var val = new Date(dateArr[1]+ '/' + dateArr[0] + '/' + dateArr[2]).toString();
+
+                var curDate = new Date();
+                var inputDate = new Date(val);
+                //console.log("check " + curDate + " " + inputDate + " " + value);
+                if(inputDate < curDate)
+                    return true;
+                return false;
             },
 
             // http://jqueryvalidation.org/min-method/
