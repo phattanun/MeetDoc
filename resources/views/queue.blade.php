@@ -224,7 +224,7 @@
                             </div>
                             <!-- END profile DATA TAB -->
                             <!-- BEGIN diagnosis history TAB -->
-                            <div class="tab-pane tab2_view_history" id="tab_modal_2">
+                            <div class="tab-pane" id="tab_modal_2">
                                 <!-- BEGIN HISTORY TABLE -->
                                 <div class="normal-content">
                                     <div class="row">
@@ -816,7 +816,7 @@
         $(document).on('click','.close-modal', function(){
             $('#full').modal('hide');
         });
-        
+
         function checkPermisssionViewHistory(step){
             if(step == 2)
                 $('.tab2_view_history').show();
