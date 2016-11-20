@@ -652,21 +652,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table id="tab1_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
-                                            <thead class="middle">
-                                            <tr>
-                                                <th class="first"> ลำดับที่ </th>
-                                                <th> ชื่อ </th>
-                                                <th> นามสกุล </th>
-                                                <th> เพศ </th>
-                                                <th> อายุ </th>
-                                                <th> แผนก </th>
-                                                <th> อาการ </th>
-                                                <th class="last"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="middle">
-                                            </tbody>
+                                        <table id="tab1_table_wrapper">
                                         </table>
                                         <!-- END TABLE -->
                                     </div>
@@ -681,21 +667,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table id="tab2_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
-                                            <thead class="middle">
-                                            <tr>
-                                                <th class="first"> ลำดับที่ </th>
-                                                <th> ชื่อ </th>
-                                                <th> นามสกุล </th>
-                                                <th> เพศ </th>
-                                                <th> อายุ </th>
-                                                <th> แผนก </th>
-                                                <th> อาการ </th>
-                                                <th class="last"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="middle">
-                                            </tbody>
+                                        <table id="tab2_table_wrapper">
                                         </table>
                                         <!-- END TABLE -->
                                     </div>
@@ -710,21 +682,7 @@
                                             </div>
                                         </div>
                                         <!-- BEGIN TABLE -->
-                                        <table id="tab3_table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">
-                                            <thead class="middle">
-                                            <tr>
-                                                <th class="first"> ลำดับที่ </th>
-                                                <th> ชื่อ </th>
-                                                <th> นามสกุล </th>
-                                                <th> เพศ </th>
-                                                <th> อายุ </th>
-                                                <th> แผนก </th>
-                                                <th> อาการ </th>
-                                                <th class="last"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="middle">
-                                            </tbody>
+                                        <table id="tab3_table_wrapper">
                                         </table>
                                         <!-- END TABLE -->
                                     </div>
