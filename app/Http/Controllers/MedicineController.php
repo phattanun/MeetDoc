@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Allergic;
 use App\Appointment;
 use App\Medicine;
 use App\Prescription;
@@ -52,10 +53,10 @@ class MedicineController extends Controller
 
     public function delete_medicine(Request $request)
     {
-        if(Prescription::where("medicine_id",$request->id)->exists()){
+        if(Allergic::where("medicine_id",$request->id)->exists()||Prescription::where("medicine_id",$request->id)->exists()){
             return "constraint";
         }
-        $medicine = Medicine::find($request->medicine_id);
+        $medicine = Medicine::findOrFail($request->medicine_id);
         $medicine->delete();
         return "success";
     }
