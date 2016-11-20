@@ -206,7 +206,10 @@
                                                                             </select>
                                                                         </div>
                                                                         <div id="profile-form-submit-button-row" class="margiv-top-10">
-                                                                            <button id="profile-form-submit-button" type="submit" class="btn green profile-form"> บันทึกการแก้ไข </button>
+                                                                            <button type="submit" id="profile-form-submit-button" class="btn btn-success mt-ladda-btn ladda-button profile-form" data-style="expand-right">
+                                                                                <span class="ladda-label">บันทึกการแก้ไข</span>
+                                                                                <span class="ladda-spinner"></span><span class="ladda-spinner"></span>
+                                                                            </button>
                                                                             <a class="btn default close-modal profile-form"> ยกเลิก </a>
                                                                         </div>
                                                                     </form>
