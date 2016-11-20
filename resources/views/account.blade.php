@@ -337,10 +337,18 @@
                 $.post(URL_ROOT+'/account/delete',
                         {id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
                     l.stop();
-                    toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
-                    resetaccountList();
-                    resetResultList(keyword);
-                    $('#removeModal').modal('hide');
+                    if(input =="success"){
+                        toastr['success']('ลบข้อมูลบัญชีผู้ใช้สำเร็จ', "สำเร็จ");
+                        resetaccountList();
+                        resetResultList(keyword);
+                        $('#removeModal').modal('hide');
+                    }
+                    else if (input =="constraint"){
+                        toastr['warning']("บัญชีนี้เป็นแพทย์ที่มีนัดหมายอยู่ในระบบ ไม่สามารถลบได้", "ขออภัย");
+                    }
+                    else {
+                        toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                    }
                 }).fail(function () {
                     l.stop();
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
