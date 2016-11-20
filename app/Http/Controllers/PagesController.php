@@ -284,7 +284,9 @@ class PagesController extends Controller
 
     public function viewOfficerManage()
     {
-        if(Auth::user)
+        $user = Auth::user();
+        if(!($user['p_admin']&&$user['p_admin']))
+            return self::index();
         $res = AccountController::getUserList(['id', 'ssn', 'name', 'surname', 'dept_id', 'p_admin', 'p_doctor', 'p_nurse', 'p_pharm', 'p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);
         return view('officer')->with('users_list', $res);
