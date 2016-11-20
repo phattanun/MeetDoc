@@ -1098,7 +1098,10 @@
 
             $('.disease').remove();
             for(var tmp in diagnosis_history[historyId]['disease']){
-                $('#disease_container').append('<div class="disease">- '+diagnosis_history[historyId]['disease'][tmp]['name']+'</div>');
+                $('#disease_container').append('<div class="disease">- '+diagnosis_history[historyId]['disease'][tmp]['name']+' (' +
+                        diagnosis_history[historyId]['disease'][tmp]['icd10']+', '+
+                        diagnosis_history[historyId]['disease'][tmp]['snomed']+', '+
+                        diagnosis_history[historyId]['disease'][tmp]['drg']+')</div>');
             }
 
             $('#diagnosis_description').text(diagnosis_history[historyId]['diagnosis']);
