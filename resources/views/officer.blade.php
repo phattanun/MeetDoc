@@ -270,8 +270,11 @@
                         if(input=="success")
                             toastr['success']('แก้ไขแผนกสำเร็จ', "สำเร็จ");
                         else if (input=="constraint") {
-                            toastr['warning']("แพทย์ท่านนี้ในแผนกนี้ถูกใช้อยู่ในระบบ ไม่สามารถแก้ไขได้", "ขออภัย");
+                            toastr['warning']("แพทย์ท่านนี้ในแผนกนี้มีนัดอยู่ในระบบ ไม่สามารถแก้ไขได้", "ขออภัย");
                             resetStaffList();
+                        }
+                        else {
+                            toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
                         }
             }).fail(function () {
                 toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
@@ -289,15 +292,17 @@
             $.post(URL_ROOT+'/officer/manage/removeStaff',
                     {id:  $(this).attr('identity'), _token: '{{csrf_token()}}'}).done(function (input) {
                         if(input=="success"){
-                            l.stop();
                             toastr['success']('ลบสถานะบุคลากรสำเร็จ', "สำเร็จ");
                             resetStaffList();
                             $('#removeModal').modal('hide');
                         }
+                        else if(input=="constraint"){
+                            toastr['warning']("แพทย์ท่านนี้มีนัดอยู่ในระบบ ไม่สามารถลบสถานะบุคลากรได้", "ขออภัย");
+                        }
                         else {
-                            l.stop();
                             toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
                         }
+                        l.stop();
             }).fail(function () {
                 toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
             });

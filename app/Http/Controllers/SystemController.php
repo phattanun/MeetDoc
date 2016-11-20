@@ -29,6 +29,9 @@ class SystemController extends Controller
     {
         try {
             $user = User::findOrFail($request->id);
+            if(Appointment::where("doctor_id",$request->id)->exists()){
+                return "constraint";
+            }
             $user->staff = false;
             $user->save();
         } catch (\Exception $e) {
