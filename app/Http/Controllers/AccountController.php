@@ -324,11 +324,11 @@ class AccountController extends Controller
                     $user->save();
 
                     $allergic_medicine = [];
-                    if (!is_null($data->drugAllergy)) {
+                    Allergic::where('patient_id', $user->id)->delete();
+                    if (isset($data->drugAllergy)) {
                         foreach ($data->drugAllergy as $drug) {
                             array_push($allergic_medicine, ['patient_id' => $user->id, 'medicine_id' => $drug]);
                         }
-                        Allergic::where('patient_id', $user->id)->delete();
                         DB::table('allergic')->insert($allergic_medicine);
                     }
                 }
