@@ -218,10 +218,10 @@ class AccountController extends Controller
                 .$tempDept.
                 '</select>
                 </td>
-            <td><input type="checkbox" id="?0" isa="p_doctor" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
-            <td><input type="checkbox" id="?0" isa="p_nurse" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
-            <td><input type="checkbox" id="?0" isa="p_pharm" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
             <td><input type="checkbox" id="?0" isa="p_officer" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?9></td>
+            <td><input type="checkbox" id="?0" isa="p_nurse" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?7></td>
+            <td><input type="checkbox" id="?0" isa="p_doctor" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?6></td>
+            <td><input type="checkbox" id="?0" isa="p_pharm" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?8></td>
             <td><input type="checkbox" id="?0" isa="p_admin" class="make-switch" data-on-text="มี" data-off-text="ไม่มี" data-on-color="success" data-size="mini" ?5></td>
             <td><button type="button" id="?0" class="btn red delete-staff-btn">ลบ</button></td>
         </tr>';
