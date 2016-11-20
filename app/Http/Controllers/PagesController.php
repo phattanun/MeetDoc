@@ -440,6 +440,9 @@ class PagesController extends Controller
     }
     public function editAccountPage($id)
     {
+        $_permission = Auth::user();
+        if(!$_permission['p_admin']&&$_permission['p_admin'])
+            return self::index();
         $user = User::findOrFail($id);
         $allergic_medicine = DiagnosisController::get_allergic_medicine($user);
         $medicine_list = MedicineController::get_medicine_list();
