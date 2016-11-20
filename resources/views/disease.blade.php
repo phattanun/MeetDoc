@@ -471,10 +471,15 @@
                 $.post(URL_ROOT+'/disease/delete',
                         {id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
                     l.stop();
-                    toastr['success']('ลบข้อมูลรหัสโรคสำเร็จ', "สำเร็จ");
-                    resetDiseaseList();
-                    resetResultList(keyword);
-                    $('#removeModal').modal('hide');
+                    if(input == "success") {
+                        toastr['success']('ลบข้อมูลรหัสโรคสำเร็จ', "สำเร็จ");
+                        resetDiseaseList();
+                        resetResultList(keyword);
+                        $('#removeModal').modal('hide');
+                    }
+                    else if (input == "constraint"){
+                        toastr['warning']("ข้อมูลรหัสโรคนี้ถูกใช้อยู่ในระบบ ไม่สามารถลบได้", "ขออภัย");
+                    }
                 }).fail(function () {
                     l.stop();
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");

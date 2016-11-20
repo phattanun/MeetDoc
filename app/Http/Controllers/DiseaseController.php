@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AppointmentDisease;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -40,8 +41,12 @@ class DiseaseController extends Controller
 
     public function delete_disease(Request $request)
     {
+        if(AppointmentDisease::where("disease_id",$request->id)->exists()){
+            return "constraint";
+        }
         $disease = Disease::findOrFail($request->id);
         $disease->delete();
+        return "success";
     }
 
     public function get_disease_detail(Request $request)
