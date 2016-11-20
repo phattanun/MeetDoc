@@ -131,7 +131,7 @@
                                                 <label class="control-label">ประวัติการแพ้ยา</label>
                                                 <select name="drugAllergy[]" id="drugAllergy" class="form-control select2-multiple" multiple>
                                                     @foreach($medicine_list as $medicine)
-                                                        <option value="{{$medicine['medicine_id']}}" @if(in_array($medicine['medicine_name'], $allergic_medicine)) selected @endif>{{$medicine['medicine_name']}}</option>
+                                                        <option value="{{$medicine['medicine_id']}}" @if(in_array($medicine['medicine_name'], $allergic_medicine)) selected @endif>{{$medicine['business_name']}} ({{$medicine['medicine_name']}})</option>
                                                     @endforeach
                                                 </select>
                                             </div>
