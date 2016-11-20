@@ -10,6 +10,8 @@ use App\WeeklySchedule;
 use App\DailySchedule;
 use App\User;
 
+use App\Http\Controllers\AppointmentController;
+
 class ScheduleController extends Controller
 {
 
@@ -271,11 +273,12 @@ class ScheduleController extends Controller
     public static function deleteDailySchedule(Request $request) {
         try {
             $status = DailySchedule::where('doctor_id', $request->doctor_id)->where('date', date("Y-m-d", strtotime($request->date)))->where('time', $request->time)->delete();
+            AppointmentController::shiftDateAppointment($request->date, $request->time, $request->doctor_id);
         }
         catch (\Exception $e) {
             return $e->getMessage();
         }
-        return "success";
+        return 'success';
     }
 
 

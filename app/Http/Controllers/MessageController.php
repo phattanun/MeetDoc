@@ -398,4 +398,26 @@ class MessageController extends Controller
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'notify');
         }
     }
+
+    public static function sendShiftAppointment($res) {
+        $subject = "[MeetDoc⁺] เลื่อนเวลาการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $message =
+            "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
+            <br>
+            ตามที่ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".self::$hospital." ดังนี้<br>
+            เนื่องจากแพทย์ยกเลิกการออกตรวจในวัน-เวลาดังกล่าว<br>
+            การนัดหมายของท่านถูกเลื่อนเวลาออกไปเป็นดังนี้ค่ะ<br>
+            <br>
+            หมายเลขการนัดหมาย: ".$res['app_id']."<br>
+            ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
+            แพทย์: ".$res['d_name']." ".$res['d_surname']."<br>
+            <b>แผนก: ".$res['dept']."</b><br>
+            <b>วัน-เวลา: ".$res['date']." ".$res['time']."</b><br>
+            อาการ: ".$res['symptom']."<br>
+            <b>หากท่านไม่สะดวก สามารถแก้ไขข้อมูลการนัดหมายได้ที่</b><br>
+            <a href='".url($res['link'])."'>คลิกเพื่อแก้ไขข้อมูลการนัดหมาย</a><br>
+            <br>
+            ขออภัยในความไม่สะดวกและขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>";
+        self::sendEmail($res['email'], $subject, $message, $message);
+    }
 }

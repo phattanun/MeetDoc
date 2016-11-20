@@ -574,44 +574,86 @@ class AppointmentController extends Controller
 
     }
 
-    public static function shiftDateAppointment($old_date, $old_time, $doctor_id)
+    public static function shiftDateAppointment($shifted_date, $shifted_time, $shifted_doctor_id)
     {
-        $old_date = date('Y-m-d', strtotime($old_date));
-        $shift_appointments = Appointment::where('date', $old_date)->where('time', $old_time)->where('doctod_id', $doctor_id)->get();
+        $shifted_date = date('Y-m-d', strtotime($shifted_date));
+        Appointment::where('date', $shifted_date)->where('time', $shifted_time)->where('doctor_id', $shifted_doctor_id)->where('approve',0)->delete();
+
+        $shift_appointments = Appointment::where('date', $shifted_date)->where('time', $shifted_time)->where('doctor_id', $shifted_doctor_id)->get();
+
         foreach($shift_appointments as $shift_appointment)
         {
-            $new_date = self::availableDate($old_date, $shift_appointment['doctor_id']);
+            $new_date = self::availableDate($shift_appointment);
 
-            $shift_appointment['date'] = $new_date['date'];
-            $shift_appointment['time'] = $new_date['time'];
+            $shift_appointment['type'] = 'R';
+            $shift_appointment['date'] = $new_date[0]['date'];
+            $shift_appointment['time'] = $new_date[0]['time'];
             $shift_appointment->save();
-        }
 
+            $patient = User::findOrfail($shift_appointment->patient_id);
+            $doctor = User::findOrfail($shift_appointment->doctor_id);
+            $dept = Department::findOrfail($shift_appointment->dept_id)->name;
+            $day = explode('-', $shift_appointment->date)[2];
+            $im = explode('-', $shift_appointment->date)[1];
+            $year = explode('-', $shift_appointment->date)[0];
+            $month = [
+                "1" => "มกราคม",
+                "2" => "กุมภาพันธ์",
+                "3" => "มีนาคม",
+                "4" => "เมษายน",
+                "5" => "พฤษภาคม",
+                "6" => "มิถุนายน",
+                "7" => "กรกฎาคม",
+                "8" => "สิงหาคม",
+                "9" => "กันยายน",
+                "10" => "ตุลาคม",
+                "11" => "พฤษจิกายน",
+                "12" => "ธันวาคม",
+            ];
+
+            MessageController::sendShiftAppointment([
+                "app_id" => $shift_appointment->id,
+                "p_name" => $patient->name,
+                "p_surname" => $patient->surname,
+                "d_name" => $doctor->name,
+                "d_surname" => $doctor->surname,
+                "symptom" => $shift_appointment->symptom,
+                "dept" => $dept,
+                "date" => "วันที่ ".$day." เดือน".$month[$im]." ค.ศ.".$year,
+                "time" => "ช่วงเวลา".($shift_appointment->time == 'M' ? "เช้า (9.00 - 11.30)" : "บ่าย (13.00 - 15.30)"),
+                "email" => $patient->email,
+                "phone_number" => $patient->phone_no,
+                "link" => "./appointment/future"
+            ]);
+        }
     }
 
-    public static function availableDate($old_date, $doctor_id)
+    public static function availableDate($old_ap)
     {
-        $dates = Appointment::where('date', '>', $old_date)->where('type', 'R')->groupBy('date')->get();
-
-        $busy_dates = [];
-
-        foreach($dates as $date)
-        {
-            if(Appointment::where('date', $date['date'])->where('type', 'R')->groupBy('date')->count()>=15)
-                array_push($busy_dates, $date['date']);
+        $busy_dates = Appointment::where('date', '>=', $old_ap->date)->where('patient_id', $old_ap->patient_id)->get();
+        $busy_times = [];
+        foreach($busy_dates as $busy_date) {
+            array_push($busy_times, [$busy_date['date'], $busy_date['time']]);
         }
 
-        $available_dates = Schedule::where('date', '>', $old_date)->where('doctor_id', $doctor_id);
+        // echo "Busy Times<br>";
+        // var_dump($busy_times);
 
-        foreach($busy_dates as $busy_date)
-        {
-            $available_dates = $available_dates->where('date', '<>', $busy_date);
+        if($old_ap->time == 'M')
+            $available_times = Schedule::where('date', '>=', $old_ap->date)->where('doctor_id', $old_ap->doctor_id);
+        else if($old_ap->time == 'A')
+            $available_times = Schedule::where('date', '>', $old_ap->date)->where('doctor_id', $old_ap->doctor_id);
+
+        foreach($busy_times as $busy_time) {
+            $available_times = $available_times->where(function ($query)  use ($busy_time) {
+                $query->where('date', '<>', $busy_time[0])->orWhere('time', '<>', $busy_time[1]);
+            });
         }
 
-        $available_dates = $available_dates->orderBy('date', 'asc')->get()[0];
-
-        return $available_dates;
-
+        $available_times = $available_times->orderBy('date', 'asc')->get()->toArray();
+        // echo "Availiable Times<br>";
+        // var_dump($available_times);
+        return $available_times;
     }
 
     public function manualNotify(){
