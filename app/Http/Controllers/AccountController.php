@@ -9,42 +9,12 @@ use App\Medicine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 use App\User;
 
 class AccountController extends Controller
 {
-    private static function base62_encode ($data) {
-        $outstring = '';
-        $len = strlen($data);
-        for ($i = 0; $i < $len; $i += 8) {
-            $chunk = substr($data, $i, 8);
-            $outlen = ceil((strlen($chunk) * 8) / 6);
-            $x = bin2hex($chunk);
-            $number = ltrim($x, '0');
-            if ($number === '') $number = '0';
-            $w = gmp_strval(gmp_init($number, 16), 62);
-            $pad = str_pad($w, $outlen, '0', STR_PAD_LEFT);
-            $outstring .= $pad;
-        }
-        return $outstring;
-    }
-
-    private static function base62_decode ($data) {
-        $outstring = '';
-        $len = strlen($data);
-        for ($i = 0; $i < $len; $i += 11) {
-            $chunk = substr($data, $i, 11);
-            $outlen = floor((strlen($chunk) * 6) / 8);
-            $number = ltrim($chunk, '0');
-            if ($number === '') $number = '0';
-            $y = gmp_strval(gmp_init($number, 62), 16);
-            $pad = str_pad($y, $outlen * 2, '0', STR_PAD_LEFT);
-            $outstring .= pack('H*', $pad);
-        }
-        return $outstring;
-    }
-
     public static function login(Request $request){
         if(Auth::viaRemember() || Auth::attempt(array('ssn' => $request->id, 'password' => $request->password), isset($request->remember))) {
             Session::set('_role', (Auth::user()->staff ? 'Staff' : 'Patient'));
@@ -267,8 +237,8 @@ class AccountController extends Controller
         // return $profile['attributes'];
     }
 
-    private static function generateEditProfileHash($ssn, $name, $surname, $gender, $birthday, $email, $address, $phone_no, $time) {
-        return hash('ripemd256', "UsER".$ssn."WaNttoeDITprOfilEIn".$name.$surname.$gender.$birthday.$email.$address.$phone_no."aT".$time."NaJA");
+    private static function generateEditProfileHash($old_info, $new_info, $time) {
+        return hash('ripemd256', "oLdUsERiNFo".$old_info."NEwUsERiNFo".$new_info."aT".$time."NaJA");
     }
 
     public static function createEditProfileLink(Request $request) {
@@ -280,9 +250,14 @@ class AccountController extends Controller
         }
         else $user = Auth::user();
 
+        $old_info = $user;
+        $old_info['allergic_medicine'] = $old_info->allergic_medicine()->get()->toArray();
+        $old_info = $old_info->toArray();
+        $old_info = json_encode($old_info);
+
         $edited = array_filter($request->all());
         $edited['birthday'] =  join('-',array_reverse(explode("/",$edited['birthday'])));
-        $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no'];
+        $editable_field = ['ssn','name', 'surname', 'gender', 'birthday', 'email', 'address', 'phone_no', 'drugAllergy'];
         $filtered = array_intersect_key($edited, array_flip($editable_field));
         $filtered['_now'] = $now;
 
@@ -317,12 +292,13 @@ class AccountController extends Controller
             "time" => $hour.".".$min." น. วันที่ ".$day." ".$month[$im]." ค.ศ.".$year,
             "email" => $request->email,
             "phone_number" => $request->phone_no,
-            "link" => "./account/approve/edit?id=".$user->id."&cep=".self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $now)."&edt=".$encoded
+            "link" => "./account/approve/edit?id=".$user->id."&cep=".self::generateEditProfileHash($old_info, $encoded, $now)."&edt=".$encoded
         ];
         return $res;
     }
 
     public static function edit(Request $request) {
+
         $request->birthday = join('-', array_reverse(explode('/',$request->birthday)));
         date_default_timezone_set('Asia/Bangkok');
         $now = new \DateTime('NOW');
@@ -330,7 +306,12 @@ class AccountController extends Controller
             $user = User::findOrFail($request->id);
             $data = json_decode(base64_decode($request->edt));
 
-            if(!is_null($data) && isset($data->_now) && $request->cep == self::generateEditProfileHash($user->ssn, $user->name, $user->surname, $user->gender, $user->birthday, $user->email, $user->address, $user->phone_no, $data->_now)) {
+            $old_info = User::findOrFail($request->id);
+            $old_info['allergic_medicine'] = $old_info->allergic_medicine()->get()->toArray();
+            $old_info = $old_info->toArray();
+            $old_info = json_encode($old_info);
+
+            if(!is_null($data) && isset($data->_now) && $request->cep == self::generateEditProfileHash($old_info, $request->edt, $data->_now)) {
                 $edit_time = new \DateTime($data->_now);
                 if(($now->getTimeStamp() - $edit_time->getTimeStamp())/3600 < 24) {
                     $edited = array_filter((array)$data);
@@ -339,13 +320,24 @@ class AccountController extends Controller
 
                     foreach ($filtered as $key => $value)
                         $user[$key] = $value;
+                    
                     $user->save();
+
+                    $allergic_medicine = [];
+                    if (!is_null($data->drugAllergy)) {
+                        foreach ($data->drugAllergy as $drug) {
+                            array_push($allergic_medicine, ['patient_id' => $user->id, 'medicine_id' => $drug]);
+                        }
+                        Allergic::where('patient_id', $user->id)->delete();
+                        DB::table('allergic')->insert($allergic_medicine);
+                    }
                 }
                 else throw new \Exception("Too late", 1);
             }
             else throw new \Exception("Wrong key", 1);
         }
         catch (\Exception $e) {
+            dd($e->getMessage());
             return ["status" => false, "msg" => $e->getMessage()];
         }
         return ["status" => true];
