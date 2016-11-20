@@ -285,7 +285,7 @@ class PagesController extends Controller
     public function viewOfficerManage()
     {
         $user = Auth::user();
-        if(!($user['p_admin']&&$user['p_admin']))
+        if(!($user['staff']&&$user['p_admin']))
             return self::index();
         $res = AccountController::getUserList(['id', 'ssn', 'name', 'surname', 'dept_id', 'p_admin', 'p_doctor', 'p_nurse', 'p_pharm', 'p_officer'], ['staff' => true]);
         $res = AccountController::officerManageTable($res);
@@ -441,7 +441,7 @@ class PagesController extends Controller
     public function editAccountPage($id)
     {
         $_permission = Auth::user();
-        if(!$_permission['p_admin']&&$_permission['p_admin'])
+        if(!$_permission['staff']&&$_permission['p_admin'])
             return self::index();
         $user = User::findOrFail($id);
         $allergic_medicine = DiagnosisController::get_allergic_medicine($user);
