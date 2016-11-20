@@ -269,8 +269,9 @@
                     {id:  this.id, dept_id: this.value, _token: '{{csrf_token()}}'}).done(function (input) {
                         if(input=="success")
                             toastr['success']('แก้ไขแผนกสำเร็จ', "สำเร็จ");
-                        else {
-                            toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
+                        else if (input=="constraint") {
+                            toastr['warning']("แพทย์ท่านนี้ในแผนกนี้ถูกใช้อยู่ในระบบ ไม่สามารถแก้ไขได้", "ขออภัย");
+                            resetStaffList();
                         }
             }).fail(function () {
                 toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Appointment;
 use App\Disease;
 use Illuminate\Http\Request;
 
@@ -51,6 +52,9 @@ class SystemController extends Controller
     public static function changeDepartment(Request $request)
     {
         try {
+            if(Appointment::where("doctor_id",$request->id)->exists()){
+                return "constraint";
+            }
             $user = User::findOrFail($request->id);
             $user['dept_id'] = $request->dept_id;
             $user->save();
