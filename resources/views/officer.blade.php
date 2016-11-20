@@ -89,10 +89,10 @@
                         <th rowspan="2"></th>
                     </tr>
                     <tr class="text-center">
-                        <th>แพทย์</th>
-                        <th>พยาบาล</th>
-                        <th>เภสัชกร</th>
                         <th>เจ้าหน้าที่</th>
+                        <th>พยาบาล</th>
+                        <th>แพทย์</th>
+                        <th>เภสัชกร</th>
                         <th>ผู้ดูแลระบบ</th>
                     </tr>
                     </thead>
@@ -255,6 +255,10 @@
                     {id:  this.id, type:$(this).attr('isa'),permission:this.checked, _token: '{{csrf_token()}}'}).done(function (input) {
                 if(input=="success")
                     toastr['success']('แก้ไขสิทธิสำเร็จ', "สำเร็จ");
+                else if (input=="constraint") {
+                    toastr['warning']("แพทย์ท่านนี้มีนัดอยู่ในระบบ ไม่สามารถลบสิทธิ์แพทย์ได้", "ขออภัย");
+                    resetStaffList();
+                }
                 else {
                     toastr['error']('กรุณาลองใหม่อีกครั้ง', "ผิดพลาด")
                 }
