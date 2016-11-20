@@ -134,7 +134,7 @@
         </div>
         <div class="form-actions">
             <a href="{{url('login')}}" type="button" id="register-back-btn" class="btn green btn-outline">ย้อนกลับ</a>
-            <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">สมัครสมาชิก</button>
+            <button type="submit" id="register-submit-btn" class="btn btn-success uppercase pull-right">ลงทะเบียน</button>
         </div>
     </form>
 </div>
