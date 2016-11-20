@@ -377,6 +377,7 @@ class AccountController extends Controller
             return "constraint";
         }
         $account = User::findOrFail($request->id);
+        $appointment = Appointment::where();
         $account->delete();
         return "success";
     }
