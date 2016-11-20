@@ -28,13 +28,13 @@
             function formatRepoDisease(repo) {
                 if (repo.loading) return repo.text;
                 var markup = "<div class='select2-result-repository clearfix'>" +
-                        "<div class='select2-result-repository__title'>" + repo.name + " (" + repo.icd10 + ", " + repo.snomed + ", " + repo.drg + ")</div></div>";
+                        "<div class='select2-result-repository__title'>" + repo.fullname + "</div></div>";
 
                 return markup;
             }
 
             function formatRepoSelectionDisease(repo) {
-                return (repo.name + " (" + repo.icd10 + ", " + repo.snomed + ", " + repo.drg + ")") || repo.text;
+                return repo.fullname || repo.text;
             }
 
             $(".js-data-disease-ajax").select2({

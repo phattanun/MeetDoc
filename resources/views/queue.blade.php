@@ -1022,7 +1022,8 @@
                 var $option;
                 for(var tmp in allTableData['waiting_pharmacist'][id]['disease']){
                     console.log("disease => " + tmp);
-                    $option = $('<option selected>'+allTableData['waiting_pharmacist'][id]['disease'][tmp]['name']+'</option>').val(allTableData['waiting_pharmacist'][id]['disease'][tmp]['id']);
+                    console.log(allTableData['waiting_pharmacist'][id]['disease'][tmp]);
+                    $option = $('<option selected>'+allTableData['waiting_pharmacist'][id]['disease'][tmp]['fullname']+'</option>').val(allTableData['waiting_pharmacist'][id]['disease'][tmp]['id']);
                     $select.append($option);
                 }
                 $select.trigger('change');
@@ -1098,10 +1099,7 @@
 
             $('.disease').remove();
             for(var tmp in diagnosis_history[historyId]['disease']){
-                $('#disease_container').append('<div class="disease">- '+diagnosis_history[historyId]['disease'][tmp]['name']+' (' +
-                        diagnosis_history[historyId]['disease'][tmp]['icd10']+', '+
-                        diagnosis_history[historyId]['disease'][tmp]['snomed']+', '+
-                        diagnosis_history[historyId]['disease'][tmp]['drg']+')</div>');
+                $('#disease_container').append('<div class="disease">- '+diagnosis_history[historyId]['disease'][tmp]['fullname']+'</div>');
             }
 
             $('#diagnosis_description').text(diagnosis_history[historyId]['diagnosis']);

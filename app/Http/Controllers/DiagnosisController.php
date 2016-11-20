@@ -60,6 +60,9 @@ class DiagnosisController extends Controller
             $prescription = $appointment->prescription()->withPivot('amount', 'unit', 'note')->get();
             $appointment['prescription'] = json_decode($prescription, true);
             $appointment['disease'] = $appointment->disease()->get();
+            foreach($appointment['disease'] as $disease){
+                $disease['fullname'] = $disease['name']." (".$disease['icd10'].", ".$disease['snomed'].", ".$disease['drg'].")";
+            }
             $appointment['doctor'] = $appointment->doctor()->first();
             $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
 
@@ -170,6 +173,9 @@ class DiagnosisController extends Controller
                 //array_push($appointment['waiting_pharmacist'], $array_app);
                 $array_app['medicine'] = $app->prescription()->get();
                 $array_app['disease'] = $app->disease()->get();
+                foreach($array_app['disease'] as $disease){
+                    $disease['fullname'] = $disease['name']." (".$disease['icd10'].", ".$disease['snomed'].", ".$disease['drg'].")";
+                }
                 $appointment['waiting_pharmacist'][$array_app['id']] = $array_app;
 
             }

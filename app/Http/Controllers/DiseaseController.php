@@ -75,6 +75,9 @@ class DiseaseController extends Controller
                 ->orWhere('drg', 'like', '%'.($keyword).'%')
                 ->orWhere('name', 'like', '%'.($keyword).'%')
                 ->get();
+            foreach($disease_list as $disease){
+                $disease['fullname'] = $disease['name']." (".$disease['icd10'].", ".$disease['snomed'].", ".$disease['drg'].")";
+            }
         }
         else {
             $disease_list = [];
