@@ -67,7 +67,7 @@ class PagesController extends Controller
     public function viewOfficerNewAppointmentPage(Request $request)
     {
         $_permission = Auth::user();
-        if(!($_permission['staff']&&$_permission['p_officer']))
+        if(!($_permission['staff']&&($_permission['p_officer']||$_permission['p_doctor'])))
             return self::index();
         $patient_id = $request->patient_id;
         $patient = User::where('id', $patient_id)->first();
