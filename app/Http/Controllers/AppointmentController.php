@@ -553,8 +553,20 @@ class AppointmentController extends Controller
 
     public static function search($keyword = null)
     {
+        $start_time_morning = (new \DateTime())->setTime(\Config::get('app.open_hour_morning'), \Config::get('app.open_minute_morning'));
+        $end_time_morning = (new \DateTime())->setTime(\Config::get('app.close_hour_morning'), \Config::get('app.close_minute_morning'));
+        $start_time_afternoon = (new \DateTime())->setTime(\Config::get('app.open_hour_afternoon'), \Config::get('app.open_minute_afternoon'));
+        $end_time_afternoon = (new \DateTime())->setTime(\Config::get('app.close_hour_afternoon'), \Config::get('app.close_minute_afternoon'));
+        $now = new \DateTime('NOW');
+
+        $time = '';
+        if ($start_time_morning <= $now && $now <= $end_time_morning)
+            $time = 'M';
+        else if ($start_time_afternoon <= $now && $now <= $end_time_afternoon)
+            $time = 'A';
+
         if ($keyword != '') {
-            $appointment_list = Appointment::where('id', 'like', ($keyword) . '%')->where('queue_status','uncheckedin')->where('approve',1)->get();
+            $appointment_list = Appointment::where('id', 'like', ($keyword) . '%')->where('queue_status','uncheckedin')->where('time', $time)->where('approve',1)->get();
             foreach ($appointment_list as $appointment) {
                 $patient = $appointment->patient()->first();
                 $appointment['image'] = $patient['image'];
