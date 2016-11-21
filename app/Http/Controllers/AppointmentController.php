@@ -566,7 +566,7 @@ class AppointmentController extends Controller
             $time = 'A';
 
         if ($keyword != '') {
-            $appointment_list = Appointment::where('id', 'like', ($keyword) . '%')->where('queue_status','uncheckedin')->where('time', $time)->where('approve',1)->get();
+            $appointment_list = Appointment::where('id', 'like', ($keyword) . '%')->where('date', date("Y-m-d"))->where('queue_status','uncheckedin')->where('time', $time)->where('approve',1)->get();
             foreach ($appointment_list as $appointment) {
                 $patient = $appointment->patient()->first();
                 $appointment['image'] = $patient['image'];
@@ -578,6 +578,7 @@ class AppointmentController extends Controller
         } else {
             $appointment_list = [];
         }
+
         return $appointment_list;
 
     }
