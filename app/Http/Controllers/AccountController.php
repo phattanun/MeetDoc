@@ -215,10 +215,10 @@ class AccountController extends Controller
         $users = isset($select) ? User::select($select) : User::select();
         if(isset($filter))
             foreach ($filter as $key => $value) {
-                $users = $users->orWhere($key , 'like', '%'.$value.'%');
+                $users = $users->orWhere($key , 'like', '%'.$value.'%')->where('p_doctor', 1);
             }
 //            $users = $users->orWhere($filter);
-        $users = $users->where('p_doctor', 1)->get()->toArray();
+        $users = $users->get()->toArray();
         return $users;
     }
 
