@@ -115,7 +115,7 @@
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
             <label class="control-label visible-ie8 visible-ie9">ที่อยู่</label>
-            <textarea class="form-control{{ $errors->has('address') ? ' has-error' : '' }} placeholder-no-fix" id="address" style="height: 100px;"  placeholder="ที่อยู่" name="address">{{ old('address') }}</textarea>
+            <textarea class="form-control{{ $errors->has('address') ? ' has-error' : '' }} placeholder-no-fix" id="address" style="height: 100px;resize:vertical;"  placeholder="ที่อยู่" name="address">{{ old('address') }}</textarea>
             @if ($errors->has('address'))
                 <span class="help-block">
                     <strong>{{ $errors->first('address') }}</strong>
