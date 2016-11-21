@@ -770,6 +770,7 @@
             var step = $(this).attr('step');
             checkPermisssionViewHistory(step);
             $('#profile-form-patient-id').val(id);
+            $('#new-appointment').attr('patientId',id);
 
             if(step == 1){
                 $('#profile-form-submit-button-row').hide();
@@ -837,6 +838,7 @@
             var appId = $(this).attr('appointmentId');
             var step = $(this).attr('step');
             checkPermisssionViewHistory(step);
+            $('#new-appointment').attr('patientId',id);
             $('#tab_modal_1_button').attr('patientId',id);
             $('#tab_modal_2_button').attr('patientId',id);
             $('#tab_modal_3_button').attr('appointmentId',appId);
@@ -933,6 +935,7 @@
             $('#tab_modal_2_button').attr('step',step);
             $('#tab_modal_3_button').attr('step',step);
 //            alert("goToModalTab3 "+id+" "+step);
+            $('#new-appointment').attr('patientId',patientId);
             if(step == 1){
                 clearPhysicalForm();
                 clearDiagnosisForm();
