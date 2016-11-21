@@ -408,7 +408,7 @@ class ScheduleController extends Controller
                             ->orWhere('time',$request->isAfternoon);
                     })->where('dept_id',$request->dept_id);
             }
-            if('1130' < $now && $now <= '1530'){
+            elseif('1130' < $now && $now <= '1530'){
                 $today = Schedule::where('date',$date)
                     ->where(function ($query) use ($request) {
                         if($request->doctor_id!="0")
