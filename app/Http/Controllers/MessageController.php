@@ -12,6 +12,8 @@ define('APPLICATION_NAME', 'MeetDocPlus');
 define('CREDENTIALS_PATH', base_path('.credentials/gmail_credential.json'));
 define('CLIENT_SECRET_PATH', base_path('gmail_secret.json'));
 define('SCOPES', implode(' ', array(\Google_Service_Gmail::GMAIL_SEND)));
+define('HOSPITAL_NAME', \Config::get('app.HOSPITAL')['hospital_name']);
+define('HOSPITAL_PHONE', \Config::get('app.HOSPITAL')['hospital_phone_number']);
 
 class MessageController extends Controller
 {
@@ -237,11 +239,11 @@ class MessageController extends Controller
     private static $hospital_phone="02-xxx-xxxx";
 
     public static function sendRegister($res) {
-        $subject = "[MeetDoc⁺] กรุณายืนยันการลงทะเบียน ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] กรุณายืนยันการลงทะเบียน ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
             <br>
-            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".HOSPITAL_NAME."<br>
             ชื่อผู้ใช้งานระบบของท่านคือ หมายเลขบัตรประจำตัวประชาชนของท่าน <br>
             <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการลงทะเบียน</b><br>
             <br>
@@ -250,7 +252,7 @@ class MessageController extends Controller
             หากท่านไม่ได้ต้องการลงทะเบียน ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
             ขอบคุณที่ลงทะเบียนข้อมูลกับทางโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'register');
@@ -258,11 +260,11 @@ class MessageController extends Controller
     }
 
     public static function sendForget($res) {
-        $subject = "[MeetDoc⁺] กรุณายืนยันการตั้งค่ารหัสผ่านใหม่ ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] กรุณายืนยันการตั้งค่ารหัสผ่านใหม่ ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
             <br>
-            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".HOSPITAL_NAME."<br>
             ท่านได้เลือกการตั้งค่ารหัสผ่านใหม่จากบัญชีผู้ใช้งานของท่าน<br>
             <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการตั้งค่ารหัสผ่านใหม่</b><br>
             <br>
@@ -271,7 +273,7 @@ class MessageController extends Controller
             หากท่านไม่ได้ต้องการตั้งค่ารหัสผ่านใหม่ ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'password');
@@ -279,11 +281,11 @@ class MessageController extends Controller
     }
 
     public static function sendCreateAppoinment($res) {
-        $subject = "[MeetDoc⁺] กรุณายืนยันการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] กรุณายืนยันการนัดหมาย ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
             <br>
-            ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".self::$hospital." ดังนี้<br>
+            ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".HOSPITAL_NAME." ดังนี้<br>
             หมายเลขการนัดหมาย: ".$res['app_id']."<br>
             ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
             แพทย์: ".$res['d_name']." ".$res['d_surname']."<br>
@@ -296,7 +298,7 @@ class MessageController extends Controller
             หากท่านไม่ได้ต้องการยืนยันการนัดหมาย ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'create');
@@ -304,11 +306,11 @@ class MessageController extends Controller
     }
 
     public static function sendCancelAppoinment($res) {
-        $subject = "[MeetDoc⁺] กรุณายืนยันการยกเลิกการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] กรุณายืนยันการยกเลิกการนัดหมาย ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
             <br>
-            ท่านได้ทำการยกเลิกนัดหมายกับทางโรงพยาบาล".self::$hospital." ดังนี้<br>
+            ท่านได้ทำการยกเลิกนัดหมายกับทางโรงพยาบาล".HOSPITAL_NAME." ดังนี้<br>
             หมายเลขการนัดหมาย: ".$res['app_id']."<br>
             ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
             แพทย์: ".$res['d_name']." ".$res['d_surname']."<br>
@@ -321,7 +323,7 @@ class MessageController extends Controller
             หากท่านไม่ต้องการยกเลิกการนัดหมาย ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'cancel');
@@ -329,11 +331,11 @@ class MessageController extends Controller
     }
 
     public static function sendEditProfile($res) {
-        $subject = "[MeetDoc⁺] กรุณายืนยันการแก้ไขข้อมูลส่วนตัว ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] กรุณายืนยันการแก้ไขข้อมูลส่วนตัว ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['name']." ".$res['surname']."</b><br>
             <br>
-            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".self::$hospital."<br>
+            ตามที่ท่านได้ลงทะเบียนข้อมูลกับโรงพยาบาล".HOSPITAL_NAME."<br>
             ท่านได้แก้ไขข้อมูลส่วนตัวจากบัญชีผู้ใช้งานของท่าน<br>
             <b>เมื่อเวลา: ".$res['time']."</b><br>
             <b>กรุณากดลิงก์นี้ภายใน 1 วัน เพื่อยืนยันการแก้ไขข้อมูลส่วนตัว</b><br>
@@ -342,7 +344,7 @@ class MessageController extends Controller
             หากท่านไม่ต้องการแก้ไขข้อมูลส่วนตัว ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_account_sms($res['name'], $res['surname'], $res['link'], $res['phone_number'], 'edit_profile');
@@ -350,11 +352,11 @@ class MessageController extends Controller
     }
 
     public static function sendEditAppointment($res) {
-        $subject = "[MeetDoc⁺] กรุณายืนยันการแก้ไขการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] กรุณายืนยันการแก้ไขการนัดหมาย ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
             <br>
-            ท่านได้ทำการแก้ไขการนัดหมายกับทางโรงพยาบาล".self::$hospital." ดังนี้<br>
+            ท่านได้ทำการแก้ไขการนัดหมายกับทางโรงพยาบาล".HOSPITAL_NAME." ดังนี้<br>
             หมายเลขการนัดหมาย: ".$res['app_id']."<br>
             ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
             แพทย์: ".$res['d_name']." ".$res['d_surname']."<br>
@@ -367,7 +369,7 @@ class MessageController extends Controller
             หากท่านไม่ต้องการยืนยันการแก้ไข ท่านไม่จำเป็นต้องสนใจข้อความในอีเมลนี้<br>
             <br>
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'patient_edit');
@@ -375,11 +377,11 @@ class MessageController extends Controller
     }
 
     public static function sendNotificationAppointment($res) {
-        $subject = "[MeetDoc⁺] แจ้งเตือนการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] แจ้งเตือนการนัดหมาย ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
             <br>
-            ตามที่ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".self::$hospital."<br>
+            ตามที่ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".HOSPITAL_NAME."<br>
             การนัดหมายของท่านกำลังจะมาถึงในอีก 1 วันค่ะ<br>
             หมายเลขการนัดหมาย: ".$res['app_id']."<br>
             ชื่อผู้ป่วย: ".$res['p_name']." ".$res['p_surname']."<br>
@@ -391,7 +393,7 @@ class MessageController extends Controller
             <a href='".url($res['link'])."'>คลิกเพื่อยืนยันการนัดหมาย</a><br>
             <br>
             ขอบคุณที่ใช้บริการระบบของโรงพยาบาลค่ะ<br>
-            โรงพยาบาล".self::$hospital." ".self::$hospital_phone;
+            โรงพยาบาล".HOSPITAL_NAME." ".HOSPITAL_PHONE;
         self::sendEmail($res['email'], $subject, $message, $message);
         if(\Config::get('app.sms_enable')) {
             self::send_appointment_sms($res['p_name'], $res['p_surname'], $res['app_id'], $res['d_name'], $res['d_surname'], $res['dept'], $res['symptom'], $res['time'], $res['link'], $res['phone_number'], 'notify');
@@ -399,11 +401,11 @@ class MessageController extends Controller
     }
 
     public static function sendShiftAppointment($res) {
-        $subject = "[MeetDoc⁺] เลื่อนเวลาการนัดหมาย ระบบโรงพยาบาล".self::$hospital;
+        $subject = "[MeetDoc⁺] เลื่อนเวลาการนัดหมาย ระบบโรงพยาบาล".HOSPITAL_NAME;
         $message =
             "<b>เรียนคุณ ".$res['p_name']." ".$res['p_surname']."</b><br>
             <br>
-            ตามที่ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".self::$hospital." ดังนี้<br>
+            ตามที่ท่านได้ทำการนัดหมายกับทางโรงพยาบาล".HOSPITAL_NAME." ดังนี้<br>
             เนื่องจากแพทย์ยกเลิกการออกตรวจในวัน-เวลาดังกล่าว<br>
             การนัดหมายของท่านถูกเลื่อนเวลาออกไปเป็นดังนี้ค่ะ<br>
             <br>
