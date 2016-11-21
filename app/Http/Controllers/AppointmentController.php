@@ -334,7 +334,7 @@ class AppointmentController extends Controller
             "8" => "สิงหาคม",
             "9" => "กันยายน",
             "10" => "ตุลาคม",
-            "11" => "พฤษจิกายน",
+            "11" => "พฤศจิกายน",
             "12" => "ธันวาคม",
         ];
         $dept = Department::findOrFail($ap->dept_id)->name;
@@ -419,7 +419,7 @@ class AppointmentController extends Controller
             "8" => "สิงหาคม",
             "9" => "กันยายน",
             "10" => "ตุลาคม",
-            "11" => "พฤษจิกายน",
+            "11" => "พฤศจิกายน",
             "12" => "ธันวาคม",
         ];
         $dept = Department::findOrFail($request->dept_id)->name;
@@ -510,7 +510,7 @@ class AppointmentController extends Controller
             "8" => "สิงหาคม",
             "9" => "กันยายน",
             "10" => "ตุลาคม",
-            "11" => "พฤษจิกายน",
+            "11" => "พฤศจิกายน",
             "12" => "ธันวาคม",
         ];
         $dept = Department::findOrFail($ap->dept_id)->name;
@@ -619,7 +619,7 @@ class AppointmentController extends Controller
                     "8" => "สิงหาคม",
                     "9" => "กันยายน",
                     "10" => "ตุลาคม",
-                    "11" => "พฤษจิกายน",
+                    "11" => "พฤศจิกายน",
                     "12" => "ธันวาคม",
                 ];
 
@@ -689,7 +689,7 @@ class AppointmentController extends Controller
             "8" => "สิงหาคม",
             "9" => "กันยายน",
             "10" => "ตุลาคม",
-            "11" => "พฤษจิกายน",
+            "11" => "พฤศจิกายน",
             "12" => "ธันวาคม",
         ];
 
