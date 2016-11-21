@@ -1190,11 +1190,13 @@
                         '<tbody class="middle">';
 
                 var tmp;
+                var _index;
                 var i = 1;
                 var sexTH,sexEN;
                 console.log(allTableData['waiting_staff']);
                 var waiting_staff = allTableData['waiting_staff'];
-                for(tmp in waiting_staff){
+                for(_index=0;_index < allTableData['staff_queue'].length; _index++){
+                    tmp = allTableData['staff_queue'][_index];
                     if(waiting_staff[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
                     else{sexTH = 'หญิง'; sexEN = 'female';}
 
@@ -1242,7 +1244,8 @@
                 i = 1;
                 console.log(allTableData['waiting_doctor']);
                 var waiting_doctor = allTableData['waiting_doctor'];
-                for(tmp in waiting_doctor){
+                for(_index=0;_index < allTableData['doctor_queue'].length; _index++){
+                    tmp = allTableData['doctor_queue'][_index];
                     if(waiting_doctor[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
                     else{sexTH = 'หญิง'; sexEN = 'female';}
 
@@ -1290,7 +1293,8 @@
                 i = 1;
                 console.log(allTableData['waiting_pharmacist']);
                 var waiting_pharmacist = allTableData['waiting_pharmacist'];
-                for(tmp in waiting_pharmacist){
+                for(_index=0; _index < allTableData['pharmacist_queue']; _index++){
+                    tmp = allTableData['pharmacist_queue'][_index];
                     if(waiting_pharmacist[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
                     else{sexTH = 'หญิง'; sexEN = 'female';}
 

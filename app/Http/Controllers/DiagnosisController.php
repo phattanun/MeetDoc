@@ -153,6 +153,10 @@ class DiagnosisController extends Controller
         $appointment['waiting_doctor'] = [];
         $appointment['waiting_pharmacist'] = [];
 
+        $appointment['staff_queue'] = [];
+        $appointment['doctor_queue'] = [];
+        $appointment['pharmacist_queue'] = [];
+
         foreach ($appointment_list as $app) {
             $array_app = json_decode($app, true);
             $patient_info = $app->patient()->first();
@@ -161,13 +165,17 @@ class DiagnosisController extends Controller
             $patient_info['age'] = $age->y;
             $array_app['patient_info'] = json_decode($patient_info, true);
             $array_app['department'] = Department::find($app['dept_id'])['name'];
-            if ($app['queue_status'] == 'waiting_staff')
+            if ($app['queue_status'] == 'waiting_staff') {
                 //array_push($appointment['waiting_staff'], $array_app);
                 $appointment['waiting_staff'][$array_app['id']] = $array_app;
+                array_push($appointment['staff_queue'], $array_app['id']);
+            }
             else if ($app['queue_status'] == 'waiting_doctor') {
                 //array_push($appointment['waiting_doctor'], $array_app);
-                if ($app['doctor_id'] == Auth::user()->id)
+                if ($app['doctor_id'] == Auth::user()->id) {
                     $appointment['waiting_doctor'][$array_app['id']] = $array_app;
+                    array_push($appointment['doctor_queue'], $array_app['id']);
+                }
             }
             else if ($app['queue_status'] == 'waiting_pharmacist') {
                 //array_push($appointment['waiting_pharmacist'], $array_app);
@@ -177,6 +185,7 @@ class DiagnosisController extends Controller
                     $disease['fullname'] = $disease['name']." (".$disease['icd10'].", ".$disease['snomed'].", ".$disease['drg'].")";
                 }
                 $appointment['waiting_pharmacist'][$array_app['id']] = $array_app;
+                array_push($appointment['pharmacist_queue'], $array_app['id']);
 
             }
         }
