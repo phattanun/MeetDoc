@@ -1293,7 +1293,7 @@
                 i = 1;
                 console.log(allTableData['waiting_pharmacist']);
                 var waiting_pharmacist = allTableData['waiting_pharmacist'];
-                for(_index=0; _index < allTableData['pharmacist_queue']; _index++){
+                for(_index=0; _index < allTableData['pharmacist_queue'].length; _index++){
                     tmp = allTableData['pharmacist_queue'][_index];
                     if(waiting_pharmacist[tmp]['patient_info']['gender'] == 'm'){sexTH = 'ชาย'; sexEN = 'male';}
                     else{sexTH = 'หญิง'; sexEN = 'female';}
