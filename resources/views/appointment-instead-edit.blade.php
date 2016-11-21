@@ -90,7 +90,7 @@
                                                     <span class="required" aria-required="true"> * </span>
                                                 </label>
                                                 <div class="col-md-10">
-                                                    <input name="date" class="form-control form-control-inline date-picker" size="16" value="{{join('/',array_reverse(explode('-',$app->date)))}}" type="text" data-date-format="dd/mm/yyyy" required aria-required="true">
+                                                    <input name="date" class="form-control form-control-inline date-picker" size="16" value="{{join('/',array_reverse(explode('-',$app->date)))}}" type="text" data-date-format="dd/mm/yyyy" data-date-start-date="+0d" required aria-required="true">
                                                 </div>
                                             </div>
                                         </div>
