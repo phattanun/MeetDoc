@@ -426,13 +426,23 @@
                     e.preventDefault();
                     var l = Ladda.create(this);
                     l.start();
-                    function showSuccess(formData, jqForm, options) {
-                        toastr['success']('เพิ่มข้อมูลรหัสโรคสำเร็จ', "สำเร็จ");
+                    function showSuccess(input) {
                         l.stop();
-                        resetDiseaseList();
-                        resetResultList(keyword);
-                        $('#addModal').modal('hide');
-                        return true;
+                        if(input=="success") {
+                            toastr['success']('เพิ่มข้อมูลรหัสโรคสำเร็จ', "สำเร็จ");
+                            resetDiseaseList();
+                            resetResultList(keyword);
+                            $('#addModal').modal('hide');
+                            return true;
+                        }
+                        else if(input=="duplicate"){
+                            toastr['warning']("ข้อมูลรหัสโรคซ้ำ ไม่สามารถเพิ่มได้", "ขออภัย");
+                            return true;
+                        }
+                        else if(input=="fail"){
+                            toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                            return true;
+                        }
                     }
                     function showError(responseText, statusText, xhr, $form) {
                         toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");

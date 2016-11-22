@@ -13,6 +13,9 @@ class DiseaseController extends Controller
 
     public function add_disease(Request $request)
     {
+        if(Disease::where(['icd10'=>$request->icd10,'snomed'=>$request->snomed,'drg'=>$request->drg])->exists()){
+            return 'duplicate';
+        }
         try {
             $disease = new Disease();
             $disease->name = $request->name;
@@ -20,8 +23,9 @@ class DiseaseController extends Controller
             $disease->snomed = $request->snomed;
             $disease->drg = $request->drg;
             $disease->save();
+            return 'success';
         } catch (Exception $e) {
-            echo '<H2>Error</H2>';
+            return 'fail';
         }
     }
 
