@@ -125,7 +125,7 @@
                                             <div class="portlet light profile-sidebar-portlet ">
                                                 <!-- SIDEBAR USERPIC -->
                                                 <div class="profile-userpic">
-                                                    <img src="{{url('/assets/pages/media/profile/profile_user.jpg')}}" class="img-responsive" alt=""> </div>
+                                                    <img id="profile-userpic" src="{{url('/assets/pages/media/profile/profile_user.jpg')}}" class="img-responsive" alt=""> </div>
                                                 <!-- END SIDEBAR USERPIC -->
                                                 <!-- SIDEBAR USER TITLE -->
                                                 <div class="profile-usertitle">
@@ -858,6 +858,7 @@
                 $("#id").text(input['ssn']);
                 $("#name").text(input['name']);
                 $("#surname").text(input['surname']);
+                $("#profile-userpic").attr('src',input['image']);
                 $("#name_surname_big").text(input['name']+" "+input['surname']);
                 if(input['gender']=="m"){
                     $("#gender").html('<i id="gender_icon" class="fa fa-male" aria-hidden="true"></i> ชาย');
