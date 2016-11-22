@@ -15,6 +15,9 @@ class MedicineController extends Controller
 {
     public function create_medicine(Request $request)
     {
+        if(Medicine::where(['medicine_name'=>$request->medicine_name,'business_name'=>$request->business_name])->exists()){
+            return 'duplicate';
+        }
         $input = $request->all();
         $input['type'] = implode(",",$input['type']);
         try {
@@ -26,10 +29,10 @@ class MedicineController extends Controller
             $medicine->instruction = $input['instruction'];
             $medicine->manufacturer = $input['manufacturer'];
             $medicine->save();
+            return "success";
         } catch (Exception $e) {
-            echo '<H2>Error</H2>>';
+            return "fail";
         }
-
     }
 
     public function edit_medicine(Request $request)

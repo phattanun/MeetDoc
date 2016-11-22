@@ -482,6 +482,8 @@
             });
             $('#add-drug-btn').click(function () {
                 $('#drug-add-form').validate().resetForm();
+                $('#add-type').val('');
+                ComponentsSelect2.init();
                 $('#addModal').modal();
             });
             $(document).on('click','#add-submit-btn', function(e) {
@@ -489,15 +491,29 @@
                 e.preventDefault();
                 var l = Ladda.create(this);
                 l.start();
-                function showSuccess(formData, jqForm, options) {
-                    toastr['success']('เพิ่มข้อมูลยาสำเร็จ', "สำเร็จ");
+                function showSuccess(input) {
                     l.stop();
-                    resetDrugList();
-                    resetResultList(keyword);
-                    $('#addModal').modal('hide');
-                    $('#add-type').val('');
-                    ComponentsSelect2.init();
-                    return true;
+                    if(input=="success"){
+                        toastr['success']('เพิ่มข้อมูลยาสำเร็จ', "สำเร็จ");
+                        resetDrugList();
+                        resetResultList(keyword);
+                        $('#addModal').modal('hide');
+                        $('#add-type').val('');
+                        ComponentsSelect2.init();
+                        return true;
+                    }
+                    else if(input=="duplicate"){
+                        $('#add-type').val('');
+                        ComponentsSelect2.init();
+                        toastr['warning']("ข้อมูลยาซ้ำ ไม่สามารถเพิ่มได้", "ขออภัย");
+                        return true;
+                    }
+                    else if(input=="fail"){
+                        $('#add-type').val('');
+                        ComponentsSelect2.init();
+                        toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
+                        return true;
+                    }
                 }
                 function showError(responseText, statusText, xhr, $form) {
                     toastr['error']("กรุณาลองใหม่อีกครั้ง", "ผิดพลาด");
