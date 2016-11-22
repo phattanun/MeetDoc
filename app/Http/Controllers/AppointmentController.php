@@ -188,7 +188,7 @@ class AppointmentController extends Controller
             ->where('date', '>' ,$today)
             ->orderBy('date', 'ASC')
             ->get();
-        return array_merge($apps,$tomorrow);
+        return $apps + $tomorrow;
     }
 
     public static function getPastAppointments($patient_id)
@@ -208,7 +208,7 @@ class AppointmentController extends Controller
                 ->where('appointment.queue_status', '!=' ,"uncheckedin")
                 ->where('date', $today)
                 ->where('time', 'M')
-                ->orderBy('date', 'ASC')
+                ->orderBy('time', 'ASC')
                 ->get();
         }
         elseif('1130' < $time && $time < '1300') {
@@ -220,7 +220,7 @@ class AppointmentController extends Controller
                 ->where('appointment.patient_id', $patient_id)
                 ->where('date', $today)
                 ->where('time', 'M')
-                ->orderBy('date', 'ASC')
+                ->orderBy('time', 'ASC')
                 ->get();
         }
         elseif('1300' <= $time && $time <= '1530') {
@@ -238,7 +238,7 @@ class AppointmentController extends Controller
                         });
                 })
                 ->where('date', $today)
-                ->orderBy('date', 'ASC')
+                ->orderBy('time', 'ASC')
                 ->get();
         }
         elseif($time > '1530') {
@@ -249,7 +249,7 @@ class AppointmentController extends Controller
                 ->where('appointment.approve', 1)
                 ->where('appointment.patient_id', $patient_id)
                 ->where('date', $today)
-                ->orderBy('date', 'ASC')
+                ->orderBy('time', 'ASC')
                 ->get();
         }
         $yesterday = DB::table('appointment')
@@ -259,9 +259,10 @@ class AppointmentController extends Controller
             ->where('appointment.approve', 1)
             ->where('appointment.patient_id', $patient_id)
             ->where('date', '<' ,$today)
-            ->orderBy('date', 'ASC')
+            ->orderBy('date', 'DESC')
+            ->orderBy('time', 'ASC')
             ->get();
-        return array_merge($apps,$yesterday);
+        return $apps+$yesterday;
     }
 
     public static function getAppointmentDetail(Request $request)
