@@ -90,7 +90,7 @@ class AppointmentController extends Controller
             ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom');
         if (isset($filter))
             $apps = $apps->where($filter);
-        if ($time <= '1130')
+        if ($time <= '1130') {
             $apps = DB::table('appointment')
                 ->join('user', 'user.id', '=', 'appointment.patient_id')
                 ->join('dept', 'dept.id', '=', 'appointment.dept_id')
@@ -99,9 +99,12 @@ class AppointmentController extends Controller
                 ->where('approve','1')
                 ->where('queue_status', '<>', 'waiting_pharmacist')
                 ->where('queue_status', '<>', 'complete')
-                ->orderBy('date', 'ASC')
-                ->get();
-        else if ($time > '1530')
+                ->orderBy('date', 'ASC');
+            if (isset($filter))
+                $apps = $apps->where($filter);
+            $apps = $apps->get();
+        }
+        else if ($time > '1530') {
             $apps = DB::table('appointment')
                 ->join('user', 'user.id', '=', 'appointment.patient_id')
                 ->join('dept', 'dept.id', '=', 'appointment.dept_id')
@@ -110,6 +113,10 @@ class AppointmentController extends Controller
                 ->where('approve','1')
                 ->orderBy('date', 'ASC')
                 ->get();
+            if (isset($filter))
+                $apps = $apps->where($filter);
+            $apps = $apps->get();
+        }
         else {
             $apps1 = DB::table('appointment')
                 ->join('user', 'user.id', '=', 'appointment.patient_id')
@@ -119,6 +126,9 @@ class AppointmentController extends Controller
                 ->where('approve', '1')
                 ->orderBy('date', 'ASC')
                 ->get();
+            if (isset($filter))
+                $apps1 = $apps1->where($filter);
+            $apps1 = $apps1->get();
             $apps2 = DB::table('appointment')
                 ->join('user', 'user.id', '=', 'appointment.patient_id')
                 ->join('dept', 'dept.id', '=', 'appointment.dept_id')
@@ -130,6 +140,9 @@ class AppointmentController extends Controller
                 ->where('queue_status', '<>', 'complete')
                 ->orderBy('date', 'ASC')
                 ->get();
+            if (isset($filter))
+                $apps2 = $apps2->where($filter);
+            $apps2 = $apps2->get();
             $apps = array_merge($apps1,$apps2);
         }
         return self::recentAppointmentTable($apps);
