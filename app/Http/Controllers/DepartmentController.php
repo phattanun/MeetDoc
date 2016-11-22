@@ -17,12 +17,16 @@ class DepartmentController extends Controller
     }
     public function add(Request $request)
     {
+        if(Department::where('name',$request->name)->exists()){
+            return 'duplicate';
+        }
         try {
             $department = new Department();
             $department->name = $request->name;
             $department->save();
+            return 'success';
         } catch (Exception $e) {
-            echo '<H2>Error</H2>';
+            return 'fail';
         }
     }
 
