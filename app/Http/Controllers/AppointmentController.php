@@ -188,7 +188,7 @@ class AppointmentController extends Controller
             ->where('date', '>' ,$today)
             ->orderBy('date', 'ASC')
             ->get();
-        return $apps + $tomorrow;
+        return array_merge($apps,$tomorrow);
     }
 
     public static function getPastAppointments($patient_id)
@@ -262,7 +262,7 @@ class AppointmentController extends Controller
             ->orderBy('date', 'DESC')
             ->orderBy('time', 'ASC')
             ->get();
-        return $apps+$yesterday;
+        return array_merge($apps,$yesterday);
     }
 
     public static function getAppointmentDetail(Request $request)
