@@ -51,9 +51,11 @@ class DiagnosisController extends Controller
 
     public function diagnosis_record_and_receive_medicine(Request $request)
     {
-        $appointment_list = Appointment::where('patient_id', $request->patient_id)->whereNotNull('checkin_time')->where('queue_status', 'complete')->get();
+        $appointment_list = Appointment::where('patient_id', $request->patient_id)->whereNotNull('checkin_time')->where('queue_status', 'complete')->orderBy('date', 'desc')->get();
 
         $diagnosis_info = [];
+        $diagnosis_info['record'] = [];
+        $diagnosis_info['queue'] = [];
 
         foreach ($appointment_list as $appointment) {
 
@@ -66,7 +68,8 @@ class DiagnosisController extends Controller
             $appointment['doctor'] = $appointment->doctor()->first();
             $appointment['department'] = Department::where('id', $appointment['dept_id'])->first()['name'];
 
-            $diagnosis_info[$appointment['id']] = json_decode($appointment, true);
+            $diagnosis_info['record'][$appointment['id']] = json_decode($appointment, true);
+            array_push($diagnosis_info['queue'], $appointment['id']);
         }
 
 //        dd($diagnosis_info);

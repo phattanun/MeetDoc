@@ -852,7 +852,7 @@
                     {patient_id:  id, _token: '{{csrf_token()}}'}).done(function (input) {
 //                alert();
                 console.log(input);
-                diagnosis_history = input;
+                diagnosis_history = input['record'];
                 $('#modal-history-table_wrapper').remove();
                 modalHistoryTable = '<table id="modal-history-table" class="table table-striped table-bordered table-hover order-column first-no-column data-table">'+
                         '<thead>'+
@@ -868,11 +868,13 @@
                         '</thead>'+
                         '<tbody>';
                 var tmp;
-                var i = 1;
+                var i = input['queue'].length;
                 var time;
-                for(tmp in diagnosis_history){
+                var _i;
+                for(_i in input['queue']){
                     console.log(diagnosis_history[tmp]);
 //                    alert(diagnosis_history[tmp]['id']);
+                    tmp = input['queue'][_i];
                     if(diagnosis_history[tmp]['time'] == 'M')
                         time = 'เช้า';
                     else if(diagnosis_history[tmp]['time'] == 'A')
@@ -884,10 +886,11 @@
                             '<td>'+diagnosis_history[tmp]['date']+'</td>'+
                             '<td>'+time+'</td>'+
                             '<td>'+diagnosis_history[tmp]['doctor']['name']+' '+diagnosis_history[tmp]['doctor']['surname']+'</td>'+
-                            '<td>'+diagnosis_history[tmp]['doctor']['dept_id']+'</td>'+
+                            '<td>'+diagnosis_history[tmp]['department']+'</td>'+
                             '<td>'+diagnosis_history[tmp]['symptom']+'</td>'+
                             '<td><a type="button" class="btn btn-default view-history" historyId="'+tmp+'"><i class="fa fa-user"></i> ดูประวัติ</a></td>'+
                             '</tr>';
+                    i--;
                 }
                 modalHistoryTable+='</tbody></table>';
 
@@ -916,7 +919,9 @@
 //                        '</tbody>'+
 //                        '</table>';
                 $('#modal-history-table-container').append(modalHistoryTable);
-                $('#modal-history-table').DataTable();
+                $('#modal-history-table').DataTable({
+                    "order":[[0, "desc"]]
+                });
 //                $('#tab_modal_2_button').click();
                 $('.nav-tabs li:eq(1) a').tab('show');
             }).fail(function () {
