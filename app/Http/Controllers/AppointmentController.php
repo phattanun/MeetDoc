@@ -111,8 +111,7 @@ class AppointmentController extends Controller
                 ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom')
                 ->where('date', '>', $now)
                 ->where('approve','1')
-                ->orderBy('date', 'ASC')
-                ->get();
+                ->orderBy('date', 'ASC');
             if (isset($filter))
                 $apps = $apps->where($filter);
             $apps = $apps->get();
@@ -124,8 +123,7 @@ class AppointmentController extends Controller
                 ->select('appointment.date', 'appointment.time', 'dept.name as dept_name', 'user.name', 'user.surname', 'user.gender', 'user.birthday', 'appointment.symptom')
                 ->where('date', '>', $now)
                 ->where('approve', '1')
-                ->orderBy('date', 'ASC')
-                ->get();
+                ->orderBy('date', 'ASC');
             if (isset($filter))
                 $apps1 = $apps1->where($filter);
             $apps1 = $apps1->get();
@@ -138,8 +136,7 @@ class AppointmentController extends Controller
                 ->where('time', 'A')
                 ->where('queue_status', '<>', 'waiting_pharmacist')
                 ->where('queue_status', '<>', 'complete')
-                ->orderBy('date', 'ASC')
-                ->get();
+                ->orderBy('date', 'ASC');
             if (isset($filter))
                 $apps2 = $apps2->where($filter);
             $apps2 = $apps2->get();
